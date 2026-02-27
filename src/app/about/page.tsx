@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 
 export const metadata: Metadata = {
   title: "About",
@@ -79,7 +80,15 @@ export default function AboutPage() {
 
       {/* ─── Story Intro ─── */}
       <section className="py-16 px-6">
-        <div className="mx-auto max-w-3xl">
+        <div className="mx-auto max-w-5xl grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
+          <div className="relative h-80 md:h-96 rounded-2xl overflow-hidden glow-border">
+            <Image
+              src="/images/sam-action.jpeg"
+              alt="Sam Morris on the court"
+              fill
+              className="object-cover"
+            />
+          </div>
           <p className="text-text-muted text-lg leading-relaxed">
             A Chinese-born, US-adopted former Physical Educator turned
             pickleball programming leader. Sam grew up in Takoma Park, MD,
@@ -214,21 +223,31 @@ export default function AboutPage() {
 
       {/* ─── Coaching Philosophy ─── */}
       <section className="bg-navy-light py-20 px-6">
-        <div className="mx-auto max-w-3xl">
-          <h2 className="font-heading font-bold text-3xl md:text-4xl mb-8 text-center">
-            Coaching Philosophy
-          </h2>
-          <blockquote className="border-l-4 border-accent-blue pl-6 py-2">
-            <p className="text-text-muted text-lg leading-relaxed italic">
-              &ldquo;Pickleball is more than a sport &mdash; it&apos;s a way to help kids
-              and families grow stronger together. Drawing from my background in
-              physical education, I create sessions that are safe, structured,
-              and fun, while always emphasizing EASE values. Every drill has
-              purpose, every milestone is celebrated, and every lesson is
-              designed to build confidence on the court and resilience in
-              life.&rdquo;
-            </p>
-          </blockquote>
+        <div className="mx-auto max-w-5xl grid grid-cols-1 md:grid-cols-[1fr_200px] gap-10 items-center">
+          <div>
+            <h2 className="font-heading font-bold text-3xl md:text-4xl mb-8 text-center md:text-left">
+              Coaching Philosophy
+            </h2>
+            <blockquote className="border-l-4 border-accent-blue pl-6 py-2">
+              <p className="text-text-muted text-lg leading-relaxed italic">
+                &ldquo;Pickleball is more than a sport &mdash; it&apos;s a way to help kids
+                and families grow stronger together. Drawing from my background in
+                physical education, I create sessions that are safe, structured,
+                and fun, while always emphasizing EASE values. Every drill has
+                purpose, every milestone is celebrated, and every lesson is
+                designed to build confidence on the court and resilience in
+                life.&rdquo;
+              </p>
+            </blockquote>
+          </div>
+          <div className="hidden md:block relative h-64 w-full rounded-xl overflow-hidden glow-border">
+            <Image
+              src="/images/sam-ready-position.jpg"
+              alt="Sam in ready position"
+              fill
+              className="object-cover"
+            />
+          </div>
         </div>
       </section>
 

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
 
 export const metadata: Metadata = {
   title: "Programs",
@@ -43,14 +44,27 @@ export default function ProgramsPage() {
     <>
       {/* Hero */}
       <section className="relative py-20 md:py-28 px-6 bg-[radial-gradient(ellipse_at_center,rgba(59,130,246,0.08),transparent_70%)]">
-        <div className="mx-auto max-w-4xl text-center">
-          <h1 className="font-heading font-black text-4xl md:text-6xl leading-tight mb-6">
-            Programs &amp; <span className="gradient-text">Services</span>
-          </h1>
-          <p className="text-text-muted text-lg md:text-xl max-w-2xl mx-auto">
-            Clear pathways for every player — from first-time beginners to
-            competitive athletes.
-          </p>
+        <div className="mx-auto max-w-6xl grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+          <div className="text-center md:text-left">
+            <h1 className="font-heading font-black text-4xl md:text-6xl leading-tight mb-6">
+              Programs &amp; <span className="gradient-text">Services</span>
+            </h1>
+            <p className="text-text-muted text-lg md:text-xl max-w-2xl">
+              Clear pathways for every player — from first-time beginners to
+              competitive athletes.
+            </p>
+          </div>
+          <div className="flex justify-center">
+            <div className="relative w-72 h-72 md:w-80 md:h-80 rounded-2xl overflow-hidden glow-border">
+              <Image
+                src="/images/sam-court-smile.jpg"
+                alt="Sam Morris smiling on the court"
+                fill
+                className="object-cover"
+                priority
+              />
+            </div>
+          </div>
         </div>
       </section>
 
@@ -175,6 +189,47 @@ export default function ProgramsPage() {
           >
             Join the Community &rarr;
           </a>
+        </div>
+      </section>
+
+      {/* Coaching Resources */}
+      <section className="bg-navy-light py-20 px-6">
+        <div className="mx-auto max-w-6xl">
+          <div className="text-center mb-12">
+            <h2 className="font-heading font-bold text-3xl md:text-4xl mb-4">
+              Coaching Resources
+            </h2>
+            <p className="text-text-muted max-w-2xl mx-auto">
+              Visual guides to level up your game
+            </p>
+          </div>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+            {[
+              { src: "/images/poster-3rd-shot.webp", title: "3rd Shot Strategy" },
+              { src: "/images/poster-kitchen-line.webp", title: "Kitchen Line Ready Position" },
+              { src: "/images/poster-master-rally.webp", title: "Master the Rally" },
+              { src: "/images/poster-resilient-brain.webp", title: "Build a Resilient Brain" },
+            ].map((poster) => (
+              <div
+                key={poster.title}
+                className="bg-navy glow-border rounded-xl overflow-hidden transition-all hover:scale-[1.02]"
+              >
+                <div className="relative aspect-[3/4]">
+                  <Image
+                    src={poster.src}
+                    alt={poster.title}
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+                <div className="p-3">
+                  <p className="font-heading font-semibold text-sm text-center">
+                    {poster.title}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
