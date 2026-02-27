@@ -50,6 +50,28 @@ export default function RootLayout({
       className={`${montserrat.variable} ${inter.variable} ${robotoMono.variable}`}
     >
       <body className="antialiased">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Person",
+              name: "Sam Morris",
+              jobTitle: "Director of Programming, Sports Coach",
+              description:
+                "Sports coach, community builder, and entrepreneur in Montgomery County, MD",
+              email: "sam.morris2131@gmail.com",
+              telephone: "301-325-4731",
+              address: {
+                "@type": "PostalAddress",
+                addressLocality: "Montgomery County",
+                addressRegion: "MD",
+                addressCountry: "US",
+              },
+              sameAs: [],
+            }),
+          }}
+        />
         <Nav />
         <main className="pt-16">{children}</main>
         <Footer />

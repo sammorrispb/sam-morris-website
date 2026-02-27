@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { LeadForm } from "@/components/LeadForm";
+import { getAllPosts } from "@/lib/blog";
 
 const STATS = [
   { value: "20+", label: "Years Coaching" },
@@ -64,6 +65,8 @@ const PROGRAMS = [
 ];
 
 export default function Home() {
+  const recentPosts = getAllPosts().slice(0, 3);
+
   return (
     <>
       {/* ─── Hero ─── */}
@@ -197,21 +200,41 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ─── Blog Placeholder ─── */}
-      <section className="bg-navy-light py-20 px-6">
-        <div className="mx-auto max-w-6xl text-center">
-          <h2 className="font-heading font-bold text-3xl md:text-4xl mb-4">
+      {/* ─── Latest Blog Posts ─── */}
+      <section className="py-20 px-4 bg-navy-light">
+        <div className="max-w-6xl mx-auto">
+          <h2 className="font-heading font-bold text-3xl text-center mb-4">
             From the Blog
           </h2>
-          <p className="text-text-muted mb-8 max-w-2xl mx-auto">
+          <p className="text-text-muted text-center mb-12">
             Thoughts on coaching, parenting, entrepreneurship, and leadership.
           </p>
-          <Link
-            href="/blog"
-            className="text-accent-blue hover:text-accent-purple transition-colors font-semibold"
-          >
-            Read All Posts &rarr;
-          </Link>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+            {recentPosts.map((post) => (
+              <Link
+                key={post.slug}
+                href={`/blog/${post.slug}`}
+                className="bg-navy glow-border glow-border-hover rounded-xl p-6 transition-all"
+              >
+                <div className="flex items-center gap-3 mb-2">
+                  <span className="text-xs font-medium px-2 py-0.5 rounded-full bg-accent-blue/10 text-accent-blue">
+                    {post.category}
+                  </span>
+                  <span className="text-text-muted text-xs">{post.readingTime}</span>
+                </div>
+                <h3 className="font-heading font-bold text-lg mb-2">{post.title}</h3>
+                <p className="text-text-muted text-sm">{post.excerpt}</p>
+              </Link>
+            ))}
+          </div>
+          <div className="text-center mt-8">
+            <Link
+              href="/blog"
+              className="text-accent-blue hover:text-accent-purple transition-colors text-sm font-medium"
+            >
+              Read All Posts &rarr;
+            </Link>
+          </div>
         </div>
       </section>
     </>
