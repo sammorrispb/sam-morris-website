@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import { LeadForm } from "@/components/LeadForm";
 import { CONTACT, SOCIAL_LINKS } from "@/lib/constants";
 
@@ -35,6 +36,18 @@ export default function ContactPage() {
 
           {/* Right column: Contact Info */}
           <div className="space-y-6">
+            {/* Portrait */}
+            <div className="flex justify-center">
+              <div className="relative w-32 h-32 rounded-full overflow-hidden glow-border">
+                <Image
+                  src="/images/sam-portrait-arms-crossed.jpg"
+                  alt="Sam Morris"
+                  fill
+                  className="object-cover"
+                />
+              </div>
+            </div>
+
             {/* Direct Contact */}
             <div className="bg-navy-light glow-border rounded-xl p-6">
               <h2 className="font-heading font-bold text-2xl mb-4">

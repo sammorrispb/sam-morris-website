@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { LeadForm } from "@/components/LeadForm";
 import { AnimateOnScroll } from "@/components/AnimateOnScroll";
 import { getAllPosts } from "@/lib/blog";
@@ -46,6 +47,7 @@ const PROGRAMS = [
     cta: "Learn More",
     href: "/programs#academy",
     external: false,
+    image: "/images/sam-forehand.jpg",
   },
   {
     title: "Private Lessons",
@@ -54,6 +56,7 @@ const PROGRAMS = [
     cta: "Get Started",
     href: "/contact",
     external: false,
+    image: "/images/sam-portrait-arms-crossed.jpg",
   },
   {
     title: "Link & Dink",
@@ -62,6 +65,7 @@ const PROGRAMS = [
     cta: "Join Community",
     href: "https://www.linkanddink.com",
     external: true,
+    image: "/images/climb-5-logo.jpg",
   },
 ];
 
@@ -72,27 +76,40 @@ export default function Home() {
     <>
       {/* ─── Hero ─── */}
       <section className="relative min-h-[80vh] flex items-center justify-center bg-[radial-gradient(ellipse_at_center,rgba(59,130,246,0.08),transparent_70%)]">
-        <div className="mx-auto max-w-4xl px-6 text-center">
-          <h1 className="font-heading font-black text-5xl md:text-7xl leading-tight mb-6">
-            Better than yesterday —{" "}
-            <span className="gradient-text">together.</span>
-          </h1>
-          <p className="text-text-muted text-lg md:text-xl mb-10 max-w-2xl mx-auto">
-            I help families grow through sport. Coach. Builder. Dad.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link
-              href="/contact"
-              className="text-white font-heading font-semibold px-8 py-3 rounded-lg btn-gradient"
-            >
-              Book a Free Evaluation
-            </Link>
-            <Link
-              href="/programs"
-              className="border border-white/20 text-text-primary font-heading font-semibold px-8 py-3 rounded-lg hover:border-white/40 transition-colors"
-            >
-              Explore Programs
-            </Link>
+        <div className="mx-auto max-w-6xl px-6 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+          <div className="text-center md:text-left order-2 md:order-1">
+            <h1 className="font-heading font-black text-5xl md:text-7xl leading-tight mb-6">
+              Better than yesterday —{" "}
+              <span className="gradient-text">together.</span>
+            </h1>
+            <p className="text-text-muted text-lg md:text-xl mb-10 max-w-2xl">
+              I help families grow through sport. Coach. Builder. Dad.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
+              <Link
+                href="/contact"
+                className="text-white font-heading font-semibold px-8 py-3 rounded-lg btn-gradient"
+              >
+                Book a Free Evaluation
+              </Link>
+              <Link
+                href="/programs"
+                className="border border-white/20 text-text-primary font-heading font-semibold px-8 py-3 rounded-lg hover:border-white/40 transition-colors"
+              >
+                Explore Programs
+              </Link>
+            </div>
+          </div>
+          <div className="flex justify-center order-1 md:order-2">
+            <div className="relative w-72 h-72 md:w-96 md:h-96 rounded-2xl overflow-hidden glow-border">
+              <Image
+                src="/images/sam-portrait-with-paddle.jpg"
+                alt="Sam Morris holding a paddle"
+                fill
+                className="object-cover"
+                priority
+              />
+            </div>
           </div>
         </div>
       </section>
@@ -155,8 +172,17 @@ export default function Home() {
             {PROGRAMS.map((program) => (
               <div
                 key={program.title}
-                className="bg-navy glow-border glow-border-hover rounded-xl p-6 transition-all flex flex-col card-hover"
+                className="bg-navy glow-border glow-border-hover rounded-xl overflow-hidden transition-all flex flex-col card-hover"
               >
+                <div className="relative h-44 w-full">
+                  <Image
+                    src={program.image}
+                    alt={program.title}
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+                <div className="p-6 flex flex-col flex-1">
                 <h3 className="font-heading font-bold text-xl mb-3">
                   {program.title}
                 </h3>
@@ -180,6 +206,7 @@ export default function Home() {
                     {program.cta} &rarr;
                   </Link>
                 )}
+                </div>
               </div>
             ))}
           </div>
