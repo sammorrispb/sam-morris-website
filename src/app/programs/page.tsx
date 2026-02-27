@@ -101,7 +101,7 @@ export default function ProgramsPage() {
           {/* External link */}
           <div className="text-center">
             <a
-              href="https://www.nexgenpbacademy.com"
+              href="https://www.nextgenpbacademy.com"
               target="_blank"
               rel="noopener noreferrer"
               className="text-accent-blue hover:text-accent-purple transition-colors font-semibold"
