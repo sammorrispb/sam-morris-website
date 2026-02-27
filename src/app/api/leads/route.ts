@@ -43,7 +43,7 @@ async function createEmailDraft(
   }));
 
   await notion.pages.create({
-    parent: { database_id: draftsDbId },
+    parent: { data_source_id: draftsDbId },
     properties: {
       Name: { title: [{ text: { content: name } }] },
       Email: { email: email },
@@ -80,7 +80,7 @@ export async function POST(request: Request) {
     const notion = new Client({ auth: apiKey });
 
     await notion.pages.create({
-      parent: { database_id: dbId },
+      parent: { data_source_id: dbId },
       properties: {
         Name: { title: [{ text: { content: name } }] },
         Email: { email: email },
