@@ -20,10 +20,10 @@ export const CONTACT = {
 } as const;
 
 export const INTEREST_OPTIONS = [
-  "Open Play",
-  "Coaching / Private Lessons",
-  "Next Gen Academy",
-  "Group Programs",
-  "Corporate Events",
-  "Just Curious",
+  "Coaching",
+  "Youth Programs",
+  "Business Partnerships",
+  "Social/Recreational Play",
+  "Competitive Play",
+  "Ambassador (Player-Organizer-Coach)",
 ] as const;

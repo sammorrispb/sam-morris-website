@@ -81,16 +81,45 @@ export default function ContactPage() {
               </ul>
             </div>
 
-            {/* Free Evaluation Card */}
+            {/* Skill Evaluation Card */}
             <div className="bg-navy-light glow-border rounded-xl p-6">
               <h2 className="font-heading font-bold text-2xl mb-3">
-                Free Evaluation
+                Skill Evaluation
               </h2>
-              <p className="text-text-muted leading-relaxed">
-                Not sure which program is right for your child? Book a free
-                30-minute evaluation and we&apos;ll find the perfect fit
-                together.
+              <p className="text-text-muted leading-relaxed mb-4">
+                Every evaluation includes creating a free Link&nbsp;&amp;&nbsp;Dink
+                account so your skill level is tracked over time.
               </p>
+              <ul className="space-y-3 text-text-muted text-sm">
+                <li className="flex items-start gap-2">
+                  <span className="text-accent-green font-bold mt-0.5">✓</span>
+                  <span>
+                    <strong className="text-text">Required</strong> for new Next
+                    Gen Pickleball Academy players
+                  </span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-accent-blue font-bold mt-0.5">○</span>
+                  <span>
+                    <strong className="text-text">Optional</strong> for Dill
+                    Dinkers players
+                  </span>
+                </li>
+              </ul>
+              <div className="mt-5 pt-4 border-t border-white/10 space-y-2 text-sm text-text-muted">
+                <p>
+                  <strong className="text-text">Free</strong> &mdash; Dill
+                  Dinkers Rockville &amp; North Bethesda members
+                </p>
+                <p>
+                  <strong className="text-text">$15 / person</strong> &mdash;
+                  Non-members
+                </p>
+                <p>
+                  <strong className="text-text">Re-evaluation:</strong> $35 /
+                  30&nbsp;min 1-on-1 with Coach Sam
+                </p>
+              </div>
             </div>
           </div>
         </div>
