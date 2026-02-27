@@ -203,7 +203,7 @@ export default function ProgramsPage() {
               Visual guides to level up your game
             </p>
           </div>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6">
             {[
               { src: "/images/poster-3rd-shot.webp", title: "3rd Shot Strategy" },
               { src: "/images/poster-kitchen-line.webp", title: "Kitchen Line Ready Position" },

@@ -241,7 +241,7 @@ export default function Home() {
           <p className="text-text-muted text-center mb-12">
             Thoughts on coaching, parenting, entrepreneurship, and leadership.
           </p>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-4xl mx-auto">
             {recentPosts.map((post) => (
               <Link
                 key={post.slug}
