@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Montserrat, Inter, Roboto_Mono } from "next/font/google";
 import { Analytics } from "@vercel/analytics/react";
+import { Nav } from "@/components/Nav";
+import { Footer } from "@/components/Footer";
 import "./globals.css";
 
 const montserrat = Montserrat({
@@ -48,7 +50,9 @@ export default function RootLayout({
       className={`${montserrat.variable} ${inter.variable} ${robotoMono.variable}`}
     >
       <body className="antialiased">
-        {children}
+        <Nav />
+        <main className="pt-16">{children}</main>
+        <Footer />
         <Analytics />
       </body>
     </html>
