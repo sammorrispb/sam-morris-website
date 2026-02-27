@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { LeadForm } from "@/components/LeadForm";
+import { AnimateOnScroll } from "@/components/AnimateOnScroll";
 import { getAllPosts } from "@/lib/blog";
 
 const STATS = [
@@ -82,10 +83,7 @@ export default function Home() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
               href="/contact"
-              className="text-white font-heading font-semibold px-8 py-3 rounded-lg hover:opacity-90 transition-opacity"
-              style={{
-                background: "linear-gradient(135deg, #3b82f6, #8b5cf6)",
-              }}
+              className="text-white font-heading font-semibold px-8 py-3 rounded-lg btn-gradient"
             >
               Book a Free Evaluation
             </Link>
@@ -117,35 +115,38 @@ export default function Home() {
 
       {/* ─── EASE Framework ─── */}
       <section className="py-20 px-6">
-        <div className="mx-auto max-w-6xl text-center mb-12">
-          <h2 className="font-heading font-bold text-3xl md:text-4xl mb-4">
-            The <span className="text-accent-lime">EASE</span> Framework
-          </h2>
-          <p className="text-text-muted max-w-2xl mx-auto">
-            A coaching methodology built on four pillars that guide everything
-            we do — on the court and beyond.
-          </p>
-        </div>
-        <div className="mx-auto max-w-6xl grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {EASE_CARDS.map((card) => (
-            <div
-              key={card.title}
-              className="bg-navy-light glow-border glow-border-hover rounded-xl p-6 transition-all"
-            >
-              <div className="text-accent-lime font-heading font-black text-3xl mb-2">
-                {card.letter}
+        <AnimateOnScroll>
+          <div className="mx-auto max-w-6xl text-center mb-12">
+            <h2 className="font-heading font-bold text-3xl md:text-4xl mb-4">
+              The <span className="text-accent-lime">EASE</span> Framework
+            </h2>
+            <p className="text-text-muted max-w-2xl mx-auto">
+              A coaching methodology built on four pillars that guide everything
+              we do — on the court and beyond.
+            </p>
+          </div>
+          <div className="mx-auto max-w-6xl grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {EASE_CARDS.map((card) => (
+              <div
+                key={card.title}
+                className="bg-navy-light glow-border glow-border-hover rounded-xl p-6 transition-all card-hover"
+              >
+                <div className="text-accent-lime font-heading font-black text-3xl mb-2">
+                  {card.letter}
+                </div>
+                <h3 className="font-heading font-bold text-lg mb-2">
+                  {card.title}
+                </h3>
+                <p className="text-text-muted text-sm">{card.description}</p>
               </div>
-              <h3 className="font-heading font-bold text-lg mb-2">
-                {card.title}
-              </h3>
-              <p className="text-text-muted text-sm">{card.description}</p>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+        </AnimateOnScroll>
       </section>
 
       {/* ─── Programs Preview ─── */}
       <section className="bg-navy-light py-20 px-6">
+        <AnimateOnScroll>
         <div className="mx-auto max-w-6xl">
           <h2 className="font-heading font-bold text-3xl md:text-4xl text-center mb-12">
             Programs &amp; Services
@@ -154,7 +155,7 @@ export default function Home() {
             {PROGRAMS.map((program) => (
               <div
                 key={program.title}
-                className="bg-navy glow-border glow-border-hover rounded-xl p-6 transition-all flex flex-col"
+                className="bg-navy glow-border glow-border-hover rounded-xl p-6 transition-all flex flex-col card-hover"
               >
                 <h3 className="font-heading font-bold text-xl mb-3">
                   {program.title}
@@ -191,17 +192,21 @@ export default function Home() {
             </Link>
           </div>
         </div>
+        </AnimateOnScroll>
       </section>
 
       {/* ─── Lead Form ─── */}
       <section className="py-20 px-6">
-        <div className="mx-auto max-w-6xl">
-          <LeadForm />
-        </div>
+        <AnimateOnScroll>
+          <div className="mx-auto max-w-6xl">
+            <LeadForm />
+          </div>
+        </AnimateOnScroll>
       </section>
 
       {/* ─── Latest Blog Posts ─── */}
       <section className="py-20 px-4 bg-navy-light">
+        <AnimateOnScroll>
         <div className="max-w-6xl mx-auto">
           <h2 className="font-heading font-bold text-3xl text-center mb-4">
             From the Blog
@@ -214,7 +219,7 @@ export default function Home() {
               <Link
                 key={post.slug}
                 href={`/blog/${post.slug}`}
-                className="bg-navy glow-border glow-border-hover rounded-xl p-6 transition-all"
+                className="bg-navy glow-border glow-border-hover rounded-xl p-6 transition-all card-hover"
               >
                 <div className="flex items-center gap-3 mb-2">
                   <span className="text-xs font-medium px-2 py-0.5 rounded-full bg-accent-blue/10 text-accent-blue">
@@ -236,6 +241,7 @@ export default function Home() {
             </Link>
           </div>
         </div>
+        </AnimateOnScroll>
       </section>
     </>
   );

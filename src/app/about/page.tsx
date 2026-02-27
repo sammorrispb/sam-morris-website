@@ -168,14 +168,6 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* ─── Photo Placeholder ─── */}
-      <section className="py-20 px-6">
-        <div className="mx-auto max-w-3xl">
-          <div className="bg-navy-light rounded-xl aspect-video flex items-center justify-center text-text-muted">
-            Photo coming soon
-          </div>
-        </div>
-      </section>
     </>
   );
 }

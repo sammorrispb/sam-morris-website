@@ -28,7 +28,7 @@ export function LeadForm({ heading = "Ready to Play?" }: { heading?: string }) {
 
   if (status === "sent") {
     return (
-      <div className="bg-navy-light glow-border rounded-2xl p-8 text-center max-w-lg mx-auto">
+      <div role="status" aria-live="polite" className="bg-navy-light glow-border rounded-2xl p-8 text-center max-w-lg mx-auto">
         <div className="text-accent-lime text-4xl mb-4">✓</div>
         <h3 className="font-heading font-bold text-xl mb-2">You&apos;re in!</h3>
         <p className="text-text-muted">
@@ -48,6 +48,7 @@ export function LeadForm({ heading = "Ready to Play?" }: { heading?: string }) {
       <input
         type="text"
         placeholder="Your name"
+        aria-label="Your name"
         required
         value={form.name}
         onChange={(e) => setForm({ ...form, name: e.target.value })}
@@ -57,6 +58,7 @@ export function LeadForm({ heading = "Ready to Play?" }: { heading?: string }) {
       <input
         type="email"
         placeholder="Your email"
+        aria-label="Your email"
         required
         value={form.email}
         onChange={(e) => setForm({ ...form, email: e.target.value })}
@@ -65,6 +67,7 @@ export function LeadForm({ heading = "Ready to Play?" }: { heading?: string }) {
 
       <select
         required
+        aria-label="What are you interested in?"
         value={form.interest}
         onChange={(e) => setForm({ ...form, interest: e.target.value })}
         className="w-full bg-navy border border-white/10 rounded-lg px-4 py-3 text-text-primary focus:border-accent-blue focus:outline-none transition-colors"
@@ -78,14 +81,13 @@ export function LeadForm({ heading = "Ready to Play?" }: { heading?: string }) {
       <button
         type="submit"
         disabled={status === "sending"}
-        className="w-full text-white font-heading font-semibold py-3 rounded-lg hover:opacity-90 transition-opacity disabled:opacity-50"
-        style={{ background: "linear-gradient(135deg, #3b82f6, #8b5cf6)" }}
+        className="w-full text-white font-heading font-semibold py-3 rounded-lg btn-gradient disabled:opacity-50"
       >
         {status === "sending" ? "Sending..." : "Let's Go"}
       </button>
 
       {status === "error" && (
-        <p className="text-accent-pink text-sm text-center">
+        <p role="alert" className="text-accent-pink text-sm text-center">
           Something went wrong. Try again or email sam.morris2131@gmail.com directly.
         </p>
       )}

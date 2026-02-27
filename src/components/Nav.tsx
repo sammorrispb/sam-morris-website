@@ -1,11 +1,20 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { NAV_LINKS } from "@/lib/constants";
 
 export function Nav() {
   const [mobileOpen, setMobileOpen] = useState(false);
+
+  useEffect(() => {
+    if (!mobileOpen) return;
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setMobileOpen(false);
+    };
+    document.addEventListener("keydown", handleEscape);
+    return () => document.removeEventListener("keydown", handleEscape);
+  }, [mobileOpen]);
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-navy/80 backdrop-blur-md border-b border-white/5">
@@ -31,10 +40,7 @@ export function Nav() {
           ))}
           <Link
             href="/contact"
-            className="text-white px-4 py-2 rounded-lg text-sm font-medium"
-            style={{
-              background: "linear-gradient(135deg, #3b82f6, #8b5cf6)",
-            }}
+            className="text-white px-4 py-2 rounded-lg text-sm font-medium btn-gradient"
           >
             Book a Free Evaluation
           </Link>
@@ -72,10 +78,16 @@ export function Nav() {
         </button>
       </div>
 
-      {/* Mobile menu */}
+      {/* Mobile menu backdrop + panel */}
       {mobileOpen && (
-        <div className="md:hidden border-t border-white/5 bg-navy/95 backdrop-blur-md animate-fade-in">
-          <div className="flex flex-col px-6 py-4 gap-4">
+        <>
+          <div
+            className="fixed inset-0 z-40 md:hidden"
+            onClick={() => setMobileOpen(false)}
+            aria-hidden="true"
+          />
+          <div className="relative z-50 md:hidden border-t border-white/5 bg-navy/95 backdrop-blur-md animate-fade-in">
+            <div className="flex flex-col px-6 py-4 gap-4">
             {NAV_LINKS.map((link) => (
               <Link
                 key={link.href}
@@ -88,16 +100,14 @@ export function Nav() {
             ))}
             <Link
               href="/contact"
-              className="text-white px-4 py-2 rounded-lg text-sm font-medium text-center mt-2"
-              style={{
-                background: "linear-gradient(135deg, #3b82f6, #8b5cf6)",
-              }}
+              className="text-white px-4 py-2 rounded-lg text-sm font-medium text-center mt-2 btn-gradient"
               onClick={() => setMobileOpen(false)}
             >
               Book a Free Evaluation
             </Link>
           </div>
         </div>
+        </>
       )}
     </nav>
   );

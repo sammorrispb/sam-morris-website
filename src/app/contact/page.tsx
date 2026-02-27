@@ -34,9 +34,9 @@ export default function ContactPage() {
           </div>
 
           {/* Right column: Contact Info */}
-          <div className="space-y-10">
+          <div className="space-y-6">
             {/* Direct Contact */}
-            <div>
+            <div className="bg-navy-light glow-border rounded-xl p-6">
               <h2 className="font-heading font-bold text-2xl mb-4">
                 Direct Contact
               </h2>
@@ -61,7 +61,7 @@ export default function ContactPage() {
             </div>
 
             {/* Social Media */}
-            <div>
+            <div className="bg-navy-light glow-border rounded-xl p-6">
               <h2 className="font-heading font-bold text-2xl mb-4">
                 Social Media
               </h2>

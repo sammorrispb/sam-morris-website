@@ -114,20 +114,46 @@ export default function ProgramsPage() {
 
       {/* Private Lessons */}
       <section className="bg-navy-light py-20 px-6">
-        <div className="mx-auto max-w-4xl text-center">
-          <h2 className="font-heading font-bold text-3xl md:text-4xl mb-4">
+        <div className="mx-auto max-w-5xl">
+          <h2 className="font-heading font-bold text-3xl md:text-4xl mb-4 text-center">
             Private Lessons
           </h2>
-          <p className="text-text-muted max-w-2xl mx-auto mb-8">
+          <p className="text-text-muted max-w-2xl mx-auto mb-10 text-center">
             Personalized 1-on-1 coaching tailored to your goals and skill level
             — from brand new to 5.0.
           </p>
-          <Link
-            href="/contact"
-            className="text-accent-blue hover:text-accent-purple transition-colors font-semibold"
-          >
-            Book a Lesson &rarr;
-          </Link>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <ul className="space-y-4">
+              {[
+                { title: "Video Analysis", desc: "Film review with frame-by-frame breakdown of your mechanics and positioning." },
+                { title: "Custom Practice Plans", desc: "Structured drills and homework tailored to your specific development areas." },
+                { title: "Flexible Scheduling", desc: "Sessions available mornings, evenings, and weekends at both Rockville and North Bethesda." },
+              ].map((item) => (
+                <li key={item.title} className="flex gap-3">
+                  <span className="text-accent-blue mt-1 shrink-0">●</span>
+                  <div>
+                    <span className="font-heading font-semibold text-text-primary">{item.title}</span>
+                    <p className="text-text-muted text-sm mt-0.5">{item.desc}</p>
+                  </div>
+                </li>
+              ))}
+            </ul>
+            <div className="bg-navy glow-border rounded-xl p-6 flex flex-col justify-center">
+              <div className="font-mono text-accent-lime text-sm uppercase tracking-wider mb-3">
+                Why Private Lessons?
+              </div>
+              <p className="text-text-muted leading-relaxed mb-4">
+                The fastest way to improve. Focused attention on your game with
+                real-time feedback and a plan built around your goals.
+              </p>
+              <Link
+                href="/contact"
+                className="text-accent-blue hover:text-accent-purple transition-colors font-semibold"
+              >
+                Book a Lesson &rarr;
+              </Link>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -161,10 +187,7 @@ export default function ProgramsPage() {
             </p>
             <Link
               href="/contact"
-              className="inline-block text-white font-heading font-semibold px-8 py-3 rounded-lg hover:opacity-90 transition-opacity"
-              style={{
-                background: "linear-gradient(135deg, #3b82f6, #8b5cf6)",
-              }}
+              className="inline-block text-white font-heading font-semibold px-8 py-3 rounded-lg btn-gradient"
             >
               Book a Free Evaluation
             </Link>
