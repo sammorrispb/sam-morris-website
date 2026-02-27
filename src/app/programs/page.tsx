@@ -1,0 +1,176 @@
+import type { Metadata } from "next";
+import Link from "next/link";
+
+export const metadata: Metadata = {
+  title: "Programs",
+  description:
+    "Next Gen Pickleball Academy, private lessons, and community programs in Montgomery County, MD.",
+};
+
+const ACADEMY_LEVELS = [
+  {
+    name: "Red Level",
+    color: "#ef4444",
+    subtitle: "Beginner",
+    description:
+      "Introduction to pickleball fundamentals. Grip, stance, basic serves, and court awareness for first-time players.",
+  },
+  {
+    name: "Orange Level",
+    color: "#f97316",
+    subtitle: "Advanced Beginner",
+    description:
+      "Building consistency and rally skills. Dinking, return of serve, and beginning to understand positioning.",
+  },
+  {
+    name: "Green Level",
+    color: "#22c55e",
+    subtitle: "Intermediate",
+    description:
+      "Developing strategy and shot selection. Third-shot drops, stacking, and competitive point play.",
+  },
+  {
+    name: "Yellow Level",
+    color: "#eab308",
+    subtitle: "Coach-Curated Advanced",
+    description:
+      "Invitation-based advanced training. Tournament prep, advanced tactics, and mental game development.",
+  },
+];
+
+export default function ProgramsPage() {
+  return (
+    <>
+      {/* Hero */}
+      <section className="relative py-20 md:py-28 px-6 bg-[radial-gradient(ellipse_at_center,rgba(59,130,246,0.08),transparent_70%)]">
+        <div className="mx-auto max-w-4xl text-center">
+          <h1 className="font-heading font-black text-4xl md:text-6xl leading-tight mb-6">
+            Programs &amp; <span className="gradient-text">Services</span>
+          </h1>
+          <p className="text-text-muted text-lg md:text-xl max-w-2xl mx-auto">
+            Clear pathways for every player — from first-time beginners to
+            competitive athletes.
+          </p>
+        </div>
+      </section>
+
+      {/* Next Gen Pickleball Academy */}
+      <section id="academy" className="py-20 px-6 scroll-mt-20">
+        <div className="mx-auto max-w-6xl">
+          <div className="text-center mb-12">
+            <h2 className="font-heading font-bold text-3xl md:text-4xl mb-4">
+              Next Gen Pickleball Academy
+            </h2>
+            <p className="text-text-muted max-w-2xl mx-auto">
+              Structured youth pathway for ages 5-16. Four skill levels with
+              clear progression.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
+            {ACADEMY_LEVELS.map((level) => (
+              <div
+                key={level.name}
+                className="bg-navy-light rounded-xl p-6"
+                style={{ borderLeft: `4px solid ${level.color}` }}
+              >
+                <h3 className="font-heading font-bold text-lg mb-1">
+                  {level.name}
+                </h3>
+                <p
+                  className="text-sm font-semibold mb-3"
+                  style={{ color: level.color }}
+                >
+                  {level.subtitle}
+                </p>
+                <p className="text-text-muted text-sm">{level.description}</p>
+              </div>
+            ))}
+          </div>
+
+          {/* Callout */}
+          <div className="bg-navy-light glow-border rounded-xl p-6 text-center mb-8">
+            <p className="text-text-primary font-heading font-semibold text-lg mb-1">
+              Free 30-minute evaluation before placement.
+            </p>
+            <p className="text-text-muted text-sm">
+              We&apos;ll find the perfect fit for your child.
+            </p>
+          </div>
+
+          {/* External link */}
+          <div className="text-center">
+            <a
+              href="https://www.nexgenpbacademy.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-accent-blue hover:text-accent-purple transition-colors font-semibold"
+            >
+              Visit Next Gen Academy &rarr;
+            </a>
+          </div>
+        </div>
+      </section>
+
+      {/* Private Lessons */}
+      <section className="bg-navy-light py-20 px-6">
+        <div className="mx-auto max-w-4xl text-center">
+          <h2 className="font-heading font-bold text-3xl md:text-4xl mb-4">
+            Private Lessons
+          </h2>
+          <p className="text-text-muted max-w-2xl mx-auto mb-8">
+            Personalized 1-on-1 coaching tailored to your goals and skill level
+            — from brand new to 5.0.
+          </p>
+          <Link
+            href="/contact"
+            className="text-accent-blue hover:text-accent-purple transition-colors font-semibold"
+          >
+            Book a Lesson &rarr;
+          </Link>
+        </div>
+      </section>
+
+      {/* Link and Dink Community */}
+      <section className="py-20 px-6">
+        <div className="mx-auto max-w-4xl text-center">
+          <h2 className="font-heading font-bold text-3xl md:text-4xl mb-4">
+            Link &amp; Dink
+          </h2>
+          <p className="text-text-muted max-w-2xl mx-auto mb-8">
+            A community app connecting pickleball players of comparable skill
+            levels. Find your game, grow your network.
+          </p>
+          <a
+            href="https://www.linkanddink.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-accent-blue hover:text-accent-purple transition-colors font-semibold"
+          >
+            Join the Community &rarr;
+          </a>
+        </div>
+      </section>
+
+      {/* Bottom CTA */}
+      <section className="py-20 px-6">
+        <div className="mx-auto max-w-2xl">
+          <div className="bg-navy-light glow-border rounded-xl p-10 text-center">
+            <p className="font-heading font-bold text-xl md:text-2xl mb-6">
+              Not sure which program is right for you?
+            </p>
+            <Link
+              href="/contact"
+              className="inline-block text-white font-heading font-semibold px-8 py-3 rounded-lg hover:opacity-90 transition-opacity"
+              style={{
+                background: "linear-gradient(135deg, #3b82f6, #8b5cf6)",
+              }}
+            >
+              Book a Free Evaluation
+            </Link>
+          </div>
+        </div>
+      </section>
+    </>
+  );
+}
