@@ -1,11 +1,11 @@
 import Link from "next/link";
-import { NAV_LINKS, SOCIAL_LINKS, CONTACT } from "@/lib/constants";
+import { NAV_LINKS, SOCIAL_LINKS, CONTACT, PROJECT_LINKS } from "@/lib/constants";
 
 export function Footer() {
   return (
     <footer className="bg-navy-light border-t border-white/5">
       <div className="mx-auto max-w-6xl px-6 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-12">
           {/* Brand */}
           <div>
             <h3 className="font-heading text-lg font-bold text-text-primary mb-3">
@@ -31,6 +31,27 @@ export function Footer() {
                   >
                     {link.label}
                   </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Projects */}
+          <div>
+            <h4 className="font-heading text-sm font-semibold text-text-primary uppercase tracking-wider mb-4">
+              Projects
+            </h4>
+            <ul className="flex flex-col gap-2">
+              {PROJECT_LINKS.map((project) => (
+                <li key={project.label}>
+                  <a
+                    href={project.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-text-muted hover:text-text-primary transition-colors text-sm"
+                  >
+                    {project.label}
+                  </a>
                 </li>
               ))}
             </ul>

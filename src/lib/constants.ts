@@ -14,6 +14,12 @@ export const SOCIAL_LINKS = [
   { platform: "Linktree", href: "https://linktr.ee/sammorrispb", icon: "linktree" },
 ] as const;
 
+export const PROJECT_LINKS = [
+  { label: "Next Gen Academy", href: "https://nextgenpbacademy.com" },
+  { label: "Link & Dink", href: "https://www.linkanddink.com" },
+  { label: "Tournament Series", href: "https://tournamentwebsite-g34i63j8t-sammorris2131-7591s-projects.vercel.app/" },
+] as const;
+
 export const CONTACT = {
   email: "sam.morris2131@gmail.com",
   phone: "301-325-4731",

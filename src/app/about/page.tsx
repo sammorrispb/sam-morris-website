@@ -148,6 +148,70 @@ export default function AboutPage() {
         </div>
       </section>
 
+      {/* ─── Projects ─── */}
+      <section className="py-16 px-6">
+        <div className="mx-auto max-w-3xl">
+          <h2 className="font-heading font-bold text-3xl md:text-4xl mb-8 text-center">
+            Projects
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <a
+              href="https://nextgenpbacademy.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="bg-navy-light glow-border rounded-xl p-6 text-center hover:scale-[1.02] transition-transform"
+            >
+              <div className="font-mono text-accent-blue text-sm uppercase tracking-wider mb-2">
+                Academy
+              </div>
+              <h3 className="font-heading font-bold text-lg mb-2">
+                Next Gen Academy
+              </h3>
+              <p className="text-text-muted text-sm leading-relaxed">
+                Youth pickleball academy co-founded with Amine Lahlou, building
+                the next generation of players.
+              </p>
+            </a>
+
+            <a
+              href="https://www.linkanddink.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="bg-navy-light glow-border rounded-xl p-6 text-center hover:scale-[1.02] transition-transform"
+            >
+              <div className="font-mono text-accent-lime text-sm uppercase tracking-wider mb-2">
+                Community
+              </div>
+              <h3 className="font-heading font-bold text-lg mb-2">
+                Link &amp; Dink
+              </h3>
+              <p className="text-text-muted text-sm leading-relaxed">
+                Social discovery platform connecting pickleball players for
+                events, groups, and community.
+              </p>
+            </a>
+
+            <a
+              href="https://tournamentwebsite-g34i63j8t-sammorris2131-7591s-projects.vercel.app/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="bg-navy-light glow-border rounded-xl p-6 text-center hover:scale-[1.02] transition-transform"
+            >
+              <div className="font-mono text-accent-pink text-sm uppercase tracking-wider mb-2">
+                Tournaments
+              </div>
+              <h3 className="font-heading font-bold text-lg mb-2">
+                Tournament Series
+              </h3>
+              <p className="text-text-muted text-sm leading-relaxed">
+                Competitive tournament events for players looking to test their
+                skills.
+              </p>
+            </a>
+          </div>
+        </div>
+      </section>
+
       {/* ─── Coaching Philosophy ─── */}
       <section className="bg-navy-light py-20 px-6">
         <div className="mx-auto max-w-3xl">
