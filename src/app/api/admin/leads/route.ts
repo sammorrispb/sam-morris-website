@@ -10,8 +10,8 @@ export async function GET(request: Request) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
-  const apiKey = process.env.NOTION_API_KEY;
-  const dbId = process.env.NOTION_LEADS_DB_ID;
+  const apiKey = process.env.NOTION_API_KEY?.trim();
+  const dbId = process.env.NOTION_LEADS_DB_ID?.trim();
 
   if (!apiKey || !dbId) {
     return NextResponse.json(

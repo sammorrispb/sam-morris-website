@@ -28,7 +28,7 @@ async function createEmailDraft(
   interest: string,
   isLndMember: boolean
 ): Promise<void> {
-  const draftsDbId = process.env.NOTION_DRAFTS_DB_ID;
+  const draftsDbId = process.env.NOTION_DRAFTS_DB_ID?.trim();
   if (!draftsDbId) return;
 
   const emailBody = generateEmailDraft(interest, name, isLndMember);
@@ -68,8 +68,8 @@ export async function POST(request: Request) {
     }
 
     // Only connect to Notion if credentials are configured
-    const apiKey = process.env.NOTION_API_KEY;
-    const dbId = process.env.NOTION_LEADS_DB_ID;
+    const apiKey = process.env.NOTION_API_KEY?.trim();
+    const dbId = process.env.NOTION_LEADS_DB_ID?.trim();
 
     if (!apiKey || !dbId || apiKey === "your_notion_api_key_here") {
       // In development without Notion configured, just log and succeed
