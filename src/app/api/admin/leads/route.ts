@@ -78,9 +78,10 @@ export async function GET(request: Request) {
       leads: leads.slice(0, 50),
     });
   } catch (error) {
-    console.error("Admin leads error:", error);
+    const msg = error instanceof Error ? error.message : "Unknown error";
+    console.error("Admin leads error:", msg);
     return NextResponse.json(
-      { error: "Failed to fetch leads" },
+      { error: `Failed to fetch leads: ${msg}` },
       { status: 500 }
     );
   }

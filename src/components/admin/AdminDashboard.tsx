@@ -123,7 +123,32 @@ export function AdminDashboard() {
     );
   }
 
-  if (!data) return null;
+  if (!data) {
+    return (
+      <div className="min-h-[80vh] flex items-center justify-center px-6">
+        <div className="bg-navy-light glow-border rounded-xl p-8 w-full max-w-sm space-y-4 text-center">
+          <h1 className="font-heading font-bold text-2xl">Lead Dashboard</h1>
+          {error && (
+            <p role="alert" className="text-accent-pink text-sm">
+              {error}
+            </p>
+          )}
+          <button
+            onClick={() => fetchLeads(sessionStorage.getItem("admin_token") ?? "")}
+            className="w-full text-white font-heading font-semibold py-3 rounded-lg btn-gradient"
+          >
+            Retry
+          </button>
+          <button
+            onClick={handleLogout}
+            className="w-full text-text-muted hover:text-text-primary text-sm font-mono transition-colors py-2"
+          >
+            Log Out
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   const maxCount = data.interestBreakdown[0]?.count ?? 1;
   const topInterest = data.interestBreakdown[0]?.interest ?? "—";
