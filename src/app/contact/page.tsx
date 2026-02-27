@@ -87,7 +87,15 @@ export default function ContactPage() {
                 Skill Evaluation
               </h2>
               <p className="text-text-muted leading-relaxed mb-4">
-                Every evaluation includes creating a free Link&nbsp;&amp;&nbsp;Dink
+                Every evaluation includes creating a free{" "}
+                <a
+                  href="https://www.linkanddink.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-accent-blue hover:text-accent-purple transition-colors underline"
+                >
+                  Link&nbsp;&amp;&nbsp;Dink
+                </a>{" "}
                 account so your skill level is tracked over time.
               </p>
               <ul className="space-y-3 text-text-muted text-sm">
