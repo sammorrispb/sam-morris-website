@@ -68,7 +68,14 @@ export default function RootLayout({
                 addressRegion: "MD",
                 addressCountry: "US",
               },
-              sameAs: [],
+              url: "https://www.sammorrispb.com",
+              sameAs: [
+                "https://instagram.com/sammorris.pb",
+                "https://facebook.com/sam.km.18",
+                "https://linkedin.com/in/sammorris2131",
+                "https://tiktok.com/@sammorris.pb",
+                "https://youtube.com/@sammorris.pb8",
+              ],
             }),
           }}
         />
