@@ -113,7 +113,7 @@ export interface ProgramCategory {
 export const PROGRAM_CATEGORIES: ProgramCategory[] = [
   {
     name: "Play",
-    color: "#22c55e",
+    color: "#8BC751",
     programs: [
       { key: "openPlay", emoji: "\u{1F3D3}", label: "Open Play", description: "Drop-in games for all levels" },
       { key: "coachedOpenPlay", emoji: "\u{1F3AF}", label: "Coached Open Play", description: "Open play with pro guidance" },
@@ -122,7 +122,7 @@ export const PROGRAM_CATEGORIES: ProgramCategory[] = [
   },
   {
     name: "Learn",
-    color: "#3b82f6",
+    color: "#4DACD0",
     programs: [
       { key: "clinics", emoji: "\u{1F4DA}", label: "Clinics & Classes", description: "Group instruction at every level" },
       { key: "juniors", emoji: "\u2B50", label: "Juniors", description: "Youth programs ages 5-16" },
@@ -132,7 +132,7 @@ export const PROGRAM_CATEGORIES: ProgramCategory[] = [
   },
   {
     name: "Compete",
-    color: "#f97316",
+    color: "#F47920",
     programs: [
       { key: "competitive", emoji: "\u{1F3C6}", label: "Competitive Events", description: "Tournaments and rated play" },
       { key: "leagues", emoji: "\u{1F4CA}", label: "Leagues", description: "Structured seasonal competition" },
@@ -140,7 +140,7 @@ export const PROGRAM_CATEGORIES: ProgramCategory[] = [
   },
   {
     name: "Community",
-    color: "#8b5cf6",
+    color: "#078141",
     programs: [
       { key: "social", emoji: "\u{1F389}", label: "Social Events", description: "Mixers, parties, and themed nights" },
       { key: "allEvents", emoji: "\u{1F4C5}", label: "All Events", description: "Browse the full calendar" },
@@ -174,12 +174,12 @@ export interface Benefit {
 }
 
 export const BENEFITS: Benefit[] = [
-  { emoji: "\u{1F3DF}\uFE0F", title: "Indoor Courts", description: "Climate-controlled play year-round \u2014 no weather cancellations." },
-  { emoji: "\u{1F4C8}", title: "All Levels Welcome", description: "Programs from absolute beginner to 5.0+ competitive player." },
-  { emoji: "\u{1F3AF}", title: "Professional Coaching", description: "Certified pros on staff for clinics, privates, and academy." },
-  { emoji: "\u{1F91D}", title: "Real Community", description: "Social events, WhatsApp groups, and the Link & Dink app." },
-  { emoji: "\u{1F4CD}", title: "Two Locations", description: "Rockville and North Bethesda \u2014 play at whichever is closer." },
-  { emoji: "\u{1F468}\u200D\u{1F469}\u200D\u{1F467}\u200D\u{1F466}", title: "Youth & Family", description: "Junior programs, family memberships, and all-ages events." },
+  { emoji: "\u{1F3DF}\uFE0F", title: "Indoor Courts", description: "Quality courts with climate-controlled play year-round \u2014 no weather cancellations." },
+  { emoji: "\u{1F4C8}", title: "All Levels Welcome", description: "Whether you\u2019ve never held a paddle or you\u2019re a 5.0+ competitor, there\u2019s a program for you." },
+  { emoji: "\u{1F3AF}", title: "Professional Coaching", description: "Certified pros on staff for clinics, private lessons, and structured academy programs." },
+  { emoji: "\u{1F91D}", title: "Real Community", description: "A welcoming community with social events, WhatsApp groups, and the Link & Dink app." },
+  { emoji: "\u{1F4CD}", title: "Two Locations", description: "Rockville and North Bethesda \u2014 convenient locations across Montgomery County." },
+  { emoji: "\u{1F468}\u200D\u{1F469}\u200D\u{1F467}\u200D\u{1F466}", title: "Youth & Family", description: "Family-friendly with junior programs, family memberships, and all-ages events." },
 ];
 
 // ─── Community links ───
@@ -196,21 +196,21 @@ export const COMMUNITY_LINKS: CommunityLink[] = [
   {
     label: "WhatsApp Group",
     tag: "Chat",
-    tagColor: "#22c55e",
+    tagColor: "#8BC751",
     description: "Join 200+ local players. Court availability, game requests, and community updates.",
     href: "https://chat.whatsapp.com/LGdvaFQR65dIiNPxPFwL3U",
   },
   {
     label: "Link & Dink",
     tag: "Community",
-    tagColor: "#a3e635",
+    tagColor: "#F47920",
     description: "Social discovery app connecting players for events, groups, and competitive play.",
     href: "https://www.linkanddink.com",
   },
   {
     label: "Next Gen Academy",
     tag: "Academy",
-    tagColor: "#3b82f6",
+    tagColor: "#4DACD0",
     description: "Structured youth pathway for ages 5-16 with four skill levels.",
     href: "https://www.nextgenpbacademy.com",
   },

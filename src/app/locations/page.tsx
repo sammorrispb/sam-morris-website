@@ -29,8 +29,8 @@ export default function LocationsPage() {
               Where to <span className="gradient-text">Play</span>
             </h1>
             <p className="text-text-muted text-lg md:text-xl max-w-2xl mb-8">
-              Two indoor facilities in Montgomery County, MD &mdash; with
-              programs, coaching, and community for every level.
+              Two dedicated indoor facilities in Montgomery County, MD.
+              Play safe. Play well. Play at Dill Dinkers.
             </p>
             <div className="flex flex-wrap gap-4 justify-center md:justify-start">
               <a
@@ -69,11 +69,11 @@ export default function LocationsPage() {
           <AnimateOnScroll>
             <div className="text-center mb-12">
               <h2 className="font-heading font-bold text-3xl md:text-4xl mb-4">
-                Why Dill Dinkers?
+                Why Dill Dinkers&reg;?
               </h2>
               <p className="text-text-muted max-w-2xl mx-auto">
-                Everything you need to play, improve, and connect &mdash; under
-                one roof.
+                Fun, community, and great programming &mdash; all under one
+                roof.
               </p>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -105,8 +105,8 @@ export default function LocationsPage() {
             Two Locations, One Community
           </h2>
           <p className="text-text-muted max-w-2xl mx-auto mb-12 text-center">
-            Both facilities offer indoor courts, pro coaching, and a full
-            calendar of events.
+            Quality courts, welcoming community, and a full calendar of
+            events at both locations.
           </p>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {LOCATION_ORDER.map((id) => {
@@ -198,7 +198,7 @@ export default function LocationsPage() {
                 className="absolute top-5 left-5 right-5 h-0.5"
                 style={{
                   background:
-                    "linear-gradient(90deg, #3b82f6, #8b5cf6, #ec4899)",
+                    "linear-gradient(90deg, #8BC751, #4DACD0, #F47920)",
                 }}
               />
 
@@ -209,10 +209,11 @@ export default function LocationsPage() {
                   style={{ width: `${100 / GROWTH_PATHWAY.length}%` }}
                 >
                   <div
-                    className="w-10 h-10 rounded-full bg-navy-light border-2 border-accent-blue flex items-center justify-center font-heading font-bold text-sm z-10"
+                    className="w-10 h-10 rounded-full bg-navy-light border-2 flex items-center justify-center font-heading font-bold text-sm z-10"
                     style={{
+                      borderColor: "#4DACD0",
                       boxShadow:
-                        "0 0 12px rgba(59, 130, 246, 0.4), 0 0 24px rgba(59, 130, 246, 0.2)",
+                        "0 0 12px rgba(77, 172, 208, 0.4), 0 0 24px rgba(77, 172, 208, 0.2)",
                     }}
                   >
                     {step.number}
@@ -232,19 +233,20 @@ export default function LocationsPage() {
           <div className="md:hidden relative">
             <div
               className="absolute left-[5px] top-0 bottom-0 w-0.5"
-              style={{ backgroundColor: "rgba(59, 130, 246, 0.2)" }}
+              style={{ backgroundColor: "rgba(77, 172, 208, 0.2)" }}
             />
             <div className="flex flex-col gap-8">
               {GROWTH_PATHWAY.map((step) => (
                 <div key={step.number} className="relative pl-10">
                   <div
-                    className="absolute left-0 top-1.5 w-3 h-3 rounded-full bg-accent-blue"
+                    className="absolute left-0 top-1.5 w-3 h-3 rounded-full"
                     style={{
+                      backgroundColor: "#4DACD0",
                       boxShadow:
-                        "0 0 8px rgba(59, 130, 246, 0.6), 0 0 20px rgba(59, 130, 246, 0.3)",
+                        "0 0 8px rgba(77, 172, 208, 0.6), 0 0 20px rgba(77, 172, 208, 0.3)",
                     }}
                   />
-                  <div className="font-mono text-accent-blue text-sm mb-1">
+                  <div className="font-mono text-sm mb-1" style={{ color: "#4DACD0" }}>
                     Step {step.number}
                   </div>
                   <h3 className="font-heading font-bold text-lg mb-1">
