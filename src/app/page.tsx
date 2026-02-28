@@ -5,11 +5,14 @@ import { AnimateOnScroll } from "@/components/AnimateOnScroll";
 import { getAllPosts } from "@/lib/blog";
 
 const STATS = [
-  { value: "20+", label: "Years Coaching" },
-  { value: "2", label: "Facilities" },
-  { value: "500+", label: "Players Weekly" },
   { value: "M.S.", label: "in Coaching" },
-  { value: "Gold", label: "Medalist" },
+  { value: "17", label: "Courts Directed" },
+  { value: "2", label: "Indoor Facilities" },
+  { value: "5.0+", label: "Player" },
+  { value: "RPO", label: "Certified" },
+  { value: "PPR", label: "Pro" },
+  { value: "DUPR", label: "Coach Certified" },
+  { value: "3x", label: "Founder" },
 ];
 
 const EASE_CARDS = [

@@ -202,11 +202,14 @@ Signature methodology. Front-and-center on the website.
 
 ## Social Proof and Credibility Markers
 
-- 20+ years of coaching across multiple sports and age groups
-- Director of Programming at two Dill Dinkers locations (first dedicated indoor facilities in MoCo)
 - M.S. in Coaching from Ball State University
+- Program Director of 17 courts across two dedicated indoor pickleball facilities (Dill Dinkers Rockville + North Bethesda)
+- 5.0+ player
+- RPO Certified
+- PPR Pro
+- DUPR Coach Certified
 - Former MCPS Physical Educator (9 years)
-- Co-founder of Next Gen Academy and Link and Dink
+- Founder of Next Gen Pickleball Academy, Link and Dink, and Pickleball Climb 5.0
 - Competitive player — Mixed Gender Gold medalist (Legends Tournament, Open Division)
 - Manages 20-30 coaches across two facilities
 - Programs hundreds of players weekly across leagues, clinics, open play, and academy
