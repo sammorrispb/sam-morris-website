@@ -159,21 +159,6 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* ─── Competitive Highlight ─── */}
-      <section className="py-16 px-6">
-        <div className="mx-auto max-w-3xl">
-          <div className="bg-navy-light glow-border rounded-xl p-8 text-center">
-            <div className="font-mono text-accent-lime text-sm uppercase tracking-wider mb-3">
-              Competitive Highlight
-            </div>
-            <p className="font-heading font-bold text-lg md:text-xl leading-relaxed">
-              Mixed Gender Gold at the Legends Tournament, defeating future pro
-              Alix Truong and John Truong in the Open Division final.
-            </p>
-          </div>
-        </div>
-      </section>
-
       {/* ─── Projects ─── */}
       <section className="py-16 px-6">
         <div className="mx-auto max-w-3xl">
