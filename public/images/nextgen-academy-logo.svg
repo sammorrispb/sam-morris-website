@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400">
+  <defs>
+    <style>
+      @font-face {
+        font-family: 'logo-font';
+        src: local('Arial Black'), local('Helvetica Neue Bold'), local('sans-serif');
+      }
+    </style>
+  </defs>
+  <!-- Background circle -->
+  <circle cx="200" cy="200" r="200" fill="#111111"/>
+  <!-- Inner ring -->
+  <circle cx="200" cy="200" r="170" fill="none" stroke="#ffffff" stroke-width="2"/>
+  <!-- Curved text - top: NEXT GEN -->
+  <path id="topArc" d="M 60,200 a 140,140 0 0,1 280,0" fill="none"/>
+  <text fill="#ffffff" font-family="Arial Black, Helvetica, sans-serif" font-size="28" font-weight="900" letter-spacing="6">
+    <textPath href="#topArc" startOffset="50%" text-anchor="middle">NEXT GEN</textPath>
+  </text>
+  <!-- Center: Pickleball paddle icon -->
+  <g transform="translate(200,185)">
+    <!-- Paddle handle -->
+    <rect x="-6" y="30" width="12" height="35" rx="3" fill="#ffffff"/>
+    <!-- Paddle head -->
+    <ellipse cx="0" cy="0" rx="38" ry="45" fill="#ffffff"/>
+    <!-- Paddle holes pattern -->
+    <circle cx="-15" cy="-15" r="4" fill="#111111"/>
+    <circle cx="0" cy="-15" r="4" fill="#111111"/>
+    <circle cx="15" cy="-15" r="4" fill="#111111"/>
+    <circle cx="-15" cy="0" r="4" fill="#111111"/>
+    <circle cx="0" cy="0" r="4" fill="#111111"/>
+    <circle cx="15" cy="0" r="4" fill="#111111"/>
+    <circle cx="-15" cy="15" r="4" fill="#111111"/>
+    <circle cx="0" cy="15" r="4" fill="#111111"/>
+    <circle cx="15" cy="15" r="4" fill="#111111"/>
+    <!-- Ball -->
+    <circle cx="35" cy="-30" r="12" fill="#c8e62e" stroke="#111111" stroke-width="1"/>
+    <path d="M28,-37 Q35,-30 28,-23" fill="none" stroke="#111111" stroke-width="1.5"/>
+    <path d="M42,-37 Q35,-30 42,-23" fill="none" stroke="#111111" stroke-width="1.5"/>
+  </g>
+  <!-- Curved text - bottom: PICKLEBALL ACADEMY -->
+  <path id="bottomArc" d="M 60,200 a 140,140 0 0,0 280,0" fill="none"/>
+  <text fill="#ffffff" font-family="Arial Black, Helvetica, sans-serif" font-size="22" font-weight="900" letter-spacing="4">
+    <textPath href="#bottomArc" startOffset="50%" text-anchor="middle">PICKLEBALL ACADEMY</textPath>
+  </text>
+</svg>

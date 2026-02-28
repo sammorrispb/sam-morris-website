@@ -47,7 +47,8 @@ const PROGRAMS = [
     cta: "Learn More",
     href: "/programs#academy",
     external: false,
-    image: "/images/sam-forehand.jpg",
+    image: "/images/nextgen-academy-logo.svg",
+    isLogo: true,
   },
   {
     title: "Private Lessons",
@@ -57,6 +58,7 @@ const PROGRAMS = [
     href: "/contact",
     external: false,
     image: "/images/sam-portrait-arms-crossed.jpg",
+    isLogo: false,
   },
   {
     title: "Link & Dink",
@@ -65,7 +67,8 @@ const PROGRAMS = [
     cta: "Join Community",
     href: "https://www.linkanddink.com",
     external: true,
-    image: "/images/climb-5-logo.jpg",
+    image: "/images/link-and-dink-logo.svg",
+    isLogo: true,
   },
 ];
 
@@ -174,12 +177,12 @@ export default function Home() {
                 key={program.title}
                 className="bg-navy glow-border glow-border-hover rounded-xl overflow-hidden transition-all flex flex-col card-hover"
               >
-                <div className="relative h-44 w-full">
+                <div className={`relative h-44 w-full ${program.isLogo ? "bg-[#0a1628] flex items-center justify-center" : ""}`}>
                   <Image
                     src={program.image}
                     alt={program.title}
                     fill
-                    className="object-cover"
+                    className={program.isLogo ? "object-contain p-4" : "object-cover"}
                   />
                 </div>
                 <div className="p-6 flex flex-col flex-1">
