@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
+import { LESSON_PAYMENT_LINK } from "@/lib/coaching";
 
 export const metadata: Metadata = {
   title: "Pickleball Programs & Lessons — Youth Academy, Private Coaching, Family Sessions",
@@ -180,12 +181,14 @@ export default function ProgramsPage() {
                 The fastest way to improve. Focused attention on your game with
                 real-time feedback and a plan built around your goals.
               </p>
-              <Link
-                href="/contact"
+              <a
+                href={LESSON_PAYMENT_LINK}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="text-accent-blue hover:text-accent-purple transition-colors font-semibold"
               >
                 Book a Lesson &rarr;
-              </Link>
+              </a>
             </div>
           </div>
         </div>
