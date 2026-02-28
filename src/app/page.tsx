@@ -89,7 +89,8 @@ export default function Home() {
               <span className="gradient-text">together.</span>
             </h1>
             <p className="text-text-muted text-lg md:text-xl mb-10 max-w-2xl">
-              I help families grow through sport. Coach. Builder. Dad.
+              Professional pickleball coaching for adults, families, and kids in
+              Montgomery County, MD. Coach. Builder. Dad.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
               <Link
@@ -110,7 +111,7 @@ export default function Home() {
             <div className="relative w-72 h-72 md:w-96 md:h-96 rounded-2xl overflow-hidden glow-border">
               <Image
                 src="/images/sam-portrait-with-paddle.jpg"
-                alt="Sam Morris holding a paddle"
+                alt="Sam Morris — professional pickleball coach in Montgomery County, MD"
                 fill
                 className="object-cover"
                 priority
@@ -145,7 +146,8 @@ export default function Home() {
             </h2>
             <p className="text-text-muted max-w-2xl mx-auto">
               A coaching methodology built on four pillars that guide everything
-              we do — on the court and beyond.
+              we do — on the court and beyond. From beginner lessons in Rockville to
+              competitive training in North Bethesda.
             </p>
           </div>
           <div className="mx-auto max-w-6xl grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">

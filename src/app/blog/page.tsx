@@ -3,9 +3,18 @@ import { getAllPosts } from "@/lib/blog";
 import { BlogList } from "@/components/BlogList";
 
 export const metadata: Metadata = {
-  title: "Blog",
+  title: "Pickleball Coaching Blog — Tips, Strategy & Community",
   description:
-    "Thoughts on coaching, parenting, entrepreneurship, and leadership from Sam Morris.",
+    "Pickleball coaching tips, strategy guides, and community insights from Sam Morris — PPR-certified coach in Montgomery County, MD. Learn shot development, mental game, and how to improve your play.",
+  alternates: {
+    canonical: "https://www.sammorrispb.com/blog",
+  },
+  openGraph: {
+    title: "Pickleball Blog — Coaching Tips & Strategy | Sam Morris",
+    description:
+      "Expert pickleball tips, coaching strategies, and community stories from Montgomery County, MD.",
+    url: "https://www.sammorrispb.com/blog",
+  },
 };
 
 export default function BlogPage() {

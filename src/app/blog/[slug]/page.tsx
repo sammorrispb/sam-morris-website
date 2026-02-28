@@ -20,6 +20,23 @@ export async function generateMetadata({
   return {
     title: post.title,
     description: post.excerpt,
+    alternates: {
+      canonical: `https://www.sammorrispb.com/blog/${slug}`,
+    },
+    openGraph: {
+      title: post.title,
+      description: post.excerpt,
+      url: `https://www.sammorrispb.com/blog/${slug}`,
+      type: "article",
+      publishedTime: post.date,
+      authors: ["Sam Morris"],
+      tags: [post.category, "pickleball", "Montgomery County MD"],
+    },
+    twitter: {
+      card: "summary",
+      title: post.title,
+      description: post.excerpt,
+    },
   };
 }
 
@@ -34,6 +51,32 @@ export default async function BlogPostPage({
 
   return (
     <article className="py-20 px-4">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Article",
+            headline: post.title,
+            description: post.excerpt,
+            datePublished: post.date,
+            author: {
+              "@type": "Person",
+              name: "Sam Morris",
+              url: "https://www.sammorrispb.com",
+            },
+            publisher: {
+              "@type": "Person",
+              name: "Sam Morris",
+              url: "https://www.sammorrispb.com",
+            },
+            mainEntityOfPage: {
+              "@type": "WebPage",
+              "@id": `https://www.sammorrispb.com/blog/${slug}`,
+            },
+          }),
+        }}
+      />
       <div className="max-w-3xl mx-auto">
         <Link
           href="/blog"

@@ -3,9 +3,26 @@ import Link from "next/link";
 import Image from "next/image";
 
 export const metadata: Metadata = {
-  title: "Programs",
+  title: "Pickleball Programs & Lessons — Youth Academy, Private Coaching, Family Sessions",
   description:
-    "Next Gen Pickleball Academy, private lessons, and community programs in Montgomery County, MD.",
+    "Pickleball programs for all ages in Montgomery County, MD. Next Gen Academy for kids 5-16, private lessons for adults, family coaching, and community play at Dill Dinkers Rockville & North Bethesda.",
+  alternates: {
+    canonical: "https://www.sammorrispb.com/programs",
+  },
+  openGraph: {
+    title: "Pickleball Programs in Montgomery County, MD — Kids, Adults & Families",
+    description:
+      "Youth pickleball academy (ages 5-16), private lessons, family coaching, and community programs. Rockville & North Bethesda locations.",
+    url: "https://www.sammorrispb.com/programs",
+    images: [
+      {
+        url: "/images/sam-court-smile.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Pickleball programs and coaching with Sam Morris in Montgomery County, MD",
+      },
+    ],
+  },
 };
 
 const ACADEMY_LEVELS = [
@@ -51,7 +68,8 @@ export default function ProgramsPage() {
             </h1>
             <p className="text-text-muted text-lg md:text-xl max-w-2xl">
               Clear pathways for every player — from first-time beginners to
-              competitive athletes.
+              competitive athletes. Serving Rockville, North Bethesda, Olney,
+              and all of Montgomery County, MD.
             </p>
           </div>
           <div className="flex justify-center">
@@ -76,8 +94,9 @@ export default function ProgramsPage() {
               Next Gen Pickleball Academy
             </h2>
             <p className="text-text-muted max-w-2xl mx-auto">
-              Structured youth pathway for ages 5-16. Four skill levels with
-              clear progression.
+              Structured youth pickleball pathway for kids ages 5-16 in
+              Montgomery County, MD. Four skill levels with clear progression
+              at Dill Dinkers Rockville and North Bethesda.
             </p>
           </div>
 
@@ -133,8 +152,9 @@ export default function ProgramsPage() {
             Private Lessons
           </h2>
           <p className="text-text-muted max-w-2xl mx-auto mb-10 text-center">
-            Personalized 1-on-1 coaching tailored to your goals and skill level
-            — from brand new to 5.0.
+            Personalized 1-on-1 pickleball coaching for adults and families in
+            Montgomery County, MD — tailored to your goals and skill level,
+            from brand new to 5.0.
           </p>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <ul className="space-y-4">
