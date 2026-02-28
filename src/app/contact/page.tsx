@@ -4,9 +4,26 @@ import { LeadForm } from "@/components/LeadForm";
 import { CONTACT, SOCIAL_LINKS } from "@/lib/constants";
 
 export const metadata: Metadata = {
-  title: "Contact",
+  title: "Contact — Book Pickleball Lessons in Montgomery County, MD",
   description:
-    "Get in touch with Sam Morris. Book a free evaluation, inquire about coaching, or connect on social media.",
+    "Book a free pickleball evaluation with Coach Sam Morris in Montgomery County, MD. Private lessons, youth academy enrollment, and family coaching at Dill Dinkers Rockville & North Bethesda. Call 301-325-4731.",
+  alternates: {
+    canonical: "https://www.sammorrispb.com/contact",
+  },
+  openGraph: {
+    title: "Book Pickleball Lessons — Sam Morris | Montgomery County, MD",
+    description:
+      "Free evaluation, private lessons, youth academy, and family coaching. Dill Dinkers Rockville & North Bethesda. Call 301-325-4731.",
+    url: "https://www.sammorrispb.com/contact",
+    images: [
+      {
+        url: "/images/sam-portrait-arms-crossed.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Contact Sam Morris for pickleball coaching in Montgomery County, MD",
+      },
+    ],
+  },
 };
 
 export default function ContactPage() {
@@ -19,9 +36,11 @@ export default function ContactPage() {
             Let&apos;s <span className="gradient-text">Connect</span>
           </h1>
           <p className="text-text-muted text-lg md:text-xl max-w-2xl mx-auto leading-relaxed">
-            Whether you&apos;re looking for coaching, want to learn about
-            programs, or just want to talk pickleball &mdash; I&apos;d love to
-            hear from you.
+            Whether you&apos;re looking for pickleball lessons in Montgomery
+            County, want to enroll your kids in the youth academy, or need
+            coaching for your whole family &mdash; I&apos;d love to hear from
+            you. Serving Rockville, North Bethesda, Olney, Bethesda,
+            Gaithersburg, and all of Montgomery County, MD.
           </p>
         </div>
       </section>

@@ -2,9 +2,26 @@ import type { Metadata } from "next";
 import Image from "next/image";
 
 export const metadata: Metadata = {
-  title: "About",
+  title: "About Sam Morris — PPR-Certified Pickleball Coach, Montgomery County MD",
   description:
-    "The story of Sam Morris — from PE teacher to pickleball entrepreneur in Montgomery County, MD.",
+    "Meet Sam Morris — PPR-certified pickleball professional, DUPR coach, and Director of Programming at Dill Dinkers Rockville & North Bethesda. Former PE teacher with a Master's in Coaching, helping adults, families, and kids in Montgomery County, MD.",
+  alternates: {
+    canonical: "https://www.sammorrispb.com/about",
+  },
+  openGraph: {
+    title: "About Sam Morris — Pickleball Coach in Montgomery County, MD",
+    description:
+      "From PE teacher to pickleball programming leader. PPR Pro, DUPR Certified Coach, and 3x founder serving Rockville, North Bethesda, Olney & greater Montgomery County.",
+    url: "https://www.sammorrispb.com/about",
+    images: [
+      {
+        url: "/images/sam-action.jpeg",
+        width: 1200,
+        height: 630,
+        alt: "Sam Morris playing pickleball in Montgomery County, MD",
+      },
+    ],
+  },
 };
 
 const TIMELINE = [
