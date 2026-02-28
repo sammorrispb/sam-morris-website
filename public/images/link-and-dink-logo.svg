@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 400" width="500" height="400">
+  <defs>
+    <style>
+      @font-face {
+        font-family: 'logo-font';
+        src: local('Arial Black'), local('Helvetica Neue Bold'), local('sans-serif');
+      }
+    </style>
+  </defs>
+  <!-- Background -->
+  <rect width="500" height="400" fill="#0a1628" rx="20"/>
+  <!-- Crossed paddles -->
+  <g transform="translate(250, 140)">
+    <!-- Left paddle - rotated -->
+    <g transform="rotate(-25)">
+      <!-- Paddle head -->
+      <ellipse cx="0" cy="-15" rx="32" ry="42" fill="#2dd4a8" stroke="#1fb896" stroke-width="2"/>
+      <!-- Paddle holes -->
+      <circle cx="-12" cy="-28" r="3" fill="#0a1628" opacity="0.3"/>
+      <circle cx="0" cy="-28" r="3" fill="#0a1628" opacity="0.3"/>
+      <circle cx="12" cy="-28" r="3" fill="#0a1628" opacity="0.3"/>
+      <circle cx="-12" cy="-15" r="3" fill="#0a1628" opacity="0.3"/>
+      <circle cx="0" cy="-15" r="3" fill="#0a1628" opacity="0.3"/>
+      <circle cx="12" cy="-15" r="3" fill="#0a1628" opacity="0.3"/>
+      <circle cx="-12" cy="-2" r="3" fill="#0a1628" opacity="0.3"/>
+      <circle cx="0" cy="-2" r="3" fill="#0a1628" opacity="0.3"/>
+      <circle cx="12" cy="-2" r="3" fill="#0a1628" opacity="0.3"/>
+      <!-- Handle -->
+      <rect x="-5" y="25" width="10" height="32" rx="3" fill="#2dd4a8" stroke="#1fb896" stroke-width="2"/>
+      <rect x="-7" y="50" width="14" height="10" rx="2" fill="#1fb896"/>
+    </g>
+    <!-- Right paddle - rotated opposite -->
+    <g transform="rotate(25)">
+      <!-- Paddle head -->
+      <ellipse cx="0" cy="-15" rx="32" ry="42" fill="#2dd4a8" stroke="#1fb896" stroke-width="2"/>
+      <!-- Paddle holes -->
+      <circle cx="-12" cy="-28" r="3" fill="#0a1628" opacity="0.3"/>
+      <circle cx="0" cy="-28" r="3" fill="#0a1628" opacity="0.3"/>
+      <circle cx="12" cy="-28" r="3" fill="#0a1628" opacity="0.3"/>
+      <circle cx="-12" cy="-15" r="3" fill="#0a1628" opacity="0.3"/>
+      <circle cx="0" cy="-15" r="3" fill="#0a1628" opacity="0.3"/>
+      <circle cx="12" cy="-15" r="3" fill="#0a1628" opacity="0.3"/>
+      <circle cx="-12" cy="-2" r="3" fill="#0a1628" opacity="0.3"/>
+      <circle cx="0" cy="-2" r="3" fill="#0a1628" opacity="0.3"/>
+      <circle cx="12" cy="-2" r="3" fill="#0a1628" opacity="0.3"/>
+      <!-- Handle -->
+      <rect x="-5" y="25" width="10" height="32" rx="3" fill="#2dd4a8" stroke="#1fb896" stroke-width="2"/>
+      <rect x="-7" y="50" width="14" height="10" rx="2" fill="#1fb896"/>
+    </g>
+    <!-- Pickleball at intersection -->
+    <circle cx="0" cy="-30" r="10" fill="#c8e62e"/>
+    <path d="M-5,-36 Q0,-30 -5,-24" fill="none" stroke="#0a1628" stroke-width="1.2"/>
+    <path d="M5,-36 Q0,-30 5,-24" fill="none" stroke="#0a1628" stroke-width="1.2"/>
+  </g>
+  <!-- LINK & DINK text -->
+  <text x="250" y="285" text-anchor="middle" fill="#ffffff" font-family="Arial Black, Helvetica, sans-serif" font-size="52" font-weight="900" letter-spacing="3">LINK &amp; DINK</text>
+  <!-- Tagline -->
+  <text x="250" y="325" text-anchor="middle" fill="#2dd4a8" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="400" letter-spacing="4">FIND YOUR GAME</text>
+  <!-- Decorative line -->
+  <line x1="150" y1="345" x2="350" y2="345" stroke="#2dd4a8" stroke-width="1" opacity="0.4"/>
+</svg>
