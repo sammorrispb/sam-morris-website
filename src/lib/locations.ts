@@ -1,6 +1,6 @@
 // ─── Dill Dinkers locations, CourtReserve widget URLs, and program data ───
 
-const CR = "https://widgets.courtreserve.com/Online/Reservations/Bookings";
+const CR = "https://widgets.courtreserve.com/Online/Public/EmbedCode";
 const CR_APP = "https://app.courtreserve.com/Online";
 
 export type LocationId = "rockville" | "northBethesda";
@@ -22,7 +22,7 @@ export const LOCATIONS: Record<LocationId, Location> = {
     id: "rockville",
     name: "Dill Dinkers Rockville",
     orgId: "10869",
-    address: "719 E Gude Dr",
+    address: "40C Southlawn Court",
     city: "Rockville",
     state: "MD",
     zip: "20850",
@@ -33,10 +33,10 @@ export const LOCATIONS: Record<LocationId, Location> = {
     id: "northBethesda",
     name: "Dill Dinkers North Bethesda",
     orgId: "10483",
-    address: "5506 Randolph Rd",
+    address: "4942 Boiling Brook Pkwy",
     city: "North Bethesda",
     state: "MD",
-    zip: "20852",
+    zip: "20850",
     phone: "301-231-7811",
     email: "northbethesda@dilldinkers.com",
   },
@@ -198,7 +198,7 @@ export const COMMUNITY_LINKS: CommunityLink[] = [
     tag: "Chat",
     tagColor: "#8BC751",
     description: "Join 200+ local players. Court availability, game requests, and community updates.",
-    href: "https://chat.whatsapp.com/LGdvaFQR65dIiNPxPFwL3U",
+    href: "https://chat.whatsapp.com/HMjGamk0Mtx662DbtGmDwe",
   },
   {
     label: "Link & Dink",
