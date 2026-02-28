@@ -11,6 +11,8 @@ const STATS = [
   { value: "5.0+", label: "Player" },
   { value: "RPO", label: "Certified" },
   { value: "PPR", label: "Pro" },
+  { value: "DUPR", label: "Coach Certified" },
+  { value: "3x", label: "Founder" },
 ];
 
 const EASE_CARDS = [
