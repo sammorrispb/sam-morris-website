@@ -228,11 +228,13 @@ export default function RootLayout({
                 itemListElement: [
                   {
                     "@type": "Offer",
+                    price: "130.00",
+                    priceCurrency: "USD",
                     itemOffered: {
                       "@type": "Service",
                       name: "Private Pickleball Lessons",
                       description:
-                        "Personalized 1-on-1 pickleball coaching for adults and families in Montgomery County, MD. Includes video analysis, custom practice plans, and flexible scheduling.",
+                        "Personalized 1-on-1 pickleball coaching for adults and families in Montgomery County, MD. Includes video analysis, custom practice plans, and flexible scheduling. $130 per session or $400 for a 4-session package.",
                       provider: {
                         "@type": "Person",
                         name: "Sam Morris",
@@ -343,7 +345,7 @@ export default function RootLayout({
                   name: "How much do private pickleball lessons cost in Montgomery County?",
                   acceptedAnswer: {
                     "@type": "Answer",
-                    text: "Sam Morris offers private 1-on-1 pickleball lessons with video analysis and custom practice plans. Skill evaluations start at $15 per person (free for Dill Dinkers members). Contact Sam at 301-325-4731 or visit sammorrispb.com/contact for current lesson rates and availability.",
+                    text: "Sam Morris offers private 1-on-1 pickleball lessons with video analysis and custom practice plans. Lessons are $130 per session or $400 for a 4-session package ($100/session). Skill evaluations start at $15 per person (free for Dill Dinkers members). Visit sammorrispb.com/programs to book or contact Sam at 301-325-4731.",
                   },
                 },
                 {

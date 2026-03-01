@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
-import { LESSON_PAYMENT_LINK } from "@/lib/coaching";
+import { SINGLE_LESSON_LINK, FOUR_PACK_LINK } from "@/lib/coaching";
 
 export const metadata: Metadata = {
   title: "Pickleball Programs & Lessons — Youth Academy, Private Coaching, Family Sessions",
@@ -173,22 +173,56 @@ export default function ProgramsPage() {
                 </li>
               ))}
             </ul>
-            <div className="bg-navy glow-border rounded-xl p-6 flex flex-col justify-center">
-              <div className="font-mono text-accent-lime text-sm uppercase tracking-wider mb-3">
-                Why Private Lessons?
+            <div className="flex flex-col gap-4">
+              {/* Single Lesson */}
+              <div className="bg-navy glow-border rounded-xl p-6 flex flex-col">
+                <div className="font-heading font-bold text-lg text-text-primary mb-1">
+                  Single Lesson
+                </div>
+                <p className="text-text-muted text-sm mb-4">
+                  60-minute 1-on-1 session with video analysis and a custom practice plan.
+                </p>
+                <div className="font-heading font-black text-3xl text-text-primary mb-4">
+                  $130
+                </div>
+                <a
+                  href={SINGLE_LESSON_LINK}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-block text-center text-white font-heading font-semibold px-6 py-3 rounded-lg btn-gradient"
+                >
+                  Book a Lesson
+                </a>
               </div>
-              <p className="text-text-muted leading-relaxed mb-4">
-                The fastest way to improve. Focused attention on your game with
-                real-time feedback and a plan built around your goals.
-              </p>
-              <a
-                href={LESSON_PAYMENT_LINK}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-accent-blue hover:text-accent-purple transition-colors font-semibold"
-              >
-                Book a Lesson &rarr;
-              </a>
+
+              {/* 4-Hour Package */}
+              <div className="bg-navy glow-border rounded-xl p-6 flex flex-col">
+                <div className="flex items-center gap-3 mb-1">
+                  <div className="font-heading font-bold text-lg text-text-primary">
+                    4-Hour Package
+                  </div>
+                  <span className="text-accent-lime text-xs font-bold uppercase tracking-wider bg-accent-lime/10 px-2 py-0.5 rounded">
+                    Save $120
+                  </span>
+                </div>
+                <p className="text-text-muted text-sm mb-1">
+                  Four 60-minute sessions — commit to real improvement.
+                </p>
+                <p className="text-accent-lime text-sm font-semibold mb-4">
+                  $100 per session
+                </p>
+                <div className="font-heading font-black text-3xl text-text-primary mb-4">
+                  $400
+                </div>
+                <a
+                  href={FOUR_PACK_LINK}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-block text-center text-white font-heading font-semibold px-6 py-3 rounded-lg btn-gradient"
+                >
+                  Buy Package
+                </a>
+              </div>
             </div>
           </div>
         </div>
