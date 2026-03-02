@@ -2,6 +2,7 @@ import { Client } from "@notionhq/client";
 import { createClient } from "@supabase/supabase-js";
 import { NextResponse } from "next/server";
 import { generateEmailDraft } from "@/lib/emailTemplates";
+import { sendEmail, notifySam } from "@/lib/email";
 
 async function checkLndMembership(email: string): Promise<boolean> {
   const url = process.env.LND_SUPABASE_URL;
@@ -79,23 +80,67 @@ export async function POST(request: Request) {
 
     const notion = new Client({ auth: apiKey });
 
-    await notion.pages.create({
+    const leadPage = await notion.pages.create({
       parent: { data_source_id: dbId },
       properties: {
         Name: { title: [{ text: { content: name } }] },
         Email: { email: email },
         Interest: { select: { name: interest } },
         Status: { select: { name: "New" } },
+        Source: { select: { name: "Website" } },
         "Date Submitted": { date: { start: new Date().toISOString() } },
       },
     });
 
+    // Check L&D membership once — used by draft and welcome email
+    let isLndMember = false;
+    try {
+      isLndMember = await checkLndMembership(email);
+    } catch {
+      console.error("L&D membership check failed, defaulting to false");
+    }
+
     // Generate email draft — isolated so lead creation never fails
     try {
-      const isLndMember = await checkLndMembership(email);
       await createEmailDraft(notion, name, email, interest, isLndMember);
     } catch (draftError) {
       console.error("Email draft creation failed (lead still saved):", draftError);
+    }
+
+    // Notify Sam about the new lead
+    try {
+      await notifySam(
+        `New Lead: ${name} — ${interest}`,
+        `Name: ${name}\nEmail: ${email}\nInterest: ${interest}\nL&D Member: ${isLndMember ? "Yes" : "No"}\nSubmitted: ${new Date().toLocaleString("en-US", { timeZone: "America/New_York" })}`
+      );
+    } catch (notifyError) {
+      console.error("Lead notification email failed:", notifyError);
+    }
+
+    // Send welcome email to the lead
+    try {
+      const emailBody = generateEmailDraft(interest, name, isLndMember);
+      const result = await sendEmail(
+        email,
+        `Thanks for reaching out, ${name}!`,
+        emailBody
+      );
+
+      // Mark as sent in Notion
+      if (result.success && leadPage) {
+        try {
+          await notion.pages.update({
+            page_id: leadPage.id,
+            properties: {
+              "Email Sent": { checkbox: true },
+            },
+          });
+        } catch (updateError) {
+          console.error("Failed to mark Email Sent in Notion:", updateError);
+        }
+      }
+    } catch (emailError) {
+      console.error("Welcome email failed:", emailError);
     }
 
     return NextResponse.json({ success: true });

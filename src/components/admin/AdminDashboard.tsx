@@ -8,6 +8,8 @@ interface Lead {
   interest: string;
   status: string;
   dateSubmitted: string;
+  source: string;
+  emailSent: boolean;
 }
 
 interface LeadsData {
@@ -239,8 +241,14 @@ export function AdminDashboard() {
                 <th className="pb-3 pr-4 text-text-muted font-mono text-xs uppercase tracking-wider">
                   Interest
                 </th>
-                <th className="pb-3 text-text-muted font-mono text-xs uppercase tracking-wider">
+                <th className="pb-3 pr-4 text-text-muted font-mono text-xs uppercase tracking-wider">
                   Status
+                </th>
+                <th className="pb-3 pr-4 text-text-muted font-mono text-xs uppercase tracking-wider">
+                  Source
+                </th>
+                <th className="pb-3 text-text-muted font-mono text-xs uppercase tracking-wider">
+                  Sent
                 </th>
               </tr>
             </thead>
@@ -266,16 +274,38 @@ export function AdminDashboard() {
                       {lead.interest || "—"}
                     </span>
                   </td>
-                  <td className="py-3 whitespace-nowrap">
+                  <td className="py-3 pr-4 whitespace-nowrap">
                     <span
                       className={`text-xs font-medium px-2 py-0.5 rounded-full ${
                         lead.status === "New"
                           ? "bg-accent-lime/10 text-accent-lime"
-                          : "bg-white/5 text-text-muted"
+                          : lead.status === "Paid"
+                            ? "bg-accent-purple/10 text-accent-purple"
+                            : "bg-white/5 text-text-muted"
                       }`}
                     >
                       {lead.status || "—"}
                     </span>
+                  </td>
+                  <td className="py-3 pr-4 whitespace-nowrap">
+                    <span
+                      className={`text-xs font-medium px-2 py-0.5 rounded-full ${
+                        lead.source === "Stripe"
+                          ? "bg-accent-lime/10 text-accent-lime"
+                          : "bg-accent-blue/10 text-accent-blue"
+                      }`}
+                    >
+                      {lead.source || "Website"}
+                    </span>
+                  </td>
+                  <td className="py-3 whitespace-nowrap text-center">
+                    {lead.emailSent ? (
+                      <span className="text-accent-lime" title="Email sent">
+                        &#10003;
+                      </span>
+                    ) : (
+                      <span className="text-text-muted">—</span>
+                    )}
                   </td>
                 </tr>
               ))}

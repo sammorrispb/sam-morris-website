@@ -64,7 +64,10 @@ export async function GET(request: Request) {
         recentCount++;
       }
 
-      return { name, email, interest, status, dateSubmitted };
+      const source = props.Source?.select?.name ?? "Website";
+      const emailSent = props["Email Sent"]?.checkbox ?? false;
+
+      return { name, email, interest, status, dateSubmitted, source, emailSent };
     });
 
     const interestBreakdown = Object.entries(interestCounts)
