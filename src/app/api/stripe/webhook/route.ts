@@ -1,7 +1,9 @@
 import { Client } from "@notionhq/client";
+import { createClient } from "@supabase/supabase-js";
 import { NextResponse } from "next/server";
 import Stripe from "stripe";
-import { notifySam } from "@/lib/email";
+import { generateEmailDraft } from "@/lib/emailTemplates";
+import { sendEmail, notifySam } from "@/lib/email";
 
 export const dynamic = "force-dynamic";
 
@@ -15,6 +17,40 @@ function mapProduct(amountCents: number): string {
   if (amountCents === 13000) return "Single Lesson";
   if (amountCents === 40000) return "4-Hour Package";
   return `$${(amountCents / 100).toFixed(2)} purchase`;
+}
+
+async function checkLndMembership(email: string): Promise<boolean> {
+  const url = process.env.LND_SUPABASE_URL;
+  const key = process.env.LND_SUPABASE_SERVICE_KEY;
+  if (!url || !key || !email) return false;
+
+  const supabase = createClient(url, key, {
+    auth: { autoRefreshToken: false, persistSession: false },
+  });
+
+  const { data, error } = await supabase.auth.admin.listUsers({ perPage: 1000 });
+  if (error || !data?.users) return false;
+
+  return data.users.some(
+    (u) => u.email?.toLowerCase() === email.toLowerCase()
+  );
+}
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+async function hasDuplicatePaidLead(notion: Client, dbId: string, email: string): Promise<boolean> {
+  const oneHourAgo = new Date(Date.now() - 60 * 60 * 1000).toISOString();
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const response: any = await notion.dataSources.query({
+    data_source_id: dbId,
+    filter: {
+      and: [
+        { property: "Email", email: { equals: email } },
+        { property: "Status", select: { equals: "Paid" } },
+        { property: "Date Submitted", date: { after: oneHourAgo } },
+      ],
+    },
+  });
+  return (response.results?.length ?? 0) > 0;
 }
 
 export async function POST(request: Request) {
@@ -50,13 +86,21 @@ export async function POST(request: Request) {
   const amount = session.amount_total ?? 0;
   const product = mapProduct(amount);
 
-  // Create Notion lead
+  // Create Notion lead (with idempotency check)
   try {
     const apiKey = process.env.NOTION_API_KEY?.trim();
     const dbId = process.env.NOTION_LEADS_DB_ID?.trim();
 
-    if (apiKey && dbId) {
+    if (apiKey && dbId && email) {
       const notion = new Client({ auth: apiKey });
+
+      // Skip if a duplicate Paid lead already exists for this email within the last hour
+      const isDuplicate = await hasDuplicatePaidLead(notion, dbId, email);
+      if (isDuplicate) {
+        console.log("Stripe webhook: duplicate Paid lead detected, skipping:", email);
+        return NextResponse.json({ received: true });
+      }
+
       await notion.pages.create({
         parent: { data_source_id: dbId },
         properties: {
@@ -81,6 +125,23 @@ export async function POST(request: Request) {
     );
   } catch (notifyError) {
     console.error("Stripe webhook: notification failed:", notifyError);
+  }
+
+  // Send welcome email to buyer
+  if (email) {
+    try {
+      let isLndMember = false;
+      try {
+        isLndMember = await checkLndMembership(email);
+      } catch {
+        console.error("Stripe webhook: L&D membership check failed");
+      }
+
+      const emailBody = generateEmailDraft("Coaching", name, isLndMember);
+      await sendEmail(email, `Thanks for booking, ${name}!`, emailBody);
+    } catch (emailError) {
+      console.error("Stripe webhook: welcome email failed:", emailError);
+    }
   }
 
   // Always return 200 to prevent Stripe retries

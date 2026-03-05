@@ -151,19 +151,102 @@ export const PROGRAM_CATEGORIES: ProgramCategory[] = [
 
 // ─── Growth pathway ───
 
+export interface PathwayLink {
+  label: string;
+  /** URL or anchor (e.g. "#first-visit", external URL, or widget key like "openPlay") */
+  href: string;
+  external?: boolean;
+}
+
 export interface PathwayStep {
   number: number;
   title: string;
   description: string;
+  links: PathwayLink[];
 }
 
 export const GROWTH_PATHWAY: PathwayStep[] = [
-  { number: 1, title: "Try It Out", description: "Drop into Open Play or a beginner clinic \u2014 no commitment needed." },
-  { number: 2, title: "Get Social", description: "Join a social event or the WhatsApp group to meet the community." },
-  { number: 3, title: "Build Skills", description: "Take clinics, private lessons, or join Next Gen Academy." },
-  { number: 4, title: "Compete", description: "Enter leagues and tournaments when you\u2019re ready to test yourself." },
-  { number: 5, title: "Lead", description: "Become an ambassador, organizer, or coach in the community." },
+  {
+    number: 1,
+    title: "Try It Out",
+    description: "Drop into Open Play or a beginner clinic — no commitment needed.",
+    links: [
+      { label: "Browse Open Play", href: "openPlay", external: true },
+      { label: "Your First Visit", href: "#first-visit" },
+    ],
+  },
+  {
+    number: 2,
+    title: "Get Social",
+    description: "Join a social event or the WhatsApp group to meet the community.",
+    links: [
+      { label: "Social Events", href: "social", external: true },
+      { label: "WhatsApp Group", href: "https://chat.whatsapp.com/HMjGamk0Mtx662DbtGmDwe", external: true },
+    ],
+  },
+  {
+    number: 3,
+    title: "Build Skills",
+    description: "Take clinics, private lessons, or join Next Gen Academy.",
+    links: [
+      { label: "Clinics & Classes", href: "clinics", external: true },
+      { label: "Private Lessons", href: "/programs#coaching" },
+    ],
+  },
+  {
+    number: 4,
+    title: "Compete",
+    description: "Enter leagues and tournaments when you're ready to test yourself.",
+    links: [
+      { label: "Leagues", href: "leagues", external: true },
+      { label: "Competitive Events", href: "competitive", external: true },
+    ],
+  },
+  {
+    number: 5,
+    title: "Lead",
+    description: "Become an ambassador, organizer, or coach in the community.",
+    links: [
+      { label: "Get in Touch", href: "/contact" },
+    ],
+  },
 ];
+
+// ─── First Visit Guide ───
+
+export interface FirstVisitItem {
+  emoji: string;
+  title: string;
+  description: string;
+}
+
+export const FIRST_VISIT: FirstVisitItem[] = [
+  {
+    emoji: "\u{1F44B}",
+    title: "What to expect",
+    description: "Check in at the front desk, grab a paddle if you need one, and jump into a game. Staff will help you find the right court and group for your level.",
+  },
+  {
+    emoji: "\u{1F45F}",
+    title: "What to bring",
+    description: "Athletic shoes (clean, non-marking soles) and water. Paddles are available to borrow if you don't have one yet.",
+  },
+  {
+    emoji: "\u{1F4B5}",
+    title: "What it costs",
+    description: "Open Play starts at $15 per session for non-members. Memberships start at $99/month with unlimited play and discounts on programs.",
+  },
+  {
+    emoji: "\u{1F31F}",
+    title: "Recommended first step",
+    description: "Sign up for the next Open Play session — it's the easiest way to start. No experience needed, all levels welcome.",
+  },
+];
+
+export const FIRST_VISIT_TESTIMONIAL = {
+  quote: "I showed up knowing nothing about pickleball and left with three new friends and a weekly game. The community here is unreal.",
+  author: "New player, Rockville",
+};
 
 // ─── Benefits ───
 

@@ -26,6 +26,18 @@ export const CONTACT = {
   phone: "301-325-4731",
 } as const;
 
+export const ANNOUNCEMENT: {
+  id: string;
+  message: string;
+  href?: string;
+  linkText?: string;
+} | null = {
+  id: "spring-2026",
+  message: "Spring 2026 sessions are open for registration!",
+  href: "/locations#programs",
+  linkText: "View Schedule",
+};
+
 export const INTEREST_OPTIONS = [
   "Coaching",
   "Youth Programs",

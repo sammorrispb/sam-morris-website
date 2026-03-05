@@ -290,6 +290,27 @@ export default function ProgramsPage() {
         </div>
       </section>
 
+      {/* Schedule CTA */}
+      <section className="py-20 px-6 pb-0">
+        <div className="mx-auto max-w-2xl">
+          <div className="bg-navy-light glow-border rounded-xl p-10 text-center">
+            <p className="font-heading font-bold text-xl md:text-2xl mb-3">
+              Find a Session That Fits
+            </p>
+            <p className="text-text-muted mb-6">
+              Browse class times by location and register &mdash; drop in
+              anytime or commit to the full season.
+            </p>
+            <Link
+              href="/locations#programs"
+              className="inline-block text-white font-heading font-semibold px-8 py-3 rounded-lg btn-gradient"
+            >
+              View Schedule &amp; Register
+            </Link>
+          </div>
+        </div>
+      </section>
+
       {/* Bottom CTA */}
       <section className="py-20 px-6">
         <div className="mx-auto max-w-2xl">

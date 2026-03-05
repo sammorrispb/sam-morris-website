@@ -24,15 +24,27 @@ export async function GET(request: Request) {
     const notion = new Client({ auth: apiKey });
     const twoDaysAgo = new Date();
     twoDaysAgo.setDate(twoDaysAgo.getDate() - 2);
+    const oneDayAgo = new Date();
+    oneDayAgo.setDate(oneDayAgo.getDate() - 1);
 
-    // Query leads that are still "New" and older than 2 days
+    // Query leads: "New" older than 2 days OR "Paid" older than 1 day
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const response: any = await notion.dataSources.query({
       data_source_id: dbId,
       filter: {
-        and: [
-          { property: "Status", select: { equals: "New" } },
-          { property: "Date Submitted", date: { before: twoDaysAgo.toISOString() } },
+        or: [
+          {
+            and: [
+              { property: "Status", select: { equals: "New" } },
+              { property: "Date Submitted", date: { before: twoDaysAgo.toISOString() } },
+            ],
+          },
+          {
+            and: [
+              { property: "Status", select: { equals: "Paid" } },
+              { property: "Date Submitted", date: { before: oneDayAgo.toISOString() } },
+            ],
+          },
         ],
       },
       sorts: [{ property: "Date Submitted", direction: "ascending" }],
@@ -51,16 +63,17 @@ export async function GET(request: Request) {
       const name = props.Name?.title?.[0]?.plain_text ?? "Unknown";
       const email = props.Email?.email ?? "—";
       const interest = props.Interest?.select?.name ?? "—";
+      const leadStatus = props.Status?.select?.name ?? "—";
       const submitted = props["Date Submitted"]?.date?.start ?? "";
       const daysAgo = submitted
         ? Math.floor((Date.now() - new Date(submitted).getTime()) / 86400000)
         : "?";
-      return `- ${name} (${email}) — ${interest} — ${daysAgo} days ago`;
+      return `- [${leadStatus}] ${name} (${email}) — ${interest} — ${daysAgo} days ago`;
     });
 
     await notifySam(
       `Follow-Up Reminder: ${staleLeads.length} stale lead${staleLeads.length > 1 ? "s" : ""}`,
-      `The following leads are still marked "New" and haven't been contacted:\n\n${lines.join("\n")}\n\nReview them at: https://www.sammorrispb.com/admin`
+      `The following leads haven't been contacted yet:\n\n${lines.join("\n")}\n\nReview them at: https://www.sammorrispb.com/admin`
     );
 
     return NextResponse.json({ message: "Reminder sent", count: staleLeads.length });

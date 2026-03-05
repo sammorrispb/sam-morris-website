@@ -3,13 +3,17 @@ import Link from "next/link";
 import Image from "next/image";
 import { AnimateOnScroll } from "@/components/AnimateOnScroll";
 import { LocationProgramsGrid } from "@/components/LocationProgramsGrid";
+import { QuickStartSelector } from "@/components/QuickStartSelector";
+import { StickyProgramsPill } from "@/components/StickyProgramsPill";
+import { GrowthPathway } from "@/components/GrowthPathway";
 import {
   LOCATIONS,
   LOCATION_ORDER,
   WIDGET_URLS,
   BENEFITS,
-  GROWTH_PATHWAY,
   COMMUNITY_LINKS,
+  FIRST_VISIT,
+  FIRST_VISIT_TESTIMONIAL,
 } from "@/lib/locations";
 
 export const metadata: Metadata = {
@@ -21,8 +25,13 @@ export const metadata: Metadata = {
 export default function LocationsPage() {
   return (
     <>
+      <StickyProgramsPill />
+
       {/* ─── Section 1: Hero ─── */}
-      <section className="relative py-20 md:py-28 px-6 bg-[radial-gradient(ellipse_at_center,rgba(59,130,246,0.08),transparent_70%)]">
+      <section
+        id="locations-hero"
+        className="relative py-20 md:py-28 px-6 bg-[radial-gradient(ellipse_at_center,rgba(59,130,246,0.08),transparent_70%)]"
+      >
         <div className="mx-auto max-w-6xl grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
           <div className="text-center md:text-left">
             <h1 className="font-heading font-black text-4xl md:text-6xl leading-tight mb-6">
@@ -63,7 +72,17 @@ export default function LocationsPage() {
         </div>
       </section>
 
-      {/* ─── Section 2: Benefits ─── */}
+      {/* ─── Section 2: Quick Start ─── */}
+      <section className="py-12 px-6 border-b border-white/5">
+        <div className="mx-auto max-w-4xl">
+          <h2 className="font-heading font-bold text-xl md:text-2xl mb-6 text-center">
+            What brings you here?
+          </h2>
+          <QuickStartSelector />
+        </div>
+      </section>
+
+      {/* ─── Section 3: Benefits ─── */}
       <section className="bg-navy-light py-20 px-6">
         <div className="mx-auto max-w-6xl">
           <AnimateOnScroll>
@@ -98,8 +117,68 @@ export default function LocationsPage() {
         </div>
       </section>
 
-      {/* ─── Section 3: Location Cards ─── */}
-      <section className="py-20 px-6">
+      {/* ─── Section 4: First Visit Guide ─── */}
+      <section id="first-visit" className="py-20 px-6 scroll-mt-20">
+        <div className="mx-auto max-w-4xl">
+          <AnimateOnScroll>
+            <div className="text-center mb-12">
+              <h2 className="font-heading font-bold text-3xl md:text-4xl mb-4">
+                Your First Visit
+              </h2>
+              <p className="text-text-muted max-w-2xl mx-auto">
+                Never been to Dill Dinkers? Here&rsquo;s everything you need to know.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-10">
+              {FIRST_VISIT.map((item) => (
+                <div
+                  key={item.title}
+                  className="bg-navy-light glow-border rounded-xl p-6"
+                >
+                  <span className="text-2xl mb-3 block" role="img" aria-hidden="true">
+                    {item.emoji}
+                  </span>
+                  <h3 className="font-heading font-semibold text-lg mb-2">
+                    {item.title}
+                  </h3>
+                  <p className="text-text-muted text-sm leading-relaxed">
+                    {item.description}
+                  </p>
+                </div>
+              ))}
+            </div>
+
+            {/* Testimonial */}
+            <div className="bg-navy-light glow-border rounded-xl p-8 text-center max-w-2xl mx-auto mb-10">
+              <blockquote className="text-text-primary text-lg italic leading-relaxed mb-3">
+                &ldquo;{FIRST_VISIT_TESTIMONIAL.quote}&rdquo;
+              </blockquote>
+              <cite className="text-text-muted text-sm not-italic">
+                &mdash; {FIRST_VISIT_TESTIMONIAL.author}
+              </cite>
+            </div>
+
+            {/* CTA */}
+            <div className="text-center">
+              <a
+                href={WIDGET_URLS.rockville.openPlay}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-block text-white font-heading font-semibold px-8 py-3 rounded-lg btn-gradient"
+              >
+                Sign Up for Open Play
+              </a>
+              <p className="text-text-muted text-sm mt-3">
+                No experience needed. All levels welcome.
+              </p>
+            </div>
+          </AnimateOnScroll>
+        </div>
+      </section>
+
+      {/* ─── Section 5: Location Cards ─── */}
+      <section className="bg-navy-light py-20 px-6">
         <div className="mx-auto max-w-5xl">
           <h2 className="font-heading font-bold text-3xl md:text-4xl mb-4 text-center">
             Two Locations, One Community
@@ -115,7 +194,7 @@ export default function LocationsPage() {
               return (
                 <div
                   key={id}
-                  className="bg-navy-light glow-border rounded-xl p-8"
+                  className="bg-navy glow-border rounded-xl p-8"
                 >
                   <h3 className="font-heading font-bold text-xl mb-4">
                     {loc.name}
@@ -166,8 +245,8 @@ export default function LocationsPage() {
         </div>
       </section>
 
-      {/* ─── Section 4: Programs Grid ─── */}
-      <section id="programs" className="bg-navy-light py-20 px-6 scroll-mt-20">
+      {/* ─── Section 6: Programs Grid ─── */}
+      <section id="programs" className="py-20 px-6 scroll-mt-20">
         <div className="mx-auto max-w-6xl">
           <AnimateOnScroll>
             <div className="text-center mb-10">
@@ -183,87 +262,18 @@ export default function LocationsPage() {
         </div>
       </section>
 
-      {/* ─── Section 5: Growth Pathway ─── */}
-      <section className="py-20 px-6">
+      {/* ─── Section 7: Growth Pathway (interactive) ─── */}
+      <section className="bg-navy-light py-20 px-6">
         <div className="mx-auto max-w-4xl">
           <h2 className="font-heading font-bold text-3xl md:text-4xl mb-12 text-center">
             Your Pathway to Growth
           </h2>
-
-          {/* Desktop: horizontal stepper */}
-          <div className="hidden md:block">
-            <div className="relative flex justify-between items-start">
-              {/* Connector line */}
-              <div
-                className="absolute top-5 left-5 right-5 h-0.5"
-                style={{
-                  background:
-                    "linear-gradient(90deg, #8BC751, #4DACD0, #F47920)",
-                }}
-              />
-
-              {GROWTH_PATHWAY.map((step) => (
-                <div
-                  key={step.number}
-                  className="relative flex flex-col items-center text-center"
-                  style={{ width: `${100 / GROWTH_PATHWAY.length}%` }}
-                >
-                  <div
-                    className="w-10 h-10 rounded-full bg-navy-light border-2 flex items-center justify-center font-heading font-bold text-sm z-10"
-                    style={{
-                      borderColor: "#4DACD0",
-                      boxShadow:
-                        "0 0 12px rgba(77, 172, 208, 0.4), 0 0 24px rgba(77, 172, 208, 0.2)",
-                    }}
-                  >
-                    {step.number}
-                  </div>
-                  <h3 className="font-heading font-semibold mt-4 mb-1 text-sm">
-                    {step.title}
-                  </h3>
-                  <p className="text-text-muted text-xs leading-relaxed px-2">
-                    {step.description}
-                  </p>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Mobile: vertical timeline (About page pattern) */}
-          <div className="md:hidden relative">
-            <div
-              className="absolute left-[5px] top-0 bottom-0 w-0.5"
-              style={{ backgroundColor: "rgba(77, 172, 208, 0.2)" }}
-            />
-            <div className="flex flex-col gap-8">
-              {GROWTH_PATHWAY.map((step) => (
-                <div key={step.number} className="relative pl-10">
-                  <div
-                    className="absolute left-0 top-1.5 w-3 h-3 rounded-full"
-                    style={{
-                      backgroundColor: "#4DACD0",
-                      boxShadow:
-                        "0 0 8px rgba(77, 172, 208, 0.6), 0 0 20px rgba(77, 172, 208, 0.3)",
-                    }}
-                  />
-                  <div className="font-mono text-sm mb-1" style={{ color: "#4DACD0" }}>
-                    Step {step.number}
-                  </div>
-                  <h3 className="font-heading font-bold text-lg mb-1">
-                    {step.title}
-                  </h3>
-                  <p className="text-text-muted text-sm leading-relaxed">
-                    {step.description}
-                  </p>
-                </div>
-              ))}
-            </div>
-          </div>
+          <GrowthPathway />
         </div>
       </section>
 
-      {/* ─── Section 6: Community ─── */}
-      <section className="bg-navy-light py-20 px-6">
+      {/* ─── Section 8: Community ─── */}
+      <section className="py-20 px-6">
         <div className="mx-auto max-w-4xl">
           <AnimateOnScroll>
             <h2 className="font-heading font-bold text-3xl md:text-4xl mb-8 text-center">
@@ -276,7 +286,7 @@ export default function LocationsPage() {
                   href={link.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="bg-navy glow-border rounded-xl p-6 text-center hover:scale-[1.02] transition-transform"
+                  className="bg-navy-light glow-border rounded-xl p-6 text-center hover:scale-[1.02] transition-transform"
                 >
                   <div
                     className="font-mono text-sm uppercase tracking-wider mb-2"
@@ -297,10 +307,10 @@ export default function LocationsPage() {
         </div>
       </section>
 
-      {/* ─── Section 7: Bottom CTA ─── */}
-      <section className="py-20 px-6">
+      {/* ─── Section 9: Bottom CTA ─── */}
+      <section className="bg-navy-light py-20 px-6">
         <div className="mx-auto max-w-2xl">
-          <div className="bg-navy-light glow-border rounded-xl p-10 text-center">
+          <div className="bg-navy glow-border rounded-xl p-10 text-center">
             <p className="font-heading font-bold text-xl md:text-2xl mb-6">
               Not sure where to start?
             </p>

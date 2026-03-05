@@ -68,6 +68,14 @@ export async function POST(request: Request) {
       );
     }
 
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      return NextResponse.json(
+        { error: "Please provide a valid email address" },
+        { status: 400 }
+      );
+    }
+
     // Only connect to Notion if credentials are configured
     const apiKey = process.env.NOTION_API_KEY?.trim();
     const dbId = process.env.NOTION_LEADS_DB_ID?.trim();
