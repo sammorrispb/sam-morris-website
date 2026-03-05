@@ -245,16 +245,51 @@ export default function LocationsPage() {
         </div>
       </section>
 
-      {/* ─── Section 6: Programs Grid ─── */}
+      {/* ─── Section 6: Browse Programs ─── */}
       <section id="programs" className="py-20 px-6 scroll-mt-20">
         <div className="mx-auto max-w-6xl">
           <AnimateOnScroll>
             <div className="text-center mb-10">
               <h2 className="font-heading font-bold text-3xl md:text-4xl mb-4">
-                Programs &amp; Events
+                Browse Programs
               </h2>
               <p className="text-text-muted max-w-2xl mx-auto">
-                Select your location to browse and register.
+                Detailed schedules, registration links, and everything you need to get started.
+              </p>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+              {[
+                { href: "/programs/leagues", title: "Leagues", desc: "6-week seasons with DUPR brackets and playoffs" },
+                { href: "/programs/open-play", title: "Open Play", desc: "Drop-in sessions for all skill levels" },
+                { href: "/programs/coached-open-play", title: "Coached Open Play", desc: "Play real games with real-time coaching" },
+                { href: "/programs/tournaments", title: "Tournaments", desc: "Link & Dink series with medals and raffles" },
+                { href: "/programs/coaching", title: "Coaching & Clinics", desc: "Private lessons, group clinics, and coach profiles" },
+                { href: "/programs/youth", title: "Youth Programs", desc: "Next Gen Academy and summer camp for ages 5\u201316" },
+              ].map((prog) => (
+                <Link
+                  key={prog.href}
+                  href={prog.href}
+                  className="bg-navy glow-border rounded-xl p-6 card-hover block"
+                >
+                  <h3 className="font-heading font-semibold text-lg mb-2 text-text-primary">
+                    {prog.title}
+                  </h3>
+                  <p className="text-text-muted text-sm leading-relaxed">
+                    {prog.desc}
+                  </p>
+                  <span className="text-accent-blue text-sm font-semibold mt-3 inline-block">
+                    View Details &rarr;
+                  </span>
+                </Link>
+              ))}
+            </div>
+
+            <div className="text-center mb-10">
+              <h3 className="font-heading font-bold text-xl md:text-2xl mb-4">
+                Quick Register by Location
+              </h3>
+              <p className="text-text-muted max-w-2xl mx-auto mb-6">
+                Or jump straight to CourtReserve to browse and register.
               </p>
             </div>
             <LocationProgramsGrid />
