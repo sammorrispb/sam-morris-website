@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { AnimateOnScroll } from "@/components/AnimateOnScroll";
+import { PageSectionNav } from "@/components/PageSectionNav";
+import { BackToTop } from "@/components/BackToTop";
 import { WIDGET_URLS } from "@/lib/locations";
 
 export const metadata: Metadata = {
@@ -58,9 +60,20 @@ function ScheduleTable({ rows }: { rows: typeof ROCKVILLE_SCHEDULE }) {
   );
 }
 
+const SECTIONS = [
+  { id: "rockville", label: "Rockville" },
+  { id: "north-bethesda", label: "North Bethesda" },
+  { id: "format-rules", label: "Format & Rules" },
+  { id: "dupr", label: "DUPR" },
+  { id: "sub-rules", label: "Sub Rules" },
+  { id: "partner-finder", label: "Partner Finder" },
+];
+
 export default function LeaguesPage() {
   return (
     <div className="page-dill-dinkers">
+      <PageSectionNav sections={SECTIONS} brandColor="#F47920" />
+      <BackToTop />
       {/* Hero */}
       <section className="relative py-20 md:py-28 px-6 hero-dill-dinkers">
         <div className="relative mx-auto max-w-4xl text-center">
@@ -78,7 +91,7 @@ export default function LeaguesPage() {
       </section>
 
       {/* Rockville Schedule */}
-      <section className="py-16 px-6">
+      <section id="rockville" className="py-16 px-6 scroll-mt-28">
         <div className="mx-auto max-w-4xl">
           <AnimateOnScroll>
             <h2 className="font-heading text-2xl md:text-3xl mb-6">
@@ -100,7 +113,7 @@ export default function LeaguesPage() {
       </section>
 
       {/* NB Schedule */}
-      <section className="py-16 px-6">
+      <section id="north-bethesda" className="py-16 px-6 scroll-mt-28">
         <div className="mx-auto max-w-4xl">
           <AnimateOnScroll>
             <div className="flex flex-col md:flex-row md:items-start gap-8">
@@ -153,7 +166,7 @@ export default function LeaguesPage() {
       </section>
 
       {/* Format & Rules */}
-      <section className="py-16 px-6">
+      <section id="format-rules" className="py-16 px-6 scroll-mt-28">
         <div className="mx-auto max-w-4xl">
           <AnimateOnScroll>
             <h2 className="font-heading text-2xl md:text-3xl mb-8">
@@ -186,7 +199,7 @@ export default function LeaguesPage() {
       </section>
 
       {/* DUPR */}
-      <section className="py-16 px-6">
+      <section id="dupr" className="py-16 px-6 scroll-mt-28">
         <div className="mx-auto max-w-4xl">
           <AnimateOnScroll>
             <h2 className="font-heading text-2xl md:text-3xl mb-6">
@@ -206,7 +219,7 @@ export default function LeaguesPage() {
       </section>
 
       {/* Sub Rules */}
-      <section className="py-16 px-6">
+      <section id="sub-rules" className="py-16 px-6 scroll-mt-28">
         <div className="mx-auto max-w-4xl">
           <AnimateOnScroll>
             <h2 className="font-heading text-2xl md:text-3xl mb-6">
@@ -227,7 +240,7 @@ export default function LeaguesPage() {
       </section>
 
       {/* Partner Finder */}
-      <section className="py-16 px-6">
+      <section id="partner-finder" className="py-16 px-6 scroll-mt-28">
         <div className="mx-auto max-w-3xl">
           <div className="card-dd p-8 text-center">
             <h2 className="font-heading font-bold text-xl mb-3">

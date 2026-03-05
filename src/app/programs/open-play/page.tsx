@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { AnimateOnScroll } from "@/components/AnimateOnScroll";
+import { PageSectionNav } from "@/components/PageSectionNav";
+import { BackToTop } from "@/components/BackToTop";
 import { WIDGET_URLS } from "@/lib/locations";
 
 export const metadata: Metadata = {
@@ -32,9 +34,19 @@ const ETIQUETTE = [
   "Respect the facility \u2014 keep courts clean and follow staff instructions",
 ];
 
+const SECTIONS = [
+  { id: "locations", label: "Locations" },
+  { id: "how-it-works", label: "How It Works" },
+  { id: "skill-levels", label: "Skill Levels" },
+  { id: "etiquette", label: "Etiquette" },
+  { id: "register", label: "Register" },
+];
+
 export default function OpenPlayPage() {
   return (
     <div className="page-dill-dinkers">
+      <PageSectionNav sections={SECTIONS} brandColor="#8BC751" />
+      <BackToTop />
       {/* Hero */}
       <section className="relative py-20 md:py-28 px-6 hero-dill-dinkers-lime">
         <div className="relative mx-auto max-w-4xl text-center">
@@ -50,7 +62,7 @@ export default function OpenPlayPage() {
       </section>
 
       {/* Location Quick Links */}
-      <section className="py-12 px-6">
+      <section id="locations" className="py-12 px-6 scroll-mt-28">
         <div className="mx-auto max-w-4xl grid grid-cols-1 md:grid-cols-2 gap-6">
           {[
             { name: "Rockville", url: WIDGET_URLS.rockville.openPlay, address: "40C Southlawn Ct, Rockville, MD 20850", phone: "240-912-7860" },
@@ -74,7 +86,7 @@ export default function OpenPlayPage() {
       </section>
 
       {/* How It Works */}
-      <section className="py-16 px-6">
+      <section id="how-it-works" className="py-16 px-6 scroll-mt-28">
         <div className="mx-auto max-w-4xl">
           <AnimateOnScroll>
             <h2 className="font-heading text-2xl md:text-3xl mb-8">
@@ -115,7 +127,7 @@ export default function OpenPlayPage() {
       </section>
 
       {/* Skill Levels */}
-      <section className="py-16 px-6" style={{ borderTop: "2px solid rgba(139, 199, 81, 0.15)" }}>
+      <section id="skill-levels" className="py-16 px-6 scroll-mt-28" style={{ borderTop: "2px solid rgba(139, 199, 81, 0.15)" }}>
         <div className="mx-auto max-w-4xl">
           <AnimateOnScroll>
             <h2 className="font-heading text-2xl md:text-3xl mb-6">
@@ -149,7 +161,7 @@ export default function OpenPlayPage() {
       </section>
 
       {/* Etiquette */}
-      <section className="py-16 px-6">
+      <section id="etiquette" className="py-16 px-6 scroll-mt-28">
         <div className="mx-auto max-w-4xl">
           <AnimateOnScroll>
             <h2 className="font-heading text-2xl md:text-3xl mb-6">
@@ -170,7 +182,7 @@ export default function OpenPlayPage() {
       </section>
 
       {/* Registration CTA */}
-      <section className="py-16 px-6">
+      <section id="register" className="py-16 px-6 scroll-mt-28">
         <div className="mx-auto max-w-4xl">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {[

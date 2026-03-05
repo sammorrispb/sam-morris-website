@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { AnimateOnScroll } from "@/components/AnimateOnScroll";
+import { PageSectionNav } from "@/components/PageSectionNav";
+import { BackToTop } from "@/components/BackToTop";
 import { LOCATIONS, LOCATION_ORDER, WIDGET_URLS } from "@/lib/locations";
 
 export const metadata: Metadata = {
@@ -94,9 +96,19 @@ const DECISION_TREE = [
   },
 ];
 
+const SECTIONS = [
+  { id: "programs", label: "Programs" },
+  { id: "locations-parking", label: "Locations" },
+  { id: "first-time", label: "First Time" },
+  { id: "decision-tree", label: "Not Sure?" },
+  { id: "community", label: "Community" },
+];
+
 export default function ProgramHubPage() {
   return (
     <div className="page-dill-dinkers">
+      <PageSectionNav sections={SECTIONS} brandColor="#F47920" />
+      <BackToTop />
       {/* ─── Hero ─── */}
       <section className="relative py-20 md:py-28 px-6 hero-dill-dinkers overflow-hidden">
         <Image
@@ -123,7 +135,7 @@ export default function ProgramHubPage() {
       </section>
 
       {/* ─── Quick Menu ─── */}
-      <section className="py-16 px-6">
+      <section id="programs" className="py-16 px-6 scroll-mt-28">
         <div className="mx-auto max-w-6xl">
           <AnimateOnScroll>
             <h2 className="font-heading text-3xl md:text-4xl mb-4 text-center">
@@ -160,7 +172,7 @@ export default function ProgramHubPage() {
       </section>
 
       {/* ─── Locations ─── */}
-      <section className="py-16 px-6">
+      <section id="locations-parking" className="py-16 px-6 scroll-mt-28">
         <div className="mx-auto max-w-5xl">
           <AnimateOnScroll>
             <h2 className="font-heading text-3xl md:text-4xl mb-8 text-center">
@@ -222,7 +234,7 @@ export default function ProgramHubPage() {
       </section>
 
       {/* ─── First time callout ─── */}
-      <section className="py-12 px-6">
+      <section id="first-time" className="py-12 px-6 scroll-mt-28">
         <div className="mx-auto max-w-3xl">
           <div className="card-dd p-8 text-center">
             <p className="font-heading font-bold text-xl mb-3">
@@ -244,7 +256,7 @@ export default function ProgramHubPage() {
       </section>
 
       {/* ─── Not Sure Where to Start? ─── */}
-      <section className="py-16 px-6">
+      <section id="decision-tree" className="py-16 px-6 scroll-mt-28">
         <div className="mx-auto max-w-3xl">
           <AnimateOnScroll>
             <h2 className="font-heading text-3xl md:text-4xl mb-8 text-center">
@@ -283,7 +295,7 @@ export default function ProgramHubPage() {
       </section>
 
       {/* ─── Community ─── */}
-      <section className="py-12 px-6">
+      <section id="community" className="py-12 px-6 scroll-mt-28">
         <div className="mx-auto max-w-3xl text-center">
           <p className="text-text-muted text-sm">
             <a

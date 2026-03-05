@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { AnimateOnScroll } from "@/components/AnimateOnScroll";
+import { PageSectionNav } from "@/components/PageSectionNav";
+import { BackToTop } from "@/components/BackToTop";
 
 export const metadata: Metadata = {
   title: "Link & Dink Tournament Series — Rockville & North Bethesda",
@@ -123,9 +125,21 @@ function BracketSection({ brackets }: { brackets: typeof ROCKVILLE_BRACKETS }) {
   );
 }
 
+const SECTIONS = [
+  { id: "overview", label: "Overview" },
+  { id: "what-to-expect", label: "What to Expect" },
+  { id: "rockville-schedule", label: "Rockville" },
+  { id: "nb-schedule", label: "North Bethesda" },
+  { id: "player-guide", label: "Player Guide" },
+  { id: "sponsor", label: "Sponsor" },
+  { id: "join", label: "Join" },
+];
+
 export default function TournamentsPage() {
   return (
     <div className="page-link-and-dink">
+      <PageSectionNav sections={SECTIONS} brandColor="#F47920" />
+      <BackToTop />
       {/* Hero */}
       <section className="relative py-20 md:py-28 px-6 hero-link-and-dink">
         <div className="relative mx-auto max-w-4xl text-center">
@@ -148,7 +162,7 @@ export default function TournamentsPage() {
       </section>
 
       {/* Medal Points + How to Register */}
-      <section className="py-16 px-6">
+      <section id="overview" className="py-16 px-6 scroll-mt-28">
         <div className="mx-auto max-w-4xl">
           <AnimateOnScroll>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -182,7 +196,7 @@ export default function TournamentsPage() {
       </section>
 
       {/* What to Expect */}
-      <section className="py-16 px-6">
+      <section id="what-to-expect" className="py-16 px-6 scroll-mt-28">
         <div className="mx-auto max-w-4xl">
           <AnimateOnScroll>
             <h2 className="font-heading text-2xl md:text-3xl mb-6">What to Expect</h2>
@@ -204,7 +218,7 @@ export default function TournamentsPage() {
       </section>
 
       {/* Rockville Schedule */}
-      <section className="py-16 px-6">
+      <section id="rockville-schedule" className="py-16 px-6 scroll-mt-28">
         <div className="mx-auto max-w-4xl">
           <AnimateOnScroll>
             <h2 className="font-heading text-2xl md:text-3xl mb-2">Rockville</h2>
@@ -215,7 +229,7 @@ export default function TournamentsPage() {
       </section>
 
       {/* NB Schedule */}
-      <section className="py-16 px-6">
+      <section id="nb-schedule" className="py-16 px-6 scroll-mt-28">
         <div className="mx-auto max-w-4xl">
           <AnimateOnScroll>
             <h2 className="font-heading text-2xl md:text-3xl mb-2">North Bethesda</h2>
@@ -226,7 +240,7 @@ export default function TournamentsPage() {
       </section>
 
       {/* Player Guide + FAQ */}
-      <section className="py-16 px-6">
+      <section id="player-guide" className="py-16 px-6 scroll-mt-28">
         <div className="mx-auto max-w-4xl">
           <AnimateOnScroll>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -257,7 +271,7 @@ export default function TournamentsPage() {
       </section>
 
       {/* Sponsor + Community Photo */}
-      <section className="py-12 px-6">
+      <section id="sponsor" className="py-12 px-6 scroll-mt-28">
         <div className="mx-auto max-w-4xl">
           <div className="flex flex-col md:flex-row items-center gap-8">
             <div className="flex-1 text-center md:text-left">
@@ -283,7 +297,8 @@ export default function TournamentsPage() {
 
       {/* Full-width CTA Banner */}
       <section
-        className="py-12 px-6"
+        id="join"
+        className="py-12 px-6 scroll-mt-28"
         style={{
           background: "linear-gradient(135deg, rgba(244, 121, 32, 0.12), rgba(255, 207, 49, 0.08))",
         }}

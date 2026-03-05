@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { AnimateOnScroll } from "@/components/AnimateOnScroll";
+import { PageSectionNav } from "@/components/PageSectionNav";
+import { BackToTop } from "@/components/BackToTop";
 import { WIDGET_URLS } from "@/lib/locations";
 
 export const metadata: Metadata = {
@@ -83,9 +85,22 @@ function SessionTable({ sessions }: { sessions: typeof ROCKVILLE_SESSIONS }) {
   );
 }
 
+const SECTIONS = [
+  { id: "why-cop", label: "Why COP" },
+  { id: "quick-register", label: "Register" },
+  { id: "level-guide", label: "Level Guide" },
+  { id: "rockville-sessions", label: "Rockville" },
+  { id: "nb-sessions", label: "North Bethesda" },
+  { id: "pricing", label: "Pricing" },
+  { id: "session-details", label: "Details" },
+  { id: "how-to-purchase", label: "Packages" },
+];
+
 export default function CoachedOpenPlayPage() {
   return (
     <div className="page-sam-morris">
+      <PageSectionNav sections={SECTIONS} brandColor="#4DACD0" />
+      <BackToTop />
       {/* Hero */}
       <section className="relative py-20 md:py-28 px-6 hero-sam-morris">
         <div className="relative mx-auto max-w-5xl">
@@ -114,7 +129,7 @@ export default function CoachedOpenPlayPage() {
       </section>
 
       {/* Why COP */}
-      <section className="py-16 px-6">
+      <section id="why-cop" className="py-16 px-6 scroll-mt-28">
         <div className="mx-auto max-w-4xl">
           <AnimateOnScroll>
             <h2 className="font-heading text-2xl md:text-3xl mb-8">
@@ -133,7 +148,7 @@ export default function CoachedOpenPlayPage() {
       </section>
 
       {/* Quick Register */}
-      <section className="py-12 px-6">
+      <section id="quick-register" className="py-12 px-6 scroll-mt-28">
         <div className="mx-auto max-w-4xl grid grid-cols-1 md:grid-cols-2 gap-6">
           <div className="card-sm p-6 text-center">
             <h3 className="font-heading font-bold text-lg mb-4">Rockville</h3>
@@ -151,7 +166,7 @@ export default function CoachedOpenPlayPage() {
       </section>
 
       {/* Level Guide */}
-      <section className="py-16 px-6">
+      <section id="level-guide" className="py-16 px-6 scroll-mt-28">
         <div className="mx-auto max-w-4xl">
           <AnimateOnScroll>
             <h2 className="font-heading text-2xl md:text-3xl mb-6">
@@ -180,7 +195,7 @@ export default function CoachedOpenPlayPage() {
       </section>
 
       {/* Rockville Sessions */}
-      <section className="py-16 px-6">
+      <section id="rockville-sessions" className="py-16 px-6 scroll-mt-28">
         <div className="mx-auto max-w-4xl">
           <AnimateOnScroll>
             <h2 className="font-heading text-2xl md:text-3xl mb-6">Rockville Sessions</h2>
@@ -192,7 +207,7 @@ export default function CoachedOpenPlayPage() {
       </section>
 
       {/* NB Sessions */}
-      <section className="py-16 px-6">
+      <section id="nb-sessions" className="py-16 px-6 scroll-mt-28">
         <div className="mx-auto max-w-4xl">
           <AnimateOnScroll>
             <h2 className="font-heading text-2xl md:text-3xl mb-6">North Bethesda Sessions</h2>
@@ -204,7 +219,7 @@ export default function CoachedOpenPlayPage() {
       </section>
 
       {/* Pricing */}
-      <section className="py-16 px-6">
+      <section id="pricing" className="py-16 px-6 scroll-mt-28">
         <div className="mx-auto max-w-4xl">
           <AnimateOnScroll>
             <h2 className="font-heading text-2xl md:text-3xl mb-8">Pricing</h2>
@@ -225,7 +240,7 @@ export default function CoachedOpenPlayPage() {
       </section>
 
       {/* Session Details */}
-      <section className="py-16 px-6">
+      <section id="session-details" className="py-16 px-6 scroll-mt-28">
         <div className="mx-auto max-w-4xl">
           <AnimateOnScroll>
             <h2 className="font-heading text-2xl md:text-3xl mb-6">Session Details</h2>
@@ -242,7 +257,7 @@ export default function CoachedOpenPlayPage() {
       </section>
 
       {/* How to Purchase */}
-      <section className="py-16 px-6">
+      <section id="how-to-purchase" className="py-16 px-6 scroll-mt-28">
         <div className="mx-auto max-w-3xl">
           <div className="card-sm p-8">
             <h2 className="font-heading font-bold text-xl mb-4">How to Purchase a Package</h2>

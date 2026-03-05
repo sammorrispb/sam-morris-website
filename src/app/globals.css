@@ -427,3 +427,25 @@ body {
   border-radius: 1px;
   background: currentColor;
 }
+
+/* ─── Section Navigation ─── */
+.section-nav-item {
+  border-left: 2px solid transparent;
+}
+
+.section-nav-item-active {
+  border-left-width: 2px;
+  border-left-style: solid;
+  font-weight: 600;
+}
+
+.section-nav-mobile-popover {
+  animation: fadeUp 0.2s ease-out;
+}
+
+@media (max-width: 767px) {
+  .section-nav-mobile-popover {
+    max-height: 60vh;
+    overflow-y: auto;
+  }
+}

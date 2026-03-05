@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { AnimateOnScroll } from "@/components/AnimateOnScroll";
+import { PageSectionNav } from "@/components/PageSectionNav";
+import { BackToTop } from "@/components/BackToTop";
 import { WIDGET_URLS } from "@/lib/locations";
 
 export const metadata: Metadata = {
@@ -25,9 +27,21 @@ const COACHES = [
   { name: "Gary Rosen", role: "Coach", phone: "240.375.2399", color: "#64748b", isHead: false },
 ];
 
+const SECTIONS = [
+  { id: "location-links", label: "Locations" },
+  { id: "why-train", label: "Why Train" },
+  { id: "cop-vs-clinics", label: "COP vs Clinics" },
+  { id: "private-lessons", label: "Private Lessons" },
+  { id: "group-coaching", label: "Group Coaching" },
+  { id: "coaches", label: "Coaches" },
+  { id: "ready-to-start", label: "Get Started" },
+];
+
 export default function CoachingPage() {
   return (
     <div className="page-sam-morris">
+      <PageSectionNav sections={SECTIONS} brandColor="#4DACD0" />
+      <BackToTop />
       {/* Hero */}
       <section className="relative py-20 md:py-28 px-6 hero-sam-morris">
         <div className="relative mx-auto max-w-5xl">
@@ -55,7 +69,7 @@ export default function CoachingPage() {
       </section>
 
       {/* Location Quick Links */}
-      <section className="py-12 px-6">
+      <section id="location-links" className="py-12 px-6 scroll-mt-28">
         <div className="mx-auto max-w-4xl grid grid-cols-1 md:grid-cols-2 gap-6">
           <div className="card-sm p-6">
             <h2 className="font-heading font-bold text-xl mb-3">Rockville</h2>
@@ -77,7 +91,7 @@ export default function CoachingPage() {
       </section>
 
       {/* Why Train */}
-      <section className="py-16 px-6">
+      <section id="why-train" className="py-16 px-6 scroll-mt-28">
         <div className="mx-auto max-w-4xl">
           <AnimateOnScroll>
             <h2 className="font-heading text-2xl md:text-3xl mb-8">Why Train with a Coach?</h2>
@@ -109,7 +123,7 @@ export default function CoachingPage() {
       </section>
 
       {/* COP vs Clinics */}
-      <section className="py-16 px-6">
+      <section id="cop-vs-clinics" className="py-16 px-6 scroll-mt-28">
         <div className="mx-auto max-w-4xl">
           <AnimateOnScroll>
             <h2 className="font-heading text-2xl md:text-3xl mb-8">
@@ -148,7 +162,7 @@ export default function CoachingPage() {
       </section>
 
       {/* Private Lessons */}
-      <section className="py-16 px-6">
+      <section id="private-lessons" className="py-16 px-6 scroll-mt-28">
         <div className="mx-auto max-w-4xl">
           <AnimateOnScroll>
             <h2 className="font-heading text-2xl md:text-3xl mb-8">Private Lessons</h2>
@@ -191,7 +205,7 @@ export default function CoachingPage() {
       </section>
 
       {/* Group Coaching */}
-      <section className="py-16 px-6">
+      <section id="group-coaching" className="py-16 px-6 scroll-mt-28">
         <div className="mx-auto max-w-4xl">
           <AnimateOnScroll>
             <h2 className="font-heading text-2xl md:text-3xl mb-8">Group Coaching Programs</h2>
@@ -220,7 +234,7 @@ export default function CoachingPage() {
       </section>
 
       {/* Meet Our Coaches */}
-      <section className="py-16 px-6">
+      <section id="coaches" className="py-16 px-6 scroll-mt-28">
         <div className="mx-auto max-w-4xl">
           <AnimateOnScroll>
             <h2 className="font-heading text-2xl md:text-3xl mb-8">Meet Our Coaches</h2>
@@ -272,7 +286,7 @@ export default function CoachingPage() {
       </section>
 
       {/* Next Steps CTA */}
-      <section className="py-16 px-6">
+      <section id="ready-to-start" className="py-16 px-6 scroll-mt-28">
         <div className="mx-auto max-w-3xl">
           <div className="card-sm p-8">
             <h2 className="font-heading font-bold text-xl mb-4 text-center">Ready to Start?</h2>

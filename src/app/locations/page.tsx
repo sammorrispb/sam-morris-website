@@ -4,8 +4,9 @@ import Image from "next/image";
 import { AnimateOnScroll } from "@/components/AnimateOnScroll";
 import { LocationProgramsGrid } from "@/components/LocationProgramsGrid";
 import { QuickStartSelector } from "@/components/QuickStartSelector";
-import { StickyProgramsPill } from "@/components/StickyProgramsPill";
 import { GrowthPathway } from "@/components/GrowthPathway";
+import { PageSectionNav } from "@/components/PageSectionNav";
+import { BackToTop } from "@/components/BackToTop";
 import {
   LOCATIONS,
   LOCATION_ORDER,
@@ -22,10 +23,21 @@ export const metadata: Metadata = {
     "Play at Dill Dinkers Rockville and North Bethesda. Indoor courts, programs for all levels, coaching, leagues, and community events in Montgomery County, MD.",
 };
 
+const SECTIONS = [
+  { id: "quick-start", label: "Quick Start" },
+  { id: "benefits", label: "Why Dill Dinkers" },
+  { id: "first-visit", label: "First Visit" },
+  { id: "locations", label: "Locations" },
+  { id: "programs", label: "Programs" },
+  { id: "pathway", label: "Growth Pathway" },
+  { id: "community", label: "Community" },
+];
+
 export default function LocationsPage() {
   return (
     <>
-      <StickyProgramsPill />
+      <PageSectionNav sections={SECTIONS} brandColor="#3b82f6" />
+      <BackToTop />
 
       {/* ─── Section 1: Hero ─── */}
       <section
@@ -73,7 +85,7 @@ export default function LocationsPage() {
       </section>
 
       {/* ─── Section 2: Quick Start ─── */}
-      <section className="py-12 px-6 border-b border-white/5">
+      <section id="quick-start" className="py-12 px-6 border-b border-white/5 scroll-mt-16">
         <div className="mx-auto max-w-4xl">
           <h2 className="font-heading font-bold text-xl md:text-2xl mb-6 text-center">
             What brings you here?
@@ -83,7 +95,7 @@ export default function LocationsPage() {
       </section>
 
       {/* ─── Section 3: Benefits ─── */}
-      <section className="bg-navy-light py-20 px-6">
+      <section id="benefits" className="bg-navy-light py-20 px-6 scroll-mt-16">
         <div className="mx-auto max-w-6xl">
           <AnimateOnScroll>
             <div className="text-center mb-12">
@@ -118,7 +130,7 @@ export default function LocationsPage() {
       </section>
 
       {/* ─── Section 4: First Visit Guide ─── */}
-      <section id="first-visit" className="py-20 px-6 scroll-mt-20">
+      <section id="first-visit" className="py-20 px-6 scroll-mt-16">
         <div className="mx-auto max-w-4xl">
           <AnimateOnScroll>
             <div className="text-center mb-12">
@@ -178,7 +190,7 @@ export default function LocationsPage() {
       </section>
 
       {/* ─── Section 5: Location Cards ─── */}
-      <section className="bg-navy-light py-20 px-6">
+      <section id="locations" className="bg-navy-light py-20 px-6 scroll-mt-16">
         <div className="mx-auto max-w-5xl">
           <h2 className="font-heading font-bold text-3xl md:text-4xl mb-4 text-center">
             Two Locations, One Community
@@ -246,7 +258,7 @@ export default function LocationsPage() {
       </section>
 
       {/* ─── Section 6: Browse Programs ─── */}
-      <section id="programs" className="py-20 px-6 scroll-mt-20">
+      <section id="programs" className="py-20 px-6 scroll-mt-16">
         <div className="mx-auto max-w-6xl">
           <AnimateOnScroll>
             <div className="text-center mb-10">
@@ -298,7 +310,7 @@ export default function LocationsPage() {
       </section>
 
       {/* ─── Section 7: Growth Pathway (interactive) ─── */}
-      <section className="bg-navy-light py-20 px-6">
+      <section id="pathway" className="bg-navy-light py-20 px-6 scroll-mt-16">
         <div className="mx-auto max-w-4xl">
           <h2 className="font-heading font-bold text-3xl md:text-4xl mb-12 text-center">
             Your Pathway to Growth
@@ -308,7 +320,7 @@ export default function LocationsPage() {
       </section>
 
       {/* ─── Section 8: Community ─── */}
-      <section className="py-20 px-6">
+      <section id="community" className="py-20 px-6 scroll-mt-16">
         <div className="mx-auto max-w-4xl">
           <AnimateOnScroll>
             <h2 className="font-heading font-bold text-3xl md:text-4xl mb-8 text-center">

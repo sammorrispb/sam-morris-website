@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { AnimateOnScroll } from "@/components/AnimateOnScroll";
+import { PageSectionNav } from "@/components/PageSectionNav";
+import { BackToTop } from "@/components/BackToTop";
 import { WIDGET_URLS } from "@/lib/locations";
 
 export const metadata: Metadata = {
@@ -97,9 +99,20 @@ function LevelSessions({ level }: { level: typeof SPRING_SESSIONS[number] }) {
   );
 }
 
+const SECTIONS = [
+  { id: "spring-2026", label: "Spring 2026" },
+  { id: "how-it-works", label: "How It Works" },
+  { id: "evaluation", label: "Evaluation" },
+  { id: "summer-camp", label: "Summer Camp" },
+  { id: "location-programs", label: "By Location" },
+  { id: "about-nga", label: "About NGA" },
+];
+
 export default function YouthPage() {
   return (
     <div className="page-next-gen">
+      <PageSectionNav sections={SECTIONS} brandColor="#22c55e" />
+      <BackToTop />
       {/* Hero */}
       <section className="relative py-20 md:py-28 px-6 hero-next-gen">
         <div className="relative mx-auto max-w-4xl text-center">
@@ -122,7 +135,7 @@ export default function YouthPage() {
       </section>
 
       {/* Next Gen Academy Spring 2026 */}
-      <section className="py-16 px-6">
+      <section id="spring-2026" className="py-16 px-6 scroll-mt-28">
         <div className="mx-auto max-w-4xl">
           <AnimateOnScroll>
             <h2 className="font-heading text-2xl md:text-3xl mb-2">
@@ -141,7 +154,7 @@ export default function YouthPage() {
       </section>
 
       {/* How It Works */}
-      <section className="py-16 px-6">
+      <section id="how-it-works" className="py-16 px-6 scroll-mt-28">
         <div className="mx-auto max-w-4xl">
           <AnimateOnScroll>
             <h2 className="font-heading text-2xl md:text-3xl mb-8">How It Works</h2>
@@ -163,7 +176,7 @@ export default function YouthPage() {
       </section>
 
       {/* Free Evaluation */}
-      <section className="py-16 px-6">
+      <section id="evaluation" className="py-16 px-6 scroll-mt-28">
         <div className="mx-auto max-w-3xl">
           <div className="card-ng p-8 text-center">
             <h2 className="font-heading font-bold text-xl mb-3">Not Sure Which Level?</h2>
@@ -184,7 +197,7 @@ export default function YouthPage() {
       </section>
 
       {/* Summer Camp 2026 */}
-      <section className="py-16 px-6">
+      <section id="summer-camp" className="py-16 px-6 scroll-mt-28">
         <div className="mx-auto max-w-4xl">
           <AnimateOnScroll>
             <h2 className="font-heading text-2xl md:text-3xl mb-2">Summer Camp 2026</h2>
@@ -228,7 +241,7 @@ export default function YouthPage() {
       </section>
 
       {/* Location Programs */}
-      <section className="py-16 px-6">
+      <section id="location-programs" className="py-16 px-6 scroll-mt-28">
         <div className="mx-auto max-w-4xl">
           <AnimateOnScroll>
             <h2 className="font-heading text-2xl md:text-3xl mb-8">Junior Programs by Location</h2>
@@ -263,7 +276,7 @@ export default function YouthPage() {
       </section>
 
       {/* About Next Gen Academy */}
-      <section className="py-16 px-6">
+      <section id="about-nga" className="py-16 px-6 scroll-mt-28">
         <div className="mx-auto max-w-3xl">
           <div className="card-ng p-8 text-center" style={{ borderWidth: "2px" }}>
             <Image
