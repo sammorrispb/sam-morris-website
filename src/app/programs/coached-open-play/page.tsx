@@ -10,6 +10,15 @@ export const metadata: Metadata = {
   title: "Coached Open Play — Dill Dinkers Rockville & North Bethesda",
   description:
     "Learn pickleball the smart way with coached open play. Real-time feedback, level-based sessions at Dill Dinkers.",
+  keywords: [
+    "coached open play pickleball",
+    "learn pickleball Rockville",
+    "beginner pickleball class near me",
+    "pickleball instruction North Bethesda",
+    "pickleball class Montgomery County",
+    "learn pickleball near DC",
+    "beginner pickleball lessons Maryland",
+  ],
   alternates: { canonical: "https://www.sammorrispb.com/programs/coached-open-play" },
   openGraph: {
     title: "Coached Open Play — Dill Dinkers Rockville & North Bethesda",

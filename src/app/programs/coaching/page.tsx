@@ -10,6 +10,16 @@ export const metadata: Metadata = {
   title: "Coaching & Clinics — Dill Dinkers Rockville & North Bethesda",
   description:
     "Pickleball coaching programs at Dill Dinkers. Private lessons, group clinics, coached open play, and coach profiles for Rockville and North Bethesda.",
+  keywords: [
+    "private pickleball lessons Rockville",
+    "pickleball coach Montgomery County",
+    "pickleball clinics North Bethesda",
+    "PPR certified pickleball coach Maryland",
+    "pickleball coaching near me",
+    "group pickleball lessons Bethesda",
+    "pickleball instruction DC area",
+    "pickleball coach near DC",
+  ],
   alternates: { canonical: "https://www.sammorrispb.com/programs/coaching" },
   openGraph: {
     title: "Coaching & Clinics — Dill Dinkers Rockville & North Bethesda",
@@ -40,6 +50,62 @@ const SECTIONS = [
 export default function CoachingPage() {
   return (
     <div className="page-sam-morris">
+      {/* Coaching Team Person Schema */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(
+            COACHES.map((coach) => ({
+              "@context": "https://schema.org",
+              "@type": "Person",
+              name: coach.name,
+              jobTitle: coach.role,
+              worksFor: {
+                "@type": "SportsActivityLocation",
+                name: "Dill Dinkers",
+              },
+              ...(coach.email && { email: coach.email }),
+              ...(coach.phone && { telephone: coach.phone }),
+            })),
+          ),
+        }}
+      />
+      {/* FAQ Schema */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            mainEntity: [
+              {
+                "@type": "Question",
+                name: "How much do private pickleball lessons cost at Dill Dinkers?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: "Private 1-on-1 pickleball lessons with Sam Morris are $130 per session or $400 for a 4-session package ($100/session). Court time is included. Book at sammorrispb.com/programs/coaching.",
+                },
+              },
+              {
+                "@type": "Question",
+                name: "What is the difference between coached open play and clinics?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: "Coached open play provides real-time feedback during live games — great for players who learn through playing. Clinics are drill-focused sessions that build muscle memory on specific techniques like serves, volleys, and dinks. Both are available at Dill Dinkers Rockville and North Bethesda.",
+                },
+              },
+              {
+                "@type": "Question",
+                name: "How do I find a pickleball coach near Rockville or Bethesda?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: "Dill Dinkers Rockville and North Bethesda have a team of certified coaches on staff. Sam Morris (Head Pro, PPR/DUPR certified) leads the coaching team along with 5 additional coaches. Visit sammorrispb.com/programs/coaching to see coach profiles and book lessons.",
+                },
+              },
+            ],
+          }),
+        }}
+      />
       <PageSectionNav sections={SECTIONS} brandColor="#4DACD0" />
       <BackToTop />
       {/* Hero */}

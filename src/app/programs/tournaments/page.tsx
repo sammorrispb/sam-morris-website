@@ -9,6 +9,16 @@ export const metadata: Metadata = {
   title: "Link & Dink Tournament Series — Rockville & North Bethesda",
   description:
     "Link & Dink tournament series schedule. Round robin pools, bracket play, medals at Dill Dinkers Rockville and North Bethesda.",
+  keywords: [
+    "pickleball tournaments Montgomery County",
+    "pickleball tournament Rockville",
+    "DUPR tournament near me",
+    "indoor pickleball tournament Maryland",
+    "pickleball tournaments DMV",
+    "Link and Dink tournament",
+    "pickleball bracket play",
+    "pickleball tournament North Bethesda",
+  ],
   alternates: { canonical: "https://www.sammorrispb.com/programs/tournaments" },
   openGraph: {
     title: "Link & Dink Tournament Series Schedule",
@@ -138,6 +148,55 @@ const SECTIONS = [
 export default function TournamentsPage() {
   return (
     <div className="page-link-and-dink">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "SportsEvent",
+            name: "Link & Dink Pickleball Tournament Series 2025–2026",
+            description:
+              "Community pickleball tournament series with round robin pools, bracket play, medals, and raffles at Dill Dinkers Rockville and North Bethesda.",
+            sport: "Pickleball",
+            startDate: "2025-11-30",
+            endDate: "2026-03-28",
+            eventAttendanceMode:
+              "https://schema.org/OfflineEventAttendanceMode",
+            eventStatus: "https://schema.org/EventScheduled",
+            location: [
+              {
+                "@type": "Place",
+                name: "Dill Dinkers Rockville",
+                address: {
+                  "@type": "PostalAddress",
+                  streetAddress: "40C Southlawn Court",
+                  addressLocality: "Rockville",
+                  addressRegion: "MD",
+                  postalCode: "20850",
+                  addressCountry: "US",
+                },
+              },
+              {
+                "@type": "Place",
+                name: "Dill Dinkers North Bethesda",
+                address: {
+                  "@type": "PostalAddress",
+                  streetAddress: "4942 Boiling Brook Pkwy",
+                  addressLocality: "North Bethesda",
+                  addressRegion: "MD",
+                  postalCode: "20852",
+                  addressCountry: "US",
+                },
+              },
+            ],
+            organizer: {
+              "@type": "Person",
+              name: "Sam Morris",
+              url: "https://www.sammorrispb.com",
+            },
+          }),
+        }}
+      />
       <PageSectionNav sections={SECTIONS} brandColor="#F47920" />
       <BackToTop />
       {/* Hero */}

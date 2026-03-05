@@ -10,6 +10,16 @@ export const metadata: Metadata = {
   title: "Leagues — Dill Dinkers Rockville & North Bethesda",
   description:
     "Spring 2026 pickleball league schedule at Dill Dinkers. 6-week seasons with playoffs, DUPR-based brackets at Rockville and North Bethesda.",
+  keywords: [
+    "pickleball leagues Montgomery County",
+    "pickleball league Rockville MD",
+    "DUPR leagues near me",
+    "indoor pickleball league",
+    "pickleball league North Bethesda",
+    "competitive pickleball Maryland",
+    "pickleball league DMV",
+    "Dill Dinkers leagues",
+  ],
   alternates: { canonical: "https://www.sammorrispb.com/programs/leagues" },
   openGraph: {
     title: "Pickleball Leagues — Dill Dinkers Rockville & North Bethesda",
@@ -72,6 +82,84 @@ const SECTIONS = [
 export default function LeaguesPage() {
   return (
     <div className="page-dill-dinkers">
+      {/* FAQ Schema */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            mainEntity: [
+              {
+                "@type": "Question",
+                name: "Do I need a DUPR rating to join a pickleball league at Dill Dinkers?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: "Yes, a free DUPR account is required for all Dill Dinkers leagues. Results are entered weekly to track community skill levels. Leagues 3.5+ require a team average of at least 3.5. Sign up at dupr.com.",
+                },
+              },
+              {
+                "@type": "Question",
+                name: "How long is a pickleball league season at Dill Dinkers?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: "Each league season runs 6 weeks of regular play plus a Week 7 playoff for qualifying teams. Games are played to 15 points (win by 2) during the regular season. Multiple bracket levels are available at both Rockville and North Bethesda.",
+                },
+              },
+            ],
+          }),
+        }}
+      />
+      {/* SportsEvent Schema */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "SportsEvent",
+            name: "Dill Dinkers Spring 2026 Pickleball Leagues",
+            description:
+              "6-week indoor pickleball league seasons with DUPR-based brackets and Week 7 playoffs at Dill Dinkers Rockville and North Bethesda.",
+            sport: "Pickleball",
+            startDate: "2026-03-02",
+            endDate: "2026-04-27",
+            eventAttendanceMode:
+              "https://schema.org/OfflineEventAttendanceMode",
+            eventStatus: "https://schema.org/EventScheduled",
+            location: [
+              {
+                "@type": "Place",
+                name: "Dill Dinkers Rockville",
+                address: {
+                  "@type": "PostalAddress",
+                  streetAddress: "40C Southlawn Court",
+                  addressLocality: "Rockville",
+                  addressRegion: "MD",
+                  postalCode: "20850",
+                  addressCountry: "US",
+                },
+              },
+              {
+                "@type": "Place",
+                name: "Dill Dinkers North Bethesda",
+                address: {
+                  "@type": "PostalAddress",
+                  streetAddress: "4942 Boiling Brook Pkwy",
+                  addressLocality: "North Bethesda",
+                  addressRegion: "MD",
+                  postalCode: "20852",
+                  addressCountry: "US",
+                },
+              },
+            ],
+            organizer: {
+              "@type": "Person",
+              name: "Sam Morris",
+              url: "https://www.sammorrispb.com",
+            },
+          }),
+        }}
+      />
       <PageSectionNav sections={SECTIONS} brandColor="#F47920" />
       <BackToTop />
       {/* Hero */}

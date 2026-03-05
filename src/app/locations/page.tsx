@@ -18,9 +18,20 @@ import {
 } from "@/lib/locations";
 
 export const metadata: Metadata = {
-  title: "Locations",
+  title: "Locations — Indoor Pickleball at Dill Dinkers Rockville & North Bethesda",
   description:
-    "Play at Dill Dinkers Rockville and North Bethesda. Indoor courts, programs for all levels, coaching, leagues, and community events in Montgomery County, MD.",
+    "Two indoor pickleball facilities in Montgomery County, MD — Dill Dinkers Rockville and North Bethesda. 17 courts, year-round play, leagues, coaching, and events. Convenient to DC and Northern Virginia.",
+  keywords: [
+    "indoor pickleball facility Rockville",
+    "indoor pickleball North Bethesda",
+    "Dill Dinkers locations",
+    "indoor pickleball courts near me",
+    "pickleball courts Montgomery County MD",
+    "indoor pickleball near DC",
+    "pickleball facility Northern Virginia",
+    "where to play pickleball Rockville",
+    "pickleball courts Bethesda area",
+  ],
 };
 
 const SECTIONS = [
@@ -50,8 +61,8 @@ export default function LocationsPage() {
               Where to <span className="gradient-text">Play</span>
             </h1>
             <p className="text-text-muted text-lg md:text-xl max-w-2xl mb-8">
-              Two dedicated indoor facilities in Montgomery County, MD.
-              Play safe. Play well. Play at Dill Dinkers.
+              Two dedicated indoor pickleball facilities in Montgomery County, MD —
+              serving players from DC, Northern Virginia, and the greater DMV.
             </p>
             <div className="flex flex-wrap gap-4 justify-center md:justify-start">
               <a
@@ -354,7 +365,24 @@ export default function LocationsPage() {
         </div>
       </section>
 
-      {/* ─── Section 9: Bottom CTA ─── */}
+      {/* ─── Section 9: Serving the DMV ─── */}
+      <section className="py-16 px-6">
+        <div className="mx-auto max-w-3xl text-center">
+          <h2 className="font-heading font-bold text-2xl md:text-3xl mb-4">
+            Serving the Greater DMV
+          </h2>
+          <p className="text-text-muted text-sm leading-relaxed max-w-2xl mx-auto">
+            Our indoor facilities in Rockville and North Bethesda are centrally located
+            for players across Montgomery County, Washington DC, and Northern Virginia.
+            Whether you&rsquo;re coming from Silver Spring, Bethesda, Chevy Chase,
+            Potomac, Gaithersburg, Arlington, Fairfax, McLean, or Tysons &mdash;
+            you&rsquo;re never more than a short drive from 17 dedicated indoor
+            pickleball courts, year-round programming, and a welcoming community.
+          </p>
+        </div>
+      </section>
+
+      {/* ─── Section 10: Bottom CTA ─── */}
       <section className="bg-navy-light py-20 px-6">
         <div className="mx-auto max-w-2xl">
           <div className="bg-navy glow-border rounded-xl p-10 text-center">

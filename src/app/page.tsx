@@ -1,8 +1,36 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import { LeadForm } from "@/components/LeadForm";
 import { AnimateOnScroll } from "@/components/AnimateOnScroll";
 import { getAllPosts } from "@/lib/blog";
+
+export const metadata: Metadata = {
+  title:
+    "Sam Morris — Pickleball Coach & Director of Programming at Dill Dinkers | Montgomery County, DC & Northern Virginia",
+  description:
+    "PPR-certified pickleball coach at Dill Dinkers indoor facilities in Rockville and North Bethesda. Private lessons, leagues, tournaments, youth academy, and community programs serving Montgomery County MD, Washington DC, and Northern Virginia.",
+  keywords: [
+    "pickleball coach Montgomery County",
+    "Dill Dinkers Rockville",
+    "Dill Dinkers North Bethesda",
+    "indoor pickleball facility near me",
+    "pickleball lessons DC area",
+    "pickleball coaching Northern Virginia",
+    "pickleball leagues Rockville",
+    "pickleball tournaments Montgomery County",
+    "youth pickleball academy Maryland",
+    "private pickleball lessons Bethesda",
+    "beginner pickleball DMV",
+    "pickleball open play Rockville",
+    "PPR certified coach Maryland",
+    "DUPR leagues DMV",
+    "Next Gen Pickleball Academy",
+    "Link and Dink pickleball",
+    "indoor pickleball courts Maryland",
+    "pickleball near Washington DC",
+  ],
+};
 
 const STATS = [
   { value: "M.S.", label: "in Coaching" },

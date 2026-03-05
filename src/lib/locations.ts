@@ -36,7 +36,7 @@ export const LOCATIONS: Record<LocationId, Location> = {
     address: "4942 Boiling Brook Pkwy",
     city: "North Bethesda",
     state: "MD",
-    zip: "20850",
+    zip: "20852",
     phone: "301-231-7811",
     email: "northbethesda@dilldinkers.com",
   },

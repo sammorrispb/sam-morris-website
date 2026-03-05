@@ -10,6 +10,15 @@ export const metadata: Metadata = {
   title: "Open Play — Dill Dinkers Rockville & North Bethesda",
   description:
     "Drop-in pickleball open play at Dill Dinkers. All levels welcome, skill-based courts, fair rotation. Rockville and North Bethesda locations.",
+  keywords: [
+    "pickleball open play Rockville",
+    "drop-in pickleball near me",
+    "pickleball open play North Bethesda",
+    "beginner pickleball open play",
+    "indoor pickleball drop-in Maryland",
+    "pickleball open play Montgomery County",
+    "Dill Dinkers open play",
+  ],
   alternates: { canonical: "https://www.sammorrispb.com/programs/open-play" },
   openGraph: {
     title: "Open Play — Dill Dinkers Rockville & North Bethesda",

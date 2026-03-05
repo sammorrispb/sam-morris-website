@@ -10,6 +10,16 @@ export const metadata: Metadata = {
   title: "Youth & Junior Programs — Next Gen Academy at Dill Dinkers",
   description:
     "Youth and junior programs at Dill Dinkers. Next Gen Academy spring sessions, summer camp, and junior coaching in Rockville and North Bethesda.",
+  keywords: [
+    "kids pickleball lessons Rockville",
+    "youth pickleball Montgomery County",
+    "junior pickleball academy Maryland",
+    "pickleball summer camp North Bethesda",
+    "kids pickleball near me",
+    "Next Gen Pickleball Academy",
+    "pickleball for kids DC area",
+    "youth pickleball camp Maryland",
+  ],
   alternates: { canonical: "https://www.sammorrispb.com/programs/youth" },
   openGraph: {
     title: "Youth & Junior Programs — Next Gen Academy",
