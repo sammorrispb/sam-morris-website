@@ -1,3 +1,10 @@
 {
-  "crons": [{ "path": "/api/cron/follow-up", "schedule": "0 12 * * *" }]
+  "crons": [{ "path": "/api/cron/follow-up", "schedule": "0 12 * * *" }],
+  "redirects": [
+    { "source": "/tournament", "destination": "/tournament/", "permanent": true }
+  ],
+  "rewrites": [
+    { "source": "/tournament/", "destination": "https://tournamentwebsite.vercel.app/" },
+    { "source": "/tournament/:path*", "destination": "https://tournamentwebsite.vercel.app/:path*" }
+  ]
 }
