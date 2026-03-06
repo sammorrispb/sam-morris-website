@@ -161,11 +161,11 @@ export default function AboutPage() {
 
       {/* ─── Projects ─── */}
       <section className="py-16 px-6">
-        <div className="mx-auto max-w-3xl">
+        <div className="mx-auto max-w-4xl">
           <h2 className="font-heading font-bold text-3xl md:text-4xl mb-8 text-center">
             Projects
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             <a
               href="https://nextgenpbacademy.com"
               target="_blank"
@@ -203,9 +203,7 @@ export default function AboutPage() {
             </a>
 
             <a
-              href="https://tournamentwebsite-g34i63j8t-sammorris2131-7591s-projects.vercel.app/"
-              target="_blank"
-              rel="noopener noreferrer"
+              href="/tournament/"
               className="bg-navy-light glow-border rounded-xl p-6 text-center hover:scale-[1.02] transition-transform"
             >
               <div className="font-mono text-accent-pink text-sm uppercase tracking-wider mb-2">
@@ -217,6 +215,22 @@ export default function AboutPage() {
               <p className="text-text-muted text-sm leading-relaxed">
                 Competitive tournament events for players looking to test their
                 skills.
+              </p>
+            </a>
+
+            <a
+              href="/playdate/"
+              className="bg-navy-light glow-border rounded-xl p-6 text-center hover:scale-[1.02] transition-transform"
+            >
+              <div className="font-mono text-accent-purple text-sm uppercase tracking-wider mb-2">
+                Matching
+              </div>
+              <h3 className="font-heading font-bold text-lg mb-2">
+                Play Date
+              </h3>
+              <p className="text-text-muted text-sm leading-relaxed">
+                Find your ideal doubles partner through personality-driven
+                surveys and smart matching.
               </p>
             </a>
           </div>

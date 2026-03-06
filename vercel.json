@@ -1,10 +1,13 @@
 {
   "crons": [{ "path": "/api/cron/follow-up", "schedule": "0 12 * * *" }],
   "redirects": [
-    { "source": "/tournament", "destination": "/tournament/", "permanent": true }
+    { "source": "/tournament", "destination": "/tournament/", "permanent": true },
+    { "source": "/playdate", "destination": "/playdate/", "permanent": true }
   ],
   "rewrites": [
     { "source": "/tournament/", "destination": "https://tournamentwebsite.vercel.app/" },
-    { "source": "/tournament/:path*", "destination": "https://tournamentwebsite.vercel.app/:path*" }
+    { "source": "/tournament/:path*", "destination": "https://tournamentwebsite.vercel.app/:path*" },
+    { "source": "/playdate/", "destination": "https://play-date-five.vercel.app/" },
+    { "source": "/playdate/:path*", "destination": "https://play-date-five.vercel.app/:path*" }
   ]
 }

@@ -18,7 +18,8 @@ export const SOCIAL_LINKS = [
 export const PROJECT_LINKS = [
   { label: "Next Gen Academy", href: "https://nextgenpbacademy.com" },
   { label: "Link & Dink", href: "https://www.linkanddink.com" },
-  { label: "Tournament Series", href: "https://tournamentwebsite-g34i63j8t-sammorris2131-7591s-projects.vercel.app/" },
+  { label: "Tournament Series", href: "/tournament/" },
+  { label: "Play Date", href: "/playdate/" },
 ] as const;
 
 export const CONTACT = {

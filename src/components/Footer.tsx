@@ -42,18 +42,20 @@ export function Footer() {
               Projects
             </h4>
             <ul className="flex flex-col gap-2">
-              {PROJECT_LINKS.map((project) => (
-                <li key={project.label}>
-                  <a
-                    href={project.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-text-muted hover:text-text-primary transition-colors text-sm"
-                  >
-                    {project.label}
-                  </a>
-                </li>
-              ))}
+              {PROJECT_LINKS.map((project) => {
+                const isExternal = project.href.startsWith("http");
+                return (
+                  <li key={project.label}>
+                    <a
+                      href={project.href}
+                      {...(isExternal && { target: "_blank", rel: "noopener noreferrer" })}
+                      className="text-text-muted hover:text-text-primary transition-colors text-sm"
+                    >
+                      {project.label}
+                    </a>
+                  </li>
+                );
+              })}
             </ul>
           </div>
 
