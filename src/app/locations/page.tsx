@@ -38,7 +38,7 @@ const SECTIONS = [
   { id: "quick-start", label: "Quick Start" },
   { id: "benefits", label: "Why Dill Dinkers" },
   { id: "first-visit", label: "First Visit" },
-  { id: "locations", label: "Locations" },
+  { id: "locations", label: "Facilities" },
   { id: "programs", label: "Programs" },
   { id: "pathway", label: "Growth Pathway" },
   { id: "community", label: "Community" },
@@ -57,13 +57,36 @@ export default function LocationsPage() {
       >
         <div className="mx-auto max-w-6xl grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
           <div className="text-center md:text-left">
-            <h1 className="font-heading font-black text-4xl md:text-6xl leading-tight mb-6">
+            <h1 className="font-heading font-black text-4xl md:text-6xl leading-tight mb-3">
               Where to <span className="gradient-text">Play</span>
             </h1>
-            <p className="text-text-muted text-lg md:text-xl max-w-2xl mb-8">
-              Two dedicated indoor pickleball facilities in Montgomery County, MD —
-              serving players from DC, Northern Virginia, and the greater DMV.
+            <p className="text-accent-blue font-heading font-semibold text-lg md:text-xl mb-6">
+              Director of Programming — Dill Dinkers Rockville &amp; North Bethesda
             </p>
+            <p className="text-text-muted text-lg md:text-xl max-w-2xl mb-8">
+              I lead programming at two dedicated indoor pickleball facilities in
+              Montgomery County, MD — serving players from DC, Northern Virginia,
+              and the greater DMV.
+            </p>
+
+            {/* Compact facility info */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
+              {LOCATION_ORDER.map((id) => {
+                const loc = LOCATIONS[id];
+                return (
+                  <div key={id} className="text-sm text-text-muted space-y-1">
+                    <p className="font-heading font-semibold text-text-primary">{loc.name}</p>
+                    <p>{loc.address}, {loc.city}, {loc.state} {loc.zip}</p>
+                    <p>
+                      <a href={`tel:${loc.phone.replace(/-/g, "")}`} className="hover:text-accent-blue transition-colors">{loc.phone}</a>
+                      {" · "}
+                      <a href={`mailto:${loc.email}`} className="hover:text-accent-blue transition-colors">{loc.email}</a>
+                    </p>
+                  </div>
+                );
+              })}
+            </div>
+
             <div className="flex flex-wrap gap-4 justify-center md:justify-start">
               <a
                 href="#programs"
@@ -372,8 +395,9 @@ export default function LocationsPage() {
             Serving the Greater DMV
           </h2>
           <p className="text-text-muted text-sm leading-relaxed max-w-2xl mx-auto">
-            Our indoor facilities in Rockville and North Bethesda are centrally located
-            for players across Montgomery County, Washington DC, and Northern Virginia.
+            As Director of Programming at Dill Dinkers, I oversee programming across
+            our Rockville and North Bethesda facilities &mdash; centrally located for
+            players across Montgomery County, Washington DC, and Northern Virginia.
             Whether you&rsquo;re coming from Silver Spring, Bethesda, Chevy Chase,
             Potomac, Gaithersburg, Arlington, Fairfax, McLean, or Tysons &mdash;
             you&rsquo;re never more than a short drive from 17 dedicated indoor
