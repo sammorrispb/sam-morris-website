@@ -38,6 +38,8 @@ export function SearchBar({ onOpenChange }: SearchBarProps) {
 
   const router = useRouter();
   const containerRef = useRef<HTMLDivElement>(null);
+  const mobileInputBarRef = useRef<HTMLDivElement>(null);
+  const mobileResultsRef = useRef<HTMLDivElement>(null);
   const desktopInputRef = useRef<HTMLInputElement>(null);
   const mobileInputRef = useRef<HTMLInputElement>(null);
   const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -102,13 +104,16 @@ export function SearchBar({ onOpenChange }: SearchBarProps) {
     }
   }, [open]);
 
-  // Click outside handler
+  // Click outside handler — includes mobile fixed-position elements
   useEffect(() => {
     if (!open) return;
     const handleClickOutside = (e: MouseEvent) => {
+      const target = e.target as Node;
       if (
         containerRef.current &&
-        !containerRef.current.contains(e.target as Node)
+        !containerRef.current.contains(target) &&
+        !mobileInputBarRef.current?.contains(target) &&
+        !mobileResultsRef.current?.contains(target)
       ) {
         updateOpen(false);
         setQuery("");
@@ -232,6 +237,68 @@ export function SearchBar({ onOpenChange }: SearchBarProps) {
     return match?.indices;
   };
 
+  // Shared results list used by both desktop and mobile dropdowns
+  const renderResultsList = () => (
+    <>
+      {loading && (
+        <div className="px-4 py-3 text-text-muted text-sm">
+          Loading search index...
+        </div>
+      )}
+      {!loading && results.length === 0 && query.trim().length > 0 && (
+        <div className="px-4 py-3 text-text-muted text-sm">
+          No results found
+        </div>
+      )}
+      {!loading &&
+        results.map((result, i) => (
+          <button
+            key={result.item.url}
+            type="button"
+            className={[
+              "w-full text-left px-4 py-3 cursor-pointer transition-colors",
+              i === selectedIndex
+                ? "bg-white/5"
+                : "hover:bg-white/5",
+            ].join(" ")}
+            onClick={() => navigateTo(result.item.url)}
+            onMouseEnter={() => setSelectedIndex(i)}
+          >
+            <div className="flex items-center gap-2 mb-1">
+              <span
+                className={[
+                  "text-[10px] font-semibold uppercase tracking-wider px-1.5 py-0.5 rounded-full",
+                  TYPE_COLORS[result.item.type],
+                  TYPE_BG[result.item.type],
+                ].join(" ")}
+              >
+                {result.item.type}
+              </span>
+              {result.item.category && (
+                <span className="text-[10px] text-text-muted/60 truncate">
+                  {result.item.category}
+                </span>
+              )}
+            </div>
+            <div className="text-sm leading-snug">
+              {renderHighlighted(
+                result.item.title,
+                getMatchIndices(result, "title"),
+              )}
+            </div>
+            {result.item.description && (
+              <div className="text-xs leading-snug mt-0.5 line-clamp-2">
+                {renderHighlighted(
+                  result.item.description,
+                  getMatchIndices(result, "description"),
+                )}
+              </div>
+            )}
+          </button>
+        ))}
+    </>
+  );
+
   const showDropdown = open && (query.trim().length > 0 || loading);
 
   return (
@@ -315,7 +382,7 @@ export function SearchBar({ onOpenChange }: SearchBarProps) {
 
       {/* Mobile: full-width input below nav */}
       {open && (
-        <div className="md:hidden fixed left-0 right-0 top-[57px] z-50 px-4 py-3 bg-navy/95 backdrop-blur-md border-b border-white/5">
+        <div ref={mobileInputBarRef} className="md:hidden fixed left-0 right-0 top-[57px] z-50 px-4 py-3 bg-navy/95 backdrop-blur-md border-b border-white/5">
           <input
             ref={mobileInputRef}
             type="text"
@@ -328,140 +395,29 @@ export function SearchBar({ onOpenChange }: SearchBarProps) {
         </div>
       )}
 
-      {/* Results dropdown */}
+      {/* Desktop results dropdown */}
       {showDropdown && (
         <div
           className={[
             "absolute z-50 bg-navy/95 backdrop-blur-md glow-border rounded-xl mt-2 shadow-2xl max-h-[70vh] overflow-y-auto",
-            // Desktop: positioned below the inline input
             "hidden md:block right-0 w-80",
           ].join(" ")}
         >
-          {loading && (
-            <div className="px-4 py-3 text-text-muted text-sm">
-              Loading search index...
-            </div>
-          )}
-          {!loading && results.length === 0 && query.trim().length > 0 && (
-            <div className="px-4 py-3 text-text-muted text-sm">
-              No results found
-            </div>
-          )}
-          {!loading &&
-            results.map((result, i) => (
-              <button
-                key={result.item.url}
-                type="button"
-                className={[
-                  "w-full text-left px-4 py-3 cursor-pointer transition-colors",
-                  i === selectedIndex
-                    ? "bg-white/5"
-                    : "hover:bg-white/5",
-                ].join(" ")}
-                onClick={() => navigateTo(result.item.url)}
-                onMouseEnter={() => setSelectedIndex(i)}
-              >
-                <div className="flex items-center gap-2 mb-1">
-                  <span
-                    className={[
-                      "text-[10px] font-semibold uppercase tracking-wider px-1.5 py-0.5 rounded-full",
-                      TYPE_COLORS[result.item.type],
-                      TYPE_BG[result.item.type],
-                    ].join(" ")}
-                  >
-                    {result.item.type}
-                  </span>
-                  {result.item.category && (
-                    <span className="text-[10px] text-text-muted/60 truncate">
-                      {result.item.category}
-                    </span>
-                  )}
-                </div>
-                <div className="text-sm leading-snug">
-                  {renderHighlighted(
-                    result.item.title,
-                    getMatchIndices(result, "title"),
-                  )}
-                </div>
-                {result.item.description && (
-                  <div className="text-xs leading-snug mt-0.5 line-clamp-2">
-                    {renderHighlighted(
-                      result.item.description,
-                      getMatchIndices(result, "description"),
-                    )}
-                  </div>
-                )}
-              </button>
-            ))}
+          {renderResultsList()}
         </div>
       )}
 
       {/* Mobile results dropdown */}
       {showDropdown && (
         <div
+          ref={mobileResultsRef}
           className={[
             "fixed left-4 right-4 z-50 bg-navy/95 backdrop-blur-md glow-border rounded-xl shadow-2xl max-h-[70vh] overflow-y-auto",
             "md:hidden",
-            // Position below the mobile input bar (nav ~57px + input bar ~53px)
             "top-[110px]",
           ].join(" ")}
         >
-          {loading && (
-            <div className="px-4 py-3 text-text-muted text-sm">
-              Loading search index...
-            </div>
-          )}
-          {!loading && results.length === 0 && query.trim().length > 0 && (
-            <div className="px-4 py-3 text-text-muted text-sm">
-              No results found
-            </div>
-          )}
-          {!loading &&
-            results.map((result, i) => (
-              <button
-                key={result.item.url}
-                type="button"
-                className={[
-                  "w-full text-left px-4 py-3 cursor-pointer transition-colors",
-                  i === selectedIndex
-                    ? "bg-white/5"
-                    : "hover:bg-white/5",
-                ].join(" ")}
-                onClick={() => navigateTo(result.item.url)}
-                onMouseEnter={() => setSelectedIndex(i)}
-              >
-                <div className="flex items-center gap-2 mb-1">
-                  <span
-                    className={[
-                      "text-[10px] font-semibold uppercase tracking-wider px-1.5 py-0.5 rounded-full",
-                      TYPE_COLORS[result.item.type],
-                      TYPE_BG[result.item.type],
-                    ].join(" ")}
-                  >
-                    {result.item.type}
-                  </span>
-                  {result.item.category && (
-                    <span className="text-[10px] text-text-muted/60 truncate">
-                      {result.item.category}
-                    </span>
-                  )}
-                </div>
-                <div className="text-sm leading-snug">
-                  {renderHighlighted(
-                    result.item.title,
-                    getMatchIndices(result, "title"),
-                  )}
-                </div>
-                {result.item.description && (
-                  <div className="text-xs leading-snug mt-0.5 line-clamp-2">
-                    {renderHighlighted(
-                      result.item.description,
-                      getMatchIndices(result, "description"),
-                    )}
-                  </div>
-                )}
-              </button>
-            ))}
+          {renderResultsList()}
         </div>
       )}
     </div>
