@@ -3,9 +3,12 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { NAV_LINKS } from "@/lib/constants";
+import { SearchBar } from "@/components/SearchBar";
 
 export function Nav() {
   const [mobileOpen, setMobileOpen] = useState(false);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [searchOpen, setSearchOpen] = useState(false);
 
   useEffect(() => {
     if (!mobileOpen) return;
@@ -38,6 +41,7 @@ export function Nav() {
               {link.label}
             </Link>
           ))}
+          <SearchBar onOpenChange={(open) => { setSearchOpen(open); if (open) setMobileOpen(false); }} />
           <Link
             href="/contact"
             className="text-white px-4 py-2 rounded-lg text-sm font-medium btn-gradient"
@@ -46,36 +50,39 @@ export function Nav() {
           </Link>
         </div>
 
-        {/* Mobile hamburger */}
-        <button
-          type="button"
-          className="md:hidden text-text-muted hover:text-text-primary transition-colors"
-          onClick={() => setMobileOpen((prev) => !prev)}
-          aria-label={mobileOpen ? "Close menu" : "Open menu"}
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth={1.5}
-            stroke="currentColor"
-            className="w-6 h-6"
+        {/* Mobile: search + hamburger */}
+        <div className="flex md:hidden items-center gap-3">
+          <SearchBar onOpenChange={(open) => { setSearchOpen(open); if (open) setMobileOpen(false); }} />
+          <button
+            type="button"
+            className="text-text-muted hover:text-text-primary transition-colors"
+            onClick={() => setMobileOpen((prev) => !prev)}
+            aria-label={mobileOpen ? "Close menu" : "Open menu"}
           >
-            {mobileOpen ? (
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M6 18L18 6M6 6l12 12"
-              />
-            ) : (
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
-              />
-            )}
-          </svg>
-        </button>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth={1.5}
+              stroke="currentColor"
+              className="w-6 h-6"
+            >
+              {mobileOpen ? (
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              ) : (
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
+                />
+              )}
+            </svg>
+          </button>
+        </div>
       </div>
 
       {/* Mobile menu backdrop + panel */}
