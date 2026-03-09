@@ -74,8 +74,8 @@ export default function OpenPlayPage() {
       <section id="locations" className="py-12 px-6 scroll-mt-28">
         <div className="mx-auto max-w-4xl grid grid-cols-1 md:grid-cols-2 gap-6">
           {[
-            { name: "Rockville", url: WIDGET_URLS.rockville.openPlay, address: "40C Southlawn Ct, Rockville, MD 20850", phone: "240-912-7860" },
-            { name: "North Bethesda", url: WIDGET_URLS.northBethesda.openPlay, address: "4942 Boiling Brook Pkwy, North Bethesda, MD 20852", phone: "301-231-7811" },
+            { name: "Rockville", url: WIDGET_URLS.rockville.openPlay, address: "40C Southlawn Ct, Rockville, MD 20850", phone: "240-240-9224" },
+            { name: "North Bethesda", url: WIDGET_URLS.northBethesda.openPlay, address: "4942 Boiling Brook Pkwy, North Bethesda, MD 20852", phone: "240-248-3303" },
           ].map((loc) => (
             <div key={loc.name} className="card-dd p-6">
               <h2 className="font-heading font-bold text-xl mb-2">{loc.name}</h2>

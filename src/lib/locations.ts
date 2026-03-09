@@ -26,7 +26,7 @@ export const LOCATIONS: Record<LocationId, Location> = {
     city: "Rockville",
     state: "MD",
     zip: "20850",
-    phone: "240-912-7860",
+    phone: "240-240-9224",
     email: "rockville@dilldinkers.com",
   },
   northBethesda: {
@@ -37,7 +37,7 @@ export const LOCATIONS: Record<LocationId, Location> = {
     city: "North Bethesda",
     state: "MD",
     zip: "20852",
-    phone: "301-231-7811",
+    phone: "240-248-3303",
     email: "northbethesda@dilldinkers.com",
   },
 } as const;
