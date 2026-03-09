@@ -78,13 +78,13 @@ export default function YouthPage() {
       <section className="relative py-20 md:py-28 px-6 hero-next-gen">
         <div className="relative mx-auto max-w-4xl text-center">
           <Image
-            src="/images/nextgen-academy-logo.svg"
-            alt="Next Gen Academy"
-            width={64}
-            height={64}
-            className="mx-auto mb-4"
+            src="/images/Next Gen Pickleball Academy Logo Horizontal.png"
+            alt="Next Gen Pickleball Academy"
+            width={400}
+            height={150}
+            className="mx-auto mb-6"
+            priority
           />
-          <span className="brand-badge brand-badge-ng mb-4">Next Gen Academy</span>
           <h1 className="font-heading font-black text-4xl md:text-6xl leading-tight mb-6">
             Youth &amp; Junior <span className="gradient-text-ng">Programs</span>
           </h1>
