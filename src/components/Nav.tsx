@@ -7,8 +7,6 @@ import { SearchBar } from "@/components/SearchBar";
 
 export function Nav() {
   const [mobileOpen, setMobileOpen] = useState(false);
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [searchOpen, setSearchOpen] = useState(false);
 
   useEffect(() => {
     if (!mobileOpen) return;
@@ -41,7 +39,7 @@ export function Nav() {
               {link.label}
             </Link>
           ))}
-          <SearchBar onOpenChange={(open) => { setSearchOpen(open); if (open) setMobileOpen(false); }} />
+          <SearchBar onOpenChange={(open) => { if (open) setMobileOpen(false); }} />
           <Link
             href="/contact"
             className="text-white px-4 py-2 rounded-lg text-sm font-medium btn-gradient"
@@ -52,7 +50,7 @@ export function Nav() {
 
         {/* Mobile: search + hamburger */}
         <div className="flex md:hidden items-center gap-3">
-          <SearchBar onOpenChange={(open) => { setSearchOpen(open); if (open) setMobileOpen(false); }} />
+          <SearchBar onOpenChange={(open) => { if (open) setMobileOpen(false); }} />
           <button
             type="button"
             className="text-text-muted hover:text-text-primary transition-colors"

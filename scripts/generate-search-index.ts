@@ -133,12 +133,21 @@ function extractSections(
     const headingText = stripJsx(headingMatch[1]);
     if (!headingText) continue;
 
-    // Build a description from the first <p> in this section
+    // Build a description from the first <p> in this section; fall back to heading text
     const pMatch = sectionContent.match(/<p[^>]*>([\s\S]*?)<\/p>/);
-    const description = pMatch ? stripJsx(pMatch[1]).slice(0, 150) : "";
+    const pText = pMatch ? stripJsx(pMatch[1]).slice(0, 150) : "";
+    const description = pText || headingText;
+
+    // Prepend parent page name for generic/short titles to disambiguate
+    const shortPageName = pageTitle.split(/\s*[—\-|]\s*/)[0].trim();
+    const isGenericTitle = headingText.length <= 25 && !headingText.includes(" — ");
+    const qualifiedTitle =
+      isGenericTitle && shortPageName
+        ? `${shortPageName} — ${headingText}`
+        : headingText;
 
     entries.push({
-      title: headingText,
+      title: qualifiedTitle,
       description,
       url: `${pageUrl}#${sectionId}`,
       type: "section",

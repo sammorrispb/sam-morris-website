@@ -43,6 +43,14 @@ export function SearchBar({ onOpenChange }: SearchBarProps) {
   const desktopInputRef = useRef<HTMLInputElement>(null);
   const mobileInputRef = useRef<HTMLInputElement>(null);
   const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const fetchFailedRef = useRef(false);
+
+  // Clean up debounce timer on unmount
+  useEffect(() => {
+    return () => {
+      if (debounceRef.current) clearTimeout(debounceRef.current);
+    };
+  }, []);
 
   // Notify parent of open state changes
   const updateOpen = useCallback(
@@ -56,9 +64,11 @@ export function SearchBar({ onOpenChange }: SearchBarProps) {
   // Load search index on first open
   const ensureIndex = useCallback(async () => {
     if (index) return index;
+    if (fetchFailedRef.current) return null;
     setLoading(true);
     try {
       const res = await fetch("/search-index.json");
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
       const entries: SearchEntry[] = await res.json();
       const fuse = new Fuse(entries, {
         keys: [
@@ -71,6 +81,10 @@ export function SearchBar({ onOpenChange }: SearchBarProps) {
       });
       setIndex(fuse);
       return fuse;
+    } catch (err) {
+      console.error("Failed to load search index:", err);
+      fetchFailedRef.current = true;
+      return null;
     } finally {
       setLoading(false);
     }
