@@ -8,7 +8,7 @@ interface SearchEntry {
   title: string;
   description: string;
   url: string;
-  type: "page" | "blog" | "section";
+  type: "page" | "section";
   category?: string;
 }
 
@@ -18,13 +18,11 @@ interface SearchBarProps {
 
 const TYPE_COLORS: Record<SearchEntry["type"], string> = {
   page: "text-accent-blue",
-  blog: "text-accent-purple",
   section: "text-accent-lime",
 };
 
 const TYPE_BG: Record<SearchEntry["type"], string> = {
   page: "bg-accent-blue/10",
-  blog: "bg-accent-purple/10",
   section: "bg-accent-lime/10",
 };
 

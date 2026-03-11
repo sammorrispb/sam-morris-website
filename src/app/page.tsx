@@ -3,7 +3,6 @@ import Link from "next/link";
 import Image from "next/image";
 import { LeadForm } from "@/components/LeadForm";
 import { AnimateOnScroll } from "@/components/AnimateOnScroll";
-import { getAllPosts } from "@/lib/blog";
 
 export const metadata: Metadata = {
   title:
@@ -104,8 +103,6 @@ const PROGRAMS = [
 ];
 
 export default function Home() {
-  const recentPosts = getAllPosts().slice(0, 3);
-
   return (
     <>
       {/* ─── Hero ─── */}
@@ -267,45 +264,6 @@ export default function Home() {
         </AnimateOnScroll>
       </section>
 
-      {/* ─── Latest Blog Posts ─── */}
-      <section className="py-20 px-4 bg-navy-light">
-        <AnimateOnScroll>
-        <div className="max-w-6xl mx-auto">
-          <h2 className="font-heading font-bold text-3xl text-center mb-4">
-            From the Blog
-          </h2>
-          <p className="text-text-muted text-center mb-12">
-            Thoughts on coaching, parenting, entrepreneurship, and leadership.
-          </p>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-4xl mx-auto">
-            {recentPosts.map((post) => (
-              <Link
-                key={post.slug}
-                href={`/blog/${post.slug}`}
-                className="bg-navy glow-border glow-border-hover rounded-xl p-6 transition-all card-hover"
-              >
-                <div className="flex items-center gap-3 mb-2">
-                  <span className="text-xs font-medium px-2 py-0.5 rounded-full bg-accent-blue/10 text-accent-blue">
-                    {post.category}
-                  </span>
-                  <span className="text-text-muted text-xs">{post.readingTime}</span>
-                </div>
-                <h3 className="font-heading font-bold text-lg mb-2">{post.title}</h3>
-                <p className="text-text-muted text-sm">{post.excerpt}</p>
-              </Link>
-            ))}
-          </div>
-          <div className="text-center mt-8">
-            <Link
-              href="/blog"
-              className="text-accent-blue hover:text-accent-purple transition-colors text-sm font-medium"
-            >
-              Read All Posts &rarr;
-            </Link>
-          </div>
-        </div>
-        </AnimateOnScroll>
-      </section>
     </>
   );
 }
