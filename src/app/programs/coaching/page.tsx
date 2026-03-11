@@ -371,9 +371,9 @@ export default function CoachingPage() {
           <Link href="/programs/coached-open-play" className="text-[#4DACD0] hover:text-[#3b82f6] transition-colors font-semibold text-sm">
             &larr; Coached Open Play
           </Link>
-          <Link href="/programs/tournaments" className="text-[#4DACD0] hover:text-[#3b82f6] transition-colors font-semibold text-sm">
+          <a href="https://tournamentwebsite.vercel.app/" target="_blank" rel="noopener noreferrer" className="text-[#4DACD0] hover:text-[#3b82f6] transition-colors font-semibold text-sm">
             Tournaments &rarr;
-          </Link>
+          </a>
         </div>
       </section>
     </div>

@@ -47,8 +47,9 @@ const PROGRAMS = [
     title: "Tournaments",
     description:
       "Link & Dink series — round robin pools, bracket play, medals, and raffles.",
-    href: "/programs/tournaments",
+    href: "https://tournamentwebsite.vercel.app/",
     color: "#F47920",
+    external: true,
   },
   {
     emoji: "\u{1F3AF}",
@@ -145,27 +146,46 @@ export default function ProgramHubPage() {
               Choose the experience that matches your goals today.
             </p>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {PROGRAMS.map((p) => (
-                <Link
-                  key={p.href}
-                  href={p.href}
-                  className="card-dd p-6 block"
-                  style={{ borderLeft: `4px solid ${p.color}` }}
-                >
-                  <span className="text-2xl mb-3 block" role="img" aria-hidden="true">
-                    {p.emoji}
-                  </span>
-                  <h3 className="font-heading text-lg mb-2">
-                    {p.title}
-                  </h3>
-                  <p className="text-text-muted text-sm leading-relaxed">
-                    {p.description}
-                  </p>
-                  <span className="text-[#F47920] text-sm font-semibold mt-3 inline-block">
-                    View Details &rarr;
-                  </span>
-                </Link>
-              ))}
+              {PROGRAMS.map((p) => {
+                const cardStyle = { borderLeft: `4px solid ${p.color}` };
+                const content = (
+                  <>
+                    <span className="text-2xl mb-3 block" role="img" aria-hidden="true">
+                      {p.emoji}
+                    </span>
+                    <h3 className="font-heading text-lg mb-2">
+                      {p.title}
+                    </h3>
+                    <p className="text-text-muted text-sm leading-relaxed">
+                      {p.description}
+                    </p>
+                    <span className="text-[#F47920] text-sm font-semibold mt-3 inline-block">
+                      View Details &rarr;
+                    </span>
+                  </>
+                );
+                return p.external ? (
+                  <a
+                    key={p.href}
+                    href={p.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="card-dd p-6 block"
+                    style={cardStyle}
+                  >
+                    {content}
+                  </a>
+                ) : (
+                  <Link
+                    key={p.href}
+                    href={p.href}
+                    className="card-dd p-6 block"
+                    style={cardStyle}
+                  >
+                    {content}
+                  </Link>
+                );
+              })}
             </div>
           </AnimateOnScroll>
         </div>

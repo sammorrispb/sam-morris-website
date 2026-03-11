@@ -308,26 +308,43 @@ export default function LocationsPage() {
                 { href: "/programs/leagues", title: "Leagues", desc: "6-week seasons with DUPR brackets and playoffs" },
                 { href: "/programs/open-play", title: "Open Play", desc: "Drop-in sessions for all skill levels" },
                 { href: "/programs/coached-open-play", title: "Coached Open Play", desc: "Play real games with real-time coaching" },
-                { href: "/programs/tournaments", title: "Tournaments", desc: "Link & Dink series with medals and raffles" },
+                { href: "https://tournamentwebsite.vercel.app/", title: "Tournaments", desc: "Link & Dink series with medals and raffles", external: true },
                 { href: "/programs/coaching", title: "Coaching & Clinics", desc: "Private lessons, group clinics, and coach profiles" },
                 { href: "/programs/youth", title: "Youth Programs", desc: "Next Gen Academy and summer camp for ages 5\u201316" },
-              ].map((prog) => (
-                <Link
-                  key={prog.href}
-                  href={prog.href}
-                  className="bg-navy glow-border rounded-xl p-6 card-hover block"
-                >
-                  <h3 className="font-heading font-semibold text-lg mb-2 text-text-primary">
-                    {prog.title}
-                  </h3>
-                  <p className="text-text-muted text-sm leading-relaxed">
-                    {prog.desc}
-                  </p>
-                  <span className="text-accent-blue text-sm font-semibold mt-3 inline-block">
-                    View Details &rarr;
-                  </span>
-                </Link>
-              ))}
+              ].map((prog) => {
+                const content = (
+                  <>
+                    <h3 className="font-heading font-semibold text-lg mb-2 text-text-primary">
+                      {prog.title}
+                    </h3>
+                    <p className="text-text-muted text-sm leading-relaxed">
+                      {prog.desc}
+                    </p>
+                    <span className="text-accent-blue text-sm font-semibold mt-3 inline-block">
+                      View Details &rarr;
+                    </span>
+                  </>
+                );
+                return prog.external ? (
+                  <a
+                    key={prog.href}
+                    href={prog.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="bg-navy glow-border rounded-xl p-6 card-hover block"
+                  >
+                    {content}
+                  </a>
+                ) : (
+                  <Link
+                    key={prog.href}
+                    href={prog.href}
+                    className="bg-navy glow-border rounded-xl p-6 card-hover block"
+                  >
+                    {content}
+                  </Link>
+                );
+              })}
             </div>
 
             <div className="text-center mb-10">

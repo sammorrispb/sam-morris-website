@@ -3,13 +3,13 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-const PROGRAM_NAV = [
+const PROGRAM_NAV: { href: string; label: string; external?: boolean }[] = [
   { href: "/programs/hub", label: "Program Hub" },
   { href: "/programs/leagues", label: "Leagues" },
   { href: "/programs/open-play", label: "Open Play" },
   { href: "/programs/coached-open-play", label: "Coached Open Play" },
   { href: "/programs/coaching", label: "Coaching & Clinics" },
-  { href: "/programs/tournaments", label: "Tournaments" },
+  { href: "https://tournamentwebsite.vercel.app/", label: "Tournaments", external: true },
   { href: "/programs/youth", label: "Youth Programs" },
 ];
 
@@ -19,7 +19,7 @@ const BRAND_MAP: Record<string, { brand: string; color: string }> = {
   "/programs/open-play": { brand: "dill-dinkers", color: "#8BC751" },
   "/programs/coached-open-play": { brand: "sam-morris", color: "#4DACD0" },
   "/programs/coaching": { brand: "sam-morris", color: "#4DACD0" },
-  "/programs/tournaments": { brand: "link-and-dink", color: "#F47920" },
+  "https://tournamentwebsite.vercel.app/": { brand: "link-and-dink", color: "#F47920" },
   "/programs/youth": { brand: "next-gen", color: "#22c55e" },
 };
 
@@ -47,16 +47,29 @@ export function ProgramsNav() {
         {PROGRAM_NAV.map((item) => {
           const isActive = pathname === item.href;
           const itemBrand = BRAND_MAP[item.href];
-          return (
+          const className = `shrink-0 transition-colors text-sm ${
+            isActive
+              ? "nav-link-active font-semibold"
+              : "text-text-muted hover:text-text-primary"
+          }`;
+          const style = isActive && itemBrand ? { color: itemBrand.color } : undefined;
+          return item.external ? (
+            <a
+              key={item.href}
+              href={item.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={className}
+              style={style}
+            >
+              {item.label}
+            </a>
+          ) : (
             <Link
               key={item.href}
               href={item.href}
-              className={`shrink-0 transition-colors text-sm ${
-                isActive
-                  ? "nav-link-active font-semibold"
-                  : "text-text-muted hover:text-text-primary"
-              }`}
-              style={isActive && itemBrand ? { color: itemBrand.color } : undefined}
+              className={className}
+              style={style}
             >
               {item.label}
             </Link>

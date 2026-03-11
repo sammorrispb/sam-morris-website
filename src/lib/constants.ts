@@ -18,7 +18,7 @@ export const SOCIAL_LINKS = [
 export const PROJECT_LINKS = [
   { label: "Next Gen Academy", href: "https://nextgenpbacademy.com" },
   { label: "Link & Dink", href: "https://www.linkanddink.com" },
-  { label: "Tournament Series", href: "/tournament/" },
+  { label: "Tournament Series", href: "https://tournamentwebsite.vercel.app/" },
   { label: "Play Date", href: "https://play-date-five.vercel.app/" },
 ] as const;
 

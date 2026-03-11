@@ -244,12 +244,14 @@ export default function YouthPage() {
       {/* Bottom Nav */}
       <section className="py-12 px-6">
         <div className="mx-auto max-w-3xl flex justify-between items-center">
-          <Link
-            href="/programs/tournaments"
+          <a
+            href="https://tournamentwebsite.vercel.app/"
+            target="_blank"
+            rel="noopener noreferrer"
             className="text-[#22c55e] hover:text-[#4ade80] transition-colors font-semibold text-sm"
           >
             &larr; Tournaments
-          </Link>
+          </a>
           <Link
             href="/programs/hub"
             className="text-[#22c55e] hover:text-[#4ade80] transition-colors font-semibold text-sm"

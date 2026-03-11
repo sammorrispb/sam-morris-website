@@ -203,7 +203,9 @@ export default function AboutPage() {
             </a>
 
             <a
-              href="/tournament/"
+              href="https://tournamentwebsite.vercel.app/"
+              target="_blank"
+              rel="noopener noreferrer"
               className="bg-navy-light glow-border rounded-xl p-6 text-center hover:scale-[1.02] transition-transform"
             >
               <div className="font-mono text-accent-pink text-sm uppercase tracking-wider mb-2">
