@@ -9,7 +9,7 @@ import { WIDGET_URLS } from "@/lib/locations";
 export const metadata: Metadata = {
   title: "Leagues — Dill Dinkers Rockville & North Bethesda",
   description:
-    "Spring 2026 pickleball league schedule at Dill Dinkers. 6-week seasons with playoffs, DUPR-based brackets at Rockville and North Bethesda.",
+    "Spring 2026 league schedule at Dill Dinkers. DUPR-based brackets with playoffs at Rockville and North Bethesda.",
   keywords: [
     "pickleball leagues Montgomery County",
     "pickleball league Rockville MD",
@@ -24,7 +24,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Pickleball Leagues — Dill Dinkers Rockville & North Bethesda",
     description:
-      "Spring 2026 league schedule. DUPR brackets, 6-week seasons, Week 7 playoffs.",
+      "Spring 2026 league schedule. DUPR brackets, weekly seasons with playoffs.",
     url: "https://www.sammorrispb.com/programs/leagues",
   },
 };
@@ -122,7 +122,7 @@ export default function LeaguesPage() {
               "6-week indoor pickleball league seasons with DUPR-based brackets and Week 7 playoffs at Dill Dinkers Rockville and North Bethesda.",
             sport: "Pickleball",
             startDate: "2026-03-02",
-            endDate: "2026-04-27",
+            endDate: "2026-04-25",
             eventAttendanceMode:
               "https://schema.org/OfflineEventAttendanceMode",
             eventStatus: "https://schema.org/EventScheduled",
@@ -170,10 +170,10 @@ export default function LeaguesPage() {
             <span className="gradient-text-dd">Leagues</span>
           </h1>
           <p className="text-text-muted text-lg md:text-xl max-w-2xl mx-auto">
-            Spring 2026 League Schedule: March 2nd through April 27th
+            Spring 2026 League Schedule: March 2nd through April 25th
           </p>
           <p className="text-sm text-[#F47920] mt-3 font-semibold">
-            League Break: March 30 &ndash; April 6 (MCPS Spring Break &amp; Easter)
+            League Break: March 30 &ndash; April 3 (MCPS Spring Break &amp; Easter)
           </p>
         </div>
       </section>
@@ -247,7 +247,7 @@ export default function LeaguesPage() {
           >
             <p className="text-[#F47920] font-heading font-bold text-sm mb-1">League Break</p>
             <p className="text-text-muted text-sm">
-              March 30 &ndash; April 6 — No league games during MCPS Spring Break &amp; Easter week.
+              March 30 &ndash; April 3 — No league games during MCPS Spring Break &amp; Easter week.
             </p>
           </div>
         </div>
