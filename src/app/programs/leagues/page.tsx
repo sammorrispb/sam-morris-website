@@ -9,7 +9,7 @@ import { WIDGET_URLS } from "@/lib/locations";
 export const metadata: Metadata = {
   title: "Leagues — Dill Dinkers Rockville & North Bethesda",
   description:
-    "Spring 2026 league schedule at Dill Dinkers. DUPR-based brackets with playoffs at Rockville and North Bethesda.",
+    "Spring & Late Spring 2026 league schedules at Dill Dinkers. DUPR-based brackets with playoffs at Rockville and North Bethesda.",
   keywords: [
     "pickleball leagues Montgomery County",
     "pickleball league Rockville MD",
@@ -24,7 +24,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Pickleball Leagues — Dill Dinkers Rockville & North Bethesda",
     description:
-      "Spring 2026 league schedule. DUPR brackets, weekly seasons with playoffs.",
+      "Spring & Late Spring 2026 league schedules. DUPR brackets, weekly seasons with playoffs.",
     url: "https://www.sammorrispb.com/programs/leagues",
   },
 };
@@ -43,6 +43,22 @@ const NB_SCHEDULE = [
   { day: "Tuesday", time: "6:30 \u2013 8:15 PM", dupr: "2.75 \u2013 3.5 (Women\u2019s)" },
   { day: "Wednesday", time: "6:30 \u2013 8:15 PM", dupr: "3.0 \u2013 3.6" },
   { day: "Wednesday", time: "8:15 \u2013 10:00 PM", dupr: "3.3 \u2013 3.9" },
+];
+
+const LATE_SPRING_ROCKVILLE = [
+  { day: "Monday", time: "6:30 \u2013 8:15 PM", dupr: "3.3 \u2013 3.8" },
+  { day: "Tuesday", time: "6:45 \u2013 8:30 PM", dupr: "3.7 \u2013 4.3" },
+  { day: "Wednesday", time: "6:15 \u2013 8:00 PM", dupr: "2.7 \u2013 3.3" },
+  { day: "Thursday", time: "6:30 \u2013 8:15 PM", dupr: "2.9 and Below" },
+];
+
+const LATE_SPRING_NB = [
+  { day: "Monday", time: "6:30 \u2013 8:15 PM", dupr: "3.3 \u2013 3.8" },
+  { day: "Monday", time: "8:15 \u2013 10:00 PM", dupr: "3.7 \u2013 4.3" },
+  { day: "Tuesday", time: "4:45 \u2013 6:30 PM", dupr: "2.9 and Below" },
+  { day: "Tuesday", time: "6:30 \u2013 8:15 PM", dupr: "2.75 \u2013 3.5 (Women\u2019s)" },
+  { day: "Wednesday", time: "6:30 \u2013 8:15 PM", dupr: "2.8 \u2013 3.4" },
+  { day: "Wednesday", time: "8:15 \u2013 10:00 PM", dupr: "3.4 \u2013 3.9" },
 ];
 
 function ScheduleTable({ rows }: { rows: typeof ROCKVILLE_SCHEDULE }) {
@@ -73,6 +89,7 @@ function ScheduleTable({ rows }: { rows: typeof ROCKVILLE_SCHEDULE }) {
 const SECTIONS = [
   { id: "rockville", label: "Rockville" },
   { id: "north-bethesda", label: "North Bethesda" },
+  { id: "late-spring", label: "Late Spring" },
   { id: "format-rules", label: "Format & Rules" },
   { id: "dupr", label: "DUPR" },
   { id: "sub-rules", label: "Sub Rules" },
@@ -114,12 +131,13 @@ export default function LeaguesPage() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
+          __html: JSON.stringify([
+            {
             "@context": "https://schema.org",
             "@type": "SportsEvent",
             name: "Dill Dinkers Spring 2026 Pickleball Leagues",
             description:
-              "6-week indoor pickleball league seasons with DUPR-based brackets and Week 7 playoffs at Dill Dinkers Rockville and North Bethesda.",
+              "6-week indoor pickleball league season with DUPR-based brackets and Week 7 playoffs at Dill Dinkers Rockville and North Bethesda.",
             sport: "Pickleball",
             startDate: "2026-03-02",
             endDate: "2026-04-25",
@@ -157,7 +175,52 @@ export default function LeaguesPage() {
               name: "Sam Morris",
               url: "https://www.sammorrispb.com",
             },
-          }),
+          },
+          {
+            "@context": "https://schema.org",
+            "@type": "SportsEvent",
+            name: "Dill Dinkers Late Spring 2026 Pickleball Leagues",
+            description:
+              "6-week indoor pickleball league season with DUPR-based brackets and Week 7 playoffs at Dill Dinkers Rockville and North Bethesda.",
+            sport: "Pickleball",
+            startDate: "2026-04-27",
+            endDate: "2026-06-13",
+            eventAttendanceMode:
+              "https://schema.org/OfflineEventAttendanceMode",
+            eventStatus: "https://schema.org/EventScheduled",
+            location: [
+              {
+                "@type": "Place",
+                name: "Dill Dinkers Rockville",
+                address: {
+                  "@type": "PostalAddress",
+                  streetAddress: "40C Southlawn Court",
+                  addressLocality: "Rockville",
+                  addressRegion: "MD",
+                  postalCode: "20850",
+                  addressCountry: "US",
+                },
+              },
+              {
+                "@type": "Place",
+                name: "Dill Dinkers North Bethesda",
+                address: {
+                  "@type": "PostalAddress",
+                  streetAddress: "4942 Boiling Brook Pkwy",
+                  addressLocality: "North Bethesda",
+                  addressRegion: "MD",
+                  postalCode: "20852",
+                  addressCountry: "US",
+                },
+              },
+            ],
+            organizer: {
+              "@type": "Person",
+              name: "Sam Morris",
+              url: "https://www.sammorrispb.com",
+            },
+          },
+          ]),
         }}
       />
       <PageSectionNav sections={SECTIONS} brandColor="#F47920" />
@@ -170,16 +233,25 @@ export default function LeaguesPage() {
             <span className="gradient-text-dd">Leagues</span>
           </h1>
           <p className="text-text-muted text-lg md:text-xl max-w-2xl mx-auto">
-            Spring 2026 League Schedule: March 2nd through April 25th
+            Spring &amp; Late Spring 2026 League Schedules
           </p>
           <p className="text-sm text-[#F47920] mt-3 font-semibold">
-            League Break: March 30 &ndash; April 3 (MCPS Spring Break &amp; Easter)
+            Spring: March 2 &ndash; April 25 &nbsp;|&nbsp; Late Spring: April 27 &ndash; June 13
+          </p>
+        </div>
+      </section>
+
+      {/* Spring Season Header */}
+      <section id="rockville" className="pt-16 pb-4 px-6 scroll-mt-28">
+        <div className="mx-auto max-w-4xl">
+          <p className="text-xs font-heading font-bold uppercase tracking-widest text-[#F47920]">
+            Spring 2026 &mdash; March 2 through April 25
           </p>
         </div>
       </section>
 
       {/* Rockville Schedule */}
-      <section id="rockville" className="py-16 px-6 scroll-mt-28">
+      <section className="py-12 px-6">
         <div className="mx-auto max-w-4xl">
           <AnimateOnScroll>
             <h2 className="font-heading text-2xl md:text-3xl mb-6">
@@ -201,7 +273,7 @@ export default function LeaguesPage() {
       </section>
 
       {/* NB Schedule */}
-      <section id="north-bethesda" className="py-16 px-6 scroll-mt-28">
+      <section id="north-bethesda" className="py-12 px-6 scroll-mt-28">
         <div className="mx-auto max-w-4xl">
           <AnimateOnScroll>
             <div className="flex flex-col md:flex-row md:items-start gap-8">
@@ -250,6 +322,65 @@ export default function LeaguesPage() {
               March 30 &ndash; April 3 — No league games during MCPS Spring Break &amp; Easter week.
             </p>
           </div>
+        </div>
+      </section>
+
+      {/* Late Spring Season */}
+      <section id="late-spring" className="pt-16 pb-4 px-6 scroll-mt-28">
+        <div className="mx-auto max-w-4xl">
+          <div className="border-t border-white/10 pt-12">
+            <p className="text-xs font-heading font-bold uppercase tracking-widest text-[#F47920]">
+              Late Spring 2026 &mdash; April 27 through June 13
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Late Spring Rockville */}
+      <section className="py-12 px-6">
+        <div className="mx-auto max-w-4xl">
+          <AnimateOnScroll>
+            <h2 className="font-heading text-2xl md:text-3xl mb-6">
+              Rockville
+            </h2>
+            <div className="card-dd p-6 mb-6">
+              <ScheduleTable rows={LATE_SPRING_ROCKVILLE} />
+            </div>
+            <a
+              href={WIDGET_URLS.rockville.leagues}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block text-white font-heading font-semibold px-8 py-3 rounded-lg btn-dd"
+            >
+              Register for Rockville Leagues
+            </a>
+          </AnimateOnScroll>
+        </div>
+      </section>
+
+      {/* Late Spring NB */}
+      <section className="py-12 px-6">
+        <div className="mx-auto max-w-4xl">
+          <AnimateOnScroll>
+            <div className="flex flex-col md:flex-row md:items-start gap-8">
+              <div className="flex-1">
+                <h2 className="font-heading text-2xl md:text-3xl mb-6">
+                  North Bethesda
+                </h2>
+                <div className="card-dd p-6 mb-6">
+                  <ScheduleTable rows={LATE_SPRING_NB} />
+                </div>
+                <a
+                  href={WIDGET_URLS.northBethesda.leagues}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-block text-white font-heading font-semibold px-8 py-3 rounded-lg btn-dd"
+                >
+                  Register for North Bethesda Leagues
+                </a>
+              </div>
+            </div>
+          </AnimateOnScroll>
         </div>
       </section>
 
