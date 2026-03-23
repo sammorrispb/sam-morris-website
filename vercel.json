@@ -1,5 +1,8 @@
 {
-  "crons": [{ "path": "/api/cron/follow-up", "schedule": "0 12 * * *" }],
+  "crons": [
+    { "path": "/api/cron/follow-up", "schedule": "0 12 * * *" },
+    { "path": "/api/cron/funnel", "schedule": "0 13 * * *" }
+  ],
   "redirects": [
     { "source": "/tournament", "destination": "/tournament/", "permanent": true },
     { "source": "/playdate", "destination": "/playdate/", "permanent": true }
