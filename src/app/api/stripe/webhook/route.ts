@@ -4,6 +4,7 @@ import { NextResponse } from "next/server";
 import Stripe from "stripe";
 import { generateEmailDraft } from "@/lib/emailTemplates";
 import { sendEmail, notifySam } from "@/lib/email";
+import { createCoachingClient } from "@/lib/coaching-crm";
 
 export const dynamic = "force-dynamic";
 
@@ -115,6 +116,33 @@ export async function POST(request: Request) {
     }
   } catch (notionError) {
     console.error("Stripe webhook: Notion lead creation failed:", notionError);
+  }
+
+  // Create coaching client in CRM (with dedup)
+  try {
+    const apiKey = process.env.NOTION_API_KEY?.trim();
+    const clientsDbId = process.env.NOTION_COACHING_CLIENTS_DB_ID?.trim();
+    const skillsDbId = process.env.NOTION_COACHING_SKILLS_DB_ID?.trim();
+
+    if (apiKey && clientsDbId && skillsDbId && email) {
+      const notion = new Client({ auth: apiKey });
+      const hoursPurchased = amount === 13000 ? 1 : amount === 40000 ? 4 : 0;
+
+      const result = await createCoachingClient(notion, clientsDbId, skillsDbId, {
+        name,
+        email,
+        hoursPurchased,
+        source: "Stripe",
+      });
+
+      if (result.skipped) {
+        console.log("Stripe webhook: coaching client already exists, skipped:", email);
+      } else {
+        console.log("Stripe webhook: coaching client created:", result.clientPageId, `(${result.skillCount} skills)`);
+      }
+    }
+  } catch (crmError) {
+    console.error("Stripe webhook: coaching client creation failed:", crmError);
   }
 
   // Notify Sam

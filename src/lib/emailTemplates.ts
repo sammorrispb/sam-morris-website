@@ -1,4 +1,5 @@
 import { CONTACT } from "./constants";
+import { SINGLE_LESSON_LINK, FOUR_PACK_LINK } from "./coaching";
 
 export function interestSlug(interest: string): string {
   return interest.toLowerCase().replace(/[^a-z0-9]+/g, "_").replace(/^_|_$/g, "");
@@ -51,7 +52,12 @@ Thanks for reaching out about coaching — I'd love to help you level up your ga
 
 I offer private and small-group lessons tailored to your current skill level and goals. Whether you're working on your third shot drop, resetting under pressure, or sharpening your serve, we'll build a plan that fits. I also use video analysis so you can see exactly what we're working on and track your progress over time.
 
-If you're interested, just reply with a few times that work for you and we can get something on the calendar.${includeLnd ? `\n\n${hubCta(interest)}` : `\n\n${LND_MEMBER_NOTE}`}
+Ready to book?
+
+→ Single Lesson ($130/hour): ${SINGLE_LESSON_LINK}
+→ 4-Hour Package ($400 — best value): ${FOUR_PACK_LINK}
+
+Or just reply with a few times that work for you and we can get something on the calendar.${includeLnd ? `\n\n${hubCta(interest)}` : `\n\n${LND_MEMBER_NOTE}`}
 
 ${SIGN_OFF}`;
 }
