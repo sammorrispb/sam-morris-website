@@ -1,5 +1,5 @@
 import { CONTACT } from "./constants";
-import { SINGLE_LESSON_LINK, FOUR_PACK_LINK } from "./coaching";
+import { SINGLE_LESSON_LINK, FOUR_PACK_LINK, BOOKING_URL } from "./coaching";
 
 export function interestSlug(interest: string): string {
   return interest.toLowerCase().replace(/[^a-z0-9]+/g, "_").replace(/^_|_$/g, "");
@@ -57,7 +57,10 @@ Ready to book?
 → Single Lesson ($130/hour): ${SINGLE_LESSON_LINK}
 → 4-Hour Package ($400 — best value): ${FOUR_PACK_LINK}
 
-Or just reply with a few times that work for you and we can get something on the calendar.${includeLnd ? `\n\n${hubCta(interest)}` : `\n\n${LND_MEMBER_NOTE}`}
+Already purchased? Pick your time:
+→ Schedule Your Lesson: ${BOOKING_URL}
+
+Or just reply with a few times that work and we'll set something up.${includeLnd ? `\n\n${hubCta(interest)}` : `\n\n${LND_MEMBER_NOTE}`}
 
 ${SIGN_OFF}`;
 }

@@ -374,6 +374,17 @@ export default function CoachingPage() {
                 </a>
               </div>
             </div>
+            <div className="mt-8 text-center">
+              <p className="text-text-muted text-sm mb-4">Already purchased? Pick your time:</p>
+              <a
+                href="https://calendar.app.google/FsvvwDzNPGUX6VZbA"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-block text-white font-heading font-semibold px-8 py-3 rounded-lg btn-sm text-sm"
+              >
+                Schedule Your Lesson →
+              </a>
+            </div>
           </AnimateOnScroll>
         </div>
       </section>
