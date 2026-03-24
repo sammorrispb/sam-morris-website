@@ -346,8 +346,9 @@ export default function CoachingPage() {
                   <li>Court time included</li>
                   <li>Great for trying out coaching or a specific skill</li>
                 </ul>
+                <p className="font-heading font-bold text-xl mb-4">$130<span className="text-text-muted text-sm font-normal">/hour</span></p>
                 <a
-                  href="https://nextgenpb.as.me/?appointmentType=85545633"
+                  href="https://buy.stripe.com/aFabJ3ehjaUhfI7g6s3Je01"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-block text-white font-heading font-semibold px-6 py-3 rounded-lg btn-sm text-sm"
@@ -360,10 +361,11 @@ export default function CoachingPage() {
                 <ul className="space-y-2 text-text-muted text-sm mb-4">
                   <li>4 hours of personalized instruction</li>
                   <li>Court time included for all sessions</li>
-                  <li>Best value for committed improvement</li>
+                  <li>Best value — save $120</li>
                 </ul>
+                <p className="font-heading font-bold text-xl mb-4">$400<span className="text-text-muted text-sm font-normal"> ($100/hour)</span></p>
                 <a
-                  href="https://app.acuityscheduling.com/catalog.php?owner=37395910&action=addCart&clear=1&id=2084265"
+                  href="https://buy.stripe.com/00w00l8WZe6t7bBdYk3Je08"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-block text-white font-heading font-semibold px-6 py-3 rounded-lg btn-sm text-sm"
