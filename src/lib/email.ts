@@ -25,7 +25,8 @@ function getTransporter(): nodemailer.Transporter | null {
 export async function sendEmail(
   to: string,
   subject: string,
-  text: string
+  text: string,
+  cc?: string
 ): Promise<EmailResult> {
   const t = getTransporter();
   if (!t) return { success: false, error: "Email not configured" };
@@ -34,6 +35,7 @@ export async function sendEmail(
     await t.sendMail({
       from: `"Sam Morris" <${process.env.GMAIL_USER}>`,
       to,
+      cc,
       subject,
       text,
     });

@@ -1,14 +1,14 @@
 import { CONTACT } from "./constants";
 
-function interestSlug(interest: string): string {
+export function interestSlug(interest: string): string {
   return interest.toLowerCase().replace(/[^a-z0-9]+/g, "_").replace(/^_|_$/g, "");
 }
 
-function hubUrl(interest: string): string {
+export function hubUrl(interest: string): string {
   return `https://play.linkanddink.com?utm_source=website&utm_medium=email&utm_campaign=${interestSlug(interest)}`;
 }
 
-function surveyUrl(interest: string): string {
+export function surveyUrl(interest: string): string {
   return `https://play.linkanddink.com?utm_source=website&utm_medium=email&utm_campaign=${interestSlug(interest)}_survey#pd-survey`;
 }
 
@@ -37,7 +37,7 @@ Looking for a specific playing partner? Take our matching survey:
 
 const LND_MEMBER_NOTE = `Great to hear from a fellow Link & Dink member! I'll reach out directly.`;
 
-const SIGN_OFF = `Looking forward to connecting!
+export const SIGN_OFF = `Looking forward to connecting!
 
 Sam Morris
 ${CONTACT.phone}

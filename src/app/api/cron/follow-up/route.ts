@@ -22,12 +22,17 @@ export async function GET(request: Request) {
 
   try {
     const notion = new Client({ auth: apiKey });
+    const twelveDaysAgo = new Date();
+    twelveDaysAgo.setDate(twelveDaysAgo.getDate() - 12);
     const twoDaysAgo = new Date();
     twoDaysAgo.setDate(twoDaysAgo.getDate() - 2);
     const oneDayAgo = new Date();
     oneDayAgo.setDate(oneDayAgo.getDate() - 1);
 
-    // Query leads: "New" older than 2 days OR "Paid" older than 1 day
+    // Only nag Sam about leads the drip couldn't convert, or Business Partnerships
+    // - "New" + drip exhausted (Step>=3) + >12 days old
+    // - "New" + opted out of drip (Business Partnerships) + >2 days old
+    // - "Paid" + >1 day old (needs manual processing)
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const response: any = await notion.dataSources.query({
       data_source_id: dbId,
@@ -36,6 +41,14 @@ export async function GET(request: Request) {
           {
             and: [
               { property: "Status", select: { equals: "New" } },
+              { property: "Drip Step", number: { greater_than_or_equal_to: 3 } },
+              { property: "Date Submitted", date: { before: twelveDaysAgo.toISOString() } },
+            ],
+          },
+          {
+            and: [
+              { property: "Status", select: { equals: "New" } },
+              { property: "Drip Opted Out", checkbox: { equals: true } },
               { property: "Date Submitted", date: { before: twoDaysAgo.toISOString() } },
             ],
           },

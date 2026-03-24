@@ -97,6 +97,8 @@ export async function POST(request: Request) {
         Status: { select: { name: "New" } },
         Source: { select: { name: "Website" } },
         "Date Submitted": { date: { start: new Date().toISOString() } },
+        "Drip Step": { number: 0 },
+        "Drip Opted Out": { checkbox: interest === "Business Partnerships" },
       },
     });
 
