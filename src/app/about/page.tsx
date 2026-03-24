@@ -15,10 +15,10 @@ export const metadata: Metadata = {
     url: "https://www.sammorrispb.com/about",
     images: [
       {
-        url: "/images/sam-action.jpeg",
+        url: "/og?title=About%20Sam%20Morris&subtitle=PPR-Certified%20Coach%20%C2%B7%20Director%20of%20Programming",
         width: 1200,
         height: 630,
-        alt: "Sam Morris playing pickleball in Montgomery County, MD",
+        alt: "About Sam Morris — PPR-Certified Pickleball Coach",
       },
     ],
   },
@@ -104,6 +104,27 @@ export default function AboutPage() {
                 "https://tiktok.com/@sammorris.pb",
                 "https://youtube.com/@sammorris.pb8",
               ],
+            },
+          }),
+        }}
+      />
+      {/* Video Schema */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "VideoObject",
+            name: "Sam Morris — Pickleball Coach & Community Builder",
+            description: "Follow Sam Morris's pickleball journey — coaching highlights, tournament footage, and community events in Montgomery County, MD.",
+            thumbnailUrl: "https://www.sammorrispb.com/images/sam-action.jpeg",
+            uploadDate: "2025-01-01",
+            contentUrl: "https://youtube.com/@sammorris.pb8",
+            embedUrl: "https://www.youtube.com/embed?listType=user_uploads&list=sammorris.pb8",
+            publisher: {
+              "@type": "Person",
+              name: "Sam Morris",
+              url: "https://www.sammorrispb.com",
             },
           }),
         }}

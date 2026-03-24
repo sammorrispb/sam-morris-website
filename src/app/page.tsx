@@ -29,6 +29,16 @@ export const metadata: Metadata = {
     "indoor pickleball courts Maryland",
     "pickleball near Washington DC",
   ],
+  openGraph: {
+    images: [
+      {
+        url: "/og?title=Better%20Than%20Yesterday%20%E2%80%94%20Together&subtitle=Pickleball%20Coaching%20for%20Adults%2C%20Families%20%26%20Kids",
+        width: 1200,
+        height: 630,
+        alt: "Sam Morris Pickleball — Better Than Yesterday, Together",
+      },
+    ],
+  },
 };
 
 const STATS = [

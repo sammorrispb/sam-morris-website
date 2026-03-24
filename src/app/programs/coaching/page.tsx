@@ -27,6 +27,14 @@ export const metadata: Metadata = {
     title: "Coaching & Clinics — Dill Dinkers Rockville & North Bethesda",
     description: "Private lessons, clinics, and coached open play. Meet our coaching staff.",
     url: "https://www.sammorrispb.com/programs/coaching",
+    images: [
+      {
+        url: "/og?title=Coaching%20%26%20Clinics&subtitle=Private%20Lessons%20from%20%24130%20%C2%B7%20Group%20Clinics%20%C2%B7%206%20Coaches",
+        width: 1200,
+        height: 630,
+        alt: "Coaching & Clinics — Dill Dinkers Rockville & North Bethesda",
+      },
+    ],
   },
 };
 
@@ -180,6 +188,27 @@ export default function CoachingPage() {
                 },
               },
             ],
+          }),
+        }}
+      />
+      {/* Video Schema */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "VideoObject",
+            name: "Pickleball Coaching Tips with Sam Morris",
+            description: "Professional pickleball coaching tips, drills, and strategy from PPR-certified coach Sam Morris at Dill Dinkers in Montgomery County, MD.",
+            thumbnailUrl: "https://www.sammorrispb.com/images/sam-court-smile.jpg",
+            uploadDate: "2025-01-01",
+            contentUrl: "https://youtube.com/@sammorris.pb8",
+            embedUrl: "https://www.youtube.com/embed?listType=user_uploads&list=sammorris.pb8",
+            publisher: {
+              "@type": "Person",
+              name: "Sam Morris",
+              url: "https://www.sammorrispb.com",
+            },
           }),
         }}
       />

@@ -32,6 +32,16 @@ export const metadata: Metadata = {
     "where to play pickleball Rockville",
     "pickleball courts Bethesda area",
   ],
+  openGraph: {
+    images: [
+      {
+        url: "/og?title=Where%20to%20Play&subtitle=17%20Indoor%20Courts%20%C2%B7%20Rockville%20%26%20North%20Bethesda",
+        width: 1200,
+        height: 630,
+        alt: "Where to Play — Dill Dinkers Rockville & North Bethesda",
+      },
+    ],
+  },
 };
 
 const SECTIONS = [

@@ -17,10 +17,10 @@ export const metadata: Metadata = {
     url: "https://www.sammorrispb.com/programs",
     images: [
       {
-        url: "/images/sam-court-smile.jpg",
+        url: "/og?title=Programs%20%26%20Services&subtitle=Leagues%20%C2%B7%20Open%20Play%20%C2%B7%20Coaching%20%C2%B7%20Youth%20Academy",
         width: 1200,
         height: 630,
-        alt: "Pickleball programs and coaching with Sam Morris in Montgomery County, MD",
+        alt: "Pickleball Programs & Services — Sam Morris",
       },
     ],
   },

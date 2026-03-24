@@ -17,10 +17,10 @@ export const metadata: Metadata = {
     url: "https://www.sammorrispb.com/contact",
     images: [
       {
-        url: "/images/sam-portrait-arms-crossed.jpg",
+        url: "/og?title=Let's%20Connect&subtitle=Book%20a%20Free%20Evaluation%20%C2%B7%20Start%20Your%20Pickleball%20Journey",
         width: 1200,
         height: 630,
-        alt: "Contact Sam Morris for pickleball coaching in Montgomery County, MD",
+        alt: "Contact Sam Morris — Book a Free Pickleball Evaluation",
       },
     ],
   },
