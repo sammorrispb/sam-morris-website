@@ -4,6 +4,7 @@ import Link from "next/link";
 import { AnimateOnScroll } from "@/components/AnimateOnScroll";
 import { PageSectionNav } from "@/components/PageSectionNav";
 import { BackToTop } from "@/components/BackToTop";
+import { LeadForm } from "@/components/LeadForm";
 import { WIDGET_URLS } from "@/lib/locations";
 
 export const metadata: Metadata = {
@@ -487,6 +488,13 @@ export default function LeaguesPage() {
               </a>
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* Lead Capture */}
+      <section className="py-16 px-6">
+        <div className="mx-auto max-w-3xl">
+          <LeadForm heading="Interested in Leagues?" />
         </div>
       </section>
 

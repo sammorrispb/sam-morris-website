@@ -4,6 +4,7 @@ import Link from "next/link";
 import { AnimateOnScroll } from "@/components/AnimateOnScroll";
 import { PageSectionNav } from "@/components/PageSectionNav";
 import { BackToTop } from "@/components/BackToTop";
+import { LeadForm } from "@/components/LeadForm";
 import { WIDGET_URLS } from "@/lib/locations";
 
 export const metadata: Metadata = {
@@ -362,6 +363,13 @@ export default function CoachingPage() {
               <li><strong className="text-text-primary">Schedule a private lesson</strong> for one-on-one attention</li>
             </ol>
           </div>
+        </div>
+      </section>
+
+      {/* Lead Capture */}
+      <section className="py-16 px-6">
+        <div className="mx-auto max-w-3xl">
+          <LeadForm heading="Interested in Coaching?" />
         </div>
       </section>
 

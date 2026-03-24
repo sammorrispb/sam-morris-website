@@ -4,6 +4,7 @@ import Link from "next/link";
 import { AnimateOnScroll } from "@/components/AnimateOnScroll";
 import { PageSectionNav } from "@/components/PageSectionNav";
 import { BackToTop } from "@/components/BackToTop";
+import { LeadForm } from "@/components/LeadForm";
 import { WIDGET_URLS } from "@/lib/locations";
 
 export const metadata: Metadata = {
@@ -280,6 +281,13 @@ export default function CoachedOpenPlayPage() {
               To use your package: select &quot;Use a pack punch&quot; as your payment method when registering.
             </p>
           </div>
+        </div>
+      </section>
+
+      {/* Lead Capture */}
+      <section className="py-16 px-6">
+        <div className="mx-auto max-w-3xl">
+          <LeadForm heading="Interested in Coached Open Play?" />
         </div>
       </section>
 

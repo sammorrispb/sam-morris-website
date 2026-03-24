@@ -4,6 +4,7 @@ import Link from "next/link";
 import { AnimateOnScroll } from "@/components/AnimateOnScroll";
 import { PageSectionNav } from "@/components/PageSectionNav";
 import { BackToTop } from "@/components/BackToTop";
+import { LeadForm } from "@/components/LeadForm";
 import { WIDGET_URLS } from "@/lib/locations";
 
 export const metadata: Metadata = {
@@ -214,6 +215,13 @@ export default function OpenPlayPage() {
           <p className="text-text-muted text-sm text-center mt-6">
             Discounts and pricing vary. Check CourtReserve for the current rate when you book.
           </p>
+        </div>
+      </section>
+
+      {/* Lead Capture */}
+      <section className="py-16 px-6">
+        <div className="mx-auto max-w-3xl">
+          <LeadForm heading="Interested in Open Play?" />
         </div>
       </section>
 
