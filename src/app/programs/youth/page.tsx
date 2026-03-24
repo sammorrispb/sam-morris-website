@@ -165,6 +165,66 @@ export default function YouthPage() {
         </div>
       </section>
 
+      {/* Little Dill Academy — Spring Break */}
+      <section className="py-16 px-6">
+        <div className="mx-auto max-w-4xl">
+          <AnimateOnScroll>
+            <h2 className="font-heading text-2xl md:text-3xl mb-2">Little Dill Academy</h2>
+            <p className="text-text-muted text-sm mb-6">
+              Spring Break Camp &middot; Dill Dinkers North Bethesda &middot; Ages 5&ndash;13
+            </p>
+
+            <div className="card-ng p-6 space-y-5">
+              <p className="text-text-muted text-sm leading-relaxed">
+                Get ready for an action-packed week at Dill Dinkers North Bethesda!
+                Players spend half the day with a certified coach focusing on
+                pickleball skills and drills, and the other half with a certified
+                school teacher learning and experimenting with STEM projects, art,
+                and fitness. Equipment, dedicated courts, and healthy snacks included.
+              </p>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
+                <div>
+                  <p className="text-text-muted mb-1 font-semibold text-xs uppercase tracking-wide">When</p>
+                  <p className="text-text-primary">March 30 &ndash; April 3, 2026</p>
+                  <p className="text-text-muted">Mon&ndash;Fri &middot; 9:30 AM &ndash; 12:30 PM</p>
+                </div>
+                <div>
+                  <p className="text-text-muted mb-1 font-semibold text-xs uppercase tracking-wide">Where</p>
+                  <p className="text-text-primary">Dill Dinkers North Bethesda</p>
+                  <p className="text-text-muted">4942 Boiling Brook Pkwy</p>
+                </div>
+              </div>
+
+              <div>
+                <p className="text-text-muted mb-2 font-semibold text-xs uppercase tracking-wide">Pricing</p>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm">
+                  <div className="rounded-lg bg-white/[0.03] border border-white/10 p-3">
+                    <p className="font-semibold text-text-primary">Drop-In (per day)</p>
+                    <p className="text-text-muted">$50 members &middot; $60 non-members</p>
+                  </div>
+                  <div className="rounded-lg bg-white/[0.03] border border-white/10 p-3">
+                    <p className="font-semibold text-text-primary">Full Week</p>
+                    <p className="text-text-muted">$250 members &middot; $300 non-members</p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="text-center pt-2">
+                <a
+                  href="https://app.courtreserve.com/Online/Events/Public/10483/1836399"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-block text-white font-heading font-semibold px-8 py-3 rounded-lg btn-ng"
+                >
+                  Register Now
+                </a>
+              </div>
+            </div>
+          </AnimateOnScroll>
+        </div>
+      </section>
+
       {/* Summer Camp */}
       <section className="py-16 px-6">
         <div className="mx-auto max-w-4xl">
