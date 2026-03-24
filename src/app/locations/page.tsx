@@ -110,6 +110,7 @@ export default function LocationsPage() {
                 src="/images/sam-group-selfie.jpg"
                 alt="Sam Morris with community members"
                 fill
+                sizes="(max-width: 768px) 288px, 320px"
                 className="object-cover"
                 priority
               />

@@ -81,6 +81,33 @@ const TIMELINE = [
 export default function AboutPage() {
   return (
     <>
+      {/* ProfilePage Schema */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "ProfilePage",
+            mainEntity: {
+              "@type": "Person",
+              name: "Sam Morris",
+              jobTitle: "Head Pro & Director of Programming",
+              worksFor: {
+                "@type": "SportsActivityLocation",
+                name: "Dill Dinkers",
+              },
+              url: "https://www.sammorrispb.com/about",
+              sameAs: [
+                "https://instagram.com/sammorris.pb",
+                "https://www.linkedin.com/in/sam-morris2131/",
+                "https://facebook.com/sam.km.18",
+                "https://tiktok.com/@sammorris.pb",
+                "https://youtube.com/@sammorris.pb8",
+              ],
+            },
+          }),
+        }}
+      />
       {/* ─── Hero ─── */}
       <section className="relative py-24 md:py-32 px-6 bg-[radial-gradient(ellipse_at_center,rgba(59,130,246,0.08),transparent_70%)]">
         <div className="mx-auto max-w-3xl text-center">
@@ -103,6 +130,7 @@ export default function AboutPage() {
               src="/images/sam-action.jpeg"
               alt="Sam Morris on the court"
               fill
+              sizes="(max-width: 768px) 100vw, 50vw"
               className="object-cover"
             />
           </div>
@@ -185,7 +213,7 @@ export default function AboutPage() {
             </a>
 
             <a
-              href="https://www.linkanddink.com"
+              href="https://play.linkanddink.com/"
               target="_blank"
               rel="noopener noreferrer"
               className="bg-navy-light glow-border rounded-xl p-6 text-center hover:scale-[1.02] transition-transform"
@@ -221,18 +249,20 @@ export default function AboutPage() {
             </a>
 
             <a
-              href="/playdate/"
+              href="https://play.linkanddink.com/"
+              target="_blank"
+              rel="noopener noreferrer"
               className="bg-navy-light glow-border rounded-xl p-6 text-center hover:scale-[1.02] transition-transform"
             >
-              <div className="font-mono text-accent-purple text-sm uppercase tracking-wider mb-2">
-                Matching
+              <div className="font-mono text-accent-blue text-sm uppercase tracking-wider mb-2">
+                Community Hub
               </div>
               <h3 className="font-heading font-bold text-lg mb-2">
-                Play Date
+                The Hub
               </h3>
               <p className="text-text-muted text-sm leading-relaxed">
-                Find your ideal doubles partner through personality-driven
-                surveys and smart matching.
+                Find events, connect with players, and manage your pickleball
+                community in one place.
               </p>
             </a>
           </div>
@@ -263,6 +293,7 @@ export default function AboutPage() {
               src="/images/sam-ready-position.jpg"
               alt="Sam in ready position"
               fill
+              sizes="50vw"
               className="object-cover"
             />
           </div>

@@ -6,6 +6,7 @@ import { PageSectionNav } from "@/components/PageSectionNav";
 import { BackToTop } from "@/components/BackToTop";
 import { LeadForm } from "@/components/LeadForm";
 import { WIDGET_URLS } from "@/lib/locations";
+import { breadcrumbJsonLd } from "@/lib/seo";
 
 export const metadata: Metadata = {
   title: "Leagues — Dill Dinkers Rockville & North Bethesda",
@@ -100,6 +101,19 @@ const SECTIONS = [
 export default function LeaguesPage() {
   return (
     <div className="page-dill-dinkers">
+      {/* Breadcrumb Schema */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(
+            breadcrumbJsonLd([
+              { name: "Home", href: "/" },
+              { name: "Programs", href: "/programs" },
+              { name: "Leagues", href: "/programs/leagues" },
+            ])
+          ),
+        }}
+      />
       {/* FAQ Schema */}
       <script
         type="application/ld+json"
@@ -479,7 +493,7 @@ export default function LeaguesPage() {
                 Partner Finder Form
               </a>
               <a
-                href="https://www.linkanddink.com"
+                href="https://play.linkanddink.com/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-block font-heading font-semibold px-6 py-3 rounded-lg border border-[rgba(244,121,32,0.2)] text-text-muted hover:border-[rgba(244,121,32,0.4)] hover:text-text-primary transition-all text-sm"

@@ -6,6 +6,7 @@ import { PageSectionNav } from "@/components/PageSectionNav";
 import { BackToTop } from "@/components/BackToTop";
 import { LeadForm } from "@/components/LeadForm";
 import { WIDGET_URLS } from "@/lib/locations";
+import { breadcrumbJsonLd, faqJsonLd } from "@/lib/seo";
 
 export const metadata: Metadata = {
   title: "Open Play — Dill Dinkers Rockville & North Bethesda",
@@ -55,6 +56,96 @@ const SECTIONS = [
 export default function OpenPlayPage() {
   return (
     <div className="page-dill-dinkers">
+      {/* Breadcrumb Schema */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(
+            breadcrumbJsonLd([
+              { name: "Home", href: "/" },
+              { name: "Programs", href: "/programs" },
+              { name: "Open Play", href: "/programs/open-play" },
+            ])
+          ),
+        }}
+      />
+      {/* FAQ Schema */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(
+            faqJsonLd([
+              {
+                question: "How does pickleball open play work at Dill Dinkers?",
+                answer:
+                  "Drop in during any scheduled open play session — no reservation or partner needed. Courts are organized by skill level so you play with others at your ability. After two games, rotate off to let others play. Sessions are available daily at both Rockville and North Bethesda.",
+              },
+              {
+                question: "What skill level do I need for pickleball open play?",
+                answer:
+                  "All skill levels are welcome. Dill Dinkers offers skill-based courts from Beginner (under 2.5 DUPR) to Advanced (3.5+ DUPR). Choose the court that matches your ability for the best experience.",
+              },
+              {
+                question: "How much does open play cost at Dill Dinkers?",
+                answer:
+                  "Open play pricing varies by session. Check the Dill Dinkers schedule at app.courtreserve.com for current session times and pricing at Rockville and North Bethesda.",
+              },
+            ])
+          ),
+        }}
+      />
+      {/* Event Schema */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Event",
+            name: "Pickleball Open Play at Dill Dinkers",
+            description: "Drop-in pickleball open play sessions organized by skill level. No reservation or partner needed. All levels welcome.",
+            eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
+            eventStatus: "https://schema.org/EventScheduled",
+            organizer: {
+              "@type": "SportsActivityLocation",
+              name: "Dill Dinkers",
+              url: "https://www.sammorrispb.com/locations",
+            },
+            location: [
+              {
+                "@type": "Place",
+                name: "Dill Dinkers Rockville",
+                address: {
+                  "@type": "PostalAddress",
+                  streetAddress: "40C Southlawn Court",
+                  addressLocality: "Rockville",
+                  addressRegion: "MD",
+                  postalCode: "20850",
+                  addressCountry: "US",
+                },
+              },
+              {
+                "@type": "Place",
+                name: "Dill Dinkers North Bethesda",
+                address: {
+                  "@type": "PostalAddress",
+                  streetAddress: "4942 Boiling Brook Pkwy",
+                  addressLocality: "North Bethesda",
+                  addressRegion: "MD",
+                  postalCode: "20852",
+                  addressCountry: "US",
+                },
+              },
+            ],
+            offers: {
+              "@type": "Offer",
+              price: "15.00",
+              priceCurrency: "USD",
+              availability: "https://schema.org/InStock",
+              url: "https://www.sammorrispb.com/programs/open-play",
+            },
+          }),
+        }}
+      />
       <PageSectionNav sections={SECTIONS} brandColor="#8BC751" />
       <BackToTop />
       {/* Hero */}
@@ -222,6 +313,49 @@ export default function OpenPlayPage() {
       <section className="py-16 px-6">
         <div className="mx-auto max-w-3xl">
           <LeadForm heading="Interested in Open Play?" />
+        </div>
+      </section>
+
+      {/* Frequently Asked Questions */}
+      <section className="py-16 px-6">
+        <div className="mx-auto max-w-3xl">
+          <h2 className="font-heading font-bold text-2xl mb-8 text-center">
+            Frequently Asked Questions
+          </h2>
+          <div className="space-y-6">
+            <div>
+              <h3 className="font-heading font-semibold text-lg mb-2">
+                How does pickleball open play work at Dill Dinkers?
+              </h3>
+              <p className="text-text-muted leading-relaxed">
+                Drop in during any scheduled open play session — no reservation or
+                partner needed. Courts are organized by skill level so you play with
+                others at your ability. After two games, rotate off to let others
+                play. Sessions are available daily at both Rockville and North
+                Bethesda.
+              </p>
+            </div>
+            <div>
+              <h3 className="font-heading font-semibold text-lg mb-2">
+                What skill level do I need for pickleball open play?
+              </h3>
+              <p className="text-text-muted leading-relaxed">
+                All skill levels are welcome. Dill Dinkers offers skill-based courts
+                from Beginner (under 2.5 DUPR) to Advanced (3.5+ DUPR). Choose the
+                court that matches your ability for the best experience.
+              </p>
+            </div>
+            <div>
+              <h3 className="font-heading font-semibold text-lg mb-2">
+                How much does open play cost at Dill Dinkers?
+              </h3>
+              <p className="text-text-muted leading-relaxed">
+                Open play pricing varies by session. Check the Dill Dinkers schedule
+                at app.courtreserve.com for current session times and pricing at
+                Rockville and North Bethesda.
+              </p>
+            </div>
+          </div>
         </div>
       </section>
 

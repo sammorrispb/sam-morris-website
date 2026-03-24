@@ -6,6 +6,7 @@ import { PageSectionNav } from "@/components/PageSectionNav";
 import { BackToTop } from "@/components/BackToTop";
 import { LeadForm } from "@/components/LeadForm";
 import { WIDGET_URLS } from "@/lib/locations";
+import { breadcrumbJsonLd } from "@/lib/seo";
 
 export const metadata: Metadata = {
   title: "Coaching & Clinics — Dill Dinkers Rockville & North Bethesda",
@@ -51,6 +52,81 @@ const SECTIONS = [
 export default function CoachingPage() {
   return (
     <div className="page-sam-morris">
+      {/* Breadcrumb Schema */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(
+            breadcrumbJsonLd([
+              { name: "Home", href: "/" },
+              { name: "Programs", href: "/programs" },
+              { name: "Coaching & Clinics", href: "/programs/coaching" },
+            ])
+          ),
+        }}
+      />
+      {/* Service Schema */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Service",
+            name: "Private Pickleball Lessons",
+            provider: {
+              "@type": "Person",
+              name: "Sam Morris",
+              jobTitle: "Head Pro & Director of Programming",
+            },
+            areaServed: {
+              "@type": "City",
+              name: "Rockville, MD",
+            },
+            description:
+              "One-on-one private pickleball lessons with PPR-certified coach Sam Morris at Dill Dinkers. Court time included.",
+            offers: [
+              {
+                "@type": "Offer",
+                name: "Single Lesson",
+                price: "130.00",
+                priceCurrency: "USD",
+              },
+              {
+                "@type": "Offer",
+                name: "4-Session Package",
+                price: "400.00",
+                priceCurrency: "USD",
+                description: "$100 per session",
+              },
+            ],
+          }),
+        }}
+      />
+      {/* HowTo Schema */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "HowTo",
+            name: "How to Book Pickleball Coaching at Dill Dinkers",
+            step: [
+              {
+                "@type": "HowToStep",
+                text: "Browse the clinic schedule for your preferred Dill Dinkers location.",
+              },
+              {
+                "@type": "HowToStep",
+                text: "Book a coached open play session for coaching during live games.",
+              },
+              {
+                "@type": "HowToStep",
+                text: "Schedule a private lesson for one-on-one attention with a certified coach.",
+              },
+            ],
+          }),
+        }}
+      />
       {/* Coaching Team Person Schema */}
       <script
         type="application/ld+json"

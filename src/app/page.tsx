@@ -95,7 +95,7 @@ const PROGRAMS = [
     description:
       "Community app connecting players of comparable skill levels.",
     cta: "Join Community",
-    href: "https://www.linkanddink.com",
+    href: "https://play.linkanddink.com/",
     external: true,
     image: "/images/link-and-dink-logo.svg",
     isLogo: true,
@@ -138,6 +138,7 @@ export default function Home() {
                 src="/images/sam-portrait-with-paddle.jpg"
                 alt="Sam Morris — professional pickleball coach in Montgomery County, MD"
                 fill
+                sizes="(max-width: 768px) 288px, 384px"
                 className="object-cover"
                 priority
               />
@@ -212,6 +213,7 @@ export default function Home() {
                     src={program.image}
                     alt={program.title}
                     fill
+                    sizes="(max-width: 768px) 100vw, 33vw"
                     className={program.isLogo ? "object-contain p-4" : "object-cover"}
                   />
                 </div>

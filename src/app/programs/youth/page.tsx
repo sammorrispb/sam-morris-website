@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { AnimateOnScroll } from "@/components/AnimateOnScroll";
 import { BackToTop } from "@/components/BackToTop";
+import { breadcrumbJsonLd, faqJsonLd } from "@/lib/seo";
 
 export const metadata: Metadata = {
   title: "Youth & Junior Programs — Next Gen Academy at Dill Dinkers",
@@ -72,6 +73,44 @@ export default function YouthPage() {
 
   return (
     <div className="page-next-gen">
+      {/* Breadcrumb Schema */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(
+            breadcrumbJsonLd([
+              { name: "Home", href: "/" },
+              { name: "Programs", href: "/programs" },
+              { name: "Youth & Junior Programs", href: "/programs/youth" },
+            ])
+          ),
+        }}
+      />
+      {/* FAQ Schema */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(
+            faqJsonLd([
+              {
+                question: "What age can kids start pickleball at Dill Dinkers?",
+                answer:
+                  "Kids can start as young as age 5 in the Red Ball level at Next Gen Academy. The program has four progressive levels: Red Ball (5+), Orange Ball (7+), Green Ball (9+), and Yellow Ball (11+).",
+              },
+              {
+                question: "How much does Next Gen Academy cost?",
+                answer:
+                  "Next Gen Academy sessions run in multi-week seasons at Dill Dinkers Rockville and North Bethesda. Visit nextgenpbacademy.com or contact Sam Morris for current pricing and registration.",
+              },
+              {
+                question: "Does Dill Dinkers offer pickleball summer camp for kids?",
+                answer:
+                  "Yes. Next Gen Academy runs summer camp sessions for kids at Dill Dinkers. Camps are grouped by age and skill level with structured coaching, games, and match play.",
+              },
+            ])
+          ),
+        }}
+      />
       <BackToTop />
 
       {/* Hero */}
@@ -298,6 +337,47 @@ export default function YouthPage() {
               >
                 Contact Us
               </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Frequently Asked Questions */}
+      <section className="py-16 px-6">
+        <div className="mx-auto max-w-3xl">
+          <h2 className="font-heading font-bold text-2xl mb-8 text-center">
+            Frequently Asked Questions
+          </h2>
+          <div className="space-y-6">
+            <div>
+              <h3 className="font-heading font-semibold text-lg mb-2">
+                What age can kids start pickleball at Dill Dinkers?
+              </h3>
+              <p className="text-text-muted leading-relaxed">
+                Kids can start as young as age 5 in the Red Ball level at Next Gen
+                Academy. The program has four progressive levels: Red Ball (5+),
+                Orange Ball (7+), Green Ball (9+), and Yellow Ball (11+).
+              </p>
+            </div>
+            <div>
+              <h3 className="font-heading font-semibold text-lg mb-2">
+                How much does Next Gen Academy cost?
+              </h3>
+              <p className="text-text-muted leading-relaxed">
+                Next Gen Academy sessions run in multi-week seasons at Dill Dinkers
+                Rockville and North Bethesda. Visit nextgenpbacademy.com or contact
+                Sam Morris for current pricing and registration.
+              </p>
+            </div>
+            <div>
+              <h3 className="font-heading font-semibold text-lg mb-2">
+                Does Dill Dinkers offer pickleball summer camp for kids?
+              </h3>
+              <p className="text-text-muted leading-relaxed">
+                Yes. Next Gen Academy runs summer camp sessions for kids at Dill
+                Dinkers. Camps are grouped by age and skill level with structured
+                coaching, games, and match play.
+              </p>
             </div>
           </div>
         </div>

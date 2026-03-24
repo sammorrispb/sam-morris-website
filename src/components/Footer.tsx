@@ -18,7 +18,7 @@ export function Footer() {
           </div>
 
           {/* Page links */}
-          <div>
+          <nav aria-label="Footer pages">
             <h4 className="font-heading text-sm font-semibold text-text-primary uppercase tracking-wider mb-4">
               Pages
             </h4>
@@ -34,10 +34,10 @@ export function Footer() {
                 </li>
               ))}
             </ul>
-          </div>
+          </nav>
 
           {/* Projects */}
-          <div>
+          <nav aria-label="Footer projects">
             <h4 className="font-heading text-sm font-semibold text-text-primary uppercase tracking-wider mb-4">
               Projects
             </h4>
@@ -57,7 +57,7 @@ export function Footer() {
                 );
               })}
             </ul>
-          </div>
+          </nav>
 
           {/* Contact + Social */}
           <div>
@@ -92,7 +92,7 @@ export function Footer() {
                   <a
                     href={social.href}
                     target="_blank"
-                    rel="noopener noreferrer"
+                    rel="me noopener noreferrer"
                     className="text-text-muted hover:text-accent-pink transition-colors text-sm"
                   >
                     {social.platform}

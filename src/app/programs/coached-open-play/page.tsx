@@ -6,6 +6,7 @@ import { PageSectionNav } from "@/components/PageSectionNav";
 import { BackToTop } from "@/components/BackToTop";
 import { LeadForm } from "@/components/LeadForm";
 import { WIDGET_URLS } from "@/lib/locations";
+import { breadcrumbJsonLd, faqJsonLd } from "@/lib/seo";
 
 export const metadata: Metadata = {
   title: "Coached Open Play — Dill Dinkers Rockville & North Bethesda",
@@ -109,6 +110,95 @@ const SECTIONS = [
 export default function CoachedOpenPlayPage() {
   return (
     <div className="page-sam-morris">
+      {/* Breadcrumb Schema */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(
+            breadcrumbJsonLd([
+              { name: "Home", href: "/" },
+              { name: "Programs", href: "/programs" },
+              { name: "Coached Open Play", href: "/programs/coached-open-play" },
+            ])
+          ),
+        }}
+      />
+      {/* FAQ Schema */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(
+            faqJsonLd([
+              {
+                question: "What is coached open play pickleball?",
+                answer:
+                  "Coached open play combines live game play with real-time feedback from a certified coach. You play actual games while a coach observes and offers tips on strategy, positioning, and technique between points. It is available at Dill Dinkers Rockville and North Bethesda.",
+              },
+              {
+                question: "What is the difference between coached open play and regular open play?",
+                answer:
+                  "Regular open play is self-directed — you show up and play games on your own. Coached open play adds a professional coach who watches your games and provides real-time instruction. Coached sessions are grouped by skill level (Beginner, Advanced Beginner, Intermediate) for a better learning experience.",
+              },
+              {
+                question: "How much does coached open play cost at Dill Dinkers?",
+                answer:
+                  "Coached open play sessions are available at Dill Dinkers Rockville and North Bethesda. Check the schedule at app.courtreserve.com for current times and pricing. Sessions typically last 1.5 to 2 hours.",
+              },
+            ])
+          ),
+        }}
+      />
+      {/* Event Schema */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Event",
+            name: "Coached Open Play at Dill Dinkers",
+            description: "Coached open play combines live pickleball games with real-time feedback from a certified coach. Sessions grouped by skill level: Beginner, Advanced Beginner, and Intermediate.",
+            eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
+            eventStatus: "https://schema.org/EventScheduled",
+            organizer: {
+              "@type": "SportsActivityLocation",
+              name: "Dill Dinkers",
+              url: "https://www.sammorrispb.com/locations",
+            },
+            location: [
+              {
+                "@type": "Place",
+                name: "Dill Dinkers Rockville",
+                address: {
+                  "@type": "PostalAddress",
+                  streetAddress: "40C Southlawn Court",
+                  addressLocality: "Rockville",
+                  addressRegion: "MD",
+                  postalCode: "20850",
+                  addressCountry: "US",
+                },
+              },
+              {
+                "@type": "Place",
+                name: "Dill Dinkers North Bethesda",
+                address: {
+                  "@type": "PostalAddress",
+                  streetAddress: "4942 Boiling Brook Pkwy",
+                  addressLocality: "North Bethesda",
+                  addressRegion: "MD",
+                  postalCode: "20852",
+                  addressCountry: "US",
+                },
+              },
+            ],
+            offers: {
+              "@type": "Offer",
+              priceCurrency: "USD",
+              availability: "https://schema.org/InStock",
+              url: "https://www.sammorrispb.com/programs/coached-open-play",
+            },
+          }),
+        }}
+      />
       <PageSectionNav sections={SECTIONS} brandColor="#4DACD0" />
       <BackToTop />
       {/* Hero */}
@@ -288,6 +378,51 @@ export default function CoachedOpenPlayPage() {
       <section className="py-16 px-6">
         <div className="mx-auto max-w-3xl">
           <LeadForm heading="Interested in Coached Open Play?" />
+        </div>
+      </section>
+
+      {/* Frequently Asked Questions */}
+      <section className="py-16 px-6">
+        <div className="mx-auto max-w-3xl">
+          <h2 className="font-heading font-bold text-2xl mb-8 text-center">
+            Frequently Asked Questions
+          </h2>
+          <div className="space-y-6">
+            <div>
+              <h3 className="font-heading font-semibold text-lg mb-2">
+                What is coached open play pickleball?
+              </h3>
+              <p className="text-text-muted leading-relaxed">
+                Coached open play combines live game play with real-time feedback from
+                a certified coach. You play actual games while a coach observes and
+                offers tips on strategy, positioning, and technique between points. It
+                is available at Dill Dinkers Rockville and North Bethesda.
+              </p>
+            </div>
+            <div>
+              <h3 className="font-heading font-semibold text-lg mb-2">
+                What is the difference between coached open play and regular open
+                play?
+              </h3>
+              <p className="text-text-muted leading-relaxed">
+                Regular open play is self-directed — you show up and play games on
+                your own. Coached open play adds a professional coach who watches your
+                games and provides real-time instruction. Coached sessions are grouped
+                by skill level (Beginner, Advanced Beginner, Intermediate) for a
+                better learning experience.
+              </p>
+            </div>
+            <div>
+              <h3 className="font-heading font-semibold text-lg mb-2">
+                How much does coached open play cost at Dill Dinkers?
+              </h3>
+              <p className="text-text-muted leading-relaxed">
+                Coached open play sessions are available at Dill Dinkers Rockville and
+                North Bethesda. Check the schedule at app.courtreserve.com for current
+                times and pricing. Sessions typically last 1.5 to 2 hours.
+              </p>
+            </div>
+          </div>
         </div>
       </section>
 

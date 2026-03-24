@@ -79,6 +79,7 @@ export default function ProgramsPage() {
                 src="/images/sam-court-smile.jpg"
                 alt="Sam Morris smiling on the court"
                 fill
+                sizes="(max-width: 768px) 288px, 320px"
                 className="object-cover"
                 priority
               />
@@ -239,7 +240,7 @@ export default function ProgramsPage() {
             levels. Find your game, grow your network.
           </p>
           <a
-            href="https://www.linkanddink.com"
+            href="https://play.linkanddink.com/"
             target="_blank"
             rel="noopener noreferrer"
             className="text-accent-blue hover:text-accent-purple transition-colors font-semibold"
@@ -276,6 +277,7 @@ export default function ProgramsPage() {
                     src={poster.src}
                     alt={poster.title}
                     fill
+                    sizes="(max-width: 768px) 50vw, 25vw"
                     className="object-cover"
                   />
                 </div>

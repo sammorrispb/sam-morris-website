@@ -62,6 +62,7 @@ export default function ContactPage() {
                   src="/images/sam-portrait-arms-crossed.jpg"
                   alt="Sam Morris"
                   fill
+                  sizes="128px"
                   className="object-cover"
                 />
               </div>
@@ -121,7 +122,7 @@ export default function ContactPage() {
               <p className="text-text-muted leading-relaxed mb-4">
                 Every evaluation includes creating a free{" "}
                 <a
-                  href="https://www.linkanddink.com"
+                  href="https://play.linkanddink.com/"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-accent-blue hover:text-accent-purple transition-colors underline"

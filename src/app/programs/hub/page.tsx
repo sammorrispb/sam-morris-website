@@ -6,6 +6,7 @@ import { PageSectionNav } from "@/components/PageSectionNav";
 import { BackToTop } from "@/components/BackToTop";
 import { LeadForm } from "@/components/LeadForm";
 import { LOCATIONS, LOCATION_ORDER, WIDGET_URLS } from "@/lib/locations";
+import { breadcrumbJsonLd } from "@/lib/seo";
 
 export const metadata: Metadata = {
   title: "Program Hub — Dill Dinkers Rockville & North Bethesda",
@@ -109,6 +110,19 @@ const SECTIONS = [
 export default function ProgramHubPage() {
   return (
     <div className="page-dill-dinkers">
+      {/* Breadcrumb Schema */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(
+            breadcrumbJsonLd([
+              { name: "Home", href: "/" },
+              { name: "Programs", href: "/programs" },
+              { name: "Program Hub", href: "/programs/hub" },
+            ])
+          ),
+        }}
+      />
       <PageSectionNav sections={SECTIONS} brandColor="#F47920" />
       <BackToTop />
       {/* ─── Hero ─── */}
@@ -117,6 +131,7 @@ export default function ProgramHubPage() {
           src="/images/cc-00572.jpg"
           alt=""
           fill
+          sizes="100vw"
           className="object-cover opacity-10 mix-blend-soft-light"
           priority
         />
@@ -327,7 +342,7 @@ export default function ProgramHubPage() {
         <div className="mx-auto max-w-3xl text-center">
           <p className="text-text-muted text-sm">
             <a
-              href="https://www.linkanddink.com"
+              href="https://play.linkanddink.com/"
               target="_blank"
               rel="noopener noreferrer"
               className="text-[#F47920] hover:text-[#8BC751] transition-colors font-semibold"
