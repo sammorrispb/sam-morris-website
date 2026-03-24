@@ -128,38 +128,40 @@ export default function YouthPage() {
         </div>
       </section>
 
-      {/* Schedule & Register CTA */}
+      {/* Get Started CTA */}
       <section className="py-16 px-6">
-        <div className="mx-auto max-w-3xl">
+        <div className="mx-auto max-w-4xl">
           <div className="card-ng p-8 text-center" style={{ borderColor: "rgba(34,197,94,0.3)", borderWidth: "2px" }}>
-            <h2 className="font-heading font-bold text-xl mb-3">
-              View the Current Schedule &amp; Register
+            <h2 className="font-heading font-bold text-xl mb-6">
+              Get Started with Next Gen Academy
             </h2>
-            <p className="text-text-muted text-sm mb-6">
-              Session times, locations, and registration for all academy levels.
-            </p>
-            <a
-              href="https://www.nextgenpbacademy.com/schedule"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-block text-white font-heading font-semibold px-8 py-3 rounded-lg btn-ng mb-6"
-            >
-              View Schedule &amp; Register
-            </a>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-6">
+              <div className="rounded-lg bg-white/[0.03] border border-white/10 p-5">
+                <p className="font-heading font-semibold text-text-primary mb-1">New to Pickleball?</p>
+                <p className="text-text-muted text-sm mb-4">Ages 10 &amp; under — try a free session.</p>
+                <a
+                  href="https://www.nextgenpbacademy.com/freetrial"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-block text-white font-heading font-semibold px-6 py-3 rounded-lg btn-ng text-sm"
+                >
+                  Book a Free Trial
+                </a>
+              </div>
+              <div className="rounded-lg bg-white/[0.03] border border-white/10 p-5">
+                <p className="font-heading font-semibold text-text-primary mb-1">Ages 11 &amp; Up</p>
+                <p className="text-text-muted text-sm mb-4">Schedule a free 30-minute evaluation.</p>
+                <a
+                  href="mailto:nextgenacademypb@gmail.com"
+                  className="inline-block text-white font-heading font-semibold px-6 py-3 rounded-lg btn-ng text-sm"
+                >
+                  Schedule Evaluation
+                </a>
+              </div>
+            </div>
             <p className="text-text-muted text-xs font-semibold italic">
               Schedules are subject to change. Please check your CourtReserve
               confirmation email for accurate session times.
-            </p>
-            <hr className="border-white/10 my-6" />
-            <p className="text-text-muted text-sm">
-              Not sure which level?{" "}
-              <a
-                href="mailto:nextgenacademypb@gmail.com"
-                className="text-[#22c55e] hover:text-[#4ade80] font-semibold transition-colors"
-              >
-                Email us
-              </a>{" "}
-              to schedule a free 30-minute evaluation.
             </p>
           </div>
         </div>
