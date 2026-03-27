@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import { LeadForm } from "@/components/LeadForm";
+import { TrackedExternalLink } from "@/components/TrackedExternalLink";
+import { ContactLink } from "@/components/ContactLink";
 import { CONTACT, SOCIAL_LINKS } from "@/lib/constants";
 
 export const metadata: Metadata = {
@@ -50,7 +52,7 @@ export default function ContactPage() {
         <div className="mx-auto max-w-5xl grid grid-cols-1 md:grid-cols-2 gap-12">
           {/* Left column: Lead Form */}
           <div>
-            <LeadForm heading="Get in Touch" />
+            <LeadForm heading="Get in Touch" page="contact" />
           </div>
 
           {/* Right column: Contact Info */}
@@ -75,20 +77,24 @@ export default function ContactPage() {
               </h2>
               <ul className="space-y-3 text-text-muted">
                 <li>
-                  <a
+                  <ContactLink
                     href={`mailto:${CONTACT.email}`}
+                    method="email"
+                    page="contact"
                     className="hover:text-accent-blue transition-colors"
                   >
                     {CONTACT.email}
-                  </a>
+                  </ContactLink>
                 </li>
                 <li>
-                  <a
+                  <ContactLink
                     href={`tel:${CONTACT.phone}`}
+                    method="phone"
+                    page="contact"
                     className="hover:text-accent-blue transition-colors"
                   >
                     {CONTACT.phone}
-                  </a>
+                  </ContactLink>
                 </li>
               </ul>
             </div>
@@ -101,14 +107,14 @@ export default function ContactPage() {
               <ul className="space-y-3">
                 {SOCIAL_LINKS.map((link) => (
                   <li key={link.platform}>
-                    <a
+                    <TrackedExternalLink
                       href={link.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
+                      label={link.platform}
+                      page="contact"
                       className="text-text-muted hover:text-accent-pink transition-colors"
                     >
                       {link.platform}
-                    </a>
+                    </TrackedExternalLink>
                   </li>
                 ))}
               </ul>
@@ -121,14 +127,14 @@ export default function ContactPage() {
               </h2>
               <p className="text-text-muted leading-relaxed mb-4">
                 Every evaluation includes creating a free{" "}
-                <a
+                <TrackedExternalLink
                   href="https://play.linkanddink.com/"
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  label="Link & Dink"
+                  page="contact"
                   className="text-accent-blue hover:text-accent-purple transition-colors underline"
                 >
                   Link&nbsp;&amp;&nbsp;Dink
-                </a>{" "}
+                </TrackedExternalLink>{" "}
                 account so your skill level is tracked over time.
               </p>
               <ul className="space-y-3 text-text-muted text-sm">

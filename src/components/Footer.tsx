@@ -1,5 +1,8 @@
+"use client";
+
 import Link from "next/link";
 import { NAV_LINKS, SOCIAL_LINKS, CONTACT, PROJECT_LINKS } from "@/lib/constants";
+import { trackEvent } from "@/lib/analytics";
 
 export function Footer() {
   return (
@@ -50,6 +53,7 @@ export function Footer() {
                       href={project.href}
                       {...(isExternal && { target: "_blank", rel: "noopener noreferrer" })}
                       className="text-text-muted hover:text-text-primary transition-colors text-sm"
+                      onClick={() => isExternal && trackEvent("external_link", { label: project.label, url: project.href, page: "footer" })}
                     >
                       {project.label}
                     </a>
@@ -69,6 +73,7 @@ export function Footer() {
                 <a
                   href={`mailto:${CONTACT.email}`}
                   className="text-text-muted hover:text-text-primary transition-colors text-sm"
+                  onClick={() => trackEvent("contact_direct", { method: "email", page: "footer" })}
                 >
                   {CONTACT.email}
                 </a>
@@ -77,6 +82,7 @@ export function Footer() {
                 <a
                   href={`tel:${CONTACT.phone}`}
                   className="text-text-muted hover:text-text-primary transition-colors text-sm"
+                  onClick={() => trackEvent("contact_direct", { method: "phone", page: "footer" })}
                 >
                   {CONTACT.phone}
                 </a>
@@ -94,6 +100,7 @@ export function Footer() {
                     target="_blank"
                     rel="me noopener noreferrer"
                     className="text-text-muted hover:text-accent-pink transition-colors text-sm"
+                    onClick={() => trackEvent("external_link", { label: social.platform, url: social.href, page: "footer" })}
                   >
                     {social.platform}
                   </a>
