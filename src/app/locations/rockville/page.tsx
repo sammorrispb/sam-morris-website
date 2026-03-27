@@ -7,6 +7,7 @@ import {
   FIRST_VISIT,
   FIRST_VISIT_TESTIMONIAL,
 } from "@/lib/locations";
+import { TrackedExternalLink } from "@/components/TrackedExternalLink";
 import { breadcrumbJsonLd } from "@/lib/seo";
 
 const loc = LOCATIONS.rockville;
@@ -125,22 +126,22 @@ export default function RockvillePage() {
             </a>
           </p>
           <div className="flex flex-wrap gap-4 justify-center">
-            <a
+            <TrackedExternalLink
               href={urls.publicBooking}
-              target="_blank"
-              rel="noopener noreferrer"
+              label="Book a Court — Rockville"
+              page="locations/rockville"
               className="inline-block text-white font-heading font-semibold px-8 py-3 rounded-lg btn-gradient"
             >
               Book a Court
-            </a>
-            <a
+            </TrackedExternalLink>
+            <TrackedExternalLink
               href={urls.membership}
-              target="_blank"
-              rel="noopener noreferrer"
+              label="Become a Member — Rockville"
+              page="locations/rockville"
               className="inline-block font-heading font-semibold px-8 py-3 rounded-lg border border-white/10 text-text-muted hover:border-accent-blue/40 hover:text-text-primary transition-all"
             >
               Become a Member
-            </a>
+            </TrackedExternalLink>
           </div>
         </div>
       </section>
@@ -190,11 +191,11 @@ export default function RockvillePage() {
                 </h3>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                   {category.programs.map((program) => (
-                    <a
+                    <TrackedExternalLink
                       key={program.key}
                       href={urls[program.key]}
-                      target="_blank"
-                      rel="noopener noreferrer"
+                      label={`${program.label} — Rockville`}
+                      page="locations/rockville"
                       className="bg-navy-light glow-border rounded-xl p-6 card-hover block"
                     >
                       <span
@@ -213,7 +214,7 @@ export default function RockvillePage() {
                       <span className="text-accent-blue text-sm font-semibold mt-3 inline-block">
                         Register &rarr;
                       </span>
-                    </a>
+                    </TrackedExternalLink>
                   ))}
                 </div>
               </div>
@@ -274,14 +275,14 @@ export default function RockvillePage() {
             {loc.address}, {loc.city}, {loc.state} {loc.zip}. Conveniently
             located near I-270 with ample free parking.
           </p>
-          <a
+          <TrackedExternalLink
             href={MAPS_URL}
-            target="_blank"
-            rel="noopener noreferrer"
+            label="Google Maps — Rockville"
+            page="locations/rockville"
             className="inline-block font-heading font-semibold px-8 py-3 rounded-lg border border-white/10 text-text-muted hover:border-accent-blue/40 hover:text-text-primary transition-all"
           >
             Open in Google Maps &rarr;
-          </a>
+          </TrackedExternalLink>
         </div>
       </section>
 

@@ -8,6 +8,7 @@ import {
   WIDGET_URLS,
   type LocationId,
 } from "@/lib/locations";
+import { trackEvent } from "@/lib/analytics";
 
 export function LocationProgramsGrid() {
   const [active, setActive] = useState<LocationId>("rockville");
@@ -52,6 +53,7 @@ export function LocationProgramsGrid() {
                   rel="noopener noreferrer"
                   className="bg-navy glow-border rounded-xl p-5 card-hover block"
                   style={{ borderLeft: `3px solid ${category.color}` }}
+                  onClick={() => trackEvent("external_link", { label: program.label, url: urls[program.key], page: "locations" })}
                 >
                   <div className="flex items-start gap-3">
                     <span className="text-xl shrink-0" role="img" aria-hidden="true">

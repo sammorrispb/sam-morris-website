@@ -1,6 +1,7 @@
 "use client";
 
 import { GROWTH_PATHWAY, WIDGET_URLS, type PathwayLink } from "@/lib/locations";
+import { trackEvent } from "@/lib/analytics";
 
 /** Resolve a pathway link href — widget keys become Rockville URLs, everything else passes through */
 function resolveHref(href: string): string {
@@ -21,6 +22,7 @@ function PathwayLinkButton({ link }: { link: PathwayLink }) {
       href={href}
       {...(isExternal ? { target: "_blank", rel: "noopener noreferrer" } : {})}
       className="inline-block text-xs font-heading font-semibold px-3 py-1.5 rounded-md border border-white/10 text-text-muted hover:border-accent-blue/40 hover:text-text-primary transition-all"
+      onClick={() => isExternal && trackEvent("external_link", { label: link.label, url: href, page: "locations" })}
     >
       {link.label}
       {isExternal && (
