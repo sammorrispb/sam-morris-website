@@ -5,6 +5,7 @@ import { AnimateOnScroll } from "@/components/AnimateOnScroll";
 import { PageSectionNav } from "@/components/PageSectionNav";
 import { BackToTop } from "@/components/BackToTop";
 import { LeadForm } from "@/components/LeadForm";
+import { TrackedExternalLink } from "@/components/TrackedExternalLink";
 import { LOCATIONS, LOCATION_ORDER, WIDGET_URLS } from "@/lib/locations";
 import { breadcrumbJsonLd } from "@/lib/seo";
 
@@ -181,16 +182,16 @@ export default function ProgramHubPage() {
                   </>
                 );
                 return p.external ? (
-                  <a
+                  <TrackedExternalLink
                     key={p.href}
                     href={p.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
+                    label={p.title}
+                    page="programs/hub"
                     className="card-dd p-6 block"
                     style={cardStyle}
                   >
                     {content}
-                  </a>
+                  </TrackedExternalLink>
                 ) : (
                   <Link
                     key={p.href}
@@ -244,22 +245,22 @@ export default function ProgramHubPage() {
                       </p>
                     )}
                     <div className="flex flex-wrap gap-3">
-                      <a
+                      <TrackedExternalLink
                         href={urls.publicBooking}
-                        target="_blank"
-                        rel="noopener noreferrer"
+                        label={`Book Courts — ${loc.city}`}
+                        page="programs/hub"
                         className="inline-block text-white font-heading font-semibold px-5 py-2.5 rounded-lg btn-dd text-sm"
                       >
                         Book Courts
-                      </a>
-                      <a
+                      </TrackedExternalLink>
+                      <TrackedExternalLink
                         href={urls.membership}
-                        target="_blank"
-                        rel="noopener noreferrer"
+                        label={`Membership — ${loc.city}`}
+                        page="programs/hub"
                         className="inline-block font-heading font-semibold px-5 py-2.5 rounded-lg border border-[rgba(244,121,32,0.2)] text-text-muted hover:border-[rgba(244,121,32,0.4)] hover:text-text-primary transition-all text-sm"
                       >
                         Membership
-                      </a>
+                      </TrackedExternalLink>
                     </div>
                   </div>
                 );
@@ -333,7 +334,7 @@ export default function ProgramHubPage() {
       {/* Lead Capture */}
       <section className="py-16 px-6">
         <div className="mx-auto max-w-3xl">
-          <LeadForm />
+          <LeadForm page="programs/hub" />
         </div>
       </section>
 
@@ -341,32 +342,32 @@ export default function ProgramHubPage() {
       <section id="community" className="py-12 px-6 scroll-mt-28">
         <div className="mx-auto max-w-3xl text-center">
           <p className="text-text-muted text-sm">
-            <a
+            <TrackedExternalLink
               href="https://play.linkanddink.com/"
-              target="_blank"
-              rel="noopener noreferrer"
+              label="Link & Dink"
+              page="programs/hub"
               className="text-[#F47920] hover:text-[#8BC751] transition-colors font-semibold"
             >
               Link &amp; Dink
-            </a>
+            </TrackedExternalLink>
             {" "}&middot;{" "}
-            <a
+            <TrackedExternalLink
               href="https://chat.whatsapp.com/EDCDYdUdzn65nlUWdlnuZ5"
-              target="_blank"
-              rel="noopener noreferrer"
+              label="WhatsApp Group"
+              page="programs/hub"
               className="text-[#F47920] hover:text-[#8BC751] transition-colors font-semibold"
             >
               WhatsApp Group
-            </a>
+            </TrackedExternalLink>
             {" "}&middot;{" "}
-            <a
+            <TrackedExternalLink
               href="https://www.nextgenpbacademy.com"
-              target="_blank"
-              rel="noopener noreferrer"
+              label="Next Gen Academy"
+              page="programs/hub"
               className="text-[#F47920] hover:text-[#8BC751] transition-colors font-semibold"
             >
               Next Gen Academy
-            </a>
+            </TrackedExternalLink>
           </p>
         </div>
       </section>
