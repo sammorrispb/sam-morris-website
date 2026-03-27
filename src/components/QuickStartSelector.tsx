@@ -1,6 +1,7 @@
 "use client";
 
 import { WIDGET_URLS } from "@/lib/locations";
+import { trackEvent } from "@/lib/analytics";
 
 const OPTIONS = [
   {
@@ -41,6 +42,7 @@ export function QuickStartSelector() {
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-3 bg-navy glow-border rounded-xl px-5 py-4 card-hover text-left"
+              onClick={() => trackEvent("external_link", { label: opt.label, url: opt.target, page: "locations" })}
             >
               <span className="text-xl shrink-0" role="img" aria-hidden="true">
                 {opt.emoji}

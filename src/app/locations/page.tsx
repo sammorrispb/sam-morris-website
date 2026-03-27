@@ -7,6 +7,7 @@ import { QuickStartSelector } from "@/components/QuickStartSelector";
 import { GrowthPathway } from "@/components/GrowthPathway";
 import { PageSectionNav } from "@/components/PageSectionNav";
 import { BackToTop } from "@/components/BackToTop";
+import { TrackedExternalLink } from "@/components/TrackedExternalLink";
 import {
   LOCATIONS,
   LOCATION_ORDER,
@@ -104,14 +105,14 @@ export default function LocationsPage() {
               >
                 Browse Programs
               </a>
-              <a
+              <TrackedExternalLink
                 href={WIDGET_URLS.rockville.membership}
-                target="_blank"
-                rel="noopener noreferrer"
+                label="Become a Member"
+                page="locations"
                 className="inline-block font-heading font-semibold px-8 py-3 rounded-lg border border-white/10 text-text-muted hover:border-accent-blue/40 hover:text-text-primary transition-all"
               >
                 Become a Member
-              </a>
+              </TrackedExternalLink>
             </div>
           </div>
           <div className="flex justify-center">
@@ -218,14 +219,14 @@ export default function LocationsPage() {
 
             {/* CTA */}
             <div className="text-center">
-              <a
+              <TrackedExternalLink
                 href={WIDGET_URLS.rockville.openPlay}
-                target="_blank"
-                rel="noopener noreferrer"
+                label="Sign Up for Open Play"
+                page="locations"
                 className="inline-block text-white font-heading font-semibold px-8 py-3 rounded-lg btn-gradient"
               >
                 Sign Up for Open Play
-              </a>
+              </TrackedExternalLink>
               <p className="text-text-muted text-sm mt-3">
                 No experience needed. All levels welcome.
               </p>
@@ -278,22 +279,22 @@ export default function LocationsPage() {
                     </p>
                   </div>
                   <div className="flex flex-wrap gap-3">
-                    <a
+                    <TrackedExternalLink
                       href={urls.publicBooking}
-                      target="_blank"
-                      rel="noopener noreferrer"
+                      label={`Book a Court — ${loc.city}`}
+                      page="locations"
                       className="inline-block text-white font-heading font-semibold px-5 py-2.5 rounded-lg btn-gradient text-sm"
                     >
                       Book a Court
-                    </a>
-                    <a
+                    </TrackedExternalLink>
+                    <TrackedExternalLink
                       href={urls.membership}
-                      target="_blank"
-                      rel="noopener noreferrer"
+                      label={`Become a Member — ${loc.city}`}
+                      page="locations"
                       className="inline-block font-heading font-semibold px-5 py-2.5 rounded-lg border border-white/10 text-text-muted hover:border-accent-blue/40 hover:text-text-primary transition-all text-sm"
                     >
                       Become a Member
-                    </a>
+                    </TrackedExternalLink>
                   </div>
                 </div>
               );
@@ -337,15 +338,15 @@ export default function LocationsPage() {
                   </>
                 );
                 return prog.external ? (
-                  <a
+                  <TrackedExternalLink
                     key={prog.href}
                     href={prog.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
+                    label={prog.title}
+                    page="locations"
                     className="bg-navy glow-border rounded-xl p-6 card-hover block"
                   >
                     {content}
-                  </a>
+                  </TrackedExternalLink>
                 ) : (
                   <Link
                     key={prog.href}
@@ -390,11 +391,11 @@ export default function LocationsPage() {
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {COMMUNITY_LINKS.map((link) => (
-                <a
+                <TrackedExternalLink
                   key={link.label}
                   href={link.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  label={link.label}
+                  page="locations"
                   className="bg-navy-light glow-border rounded-xl p-6 text-center hover:scale-[1.02] transition-transform"
                 >
                   <div
@@ -409,7 +410,7 @@ export default function LocationsPage() {
                   <p className="text-text-muted text-sm leading-relaxed">
                     {link.description}
                   </p>
-                </a>
+                </TrackedExternalLink>
               ))}
             </div>
           </AnimateOnScroll>
