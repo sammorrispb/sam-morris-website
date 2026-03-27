@@ -5,6 +5,8 @@ import { AnimateOnScroll } from "@/components/AnimateOnScroll";
 import { PageSectionNav } from "@/components/PageSectionNav";
 import { BackToTop } from "@/components/BackToTop";
 import { LeadForm } from "@/components/LeadForm";
+import { TrackedExternalLink } from "@/components/TrackedExternalLink";
+import { ScrollDepthTracker } from "@/components/ScrollDepthTracker";
 import { WIDGET_URLS } from "@/lib/locations";
 import { breadcrumbJsonLd, faqJsonLd } from "@/lib/seo";
 
@@ -84,9 +86,9 @@ function SessionTable({ sessions }: { sessions: typeof ROCKVILLE_SESSIONS }) {
               <td className="py-3 pr-4 text-text-muted">{s.day}</td>
               <td className="py-3 pr-4 text-text-muted whitespace-nowrap">{s.time}</td>
               <td className="py-3">
-                <a href={s.url} target="_blank" rel="noopener noreferrer" className="text-[#4DACD0] hover:text-[#3b82f6] transition-colors font-semibold text-sm">
+                <TrackedExternalLink href={s.url} label={`COP — ${s.level} ${s.day}`} page="coached-open-play" className="text-[#4DACD0] hover:text-[#3b82f6] transition-colors font-semibold text-sm">
                   Sign Up
-                </a>
+                </TrackedExternalLink>
               </td>
             </tr>
           ))}
@@ -199,6 +201,7 @@ export default function CoachedOpenPlayPage() {
           }),
         }}
       />
+      <ScrollDepthTracker page="coached-open-play" />
       <PageSectionNav sections={SECTIONS} brandColor="#4DACD0" />
       <BackToTop />
       {/* Hero */}
@@ -252,15 +255,15 @@ export default function CoachedOpenPlayPage() {
         <div className="mx-auto max-w-4xl grid grid-cols-1 md:grid-cols-2 gap-6">
           <div className="card-sm p-6 text-center">
             <h3 className="font-heading font-bold text-lg mb-4">Rockville</h3>
-            <a href={WIDGET_URLS.rockville.coachedOpenPlay} target="_blank" rel="noopener noreferrer" className="inline-block text-white font-heading font-semibold px-6 py-3 rounded-lg btn-sm text-sm">
+            <TrackedExternalLink href={WIDGET_URLS.rockville.coachedOpenPlay} label="COP Register — Rockville" page="coached-open-play" className="inline-block text-white font-heading font-semibold px-6 py-3 rounded-lg btn-sm text-sm">
               View Schedule &amp; Register
-            </a>
+            </TrackedExternalLink>
           </div>
           <div className="card-sm p-6 text-center">
             <h3 className="font-heading font-bold text-lg mb-4">North Bethesda</h3>
-            <a href={WIDGET_URLS.northBethesda.coachedOpenPlay} target="_blank" rel="noopener noreferrer" className="inline-block text-white font-heading font-semibold px-6 py-3 rounded-lg btn-sm text-sm">
+            <TrackedExternalLink href={WIDGET_URLS.northBethesda.coachedOpenPlay} label="COP Register — North Bethesda" page="coached-open-play" className="inline-block text-white font-heading font-semibold px-6 py-3 rounded-lg btn-sm text-sm">
               View Schedule &amp; Register
-            </a>
+            </TrackedExternalLink>
           </div>
         </div>
       </section>
@@ -377,7 +380,7 @@ export default function CoachedOpenPlayPage() {
       {/* Lead Capture */}
       <section className="py-16 px-6">
         <div className="mx-auto max-w-3xl">
-          <LeadForm heading="Interested in Coached Open Play?" />
+          <LeadForm heading="Interested in Coached Open Play?" page="coached-open-play" />
         </div>
       </section>
 

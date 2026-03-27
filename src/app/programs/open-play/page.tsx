@@ -5,6 +5,7 @@ import { AnimateOnScroll } from "@/components/AnimateOnScroll";
 import { PageSectionNav } from "@/components/PageSectionNav";
 import { BackToTop } from "@/components/BackToTop";
 import { LeadForm } from "@/components/LeadForm";
+import { TrackedExternalLink } from "@/components/TrackedExternalLink";
 import { WIDGET_URLS } from "@/lib/locations";
 import { breadcrumbJsonLd, faqJsonLd } from "@/lib/seo";
 
@@ -173,14 +174,14 @@ export default function OpenPlayPage() {
               <h2 className="font-heading font-bold text-xl mb-2">{loc.name}</h2>
               <p className="text-text-muted text-sm mb-1">{loc.address}</p>
               <p className="text-text-muted text-sm mb-4">{loc.phone}</p>
-              <a
+              <TrackedExternalLink
                 href={loc.url}
-                target="_blank"
-                rel="noopener noreferrer"
+                label={`Book Open Play — ${loc.name}`}
+                page="open-play"
                 className="inline-block text-white font-heading font-semibold px-6 py-2.5 rounded-lg btn-dd text-sm"
               >
                 Book Open Play
-              </a>
+              </TrackedExternalLink>
             </div>
           ))}
         </div>
@@ -292,14 +293,14 @@ export default function OpenPlayPage() {
             ].map((loc) => (
               <div key={loc.name} className="card-dd p-6 text-center">
                 <h3 className="font-heading font-bold text-lg mb-4">{loc.name}</h3>
-                <a
+                <TrackedExternalLink
                   href={loc.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  label={`Book Open Play — ${loc.name}`}
+                  page="open-play"
                   className="inline-block text-white font-heading font-semibold px-8 py-3 rounded-lg btn-dd"
                 >
                   Book Open Play
-                </a>
+                </TrackedExternalLink>
               </div>
             ))}
           </div>
@@ -312,7 +313,7 @@ export default function OpenPlayPage() {
       {/* Lead Capture */}
       <section className="py-16 px-6">
         <div className="mx-auto max-w-3xl">
-          <LeadForm heading="Interested in Open Play?" />
+          <LeadForm heading="Interested in Open Play?" page="open-play" />
         </div>
       </section>
 

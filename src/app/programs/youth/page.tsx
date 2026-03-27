@@ -3,6 +3,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { AnimateOnScroll } from "@/components/AnimateOnScroll";
 import { BackToTop } from "@/components/BackToTop";
+import { TrackedExternalLink } from "@/components/TrackedExternalLink";
+import { ScrollDepthTracker } from "@/components/ScrollDepthTracker";
 import { breadcrumbJsonLd, faqJsonLd } from "@/lib/seo";
 
 export const metadata: Metadata = {
@@ -111,6 +113,7 @@ export default function YouthPage() {
           ),
         }}
       />
+      <ScrollDepthTracker page="youth" />
       <BackToTop />
 
       {/* Hero */}
@@ -178,24 +181,26 @@ export default function YouthPage() {
               <div className="rounded-lg bg-white/[0.03] border border-white/10 p-5">
                 <p className="font-heading font-semibold text-text-primary mb-1">New to Pickleball?</p>
                 <p className="text-text-muted text-sm mb-4">Ages 10 &amp; under — try a free session.</p>
-                <a
+                <TrackedExternalLink
                   href="https://www.nextgenpbacademy.com/freetrial"
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  label="Book a Free Trial"
+                  page="youth"
                   className="inline-block text-white font-heading font-semibold px-6 py-3 rounded-lg btn-ng text-sm"
                 >
                   Book a Free Trial
-                </a>
+                </TrackedExternalLink>
               </div>
               <div className="rounded-lg bg-white/[0.03] border border-white/10 p-5">
                 <p className="font-heading font-semibold text-text-primary mb-1">Ages 11 &amp; Up</p>
                 <p className="text-text-muted text-sm mb-4">Schedule a free 30-minute evaluation.</p>
-                <a
+                <TrackedExternalLink
                   href="mailto:nextgenacademypb@gmail.com"
+                  label="Schedule Evaluation"
+                  page="youth"
                   className="inline-block text-white font-heading font-semibold px-6 py-3 rounded-lg btn-ng text-sm"
                 >
                   Schedule Evaluation
-                </a>
+                </TrackedExternalLink>
               </div>
             </div>
             <p className="text-text-muted text-xs font-semibold italic">
@@ -252,14 +257,14 @@ export default function YouthPage() {
               </div>
 
               <div className="text-center pt-2">
-                <a
+                <TrackedExternalLink
                   href="https://app.courtreserve.com/Online/Events/Public/10483/1836399"
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  label="Register — Little Dill Academy"
+                  page="youth"
                   className="inline-block text-white font-heading font-semibold px-8 py-3 rounded-lg btn-ng"
                 >
                   Register Now
-                </a>
+                </TrackedExternalLink>
               </div>
             </div>
           </AnimateOnScroll>
@@ -287,14 +292,14 @@ export default function YouthPage() {
                         <span className="font-semibold text-text-primary">{week.week}</span>
                         <span className="text-text-muted ml-2">{week.dates}</span>
                       </div>
-                      <a
+                      <TrackedExternalLink
                         href={week.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
+                        label={`Summer Camp — ${week.week}`}
+                        page="youth"
                         className="font-semibold text-[#22c55e] hover:text-[#4ade80] transition-colors shrink-0"
                       >
                         Register
-                      </a>
+                      </TrackedExternalLink>
                     </div>
                   ))}
                 </div>
@@ -323,20 +328,22 @@ export default function YouthPage() {
               through age-appropriate coaching.
             </p>
             <div className="flex flex-wrap gap-4 justify-center">
-              <a
+              <TrackedExternalLink
                 href="https://www.nextgenpbacademy.com"
-                target="_blank"
-                rel="noopener noreferrer"
+                label="Visit Next Gen Academy"
+                page="youth"
                 className="inline-block text-white font-heading font-semibold px-6 py-3 rounded-lg btn-ng text-sm"
               >
                 Visit Next Gen Academy
-              </a>
-              <a
+              </TrackedExternalLink>
+              <TrackedExternalLink
                 href="mailto:nextgenacademypb@gmail.com"
+                label="Contact NGA"
+                page="youth"
                 className="inline-block font-heading font-semibold px-6 py-3 rounded-lg border border-[rgba(34,197,94,0.25)] text-text-muted hover:border-[rgba(34,197,94,0.5)] hover:text-text-primary transition-all text-sm"
               >
                 Contact Us
-              </a>
+              </TrackedExternalLink>
             </div>
           </div>
         </div>
@@ -386,14 +393,14 @@ export default function YouthPage() {
       {/* Bottom Nav */}
       <section className="py-12 px-6">
         <div className="mx-auto max-w-3xl flex justify-between items-center">
-          <a
+          <TrackedExternalLink
             href="https://tournamentwebsite.vercel.app/"
-            target="_blank"
-            rel="noopener noreferrer"
+            label="Tournaments"
+            page="youth"
             className="text-[#22c55e] hover:text-[#4ade80] transition-colors font-semibold text-sm"
           >
             &larr; Tournaments
-          </a>
+          </TrackedExternalLink>
           <Link
             href="/programs/hub"
             className="text-[#22c55e] hover:text-[#4ade80] transition-colors font-semibold text-sm"

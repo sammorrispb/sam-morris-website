@@ -5,6 +5,8 @@ import { AnimateOnScroll } from "@/components/AnimateOnScroll";
 import { PageSectionNav } from "@/components/PageSectionNav";
 import { BackToTop } from "@/components/BackToTop";
 import { LeadForm } from "@/components/LeadForm";
+import { TrackedExternalLink } from "@/components/TrackedExternalLink";
+import { ScrollDepthTracker } from "@/components/ScrollDepthTracker";
 import { WIDGET_URLS } from "@/lib/locations";
 import { breadcrumbJsonLd } from "@/lib/seo";
 
@@ -238,6 +240,7 @@ export default function LeaguesPage() {
           ]),
         }}
       />
+      <ScrollDepthTracker page="leagues" />
       <PageSectionNav sections={SECTIONS} brandColor="#F47920" />
       <BackToTop />
       {/* Hero */}
@@ -275,14 +278,14 @@ export default function LeaguesPage() {
             <div className="card-dd p-6 mb-6">
               <ScheduleTable rows={ROCKVILLE_SCHEDULE} />
             </div>
-            <a
+            <TrackedExternalLink
               href={WIDGET_URLS.rockville.leagues}
-              target="_blank"
-              rel="noopener noreferrer"
+              label="Register — Rockville Leagues"
+              page="leagues"
               className="inline-block text-white font-heading font-semibold px-8 py-3 rounded-lg btn-dd"
             >
               Register for Rockville Leagues
-            </a>
+            </TrackedExternalLink>
           </AnimateOnScroll>
         </div>
       </section>
@@ -299,14 +302,14 @@ export default function LeaguesPage() {
                 <div className="card-dd p-6 mb-6">
                   <ScheduleTable rows={NB_SCHEDULE} />
                 </div>
-                <a
+                <TrackedExternalLink
                   href={WIDGET_URLS.northBethesda.leagues}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  label="Register — NB Leagues"
+                  page="leagues"
                   className="inline-block text-white font-heading font-semibold px-8 py-3 rounded-lg btn-dd"
                 >
                   Register for North Bethesda Leagues
-                </a>
+                </TrackedExternalLink>
               </div>
               <div className="hidden md:block w-48 shrink-0 mt-10">
                 <Image
@@ -361,14 +364,14 @@ export default function LeaguesPage() {
             <div className="card-dd p-6 mb-6">
               <ScheduleTable rows={LATE_SPRING_ROCKVILLE} />
             </div>
-            <a
+            <TrackedExternalLink
               href={WIDGET_URLS.rockville.leagues}
-              target="_blank"
-              rel="noopener noreferrer"
+              label="Register — Rockville Leagues"
+              page="leagues"
               className="inline-block text-white font-heading font-semibold px-8 py-3 rounded-lg btn-dd"
             >
               Register for Rockville Leagues
-            </a>
+            </TrackedExternalLink>
           </AnimateOnScroll>
         </div>
       </section>
@@ -385,14 +388,14 @@ export default function LeaguesPage() {
                 <div className="card-dd p-6 mb-6">
                   <ScheduleTable rows={LATE_SPRING_NB} />
                 </div>
-                <a
+                <TrackedExternalLink
                   href={WIDGET_URLS.northBethesda.leagues}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  label="Register — NB Leagues"
+                  page="leagues"
                   className="inline-block text-white font-heading font-semibold px-8 py-3 rounded-lg btn-dd"
                 >
                   Register for North Bethesda Leagues
-                </a>
+                </TrackedExternalLink>
               </div>
             </div>
           </AnimateOnScroll>
@@ -484,22 +487,22 @@ export default function LeaguesPage() {
               Complete the partner finder form or post in the Link &amp; Dink community.
             </p>
             <div className="flex flex-wrap gap-4 justify-center">
-              <a
+              <TrackedExternalLink
                 href="https://sammorrispb.notion.site/277fa3ac27dc800b9b0adeaa30dfe34b?pvs=105"
-                target="_blank"
-                rel="noopener noreferrer"
+                label="Partner Finder Form"
+                page="leagues"
                 className="inline-block text-white font-heading font-semibold px-6 py-3 rounded-lg btn-dd text-sm"
               >
                 Partner Finder Form
-              </a>
-              <a
+              </TrackedExternalLink>
+              <TrackedExternalLink
                 href="https://play.linkanddink.com/"
-                target="_blank"
-                rel="noopener noreferrer"
+                label="Link & Dink Community"
+                page="leagues"
                 className="inline-block font-heading font-semibold px-6 py-3 rounded-lg border border-[rgba(244,121,32,0.2)] text-text-muted hover:border-[rgba(244,121,32,0.4)] hover:text-text-primary transition-all text-sm"
               >
                 Link &amp; Dink Community
-              </a>
+              </TrackedExternalLink>
             </div>
           </div>
         </div>
@@ -508,7 +511,7 @@ export default function LeaguesPage() {
       {/* Lead Capture */}
       <section className="py-16 px-6">
         <div className="mx-auto max-w-3xl">
-          <LeadForm heading="Interested in Leagues?" />
+          <LeadForm heading="Interested in Leagues?" page="leagues" />
         </div>
       </section>
 
