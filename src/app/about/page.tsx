@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Image from "next/image";
+import { ScrollDepthTracker } from "@/components/ScrollDepthTracker";
 
 export const metadata: Metadata = {
   title: "About Sam Morris — PPR-Certified Pickleball Coach, Montgomery County MD",
@@ -81,6 +82,7 @@ const TIMELINE = [
 export default function AboutPage() {
   return (
     <>
+      <ScrollDepthTracker page="about" />
       {/* ProfilePage Schema */}
       <script
         type="application/ld+json"

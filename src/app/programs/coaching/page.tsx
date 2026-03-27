@@ -5,6 +5,8 @@ import { AnimateOnScroll } from "@/components/AnimateOnScroll";
 import { PageSectionNav } from "@/components/PageSectionNav";
 import { BackToTop } from "@/components/BackToTop";
 import { LeadForm } from "@/components/LeadForm";
+import { TrackedExternalLink } from "@/components/TrackedExternalLink";
+import { ScrollDepthTracker } from "@/components/ScrollDepthTracker";
 import { WIDGET_URLS } from "@/lib/locations";
 import { breadcrumbJsonLd } from "@/lib/seo";
 
@@ -212,6 +214,7 @@ export default function CoachingPage() {
           }),
         }}
       />
+      <ScrollDepthTracker page="coaching" />
       <PageSectionNav sections={SECTIONS} brandColor="#4DACD0" />
       <BackToTop />
       {/* Hero */}
@@ -246,17 +249,17 @@ export default function CoachingPage() {
           <div className="card-sm p-6">
             <h2 className="font-heading font-bold text-xl mb-3">Rockville</h2>
             <div className="flex flex-wrap gap-3">
-              <a href={WIDGET_URLS.rockville.clinics} target="_blank" rel="noopener noreferrer" className="text-[#4DACD0] hover:text-[#3b82f6] transition-colors font-semibold text-sm">Clinics</a>
+              <TrackedExternalLink href={WIDGET_URLS.rockville.clinics} label="Clinics — Rockville" page="coaching" className="text-[#4DACD0] hover:text-[#3b82f6] transition-colors font-semibold text-sm">Clinics</TrackedExternalLink>
               <span className="text-white/20">&middot;</span>
-              <a href={WIDGET_URLS.rockville.coachedOpenPlay} target="_blank" rel="noopener noreferrer" className="text-[#4DACD0] hover:text-[#3b82f6] transition-colors font-semibold text-sm">Coached Open Play</a>
+              <TrackedExternalLink href={WIDGET_URLS.rockville.coachedOpenPlay} label="COP — Rockville" page="coaching" className="text-[#4DACD0] hover:text-[#3b82f6] transition-colors font-semibold text-sm">Coached Open Play</TrackedExternalLink>
             </div>
           </div>
           <div className="card-sm p-6">
             <h2 className="font-heading font-bold text-xl mb-3">North Bethesda</h2>
             <div className="flex flex-wrap gap-3">
-              <a href={WIDGET_URLS.northBethesda.clinics} target="_blank" rel="noopener noreferrer" className="text-[#4DACD0] hover:text-[#3b82f6] transition-colors font-semibold text-sm">Classes</a>
+              <TrackedExternalLink href={WIDGET_URLS.northBethesda.clinics} label="Classes — North Bethesda" page="coaching" className="text-[#4DACD0] hover:text-[#3b82f6] transition-colors font-semibold text-sm">Classes</TrackedExternalLink>
               <span className="text-white/20">&middot;</span>
-              <a href={WIDGET_URLS.northBethesda.coachedOpenPlay} target="_blank" rel="noopener noreferrer" className="text-[#4DACD0] hover:text-[#3b82f6] transition-colors font-semibold text-sm">Coached Open Play</a>
+              <TrackedExternalLink href={WIDGET_URLS.northBethesda.coachedOpenPlay} label="COP — North Bethesda" page="coaching" className="text-[#4DACD0] hover:text-[#3b82f6] transition-colors font-semibold text-sm">Coached Open Play</TrackedExternalLink>
             </div>
           </div>
         </div>
@@ -347,14 +350,14 @@ export default function CoachingPage() {
                   <li>Great for trying out coaching or a specific skill</li>
                 </ul>
                 <p className="font-heading font-bold text-xl mb-4">$130<span className="text-text-muted text-sm font-normal">/hour</span></p>
-                <a
+                <TrackedExternalLink
                   href="https://buy.stripe.com/aFabJ3ehjaUhfI7g6s3Je01"
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  label="Book Single Session"
+                  page="coaching"
                   className="inline-block text-white font-heading font-semibold px-6 py-3 rounded-lg btn-sm text-sm"
                 >
                   Book Single Session
-                </a>
+                </TrackedExternalLink>
               </div>
               <div className="card-sm p-6">
                 <h3 className="font-heading font-bold text-lg mb-3">4-Session Package</h3>
@@ -364,26 +367,26 @@ export default function CoachingPage() {
                   <li>Best value — save $120</li>
                 </ul>
                 <p className="font-heading font-bold text-xl mb-4">$400<span className="text-text-muted text-sm font-normal"> ($100/hour)</span></p>
-                <a
+                <TrackedExternalLink
                   href="https://buy.stripe.com/00w00l8WZe6t7bBdYk3Je08"
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  label="Book 4-Session Package"
+                  page="coaching"
                   className="inline-block text-white font-heading font-semibold px-6 py-3 rounded-lg btn-sm text-sm"
                 >
                   Book 4-Session Package
-                </a>
+                </TrackedExternalLink>
               </div>
             </div>
             <div className="mt-8 text-center">
               <p className="text-text-muted text-sm mb-4">Already purchased? Pick your time:</p>
-              <a
+              <TrackedExternalLink
                 href="https://calendar.app.google/FsvvwDzNPGUX6VZbA"
-                target="_blank"
-                rel="noopener noreferrer"
+                label="Schedule Your Lesson"
+                page="coaching"
                 className="inline-block text-white font-heading font-semibold px-8 py-3 rounded-lg btn-sm text-sm"
               >
                 Schedule Your Lesson →
-              </a>
+              </TrackedExternalLink>
             </div>
           </AnimateOnScroll>
         </div>
@@ -399,18 +402,18 @@ export default function CoachingPage() {
                 <h3 className="font-heading font-bold text-xl mb-4">Rockville</h3>
                 <p className="text-text-muted text-sm mb-4">40C Southlawn Court, Rockville, MD 20850</p>
                 <div className="space-y-3">
-                  <a href={WIDGET_URLS.rockville.clinics} target="_blank" rel="noopener noreferrer" className="block text-[#4DACD0] hover:text-[#3b82f6] transition-colors font-semibold text-sm">Browse All Clinics &rarr;</a>
-                  <a href={WIDGET_URLS.rockville.coachedOpenPlay} target="_blank" rel="noopener noreferrer" className="block text-[#4DACD0] hover:text-[#3b82f6] transition-colors font-semibold text-sm">Coached Open Play &rarr;</a>
-                  <a href={WIDGET_URLS.rockville.allEvents} target="_blank" rel="noopener noreferrer" className="block text-[#4DACD0] hover:text-[#3b82f6] transition-colors font-semibold text-sm">All Events &rarr;</a>
+                  <TrackedExternalLink href={WIDGET_URLS.rockville.clinics} label="Browse All Clinics — Rockville" page="coaching" className="block text-[#4DACD0] hover:text-[#3b82f6] transition-colors font-semibold text-sm">Browse All Clinics &rarr;</TrackedExternalLink>
+                  <TrackedExternalLink href={WIDGET_URLS.rockville.coachedOpenPlay} label="COP — Rockville" page="coaching" className="block text-[#4DACD0] hover:text-[#3b82f6] transition-colors font-semibold text-sm">Coached Open Play &rarr;</TrackedExternalLink>
+                  <TrackedExternalLink href={WIDGET_URLS.rockville.allEvents} label="All Events — Rockville" page="coaching" className="block text-[#4DACD0] hover:text-[#3b82f6] transition-colors font-semibold text-sm">All Events &rarr;</TrackedExternalLink>
                 </div>
               </div>
               <div>
                 <h3 className="font-heading font-bold text-xl mb-4">North Bethesda</h3>
                 <p className="text-text-muted text-sm mb-4">4942 Boiling Brook Pkwy, North Bethesda, MD 20852</p>
                 <div className="space-y-3">
-                  <a href={WIDGET_URLS.northBethesda.clinics} target="_blank" rel="noopener noreferrer" className="block text-[#4DACD0] hover:text-[#3b82f6] transition-colors font-semibold text-sm">Browse All Classes &rarr;</a>
-                  <a href={WIDGET_URLS.northBethesda.coachedOpenPlay} target="_blank" rel="noopener noreferrer" className="block text-[#4DACD0] hover:text-[#3b82f6] transition-colors font-semibold text-sm">Coached Open Play &rarr;</a>
-                  <a href={WIDGET_URLS.northBethesda.allEvents} target="_blank" rel="noopener noreferrer" className="block text-[#4DACD0] hover:text-[#3b82f6] transition-colors font-semibold text-sm">All Events &rarr;</a>
+                  <TrackedExternalLink href={WIDGET_URLS.northBethesda.clinics} label="Browse All Classes — NB" page="coaching" className="block text-[#4DACD0] hover:text-[#3b82f6] transition-colors font-semibold text-sm">Browse All Classes &rarr;</TrackedExternalLink>
+                  <TrackedExternalLink href={WIDGET_URLS.northBethesda.coachedOpenPlay} label="COP — North Bethesda" page="coaching" className="block text-[#4DACD0] hover:text-[#3b82f6] transition-colors font-semibold text-sm">Coached Open Play &rarr;</TrackedExternalLink>
+                  <TrackedExternalLink href={WIDGET_URLS.northBethesda.allEvents} label="All Events — North Bethesda" page="coaching" className="block text-[#4DACD0] hover:text-[#3b82f6] transition-colors font-semibold text-sm">All Events &rarr;</TrackedExternalLink>
                 </div>
               </div>
             </div>
@@ -487,7 +490,7 @@ export default function CoachingPage() {
       {/* Lead Capture */}
       <section className="py-16 px-6">
         <div className="mx-auto max-w-3xl">
-          <LeadForm heading="Interested in Coaching?" />
+          <LeadForm heading="Interested in Coaching?" page="coaching" />
         </div>
       </section>
 
@@ -497,9 +500,9 @@ export default function CoachingPage() {
           <Link href="/programs/coached-open-play" className="text-[#4DACD0] hover:text-[#3b82f6] transition-colors font-semibold text-sm">
             &larr; Coached Open Play
           </Link>
-          <a href="https://tournamentwebsite.vercel.app/" target="_blank" rel="noopener noreferrer" className="text-[#4DACD0] hover:text-[#3b82f6] transition-colors font-semibold text-sm">
+          <TrackedExternalLink href="https://tournamentwebsite.vercel.app/" label="Tournaments" page="coaching" className="text-[#4DACD0] hover:text-[#3b82f6] transition-colors font-semibold text-sm">
             Tournaments &rarr;
-          </a>
+          </TrackedExternalLink>
         </div>
       </section>
     </div>

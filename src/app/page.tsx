@@ -3,6 +3,8 @@ import Link from "next/link";
 import Image from "next/image";
 import { LeadForm } from "@/components/LeadForm";
 import { AnimateOnScroll } from "@/components/AnimateOnScroll";
+import { TrackedLink } from "@/components/TrackedLink";
+import { TrackedExternalLink } from "@/components/TrackedExternalLink";
 
 export const metadata: Metadata = {
   title:
@@ -128,18 +130,22 @@ export default function Home() {
               Montgomery County, MD. Coach. Builder. Dad.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
-              <Link
+              <TrackedLink
                 href="/contact"
                 className="text-white font-heading font-semibold px-8 py-3 rounded-lg btn-gradient"
+                event="cta_click"
+                eventProps={{ label: "Book a Free Evaluation", page: "home", section: "hero" }}
               >
                 Book a Free Evaluation
-              </Link>
-              <Link
+              </TrackedLink>
+              <TrackedLink
                 href="/programs"
                 className="border border-white/20 text-text-primary font-heading font-semibold px-8 py-3 rounded-lg hover:border-white/40 transition-colors"
+                event="cta_click"
+                eventProps={{ label: "Explore Programs", page: "home", section: "hero" }}
               >
                 Explore Programs
-              </Link>
+              </TrackedLink>
             </div>
           </div>
           <div className="flex justify-center order-1 md:order-2">
@@ -235,21 +241,23 @@ export default function Home() {
                   {program.description}
                 </p>
                 {program.external ? (
-                  <a
+                  <TrackedExternalLink
                     href={program.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
+                    label={program.title}
+                    page="home"
                     className="text-accent-blue hover:text-accent-purple transition-colors text-sm font-semibold"
                   >
                     {program.cta} &rarr;
-                  </a>
+                  </TrackedExternalLink>
                 ) : (
-                  <Link
+                  <TrackedLink
                     href={program.href}
                     className="text-accent-blue hover:text-accent-purple transition-colors text-sm font-semibold"
+                    event="program_card"
+                    eventProps={{ label: program.title, program: program.title, page: "home" }}
                   >
                     {program.cta} &rarr;
-                  </Link>
+                  </TrackedLink>
                 )}
                 </div>
               </div>
@@ -271,7 +279,7 @@ export default function Home() {
       <section className="py-20 px-6">
         <AnimateOnScroll>
           <div className="mx-auto max-w-6xl">
-            <LeadForm />
+            <LeadForm page="home" />
           </div>
         </AnimateOnScroll>
       </section>

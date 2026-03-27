@@ -1,16 +1,22 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import Link from "next/link";
 import { CONTACT, INTEREST_OPTIONS } from "@/lib/constants";
+import { trackEvent } from "@/lib/analytics";
 
-export function LeadForm({ heading = "Ready to Play?" }: { heading?: string }) {
+export function LeadForm({ heading = "Ready to Play?", page = "unknown" }: { heading?: string; page?: string }) {
   const [form, setForm] = useState({ name: "", email: "", interest: "" });
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
+  const formStarted = useRef(false);
 
   function updateField(field: string, value: string) {
     setForm((prev) => ({ ...prev, [field]: value }));
     if (status === "error") setStatus("idle");
+    if (!formStarted.current) {
+      formStarted.current = true;
+      trackEvent("lead_form", { action: "started", page });
+    }
   }
 
   async function handleSubmit(e: React.FormEvent) {
@@ -29,9 +35,11 @@ export function LeadForm({ heading = "Ready to Play?" }: { heading?: string }) {
       });
 
       if (!res.ok) throw new Error("Failed to submit");
+      trackEvent("lead_form", { action: "submitted", interest: form.interest, page });
       setStatus("sent");
       setForm({ name: "", email: "", interest: "" });
     } catch {
+      trackEvent("lead_form", { action: "error", page });
       setStatus("error");
     } finally {
       clearTimeout(timeout);
