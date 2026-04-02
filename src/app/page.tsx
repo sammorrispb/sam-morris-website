@@ -105,8 +105,8 @@ const PROGRAMS = [
   {
     title: "Link & Dink",
     description:
-      "Community app connecting players of comparable skill levels.",
-    cta: "Join Community",
+      "Find groups, playing partners, and events at your level.",
+    cta: "Find Players & Groups",
     href: "https://play.linkanddink.com/",
     external: true,
     image: "/images/link-and-dink-logo.svg",
