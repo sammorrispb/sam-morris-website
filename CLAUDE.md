@@ -3,6 +3,13 @@
 ## What This Is
 Personal/professional website for Sam Morris — coach, community builder, and entrepreneur based in Montgomery County, MD. Showcases coaching programs, Dill Dinkers locations, blog, and contact.
 
+## Ecosystem
+Part of Sam's pickleball platform ecosystem. See also:
+- **The Hub** (`sammorrispb/The-Hub`) — Core community platform at play.linkanddink.com
+- **Next Gen Academy** (`sammorrispb/nextgen-academy`) — Youth academy site
+- **Open Brain** (`sammorrispb/open-brain`) — Semantic knowledge + MCP server
+- **CourtReserve Ops** (`sammorrispb/courtreserve-ops`) — DD operations plugin
+
 - **Domain**: sammorrispb.com
 - **Git**: github.com/sammorrispb/sam-morris-website
 - **Deploy**: Vercel (auto-deploy on push to main)
