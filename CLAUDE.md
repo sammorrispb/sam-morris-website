@@ -73,3 +73,10 @@ npm run lint   # ESLint
 - Always consider mobile responsiveness.
 - When updating /locations or DD-branded content, reference the Dill Dinkers Brand Guidelines PDF.
 - Stripe Payment Links are external — no server-side Stripe processing needed.
+
+## Testing Standards
+- **Build must pass**: `npm run build` with zero errors before every push
+- **Test behavior, not implementation** — validate what pages render and how APIs respond, not internal code paths
+- **Form validation**: Test contact form and any user inputs against XSS, injection, and empty/malformed data
+- **Mobile-first**: Visually verify all pages on mobile viewport before shipping layout changes
+- **Notion API**: Test that blog pages handle Notion API failures gracefully (timeout, empty response)
