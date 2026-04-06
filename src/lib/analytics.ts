@@ -8,6 +8,8 @@ type AnalyticsEventMap = {
   nav_click: { label: string; device: "desktop" | "mobile" };
   contact_direct: { method: "email" | "phone"; page: string };
   scroll_depth: { depth: 25 | 50 | 75 | 100; page: string };
+  mobile_cta: { action: "phone" | "book_eval"; page: string };
+  quiz: { action: "started" | "completed"; result?: string; page: string };
 };
 
 export function trackEvent<K extends keyof AnalyticsEventMap>(

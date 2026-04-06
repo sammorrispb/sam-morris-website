@@ -5,7 +5,10 @@ import { AnimateOnScroll } from "@/components/AnimateOnScroll";
 import { BackToTop } from "@/components/BackToTop";
 import { TrackedExternalLink } from "@/components/TrackedExternalLink";
 import { ScrollDepthTracker } from "@/components/ScrollDepthTracker";
-import { breadcrumbJsonLd, faqJsonLd } from "@/lib/seo";
+import { breadcrumbJsonLd, faqJsonLd, eventJsonLd } from "@/lib/seo";
+import { RelatedPrograms } from "@/components/RelatedPrograms";
+import { getTestimonialsByProgram } from "@/lib/testimonials";
+import { TestimonialGrid } from "@/components/TestimonialGrid";
 
 export const metadata: Metadata = {
   title: "Youth & Junior Programs — Next Gen Academy at Dill Dinkers",
@@ -27,6 +30,14 @@ export const metadata: Metadata = {
     description:
       "Youth pickleball academy, summer camp, and junior coaching at Dill Dinkers Rockville and North Bethesda.",
     url: "https://www.sammorrispb.com/programs/youth",
+    images: [
+      {
+        url: "/og?title=Youth%20%26%20Junior%20Programs&subtitle=Next%20Gen%20Academy%20%C2%B7%20Summer%20Camp%20%C2%B7%20Ages%205-16",
+        width: 1200,
+        height: 630,
+        alt: "Youth & Junior Pickleball Programs at Dill Dinkers",
+      },
+    ],
   },
 };
 
@@ -59,6 +70,16 @@ const LEVELS = [
     ages: "Ages 12+",
     tagline: "Learning to compete",
   },
+];
+
+const SUMMER_CAMP_DATES = [
+  { start: "2026-06-29", end: "2026-07-03" },
+  { start: "2026-07-06", end: "2026-07-10" },
+  { start: "2026-07-13", end: "2026-07-17" },
+  { start: "2026-07-20", end: "2026-07-24" },
+  { start: "2026-07-27", end: "2026-07-31" },
+  { start: "2026-08-03", end: "2026-08-07" },
+  { start: "2026-08-10", end: "2026-08-14" },
 ];
 
 const SUMMER_CAMP_WEEKS = [
@@ -111,6 +132,106 @@ export default function YouthPage() {
               },
             ])
           ),
+        }}
+      />
+      {/* Course Schema — Next Gen Academy */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Course",
+            name: "Next Gen Pickleball Academy",
+            description: "Youth pickleball development program for ages 5-16 with four progressive skill levels.",
+            provider: {
+              "@type": "Person",
+              name: "Sam Morris",
+            },
+            hasCourseInstance: [
+              {
+                "@type": "CourseInstance",
+                name: "Red Level — Beginner",
+                description: "Fundamentals: grip, stance, serves, court awareness",
+                courseMode: "onsite",
+              },
+              {
+                "@type": "CourseInstance",
+                name: "Orange Level — Advanced Beginner",
+                description: "Consistency: dinking, return of serve, positioning",
+                courseMode: "onsite",
+              },
+              {
+                "@type": "CourseInstance",
+                name: "Green Level — Intermediate",
+                description: "Strategy: shot selection, drops, stacking, competitive play",
+                courseMode: "onsite",
+              },
+              {
+                "@type": "CourseInstance",
+                name: "Yellow Level — Advanced",
+                description: "Coach-curated advanced program: tournament prep, mental game",
+                courseMode: "onsite",
+              },
+            ],
+          }),
+        }}
+      />
+      {/* Event Schema — Summer Camp Weeks */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(
+            SUMMER_CAMP_WEEKS.map((week, i) => ({
+              "@context": "https://schema.org",
+              "@type": "Event",
+              name: `Next Gen Summer Camp — ${week.week}`,
+              description: "Week-long pickleball summer camp for ages 6-16 at Dill Dinkers North Bethesda.",
+              startDate: SUMMER_CAMP_DATES[i].start,
+              endDate: SUMMER_CAMP_DATES[i].end,
+              eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
+              eventStatus: "https://schema.org/EventScheduled",
+              location: {
+                "@type": "Place",
+                name: "Dill Dinkers North Bethesda",
+                address: {
+                  "@type": "PostalAddress",
+                  streetAddress: "4942 Boiling Brook Pkwy",
+                  addressLocality: "North Bethesda",
+                  addressRegion: "MD",
+                  postalCode: "20852",
+                  addressCountry: "US",
+                },
+              },
+              organizer: { "@type": "Person", name: "Sam Morris" },
+              offers: {
+                "@type": "Offer",
+                url: week.url,
+                availability: "https://schema.org/InStock",
+                priceCurrency: "USD",
+              },
+            }))
+          ),
+        }}
+      />
+      {/* Event Schema — Little Dill Academy */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(eventJsonLd({
+            name: "Little Dill Academy — Spring Break Camp",
+            description: "Half coaching, half STEM/art/fitness spring break camp for ages 5-13 at Dill Dinkers North Bethesda.",
+            startDate: "2026-03-30",
+            endDate: "2026-04-03",
+            location: {
+              name: "Dill Dinkers North Bethesda",
+              address: "4942 Boiling Brook Pkwy",
+              city: "North Bethesda",
+              state: "MD",
+              zip: "20852",
+            },
+            price: "50.00",
+            organizer: "Sam Morris",
+          })),
         }}
       />
       <ScrollDepthTracker page="youth" />
@@ -349,6 +470,16 @@ export default function YouthPage() {
         </div>
       </section>
 
+      {/* Testimonials */}
+      <section className="px-6 py-16">
+        <div className="mx-auto max-w-5xl">
+          <h2 className="text-2xl md:text-3xl font-heading font-bold text-text-primary text-center mb-10">
+            What Parents Say
+          </h2>
+          <TestimonialGrid testimonials={getTestimonialsByProgram("youth")} limit={3} />
+        </div>
+      </section>
+
       {/* Frequently Asked Questions */}
       <section className="py-16 px-6">
         <div className="mx-auto max-w-3xl">
@@ -389,6 +520,8 @@ export default function YouthPage() {
           </div>
         </div>
       </section>
+
+      <RelatedPrograms currentPath="/programs/youth" />
 
       {/* Bottom Nav */}
       <section className="py-12 px-6">

@@ -8,6 +8,7 @@ import { LeadForm } from "@/components/LeadForm";
 import { TrackedExternalLink } from "@/components/TrackedExternalLink";
 import { WIDGET_URLS } from "@/lib/locations";
 import { breadcrumbJsonLd, faqJsonLd } from "@/lib/seo";
+import { RelatedPrograms } from "@/components/RelatedPrograms";
 
 export const metadata: Metadata = {
   title: "Open Play — Dill Dinkers Rockville & North Bethesda",
@@ -27,6 +28,14 @@ export const metadata: Metadata = {
     title: "Open Play — Dill Dinkers Rockville & North Bethesda",
     description: "Drop in, play with others, no partner needed. Skill-level courts with fair rotation.",
     url: "https://www.sammorrispb.com/programs/open-play",
+    images: [
+      {
+        url: "/og?title=Open%20Play&subtitle=Drop-In%20Pickleball%20%C2%B7%20All%20Levels%20Welcome",
+        width: 1200,
+        height: 630,
+        alt: "Pickleball Open Play at Dill Dinkers",
+      },
+    ],
   },
 };
 
@@ -359,6 +368,8 @@ export default function OpenPlayPage() {
           </div>
         </div>
       </section>
+
+      <RelatedPrograms currentPath="/programs/open-play" />
 
       {/* Bottom Nav */}
       <section className="py-12 px-6">

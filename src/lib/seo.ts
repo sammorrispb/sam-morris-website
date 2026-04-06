@@ -31,3 +31,49 @@ export function faqJsonLd(
     })),
   };
 }
+
+export function eventJsonLd(event: {
+  name: string;
+  description?: string;
+  startDate: string;
+  endDate?: string;
+  location: { name: string; address: string; city: string; state: string; zip: string };
+  price?: string;
+  url?: string;
+  organizer?: string;
+}): object {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Event",
+    name: event.name,
+    ...(event.description && { description: event.description }),
+    startDate: event.startDate,
+    ...(event.endDate && { endDate: event.endDate }),
+    eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
+    eventStatus: "https://schema.org/EventScheduled",
+    location: {
+      "@type": "Place",
+      name: event.location.name,
+      address: {
+        "@type": "PostalAddress",
+        streetAddress: event.location.address,
+        addressLocality: event.location.city,
+        addressRegion: event.location.state,
+        postalCode: event.location.zip,
+        addressCountry: "US",
+      },
+    },
+    ...(event.organizer && {
+      organizer: { "@type": "Person", name: event.organizer },
+    }),
+    ...(event.price && {
+      offers: {
+        "@type": "Offer",
+        price: event.price,
+        priceCurrency: "USD",
+        availability: "https://schema.org/InStock",
+        ...(event.url && { url: event.url }),
+      },
+    }),
+  };
+}

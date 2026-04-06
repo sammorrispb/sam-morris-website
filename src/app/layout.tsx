@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Montserrat, Inter, Roboto_Mono } from "next/font/google";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import { TESTIMONIALS, getAggregateRating } from "@/lib/testimonials";
 import { Nav } from "@/components/Nav";
 import { Footer } from "@/components/Footer";
 import { AnnouncementBanner } from "@/components/AnnouncementBanner";
@@ -132,6 +133,7 @@ export default function RootLayout({
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "Person",
+              "@id": "https://www.sammorrispb.com/#person",
               name: "Sam Morris",
               jobTitle: "Professional Pickleball Coach & Director of Programming",
               description:
@@ -182,6 +184,7 @@ export default function RootLayout({
                 "https://linkedin.com/in/sammorris2131",
                 "https://tiktok.com/@sammorris.pb",
                 "https://youtube.com/@sammorris.pb8",
+                // TODO: Add Google Business Profile URL after claiming
               ],
             }),
           }}
@@ -193,6 +196,7 @@ export default function RootLayout({
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "SportsActivityLocation",
+              "@id": "https://www.sammorrispb.com/#location",
               name: "Sam Morris Pickleball Coaching",
               description:
                 "Professional pickleball coaching for adults, families, and kids in Montgomery County, MD. Private lessons, group clinics, youth academy programs, and skill evaluations at Dill Dinkers Rockville and North Bethesda.",
@@ -339,12 +343,54 @@ export default function RootLayout({
                   },
                 ],
               },
+              aggregateRating: {
+                "@type": "AggregateRating",
+                ...getAggregateRating(),
+              },
+              review: TESTIMONIALS.slice(0, 3).map((t) => ({
+                "@type": "Review",
+                author: { "@type": "Person", name: t.author },
+                reviewRating: {
+                  "@type": "Rating",
+                  ratingValue: t.rating,
+                  bestRating: 5,
+                },
+                reviewBody: t.quote,
+              })),
+              paymentAccepted: "Cash, Credit Card, Debit Card",
+              currenciesAccepted: "USD",
               sameAs: [
                 "https://instagram.com/sammorris.pb",
                 "https://facebook.com/sam.km.18",
                 "https://linkedin.com/in/sammorris2131",
                 "https://tiktok.com/@sammorris.pb",
                 "https://youtube.com/@sammorris.pb8",
+                // TODO: Add Google Business Profile URL after claiming
+              ],
+            }),
+          }}
+        />
+        {/* Organization Schema */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Organization",
+              name: "Sam Morris Pickleball",
+              url: "https://www.sammorrispb.com",
+              logo: "https://www.sammorrispb.com/images/sam-portrait-with-paddle.jpg",
+              founder: { "@id": "https://www.sammorrispb.com/#person" },
+              location: { "@id": "https://www.sammorrispb.com/#location" },
+              email: "sam.morris2131@gmail.com",
+              telephone: "301-325-4731",
+              sameAs: [
+                "https://instagram.com/sammorris.pb",
+                "https://facebook.com/sam.km.18",
+                "https://linkedin.com/in/sammorris2131",
+                "https://tiktok.com/@sammorris.pb",
+                "https://youtube.com/@sammorris.pb8",
+                // TODO: Add Google Business Profile URL after claiming
               ],
             }),
           }}

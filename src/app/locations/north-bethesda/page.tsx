@@ -30,6 +30,20 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "https://www.sammorrispb.com/locations/north-bethesda",
   },
+  openGraph: {
+    title: "Dill Dinkers North Bethesda — Indoor Pickleball Courts, Leagues & Coaching",
+    description:
+      "Indoor pickleball at Dill Dinkers North Bethesda. 9 courts, leagues, open play, coached sessions, coaching, and youth programs.",
+    url: "https://www.sammorrispb.com/locations/north-bethesda",
+    images: [
+      {
+        url: "/og?title=Dill%20Dinkers%20North%20Bethesda&subtitle=9%20Indoor%20Courts%20%C2%B7%204942%20Boiling%20Brook%20Pkwy",
+        width: 1200,
+        height: 630,
+        alt: "Dill Dinkers North Bethesda Indoor Pickleball",
+      },
+    ],
+  },
 };
 
 const breadcrumbs = [
