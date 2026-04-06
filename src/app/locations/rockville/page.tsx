@@ -29,6 +29,20 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "https://www.sammorrispb.com/locations/rockville",
   },
+  openGraph: {
+    title: "Dill Dinkers Rockville — Indoor Pickleball Courts, Leagues & Coaching",
+    description:
+      "Indoor pickleball at Dill Dinkers Rockville. 8 courts, leagues, open play, coached sessions, coaching, and youth programs.",
+    url: "https://www.sammorrispb.com/locations/rockville",
+    images: [
+      {
+        url: "/og?title=Dill%20Dinkers%20Rockville&subtitle=8%20Indoor%20Courts%20%C2%B7%2040C%20Southlawn%20Court",
+        width: 1200,
+        height: 630,
+        alt: "Dill Dinkers Rockville Indoor Pickleball",
+      },
+    ],
+  },
 };
 
 const breadcrumbs = [

@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import { LeadForm } from "@/components/LeadForm";
+import { TESTIMONIALS } from "@/lib/testimonials";
+import { TestimonialGrid } from "@/components/TestimonialGrid";
 import { AnimateOnScroll } from "@/components/AnimateOnScroll";
 import { TrackedLink } from "@/components/TrackedLink";
 import { TrackedExternalLink } from "@/components/TrackedExternalLink";
@@ -211,6 +213,29 @@ export default function Home() {
         </AnimateOnScroll>
       </section>
 
+      {/* ─── Quiz CTA ─── */}
+      <section className="px-6 py-12">
+        <div className="mx-auto max-w-4xl">
+          <Link
+            href="/quiz"
+            className="glow-border rounded-xl p-8 md:p-10 bg-white/[0.02] hover:bg-white/[0.05] transition-colors flex flex-col md:flex-row items-center gap-6 group"
+          >
+            <div className="text-5xl">🏓</div>
+            <div className="text-center md:text-left flex-1">
+              <h2 className="text-xl md:text-2xl font-heading font-bold text-text-primary group-hover:text-accent-blue transition-colors">
+                What&apos;s Your Pickleball Level?
+              </h2>
+              <p className="text-text-muted text-sm mt-1">
+                Take our free 1-minute quiz and get personalized program recommendations.
+              </p>
+            </div>
+            <span className="text-accent-blue font-medium text-sm whitespace-nowrap">
+              Take the Quiz &rarr;
+            </span>
+          </Link>
+        </div>
+      </section>
+
       {/* ─── Programs Preview ─── */}
       <section className="bg-navy-light py-20 px-6">
         <AnimateOnScroll>
@@ -273,6 +298,19 @@ export default function Home() {
           </div>
         </div>
         </AnimateOnScroll>
+      </section>
+
+      {/* ─── Testimonials ─── */}
+      <section className="px-6 py-20">
+        <div className="mx-auto max-w-6xl">
+          <h2 className="text-3xl md:text-4xl font-heading font-bold text-text-primary text-center mb-4">
+            What Players Are Saying
+          </h2>
+          <p className="text-text-muted text-center mb-12 max-w-2xl mx-auto">
+            Real feedback from our community of players, parents, and competitors.
+          </p>
+          <TestimonialGrid testimonials={TESTIMONIALS} limit={3} />
+        </div>
       </section>
 
       {/* ─── Lead Form ─── */}

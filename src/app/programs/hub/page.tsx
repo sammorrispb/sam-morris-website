@@ -19,6 +19,14 @@ export const metadata: Metadata = {
     description:
       "Your starting point for all pickleball programs in Rockville and North Bethesda.",
     url: "https://www.sammorrispb.com/programs/hub",
+    images: [
+      {
+        url: "/og?title=Program%20Hub&subtitle=Find%20Your%20Perfect%20Pickleball%20Program",
+        width: 1200,
+        height: 630,
+        alt: "Pickleball Program Hub",
+      },
+    ],
   },
 };
 

@@ -9,6 +9,9 @@ import { TrackedExternalLink } from "@/components/TrackedExternalLink";
 import { ScrollDepthTracker } from "@/components/ScrollDepthTracker";
 import { WIDGET_URLS } from "@/lib/locations";
 import { breadcrumbJsonLd } from "@/lib/seo";
+import { RelatedPrograms } from "@/components/RelatedPrograms";
+import { getTestimonialsByProgram } from "@/lib/testimonials";
+import { TestimonialGrid } from "@/components/TestimonialGrid";
 
 export const metadata: Metadata = {
   title: "Coaching & Clinics — Dill Dinkers Rockville & North Bethesda",
@@ -487,12 +490,24 @@ export default function CoachingPage() {
         </div>
       </section>
 
+      {/* Testimonials */}
+      <section className="px-6 py-16">
+        <div className="mx-auto max-w-5xl">
+          <h2 className="text-2xl md:text-3xl font-heading font-bold text-text-primary text-center mb-10">
+            What Our Students Say
+          </h2>
+          <TestimonialGrid testimonials={getTestimonialsByProgram("coaching")} limit={3} />
+        </div>
+      </section>
+
       {/* Lead Capture */}
       <section className="py-16 px-6">
         <div className="mx-auto max-w-3xl">
           <LeadForm heading="Interested in Coaching?" page="coaching" />
         </div>
       </section>
+
+      <RelatedPrograms currentPath="/programs/coaching" />
 
       {/* Bottom Nav */}
       <section className="py-12 px-6">

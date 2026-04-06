@@ -9,6 +9,7 @@ import { TrackedExternalLink } from "@/components/TrackedExternalLink";
 import { ScrollDepthTracker } from "@/components/ScrollDepthTracker";
 import { WIDGET_URLS } from "@/lib/locations";
 import { breadcrumbJsonLd, faqJsonLd } from "@/lib/seo";
+import { RelatedPrograms } from "@/components/RelatedPrograms";
 
 export const metadata: Metadata = {
   title: "Coached Open Play — Dill Dinkers Rockville & North Bethesda",
@@ -28,6 +29,14 @@ export const metadata: Metadata = {
     title: "Coached Open Play — Dill Dinkers Rockville & North Bethesda",
     description: "Play real games with real-time coach feedback. Beginner through Intermediate sessions.",
     url: "https://www.sammorrispb.com/programs/coached-open-play",
+    images: [
+      {
+        url: "/og?title=Coached%20Open%20Play&subtitle=Real-Time%20Coaching%20During%20Live%20Games",
+        width: 1200,
+        height: 630,
+        alt: "Coached Open Play at Dill Dinkers",
+      },
+    ],
   },
 };
 
@@ -428,6 +437,8 @@ export default function CoachedOpenPlayPage() {
           </div>
         </div>
       </section>
+
+      <RelatedPrograms currentPath="/programs/coached-open-play" />
 
       {/* Bottom Nav */}
       <section className="py-12 px-6">

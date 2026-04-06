@@ -9,6 +9,7 @@ import { TrackedExternalLink } from "@/components/TrackedExternalLink";
 import { ScrollDepthTracker } from "@/components/ScrollDepthTracker";
 import { WIDGET_URLS } from "@/lib/locations";
 import { breadcrumbJsonLd } from "@/lib/seo";
+import { RelatedPrograms } from "@/components/RelatedPrograms";
 
 export const metadata: Metadata = {
   title: "Leagues — Dill Dinkers Rockville & North Bethesda",
@@ -30,6 +31,14 @@ export const metadata: Metadata = {
     description:
       "Spring & Late Spring 2026 league schedules. DUPR brackets, weekly seasons with playoffs.",
     url: "https://www.sammorrispb.com/programs/leagues",
+    images: [
+      {
+        url: "/og?title=Pickleball%20Leagues&subtitle=DUPR%20Brackets%20%C2%B7%20Spring%202026%20%C2%B7%20Rockville%20%26%20North%20Bethesda",
+        width: 1200,
+        height: 630,
+        alt: "Pickleball Leagues at Dill Dinkers",
+      },
+    ],
   },
 };
 
@@ -514,6 +523,8 @@ export default function LeaguesPage() {
           <LeadForm heading="Interested in Leagues?" page="leagues" />
         </div>
       </section>
+
+      <RelatedPrograms currentPath="/programs/leagues" />
 
       {/* Bottom Nav */}
       <section className="py-12 px-6">

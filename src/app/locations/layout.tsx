@@ -1,14 +1,12 @@
-import { ProgramsNav } from "@/components/ProgramsNav";
 import { MobileCTA } from "@/components/MobileCTA";
 
-export default function ProgramsLayout({
+export default function LocationsLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
   return (
     <>
-      <ProgramsNav />
       {children}
       <MobileCTA />
     </>
