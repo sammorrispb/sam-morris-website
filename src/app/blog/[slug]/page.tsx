@@ -37,9 +37,26 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-function renderBlock(block: any) {
+// Notion block types vary widely; use a permissive record shape
+// rather than pulling in @notionhq/client's union types.
+type NotionBlock = { id?: string; type: string; [key: string]: unknown };
+type NotionRichText = {
+  plain_text: string;
+  annotations: {
+    bold?: boolean;
+    italic?: boolean;
+    code?: boolean;
+    strikethrough?: boolean;
+    underline?: boolean;
+    color?: string;
+  };
+  href?: string | null;
+};
+
+function renderBlock(block: NotionBlock) {
   const type = block.type;
-  const value = block[type];
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const value = block[type] as any;
 
   switch (type) {
     case "paragraph":
@@ -115,9 +132,9 @@ function renderBlock(block: any) {
   }
 }
 
-function renderRichText(richText: any[]) {
+function renderRichText(richText: NotionRichText[] | undefined) {
   if (!richText) return null;
-  return richText.map((text: any, i: number) => {
+  return richText.map((text: NotionRichText, i: number) => {
     let content: React.ReactNode = text.plain_text;
 
     if (text.annotations.bold) content = <strong key={i}>{content}</strong>;
@@ -231,9 +248,10 @@ export default async function BlogPostPage({ params }: Props) {
           )}
 
           <div className="prose-invert max-w-none">
-            {post.blocks.map((block: any, i: number) => (
-              <div key={block.id ?? i}>{renderBlock(block)}</div>
-            ))}
+            {post.blocks.map((block: unknown, i: number) => {
+              const b = block as NotionBlock;
+              return <div key={b.id ?? i}>{renderBlock(b)}</div>;
+            })}
           </div>
         </div>
       </article>

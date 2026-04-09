@@ -3,6 +3,7 @@ import { createClient } from "@supabase/supabase-js";
 import { NextResponse } from "next/server";
 import { generateEmailDraft } from "@/lib/emailTemplates";
 import { sendEmail, notifySam } from "@/lib/email";
+import { ingestToOpenBrain } from "@/lib/open-brain-ingest";
 
 async function checkLndMembership(email: string): Promise<boolean> {
   const url = process.env.LND_SUPABASE_URL;
@@ -152,6 +153,20 @@ export async function POST(request: Request) {
     } catch (emailError) {
       console.error("Welcome email failed:", emailError);
     }
+
+    // Ingest to Open Brain master CRM (fire-and-forget)
+    // "coaching" is always the business here — Business Partnerships still
+    // lands in coaching pipeline since that's how Sam tracks them.
+    void ingestToOpenBrain({
+      email,
+      name,
+      business: "coaching",
+      source: "sammorrispb_coaching",
+      interest,
+      metadata: {
+        is_lnd_member: isLndMember,
+      },
+    });
 
     return NextResponse.json({ success: true });
   } catch (error) {

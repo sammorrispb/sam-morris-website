@@ -1,25 +1,35 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useSyncExternalStore } from "react";
 import Link from "next/link";
 import { ANNOUNCEMENT } from "@/lib/constants";
 
-export function AnnouncementBanner() {
-  const [dismissed, setDismissed] = useState(true);
+// Read localStorage safely across SSR + CSR with useSyncExternalStore.
+function useDismissedFromStorage(id: string | undefined): boolean {
+  return useSyncExternalStore(
+    (onChange) => {
+      const handler = () => onChange();
+      window.addEventListener("storage", handler);
+      return () => window.removeEventListener("storage", handler);
+    },
+    () => {
+      if (!id) return true;
+      return localStorage.getItem(`dismissed-announcement-${id}`) !== null;
+    },
+    () => true, // SSR / initial — assume dismissed, render nothing
+  );
+}
 
-  useEffect(() => {
-    if (!ANNOUNCEMENT) return;
-    const key = `dismissed-announcement-${ANNOUNCEMENT.id}`;
-    if (!localStorage.getItem(key)) {
-      setDismissed(false);
-    }
-  }, []);
+export function AnnouncementBanner() {
+  const persistedDismissed = useDismissedFromStorage(ANNOUNCEMENT?.id);
+  const [locallyDismissed, setLocallyDismissed] = useState(false);
+  const dismissed = persistedDismissed || locallyDismissed;
 
   if (!ANNOUNCEMENT || dismissed) return null;
 
   function handleDismiss() {
     localStorage.setItem(`dismissed-announcement-${ANNOUNCEMENT!.id}`, "1");
-    setDismissed(true);
+    setLocallyDismissed(true);
   }
 
   return (
