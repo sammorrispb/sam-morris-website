@@ -6,11 +6,11 @@ export function interestSlug(interest: string): string {
 }
 
 export function hubUrl(interest: string): string {
-  return `https://play.linkanddink.com?utm_source=website&utm_medium=email&utm_campaign=${interestSlug(interest)}`;
+  return `https://linkanddink.com?utm_source=website&utm_medium=email&utm_campaign=${interestSlug(interest)}`;
 }
 
 export function surveyUrl(interest: string): string {
-  return `https://play.linkanddink.com?utm_source=website&utm_medium=email&utm_campaign=${interestSlug(interest)}_survey#pd-survey`;
+  return `https://linkanddink.com?utm_source=website&utm_medium=email&utm_campaign=${interestSlug(interest)}_survey#pd-survey`;
 }
 
 function hubCta(interest: string): string {

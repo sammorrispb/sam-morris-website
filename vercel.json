@@ -18,8 +18,8 @@
   ],
   "redirects": [
     { "source": "/tournament", "destination": "/tournament/", "permanent": true },
-    { "source": "/playdate", "destination": "https://play.linkanddink.com", "permanent": true },
-    { "source": "/playdate/:path*", "destination": "https://play.linkanddink.com", "permanent": true }
+    { "source": "/playdate", "destination": "https://linkanddink.com", "permanent": true },
+    { "source": "/playdate/:path*", "destination": "https://linkanddink.com", "permanent": true }
   ],
   "rewrites": [
     { "source": "/tournament/", "destination": "https://tournamentwebsite.vercel.app/" },

@@ -505,7 +505,7 @@ export default function LeaguesPage() {
                 Partner Finder Form
               </TrackedExternalLink>
               <TrackedExternalLink
-                href="https://play.linkanddink.com/"
+                href="https://linkanddink.com/"
                 label="Link & Dink Community"
                 page="leagues"
                 className="inline-block font-heading font-semibold px-6 py-3 rounded-lg border border-[rgba(244,121,32,0.2)] text-text-muted hover:border-[rgba(244,121,32,0.4)] hover:text-text-primary transition-all text-sm"

@@ -5,7 +5,7 @@ Personal/professional website for Sam Morris — coach, community builder, and e
 
 ## Ecosystem
 Part of Sam's pickleball platform ecosystem. See also:
-- **The Hub** (`sammorrispb/The-Hub`) — Core community platform at play.linkanddink.com
+- **The Hub** (`sammorrispb/The-Hub`) — Core community platform at linkanddink.com
 - **Next Gen Academy** (`sammorrispb/nextgen-academy`) — Youth academy site
 - **Open Brain** (`sammorrispb/open-brain`) — Semantic knowledge + MCP server
 - **CourtReserve Ops** (`sammorrispb/courtreserve-ops`) — DD operations plugin

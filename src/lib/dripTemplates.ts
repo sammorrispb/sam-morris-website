@@ -252,7 +252,7 @@ Link & Dink is a community of 900+ pickleball players across two Dill Dinkers lo
 As an ambassador, you'd help shape what that looks like at the local level.
 
 Learn more:
-https://play.linkanddink.com/
+https://linkanddink.com/
 
 See what's happening on the Hub:
 ${hubUrl("Ambassador (Player-Organizer-Coach)")}

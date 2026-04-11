@@ -109,7 +109,7 @@ const PROGRAMS = [
     description:
       "Find groups, playing partners, and events at your level.",
     cta: "Find Players & Groups",
-    href: "https://play.linkanddink.com/",
+    href: "https://linkanddink.com/",
     external: true,
     image: "/images/link-and-dink-logo.svg",
     isLogo: true,
