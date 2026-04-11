@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Montserrat, Inter, Roboto_Mono } from "next/font/google";
-import { Analytics } from "@vercel/analytics/react";
+import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { TESTIMONIALS, getAggregateRating } from "@/lib/testimonials";
 import { Nav } from "@/components/Nav";
