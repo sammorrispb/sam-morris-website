@@ -351,7 +351,7 @@ export default function ProgramHubPage() {
         <div className="mx-auto max-w-3xl text-center">
           <p className="text-text-muted text-sm">
             <TrackedExternalLink
-              href="https://linkanddink.com/"
+              href="https://linkanddink.com/?utm_source=sammorrispb&utm_medium=website&utm_campaign=cross_site"
               label="Link & Dink"
               page="programs/hub"
               className="text-[#F47920] hover:text-[#8BC751] transition-colors font-semibold"

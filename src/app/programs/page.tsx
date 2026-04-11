@@ -240,7 +240,7 @@ export default function ProgramsPage() {
             levels. Find your game, grow your network.
           </p>
           <a
-            href="https://linkanddink.com/"
+            href="https://linkanddink.com/?utm_source=sammorrispb&utm_medium=website&utm_campaign=cross_site"
             target="_blank"
             rel="noopener noreferrer"
             className="text-accent-blue hover:text-accent-purple transition-colors font-semibold"

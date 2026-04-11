@@ -18,8 +18,8 @@
   ],
   "redirects": [
     { "source": "/tournament", "destination": "/tournament/", "permanent": true },
-    { "source": "/playdate", "destination": "https://linkanddink.com", "permanent": true },
-    { "source": "/playdate/:path*", "destination": "https://linkanddink.com", "permanent": true }
+    { "source": "/playdate", "destination": "https://linkanddink.com?utm_source=sammorrispb&utm_medium=website&utm_campaign=cross_site", "permanent": true },
+    { "source": "/playdate/:path*", "destination": "https://linkanddink.com?utm_source=sammorrispb&utm_medium=website&utm_campaign=cross_site", "permanent": true }
   ],
   "rewrites": [
     { "source": "/tournament/", "destination": "https://tournamentwebsite.vercel.app/" },

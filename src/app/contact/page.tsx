@@ -128,7 +128,7 @@ export default function ContactPage() {
               <p className="text-text-muted leading-relaxed mb-4">
                 Every evaluation includes creating a free{" "}
                 <TrackedExternalLink
-                  href="https://linkanddink.com/"
+                  href="https://linkanddink.com/?utm_source=sammorrispb&utm_medium=website&utm_campaign=cross_site"
                   label="Link & Dink"
                   page="contact"
                   className="text-accent-blue hover:text-accent-purple transition-colors underline"

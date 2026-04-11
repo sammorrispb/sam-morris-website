@@ -288,7 +288,7 @@ export const COMMUNITY_LINKS: CommunityLink[] = [
     tag: "Community",
     tagColor: "#F47920",
     description: "Social discovery app connecting players for events, groups, and competitive play.",
-    href: "https://linkanddink.com/",
+    href: "https://linkanddink.com/?utm_source=sammorrispb&utm_medium=website&utm_campaign=cross_site",
   },
   {
     label: "Next Gen Academy",
