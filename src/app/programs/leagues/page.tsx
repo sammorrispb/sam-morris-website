@@ -349,16 +349,16 @@ export default function LeaguesPage() {
               Need a Partner?
             </h2>
             <p className="text-text-muted text-sm mb-6">
-              Complete the partner finder form or post in the Link &amp; Dink community.
+              Tell Link &amp; Dink what you&apos;re looking for — we&apos;ll match you with a partner at your level.
             </p>
             <div className="flex flex-wrap gap-4 justify-center">
               <TrackedExternalLink
-                href="https://sammorrispb.notion.site/277fa3ac27dc800b9b0adeaa30dfe34b?pvs=105"
-                label="Partner Finder Form"
+                href="https://linkanddink.com/#play?utm_source=sammorrispb&utm_medium=website&utm_campaign=find_partner"
+                label="Find a Partner"
                 page="leagues"
                 className="inline-block text-white font-heading font-semibold px-6 py-3 rounded-lg btn-dd text-sm"
               >
-                Partner Finder Form
+                Find a Partner
               </TrackedExternalLink>
               <TrackedExternalLink
                 href="https://linkanddink.com/?utm_source=sammorrispb&utm_medium=website&utm_campaign=cross_site"
