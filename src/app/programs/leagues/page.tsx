@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 import { AnimateOnScroll } from "@/components/AnimateOnScroll";
 import { PageSectionNav } from "@/components/PageSectionNav";
@@ -42,39 +41,25 @@ export const metadata: Metadata = {
   },
 };
 
-const ROCKVILLE_SCHEDULE = [
-  { day: "Monday", time: "6:30 \u2013 8:15 PM", dupr: "3.0 \u2013 3.6" },
-  { day: "Tuesday", time: "6:45 \u2013 8:30 PM", dupr: "3.5 \u2013 4.1" },
-  { day: "Wednesday", time: "6:15 \u2013 8:00 PM", dupr: "2.5 \u2013 3.1" },
-  { day: "Thursday", time: "5:00 \u2013 6:30 PM", dupr: "2.9 and Below" },
-];
-
-const NB_SCHEDULE = [
-  { day: "Monday", time: "6:30 \u2013 8:15 PM", dupr: "3.5 \u2013 4.1" },
-  { day: "Monday", time: "8:15 \u2013 10:00 PM", dupr: "2.4 \u2013 3.0" },
-  { day: "Tuesday", time: "5:00 \u2013 6:30 PM", dupr: "2.9 and Below" },
-  { day: "Tuesday", time: "6:30 \u2013 8:15 PM", dupr: "2.75 \u2013 3.5 (Women\u2019s)" },
-  { day: "Wednesday", time: "6:30 \u2013 8:15 PM", dupr: "3.0 \u2013 3.6" },
-  { day: "Wednesday", time: "8:15 \u2013 10:00 PM", dupr: "3.3 \u2013 3.9" },
-];
-
 const LATE_SPRING_ROCKVILLE = [
-  { day: "Monday", time: "6:30 \u2013 8:15 PM", dupr: "3.3 \u2013 3.8" },
-  { day: "Tuesday", time: "6:45 \u2013 8:30 PM", dupr: "3.7 \u2013 4.3" },
-  { day: "Wednesday", time: "6:15 \u2013 8:00 PM", dupr: "2.7 \u2013 3.3" },
-  { day: "Thursday", time: "6:30 \u2013 8:15 PM", dupr: "2.9 and Below" },
+  { day: "Monday", time: "6:30 \u2013 8:15 PM", dupr: "3.3 \u2013 3.8", eventName: "Late Spring League: DUPR 3.3-3.8", url: "https://app.courtreserve.com/online/publicbookings/10869?tab=explore&eventId=1969929&reservationId=50638007" },
+  { day: "Tuesday", time: "6:45 \u2013 8:30 PM", dupr: "3.7 \u2013 4.3", eventName: "Late Spring League: DUPR 3.7-4.3", url: "https://app.courtreserve.com/online/publicbookings/10869?tab=explore&eventId=1969935&reservationId=50646305" },
+  { day: "Wednesday", time: "6:15 \u2013 8:00 PM", dupr: "2.7 \u2013 3.3", eventName: "Late Spring League: DUPR 2.7-3.3", url: "https://app.courtreserve.com/online/publicbookings/10869?tab=explore&eventId=2016912&reservationId=52174427" },
+  { day: "Thursday", time: "6:30 \u2013 8:15 PM", dupr: "2.9 and Below", eventName: "Late Spring League: DUPR 2.9 and BELOW", url: "https://app.courtreserve.com/online/publicbookings/10869?tab=explore&eventId=1969874&reservationId=50635837" },
 ];
 
 const LATE_SPRING_NB = [
-  { day: "Monday", time: "6:30 \u2013 8:15 PM", dupr: "3.3 \u2013 3.8" },
-  { day: "Monday", time: "8:15 \u2013 10:00 PM", dupr: "3.7 \u2013 4.3" },
-  { day: "Tuesday", time: "4:45 \u2013 6:30 PM", dupr: "2.9 and Below" },
-  { day: "Tuesday", time: "6:30 \u2013 8:15 PM", dupr: "2.75 \u2013 3.5 (Women\u2019s)" },
-  { day: "Wednesday", time: "6:30 \u2013 8:15 PM", dupr: "2.8 \u2013 3.4" },
-  { day: "Wednesday", time: "8:15 \u2013 10:00 PM", dupr: "3.4 \u2013 3.9" },
+  { day: "Monday", time: "6:30 \u2013 8:15 PM", dupr: "3.3 \u2013 3.8", eventName: "Late Spring League: 3.3-3.8", url: "https://app.courtreserve.com/online/publicbookings/10483?tab=explore&eventId=1970069&reservationId=50642559" },
+  { day: "Monday", time: "8:15 \u2013 10:00 PM", dupr: "3.7 \u2013 4.3", eventName: "Late Spring League: 3.7-4.3", url: "https://app.courtreserve.com/online/publicbookings/10483?tab=explore&eventId=2024164&reservationId=52413235" },
+  { day: "Tuesday", time: "4:45 \u2013 6:30 PM", dupr: "2.9 and Below", eventName: "Late Spring League: 2.9 and BELOW", url: "https://app.courtreserve.com/online/publicbookings/10483?tab=explore&eventId=1970168&reservationId=50645240" },
+  { day: "Tuesday", time: "6:30 \u2013 8:15 PM", dupr: "2.75 \u2013 3.5 (Women\u2019s)", eventName: "Late Spring League: WOMEN ONLY 2.75-3.5", url: "https://app.courtreserve.com/online/publicbookings/10483?tab=explore&eventId=1970172&reservationId=50645303" },
+  { day: "Wednesday", time: "6:30 \u2013 8:15 PM", dupr: "2.8 \u2013 3.4", eventName: "Late Spring League: 2.8-3.4", url: "https://app.courtreserve.com/online/publicbookings/10483?tab=explore&eventId=1970175&reservationId=50645395" },
+  { day: "Wednesday", time: "8:15 \u2013 10:00 PM", dupr: "3.4 \u2013 3.9", eventName: "Late Spring League: 3.4-3.9", url: "https://app.courtreserve.com/online/publicbookings/10483?tab=explore&eventId=1970178&reservationId=50645533" },
 ];
 
-function ScheduleTable({ rows }: { rows: typeof ROCKVILLE_SCHEDULE }) {
+type LateSpringRow = { day: string; time: string; dupr: string; eventName: string; url: string };
+
+function LateSpringTable({ rows }: { rows: LateSpringRow[] }) {
   return (
     <div className="overflow-x-auto">
       <table className="w-full text-left text-sm table-dd">
@@ -82,7 +67,8 @@ function ScheduleTable({ rows }: { rows: typeof ROCKVILLE_SCHEDULE }) {
           <tr className="border-b border-white/10">
             <th className="py-3 pr-4 font-heading font-semibold text-text-primary">Day</th>
             <th className="py-3 pr-4 font-heading font-semibold text-text-primary">Time</th>
-            <th className="py-3 font-heading font-semibold text-text-primary">Skill Range (DUPR)</th>
+            <th className="py-3 pr-4 font-heading font-semibold text-text-primary">Event</th>
+            <th className="py-3 font-heading font-semibold text-text-primary">Register</th>
           </tr>
         </thead>
         <tbody>
@@ -90,7 +76,17 @@ function ScheduleTable({ rows }: { rows: typeof ROCKVILLE_SCHEDULE }) {
             <tr key={i} className="border-b border-white/5">
               <td className="py-3 pr-4 font-semibold text-text-primary">{r.day}</td>
               <td className="py-3 pr-4 text-text-muted">{r.time}</td>
-              <td className="py-3 font-semibold text-text-primary">{r.dupr}</td>
+              <td className="py-3 pr-4 font-semibold text-text-primary">{r.eventName}</td>
+              <td className="py-3">
+                <TrackedExternalLink
+                  href={r.url}
+                  label={`Register — ${r.eventName}`}
+                  page="leagues"
+                  className="text-[#F47920] hover:text-[#8BC751] transition-colors font-semibold"
+                >
+                  Sign Up &rarr;
+                </TrackedExternalLink>
+              </td>
             </tr>
           ))}
         </tbody>
@@ -102,7 +98,6 @@ function ScheduleTable({ rows }: { rows: typeof ROCKVILLE_SCHEDULE }) {
 const SECTIONS = [
   { id: "rockville", label: "Rockville" },
   { id: "north-bethesda", label: "North Bethesda" },
-  { id: "late-spring", label: "Late Spring" },
   { id: "format-rules", label: "Format & Rules" },
   { id: "dupr", label: "DUPR" },
   { id: "sub-rules", label: "Sub Rules" },
@@ -161,50 +156,6 @@ export default function LeaguesPage() {
             {
             "@context": "https://schema.org",
             "@type": "SportsEvent",
-            name: "Dill Dinkers Spring 2026 Pickleball Leagues",
-            description:
-              "6-week indoor pickleball league season with DUPR-based brackets and Week 7 playoffs at Dill Dinkers Rockville and North Bethesda.",
-            sport: "Pickleball",
-            startDate: "2026-03-02",
-            endDate: "2026-04-25",
-            eventAttendanceMode:
-              "https://schema.org/OfflineEventAttendanceMode",
-            eventStatus: "https://schema.org/EventScheduled",
-            location: [
-              {
-                "@type": "Place",
-                name: "Dill Dinkers Rockville",
-                address: {
-                  "@type": "PostalAddress",
-                  streetAddress: "40C Southlawn Court",
-                  addressLocality: "Rockville",
-                  addressRegion: "MD",
-                  postalCode: "20850",
-                  addressCountry: "US",
-                },
-              },
-              {
-                "@type": "Place",
-                name: "Dill Dinkers North Bethesda",
-                address: {
-                  "@type": "PostalAddress",
-                  streetAddress: "4942 Boiling Brook Pkwy",
-                  addressLocality: "North Bethesda",
-                  addressRegion: "MD",
-                  postalCode: "20852",
-                  addressCountry: "US",
-                },
-              },
-            ],
-            organizer: {
-              "@type": "Person",
-              name: "Sam Morris",
-              url: "https://www.sammorrispb.com",
-            },
-          },
-          {
-            "@context": "https://schema.org",
-            "@type": "SportsEvent",
             name: "Dill Dinkers Late Spring 2026 Pickleball Leagues",
             description:
               "6-week indoor pickleball league season with DUPR-based brackets and Week 7 playoffs at Dill Dinkers Rockville and North Bethesda.",
@@ -260,32 +211,23 @@ export default function LeaguesPage() {
             <span className="gradient-text-dd">Leagues</span>
           </h1>
           <p className="text-text-muted text-lg md:text-xl max-w-2xl mx-auto">
-            Spring &amp; Late Spring 2026 League Schedules
+            Late Spring 2026 League Schedule
           </p>
           <p className="text-sm text-[#F47920] mt-3 font-semibold">
-            Spring: March 2 &ndash; April 25 &nbsp;|&nbsp; Late Spring: April 27 &ndash; June 13
+            Late Spring: April 27 &ndash; June 13 &middot; Registration Open
           </p>
         </div>
       </section>
 
-      {/* Spring Season Header */}
-      <section id="rockville" className="pt-16 pb-4 px-6 scroll-mt-28">
-        <div className="mx-auto max-w-4xl">
-          <p className="text-xs font-heading font-bold uppercase tracking-widest text-[#F47920]">
-            Spring 2026 &mdash; March 2 through April 25
-          </p>
-        </div>
-      </section>
-
-      {/* Rockville Schedule */}
-      <section className="py-12 px-6">
+      {/* Late Spring Rockville */}
+      <section id="rockville" className="pt-16 pb-12 px-6 scroll-mt-28">
         <div className="mx-auto max-w-4xl">
           <AnimateOnScroll>
             <h2 className="font-heading text-2xl md:text-3xl mb-6">
               Rockville
             </h2>
             <div className="card-dd p-6 mb-6">
-              <ScheduleTable rows={ROCKVILLE_SCHEDULE} />
+              <LateSpringTable rows={LATE_SPRING_ROCKVILLE} />
             </div>
             <TrackedExternalLink
               href={WIDGET_URLS.rockville.leagues}
@@ -293,13 +235,13 @@ export default function LeaguesPage() {
               page="leagues"
               className="inline-block text-white font-heading font-semibold px-8 py-3 rounded-lg btn-dd"
             >
-              Register for Rockville Leagues
+              Browse All Rockville Leagues
             </TrackedExternalLink>
           </AnimateOnScroll>
         </div>
       </section>
 
-      {/* NB Schedule */}
+      {/* Late Spring NB */}
       <section id="north-bethesda" className="py-12 px-6 scroll-mt-28">
         <div className="mx-auto max-w-4xl">
           <AnimateOnScroll>
@@ -309,7 +251,7 @@ export default function LeaguesPage() {
                   North Bethesda
                 </h2>
                 <div className="card-dd p-6 mb-6">
-                  <ScheduleTable rows={NB_SCHEDULE} />
+                  <LateSpringTable rows={LATE_SPRING_NB} />
                 </div>
                 <TrackedExternalLink
                   href={WIDGET_URLS.northBethesda.leagues}
@@ -317,93 +259,7 @@ export default function LeaguesPage() {
                   page="leagues"
                   className="inline-block text-white font-heading font-semibold px-8 py-3 rounded-lg btn-dd"
                 >
-                  Register for North Bethesda Leagues
-                </TrackedExternalLink>
-              </div>
-              <div className="hidden md:block w-48 shrink-0 mt-10">
-                <Image
-                  src="/images/cc-00579.jpg"
-                  alt="League play at Dill Dinkers"
-                  width={192}
-                  height={256}
-                  className="rounded-xl glow-border-dd object-cover"
-                />
-              </div>
-            </div>
-          </AnimateOnScroll>
-        </div>
-      </section>
-
-      {/* League Break Callout */}
-      <section className="py-8 px-6">
-        <div className="mx-auto max-w-4xl">
-          <div
-            className="rounded-xl p-5"
-            style={{
-              borderLeft: "3px solid #F47920",
-              background: "rgba(244, 121, 32, 0.04)",
-            }}
-          >
-            <p className="text-[#F47920] font-heading font-bold text-sm mb-1">League Break</p>
-            <p className="text-text-muted text-sm">
-              March 30 &ndash; April 3 — No league games during MCPS Spring Break &amp; Easter week.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* Late Spring Season */}
-      <section id="late-spring" className="pt-16 pb-4 px-6 scroll-mt-28">
-        <div className="mx-auto max-w-4xl">
-          <div className="border-t border-white/10 pt-12">
-            <p className="text-xs font-heading font-bold uppercase tracking-widest text-[#F47920]">
-              Late Spring 2026 &mdash; April 27 through June 13
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* Late Spring Rockville */}
-      <section className="py-12 px-6">
-        <div className="mx-auto max-w-4xl">
-          <AnimateOnScroll>
-            <h2 className="font-heading text-2xl md:text-3xl mb-6">
-              Rockville
-            </h2>
-            <div className="card-dd p-6 mb-6">
-              <ScheduleTable rows={LATE_SPRING_ROCKVILLE} />
-            </div>
-            <TrackedExternalLink
-              href={WIDGET_URLS.rockville.leagues}
-              label="Register — Rockville Leagues"
-              page="leagues"
-              className="inline-block text-white font-heading font-semibold px-8 py-3 rounded-lg btn-dd"
-            >
-              Register for Rockville Leagues
-            </TrackedExternalLink>
-          </AnimateOnScroll>
-        </div>
-      </section>
-
-      {/* Late Spring NB */}
-      <section className="py-12 px-6">
-        <div className="mx-auto max-w-4xl">
-          <AnimateOnScroll>
-            <div className="flex flex-col md:flex-row md:items-start gap-8">
-              <div className="flex-1">
-                <h2 className="font-heading text-2xl md:text-3xl mb-6">
-                  North Bethesda
-                </h2>
-                <div className="card-dd p-6 mb-6">
-                  <ScheduleTable rows={LATE_SPRING_NB} />
-                </div>
-                <TrackedExternalLink
-                  href={WIDGET_URLS.northBethesda.leagues}
-                  label="Register — NB Leagues"
-                  page="leagues"
-                  className="inline-block text-white font-heading font-semibold px-8 py-3 rounded-lg btn-dd"
-                >
-                  Register for North Bethesda Leagues
+                  Browse All North Bethesda Leagues
                 </TrackedExternalLink>
               </div>
             </div>
