@@ -39,6 +39,7 @@ export const ANNOUNCEMENT: {
 };
 
 export const INTEREST_OPTIONS = [
+  "Free Evaluation",
   "Coaching",
   "Youth Programs",
   "Business Partnerships",
