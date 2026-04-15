@@ -159,8 +159,9 @@ export default function ContactPage() {
                   initial evaluation for every DMV player
                 </p>
                 <p>
-                  <strong className="text-text">Re-evaluation:</strong> $35 /
-                  30&nbsp;min 1-on-1 with Coach Sam
+                  <strong className="text-text">Re-evaluation:</strong> priced
+                  as a private lesson &mdash; same rate as regular 1-on-1
+                  sessions
                 </p>
               </div>
             </div>
