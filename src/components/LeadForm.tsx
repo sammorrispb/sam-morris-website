@@ -43,7 +43,9 @@ export function LeadForm({ heading = "Ready to Play?", page = "unknown" }: { hea
     const timeout = setTimeout(() => controller.abort(), 15000);
 
     try {
-      const res = await fetch("/api/leads", {
+      const endpoint =
+        form.interest === "Free Evaluation" ? "/api/eval-book" : "/api/leads";
+      const res = await fetch(endpoint, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(form),

@@ -129,7 +129,25 @@ I'd love to tell you more about what the role looks like and what the next steps
 ${SIGN_OFF}`;
 }
 
+function evaluationTemplate(name: string, _includeLnd: boolean, _interest: string): string {
+  return `Hi ${name},
+
+Thanks for booking a free pickleball evaluation — looking forward to getting you on court.
+
+Here's what to expect:
+• 30 minutes at Dill Dinkers Rockville or North Bethesda (I'll pick based on your availability)
+• We'll rally, dink, and play a few points so I can see where your game is
+• You leave with your rating, the two things to work on next, and the right games to jump into
+
+I'll reach out within 24 hours to lock in a time that works for you. If you want to speed it up, reply with a couple of windows that work this week or next.
+
+One note: every player I evaluate gets a free Link & Dink account so your rating and progress travel with you across the DMV pickleball scene.
+
+${SIGN_OFF}`;
+}
+
 const TEMPLATE_MAP: Record<string, (name: string, includeLnd: boolean, interest: string) => string> = {
+  "Free Evaluation": evaluationTemplate,
   "Coaching": coachingTemplate,
   "Youth Programs": youthTemplate,
   "Business Partnerships": businessTemplate,
