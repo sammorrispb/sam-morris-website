@@ -1,14 +1,30 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import { CONTACT, INTEREST_OPTIONS } from "@/lib/constants";
 import { trackEvent } from "@/lib/analytics";
+
+function matchInterestFromParam(param: string | null): string {
+  if (!param) return "";
+  const normalized = param.toLowerCase().replace(/[-_]/g, " ").trim();
+  return (
+    INTEREST_OPTIONS.find((opt) => opt.toLowerCase() === normalized) ??
+    INTEREST_OPTIONS.find((opt) => opt.toLowerCase().includes(normalized)) ??
+    ""
+  );
+}
 
 export function LeadForm({ heading = "Ready to Play?", page = "unknown" }: { heading?: string; page?: string }) {
   const [form, setForm] = useState({ name: "", email: "", interest: "" });
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
   const formStarted = useRef(false);
+
+  useEffect(() => {
+    const param = new URLSearchParams(window.location.search).get("interest");
+    const matched = matchInterestFromParam(param);
+    if (matched) setForm((prev) => ({ ...prev, interest: matched }));
+  }, []);
 
   function updateField(field: string, value: string) {
     setForm((prev) => ({ ...prev, [field]: value }));

@@ -155,12 +155,8 @@ export default function ContactPage() {
               </ul>
               <div className="mt-5 pt-4 border-t border-white/10 space-y-2 text-sm text-text-muted">
                 <p>
-                  <strong className="text-text">Free</strong> &mdash; Dill
-                  Dinkers Rockville &amp; North Bethesda members
-                </p>
-                <p>
-                  <strong className="text-text">$15 / person</strong> &mdash;
-                  Non-members
+                  <strong className="text-text">Free</strong> &mdash; 30-minute
+                  initial evaluation for every DMV player
                 </p>
                 <p>
                   <strong className="text-text">Re-evaluation:</strong> $35 /
