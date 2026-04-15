@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { AnimateOnScroll } from "@/components/AnimateOnScroll";
 import { BackToTop } from "@/components/BackToTop";
 import { TrackedExternalLink } from "@/components/TrackedExternalLink";
+import { TrackedLink } from "@/components/TrackedLink";
+import { faqJsonLd } from "@/lib/seo";
 import { CONTACT } from "@/lib/constants";
 
 export const metadata: Metadata = {
@@ -76,6 +77,16 @@ export default function EvaluationPage() {
     <>
       <BackToTop />
 
+      {/* FAQ Schema */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(
+            faqJsonLd(FAQS.map((f) => ({ question: f.q, answer: f.a })))
+          ),
+        }}
+      />
+
       {/* Hero */}
       <section className="relative overflow-hidden bg-navy py-20 md:py-28">
         <div className="absolute inset-0 bg-gradient-to-br from-accent-pink/10 via-transparent to-accent-blue/10 pointer-events-none" />
@@ -97,12 +108,14 @@ export default function EvaluationPage() {
                 guessing and start improving.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Link
+                <TrackedLink
+                  event="cta_click"
+                  eventProps={{ label: "Book My Free Evaluation", page: "evaluation", section: "hero" }}
                   href="/contact?interest=evaluation"
                   className="inline-block bg-accent-pink hover:bg-accent-pink/90 text-white font-semibold px-8 py-4 rounded-lg transition-all hover:scale-105"
                 >
                   Book My Free Evaluation
-                </Link>
+                </TrackedLink>
                 <a
                   href={`tel:${CONTACT.phone}`}
                   className="inline-block border border-white/20 hover:border-accent-pink text-text font-semibold px-8 py-4 rounded-lg transition-colors"
@@ -217,12 +230,14 @@ export default function EvaluationPage() {
               Grab a free 30-minute slot. Leave with a rating, a plan, and the
               right games to join.
             </p>
-            <Link
+            <TrackedLink
+              event="cta_click"
+              eventProps={{ label: "Book My Free Evaluation", page: "evaluation", section: "final" }}
               href="/contact?interest=evaluation"
               className="inline-block bg-accent-pink hover:bg-accent-pink/90 text-white font-semibold px-10 py-5 rounded-lg text-lg transition-all hover:scale-105"
             >
               Book My Free Evaluation
-            </Link>
+            </TrackedLink>
           </AnimateOnScroll>
         </div>
       </section>

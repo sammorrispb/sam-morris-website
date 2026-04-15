@@ -17,15 +17,14 @@ function matchInterestFromParam(param: string | null): string {
 
 export function LeadForm({ heading = "Ready to Play?", page = "unknown" }: { heading?: string; page?: string }) {
   const [form, setForm] = useState({ name: "", email: "", interest: "" });
+  const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
+  const formStarted = useRef(false);
 
   useEffect(() => {
-    if (typeof window === "undefined") return;
     const param = new URLSearchParams(window.location.search).get("interest");
     const matched = matchInterestFromParam(param);
     if (matched) setForm((prev) => ({ ...prev, interest: matched }));
   }, []);
-  const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
-  const formStarted = useRef(false);
 
   function updateField(field: string, value: string) {
     setForm((prev) => ({ ...prev, [field]: value }));
