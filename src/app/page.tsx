@@ -135,7 +135,6 @@ export default function Home() {
               <TrackedLink
                 href="/contact"
                 className="text-white font-heading font-semibold px-8 py-3 rounded-lg btn-gradient"
-                event="cta_click"
                 eventProps={{ label: "Book a Free Evaluation", page: "home", section: "hero" }}
               >
                 Book a Free Evaluation
@@ -143,7 +142,6 @@ export default function Home() {
               <TrackedLink
                 href="/programs"
                 className="border border-white/20 text-text-primary font-heading font-semibold px-8 py-3 rounded-lg hover:border-white/40 transition-colors"
-                event="cta_click"
                 eventProps={{ label: "Explore Programs", page: "home", section: "hero" }}
               >
                 Explore Programs
@@ -278,8 +276,7 @@ export default function Home() {
                   <TrackedLink
                     href={program.href}
                     className="text-accent-blue hover:text-accent-purple transition-colors text-sm font-semibold"
-                    event="program_card"
-                    eventProps={{ label: program.title, program: program.title, page: "home" }}
+                    eventProps={{ label: program.title, page: "home", section: "program_card" }}
                   >
                     {program.cta} &rarr;
                   </TrackedLink>

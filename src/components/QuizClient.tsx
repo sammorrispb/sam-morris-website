@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { QUIZ_QUESTIONS, QUIZ_RESULTS, calculateResult } from "@/lib/quiz";
-import { track } from "@vercel/analytics";
+import { trackEvent } from "@/lib/funnelClient";
 
 export function QuizClient() {
   const [step, setStep] = useState(0);
@@ -21,7 +21,7 @@ export function QuizClient() {
 
   function handleStart() {
     setStarted(true);
-    track("quiz", { action: "started", page: "/quiz" });
+    trackEvent("quiz_started", { page: "/quiz" });
   }
 
   function handleAnswer(points: number) {
@@ -59,7 +59,7 @@ export function QuizClient() {
 
     setResultKey(key);
     setSubmitting(false);
-    track("quiz", { action: "completed", result: key, page: "/quiz" });
+    trackEvent("quiz_completed", { result: key, page: "/quiz" });
   }
 
   // Intro screen

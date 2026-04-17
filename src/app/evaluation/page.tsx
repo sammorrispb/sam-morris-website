@@ -109,7 +109,6 @@ export default function EvaluationPage() {
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <TrackedLink
-                  event="cta_click"
                   eventProps={{ label: "Book My Free Evaluation", page: "evaluation", section: "hero" }}
                   href="/contact?interest=evaluation"
                   className="inline-block bg-accent-pink hover:bg-accent-pink/90 text-white font-semibold px-8 py-4 rounded-lg transition-all hover:scale-105"
@@ -231,7 +230,6 @@ export default function EvaluationPage() {
               right games to join.
             </p>
             <TrackedLink
-              event="cta_click"
               eventProps={{ label: "Book My Free Evaluation", page: "evaluation", section: "final" }}
               href="/contact?interest=evaluation"
               className="inline-block bg-accent-pink hover:bg-accent-pink/90 text-white font-semibold px-10 py-5 rounded-lg text-lg transition-all hover:scale-105"

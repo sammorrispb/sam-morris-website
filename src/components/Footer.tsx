@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { NAV_LINKS, SOCIAL_LINKS, CONTACT, PROJECT_LINKS } from "@/lib/constants";
-import { trackEvent } from "@/lib/analytics";
+import { trackEvent } from "@/lib/funnelClient";
 
 export function Footer() {
   return (
@@ -73,7 +73,7 @@ export function Footer() {
                 <a
                   href={`mailto:${CONTACT.email}`}
                   className="text-text-muted hover:text-text-primary transition-colors text-sm"
-                  onClick={() => trackEvent("contact_direct", { method: "email", page: "footer" })}
+                  onClick={() => trackEvent("cta_click", { label: "email", page: "footer", section: "contact_email" })}
                 >
                   {CONTACT.email}
                 </a>
@@ -82,7 +82,7 @@ export function Footer() {
                 <a
                   href={`tel:${CONTACT.phone}`}
                   className="text-text-muted hover:text-text-primary transition-colors text-sm"
-                  onClick={() => trackEvent("contact_direct", { method: "phone", page: "footer" })}
+                  onClick={() => trackEvent("cta_click", { label: "phone", page: "footer", section: "contact_phone" })}
                 >
                   {CONTACT.phone}
                 </a>
