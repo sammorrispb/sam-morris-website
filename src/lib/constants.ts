@@ -15,9 +15,11 @@ export const SOCIAL_LINKS = [
   { platform: "Linktree", href: "https://linktr.ee/sammorrispb", icon: "linktree" },
 ] as const;
 
+import { hubUrl } from "./urls";
+
 export const PROJECT_LINKS = [
   { label: "Next Gen Academy", href: "https://nextgenpbacademy.com" },
-  { label: "Link & Dink", href: "https://linkanddink.com/?utm_source=sammorrispb&utm_medium=website&utm_campaign=cross_site" },
+  { label: "Link & Dink", href: hubUrl("/") },
   { label: "Tournament Series", href: "https://tournamentwebsite.vercel.app/" },
 ] as const;
 

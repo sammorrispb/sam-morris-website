@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import { SINGLE_LESSON_LINK, FOUR_PACK_LINK } from "@/lib/coaching";
+import { hubUrl } from "@/lib/urls";
 
 export const metadata: Metadata = {
   title: "Pickleball Programs & Lessons — Youth Academy, Private Coaching, Family Sessions",
@@ -240,7 +241,7 @@ export default function ProgramsPage() {
             levels. Find your game, grow your network.
           </p>
           <a
-            href="https://linkanddink.com/?utm_source=sammorrispb&utm_medium=website&utm_campaign=cross_site"
+            href={hubUrl("/")}
             target="_blank"
             rel="noopener noreferrer"
             className="text-accent-blue hover:text-accent-purple transition-colors font-semibold"

@@ -9,6 +9,7 @@ import { breadcrumbJsonLd, faqJsonLd, eventJsonLd } from "@/lib/seo";
 import { RelatedPrograms } from "@/components/RelatedPrograms";
 import { getTestimonialsByProgram } from "@/lib/testimonials";
 import { TestimonialGrid } from "@/components/TestimonialGrid";
+import { crUrl } from "@/lib/urls";
 
 export const metadata: Metadata = {
   title: "Youth & Junior Programs — Next Gen Academy at Dill Dinkers",
@@ -379,7 +380,7 @@ export default function YouthPage() {
 
               <div className="text-center pt-2">
                 <TrackedExternalLink
-                  href="https://app.courtreserve.com/Online/Events/Public/10483/1836399"
+                  href={crUrl("https://app.courtreserve.com/Online/Events/Public/10483/1836399")}
                   label="Register — Little Dill Academy"
                   page="youth"
                   className="inline-block text-white font-heading font-semibold px-8 py-3 rounded-lg btn-ng"
@@ -414,7 +415,7 @@ export default function YouthPage() {
                         <span className="text-text-muted ml-2">{week.dates}</span>
                       </div>
                       <TrackedExternalLink
-                        href={week.url}
+                        href={crUrl(week.url)}
                         label={`Summer Camp — ${week.week}`}
                         page="youth"
                         className="font-semibold text-[#22c55e] hover:text-[#4ade80] transition-colors shrink-0"

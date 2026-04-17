@@ -8,7 +8,7 @@ import {
   WIDGET_URLS,
   type LocationId,
 } from "@/lib/locations";
-import { trackEvent } from "@/lib/analytics";
+import { trackEvent } from "@/lib/funnelClient";
 
 export function LocationProgramsGrid() {
   const [active, setActive] = useState<LocationId>("rockville");

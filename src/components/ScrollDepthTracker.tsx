@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { trackEvent } from "@/lib/analytics";
+import { trackEvent } from "@/lib/funnelClient";
 
 const MILESTONES = [25, 50, 75, 100] as const;
 

@@ -1,7 +1,7 @@
 "use client";
 
 import type { AnchorHTMLAttributes } from "react";
-import { trackEvent } from "@/lib/analytics";
+import { trackEvent } from "@/lib/funnelClient";
 
 type ContactLinkProps = AnchorHTMLAttributes<HTMLAnchorElement> & {
   method: "email" | "phone";
@@ -13,7 +13,11 @@ export function ContactLink({ method, page, onClick, children, ...props }: Conta
     <a
       {...props}
       onClick={(e) => {
-        trackEvent("contact_direct", { method, page });
+        trackEvent("cta_click", {
+          label: method === "email" ? "email" : "phone",
+          page,
+          section: `contact_${method}`,
+        });
         onClick?.(e);
       }}
     >

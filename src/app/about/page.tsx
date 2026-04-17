@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import { ScrollDepthTracker } from "@/components/ScrollDepthTracker";
+import { hubUrl } from "@/lib/urls";
 
 export const metadata: Metadata = {
   title: "About Sam Morris — PPR-Certified Pickleball Coach, Montgomery County MD",
@@ -236,7 +237,7 @@ export default function AboutPage() {
             </a>
 
             <a
-              href="https://linkanddink.com/?utm_source=sammorrispb&utm_medium=website&utm_campaign=cross_site"
+              href={hubUrl("/")}
               target="_blank"
               rel="noopener noreferrer"
               className="bg-navy-light glow-border rounded-xl p-6 text-center hover:scale-[1.02] transition-transform"
@@ -272,7 +273,7 @@ export default function AboutPage() {
             </a>
 
             <a
-              href="https://linkanddink.com/?utm_source=sammorrispb&utm_medium=website&utm_campaign=cross_site"
+              href={hubUrl("/")}
               target="_blank"
               rel="noopener noreferrer"
               className="bg-navy-light glow-border rounded-xl p-6 text-center hover:scale-[1.02] transition-transform"

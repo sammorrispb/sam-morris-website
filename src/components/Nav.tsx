@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { NAV_LINKS } from "@/lib/constants";
 import { SearchBar } from "@/components/SearchBar";
-import { trackEvent } from "@/lib/analytics";
+import { trackEvent } from "@/lib/funnelClient";
 
 export function Nav() {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -36,7 +36,7 @@ export function Nav() {
               key={link.href}
               href={link.href}
               className="text-text-muted hover:text-text-primary transition-colors text-sm"
-              onClick={() => trackEvent("nav_click", { label: link.label, device: "desktop" })}
+              onClick={() => trackEvent("cta_click", { label: link.label, page: "nav", section: "header_nav_desktop" })}
             >
               {link.label}
             </Link>
@@ -45,7 +45,7 @@ export function Nav() {
           <Link
             href="/contact"
             className="text-white px-4 py-2 rounded-lg text-sm font-medium btn-gradient"
-            onClick={() => trackEvent("cta_click", { label: "Book a Free Evaluation", page: "nav", section: "header" })}
+            onClick={() => trackEvent("cta_click", { label: "Book a Free Evaluation", page: "nav", section: "header_cta" })}
           >
             Book a Free Evaluation
           </Link>
@@ -101,7 +101,7 @@ export function Nav() {
                 key={link.href}
                 href={link.href}
                 className="text-text-muted hover:text-text-primary transition-colors text-sm"
-                onClick={() => { trackEvent("nav_click", { label: link.label, device: "mobile" }); setMobileOpen(false); }}
+                onClick={() => { trackEvent("cta_click", { label: link.label, page: "nav", section: "header_nav_mobile" }); setMobileOpen(false); }}
               >
                 {link.label}
               </Link>
@@ -109,7 +109,7 @@ export function Nav() {
             <Link
               href="/contact"
               className="text-white px-4 py-2 rounded-lg text-sm font-medium text-center mt-2 btn-gradient"
-              onClick={() => { trackEvent("cta_click", { label: "Book a Free Evaluation", page: "nav", section: "mobile-menu" }); setMobileOpen(false); }}
+              onClick={() => { trackEvent("cta_click", { label: "Book a Free Evaluation", page: "nav", section: "header_cta_mobile" }); setMobileOpen(false); }}
             >
               Book a Free Evaluation
             </Link>

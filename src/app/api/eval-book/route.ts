@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { generateEmailDraft } from "@/lib/emailTemplates";
 import { sendEmail, notifySam } from "@/lib/email";
+import { sendFunnelEvent } from "@/lib/funnelServer";
 
 export const maxDuration = 30;
 
@@ -98,6 +99,12 @@ export async function POST(request: Request) {
     } catch (err) {
       console.error("[eval-book] Sam notification failed", err);
     }
+
+    void sendFunnelEvent({
+      eventType: "lead_submitted",
+      email: normalizedEmail,
+      properties: { interest: "Free Evaluation", source: "eval_book", utm_campaign, utm_content },
+    });
 
     return NextResponse.json({ success: true });
   } catch (err) {

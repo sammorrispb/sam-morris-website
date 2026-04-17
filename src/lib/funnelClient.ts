@@ -1,0 +1,81 @@
+"use client";
+
+export type AnalyticsEventMap = {
+  cta_click: {
+    label: string;
+    page: string;
+    section: string;
+    destination?: string;
+  };
+  lead_form: {
+    action: "started" | "submitted" | "error";
+    interest?: string;
+    page: string;
+  };
+  external_link: {
+    label: string;
+    url: string;
+    page: string;
+  };
+  scroll_depth: {
+    depth: 25 | 50 | 75 | 100;
+    page: string;
+  };
+  quiz_started: { page: string };
+  quiz_completed: { result: string; page: string };
+};
+
+const VISITOR_COOKIE = "ld_visitor";
+const VISITOR_MAX_AGE = 60 * 60 * 24 * 365;
+
+function generateVisitorId(): string {
+  if (typeof crypto !== "undefined" && typeof crypto.randomUUID === "function") {
+    return crypto.randomUUID();
+  }
+  return `v_${Date.now()}_${Math.random().toString(36).slice(2, 10)}`;
+}
+
+function readCookie(name: string): string | null {
+  if (typeof document === "undefined") return null;
+  const pair = document.cookie
+    .split("; ")
+    .find((row) => row.startsWith(`${name}=`));
+  return pair ? decodeURIComponent(pair.slice(name.length + 1)) : null;
+}
+
+function writeCookie(name: string, value: string): void {
+  if (typeof document === "undefined") return;
+  document.cookie = `${name}=${encodeURIComponent(value)}; Max-Age=${VISITOR_MAX_AGE}; Path=/; SameSite=Lax`;
+}
+
+export function getOrCreateVisitorId(): string {
+  const existing = readCookie(VISITOR_COOKIE);
+  if (existing) return existing;
+  const id = generateVisitorId();
+  writeCookie(VISITOR_COOKIE, id);
+  return id;
+}
+
+export function trackEvent<K extends keyof AnalyticsEventMap>(
+  name: K,
+  props: AnalyticsEventMap[K],
+): void {
+  if (typeof window === "undefined") return;
+  const visitorId = getOrCreateVisitorId();
+  const page_url = window.location.href;
+  const body = JSON.stringify({
+    event_type: name,
+    visitor_id: visitorId,
+    properties: { ...props, page_url },
+  });
+  try {
+    void fetch("/api/funnel-track", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      keepalive: true,
+      body,
+    }).catch(() => {});
+  } catch {
+    // Never block UI on tracking failure.
+  }
+}

@@ -1,7 +1,7 @@
 "use client";
 
 import { WIDGET_URLS } from "@/lib/locations";
-import { trackEvent } from "@/lib/analytics";
+import { trackEvent } from "@/lib/funnelClient";
 
 const OPTIONS = [
   {

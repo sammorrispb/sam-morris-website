@@ -5,6 +5,7 @@ import { TrackedExternalLink } from "@/components/TrackedExternalLink";
 import { TrackedLink } from "@/components/TrackedLink";
 import { faqJsonLd } from "@/lib/seo";
 import { CONTACT } from "@/lib/constants";
+import { hubUrl } from "@/lib/urls";
 
 export const metadata: Metadata = {
   title: "Free Pickleball Rating Evaluation — DMV | Coach Sam Morris",
@@ -109,7 +110,6 @@ export default function EvaluationPage() {
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <TrackedLink
-                  event="cta_click"
                   eventProps={{ label: "Book My Free Evaluation", page: "evaluation", section: "hero" }}
                   href="/contact?interest=evaluation"
                   className="inline-block bg-accent-pink hover:bg-accent-pink/90 text-white font-semibold px-8 py-4 rounded-lg transition-all hover:scale-105"
@@ -181,7 +181,7 @@ export default function EvaluationPage() {
               <p className="text-text-muted text-lg leading-relaxed">
                 Your evaluation includes a free{" "}
                 <TrackedExternalLink
-                  href="https://linkanddink.com/?utm_source=sammorrispb&utm_medium=website&utm_campaign=evaluation_lp"
+                  href={hubUrl("/", { utm_campaign: "evaluation_lp" })}
                   label="Link & Dink"
                   page="evaluation"
                   className="text-accent-blue hover:text-accent-pink underline"
@@ -231,7 +231,6 @@ export default function EvaluationPage() {
               right games to join.
             </p>
             <TrackedLink
-              event="cta_click"
               eventProps={{ label: "Book My Free Evaluation", page: "evaluation", section: "final" }}
               href="/contact?interest=evaluation"
               className="inline-block bg-accent-pink hover:bg-accent-pink/90 text-white font-semibold px-10 py-5 rounded-lg text-lg transition-all hover:scale-105"

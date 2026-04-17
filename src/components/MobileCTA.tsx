@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { trackEvent } from "@/lib/analytics";
+import { trackEvent } from "@/lib/funnelClient";
 
 export function MobileCTA() {
   const [visible, setVisible] = useState(true);
@@ -34,9 +34,10 @@ export function MobileCTA() {
         <a
           href="tel:301-325-4731"
           onClick={() =>
-            trackEvent("mobile_cta", {
-              action: "phone",
+            trackEvent("cta_click", {
+              label: "phone",
               page: window.location.pathname,
+              section: "mobile_sticky_cta",
             })
           }
           className="flex-1 flex items-center justify-center gap-2 rounded-lg border border-white/20 px-4 py-2.5 text-sm font-medium text-text-primary hover:bg-white/5 transition-colors"
@@ -59,9 +60,10 @@ export function MobileCTA() {
         <Link
           href="/contact"
           onClick={() =>
-            trackEvent("mobile_cta", {
-              action: "book_eval",
+            trackEvent("cta_click", {
+              label: "Book Free Eval",
               page: window.location.pathname,
+              section: "mobile_sticky_cta",
             })
           }
           className="flex-1 flex items-center justify-center gap-2 rounded-lg bg-gradient-to-r from-accent-blue to-accent-purple px-4 py-2.5 text-sm font-bold text-white transition-opacity hover:opacity-90"

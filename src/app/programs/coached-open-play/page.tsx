@@ -9,6 +9,7 @@ import { TrackedExternalLink } from "@/components/TrackedExternalLink";
 import { ScrollDepthTracker } from "@/components/ScrollDepthTracker";
 import { WIDGET_URLS } from "@/lib/locations";
 import { breadcrumbJsonLd, faqJsonLd } from "@/lib/seo";
+import { crUrl } from "@/lib/urls";
 import { RelatedPrograms } from "@/components/RelatedPrograms";
 
 export const metadata: Metadata = {
@@ -95,7 +96,7 @@ function SessionTable({ sessions }: { sessions: typeof ROCKVILLE_SESSIONS }) {
               <td className="py-3 pr-4 text-text-muted">{s.day}</td>
               <td className="py-3 pr-4 text-text-muted whitespace-nowrap">{s.time}</td>
               <td className="py-3">
-                <TrackedExternalLink href={s.url} label={`COP — ${s.level} ${s.day}`} page="coached-open-play" className="text-[#4DACD0] hover:text-[#3b82f6] transition-colors font-semibold text-sm">
+                <TrackedExternalLink href={crUrl(s.url)} label={`COP — ${s.level} ${s.day}`} page="coached-open-play" className="text-[#4DACD0] hover:text-[#3b82f6] transition-colors font-semibold text-sm">
                   Sign Up
                 </TrackedExternalLink>
               </td>

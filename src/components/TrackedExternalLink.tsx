@@ -1,7 +1,7 @@
 "use client";
 
 import type { AnchorHTMLAttributes } from "react";
-import { trackEvent } from "@/lib/analytics";
+import { trackEvent } from "@/lib/funnelClient";
 
 type TrackedExternalLinkProps = AnchorHTMLAttributes<HTMLAnchorElement> & {
   label: string;

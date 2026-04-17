@@ -3,7 +3,7 @@
 import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import { CONTACT, INTEREST_OPTIONS } from "@/lib/constants";
-import { trackEvent } from "@/lib/analytics";
+import { trackEvent } from "@/lib/funnelClient";
 
 function matchInterestFromParam(param: string | null): string {
   if (!param) return "";

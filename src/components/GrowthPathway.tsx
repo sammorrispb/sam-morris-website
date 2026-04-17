@@ -1,7 +1,7 @@
 "use client";
 
 import { GROWTH_PATHWAY, WIDGET_URLS, type PathwayLink } from "@/lib/locations";
-import { trackEvent } from "@/lib/analytics";
+import { trackEvent } from "@/lib/funnelClient";
 
 /** Resolve a pathway link href — widget keys become Rockville URLs, everything else passes through */
 function resolveHref(href: string): string {
