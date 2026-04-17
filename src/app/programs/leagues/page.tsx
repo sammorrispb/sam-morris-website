@@ -8,6 +8,7 @@ import { TrackedExternalLink } from "@/components/TrackedExternalLink";
 import { ScrollDepthTracker } from "@/components/ScrollDepthTracker";
 import { WIDGET_URLS } from "@/lib/locations";
 import { breadcrumbJsonLd } from "@/lib/seo";
+import { hubUrl, crUrl } from "@/lib/urls";
 import { RelatedPrograms } from "@/components/RelatedPrograms";
 
 export const metadata: Metadata = {
@@ -79,7 +80,7 @@ function LateSpringTable({ rows }: { rows: LateSpringRow[] }) {
               <td className="py-3 pr-4 font-semibold text-text-primary">{r.eventName}</td>
               <td className="py-3">
                 <TrackedExternalLink
-                  href={r.url}
+                  href={crUrl(r.url)}
                   label={`Register — ${r.eventName}`}
                   page="leagues"
                   className="text-[#F47920] hover:text-[#8BC751] transition-colors font-semibold"
@@ -353,7 +354,7 @@ export default function LeaguesPage() {
             </p>
             <div className="flex flex-wrap gap-4 justify-center">
               <TrackedExternalLink
-                href="https://linkanddink.com/#play?utm_source=sammorrispb&utm_medium=website&utm_campaign=find_partner"
+                href={hubUrl("/#play", { utm_campaign: "find_partner" })}
                 label="Find a Partner"
                 page="leagues"
                 className="inline-block text-white font-heading font-semibold px-6 py-3 rounded-lg btn-dd text-sm"
@@ -361,7 +362,7 @@ export default function LeaguesPage() {
                 Find a Partner
               </TrackedExternalLink>
               <TrackedExternalLink
-                href="https://linkanddink.com/?utm_source=sammorrispb&utm_medium=website&utm_campaign=cross_site"
+                href={hubUrl("/")}
                 label="Link & Dink Community"
                 page="leagues"
                 className="inline-block font-heading font-semibold px-6 py-3 rounded-lg border border-[rgba(244,121,32,0.2)] text-text-muted hover:border-[rgba(244,121,32,0.4)] hover:text-text-primary transition-all text-sm"

@@ -1,22 +1,25 @@
 import { CONTACT } from "./constants";
 import { SINGLE_LESSON_LINK, FOUR_PACK_LINK, BOOKING_URL } from "./coaching";
+import { hubUrl as baseHubUrl } from "./urls";
 
 export function interestSlug(interest: string): string {
   return interest.toLowerCase().replace(/[^a-z0-9]+/g, "_").replace(/^_|_$/g, "");
 }
 
-export function hubUrl(interest: string): string {
-  return `https://linkanddink.com?utm_source=website&utm_medium=email&utm_campaign=${interestSlug(interest)}`;
+export function emailHubUrl(interest: string): string {
+  return baseHubUrl("/", { utm_medium: "email", utm_campaign: interestSlug(interest) });
 }
 
-export function surveyUrl(interest: string): string {
-  return `https://linkanddink.com?utm_source=website&utm_medium=email&utm_campaign=${interestSlug(interest)}_survey#pd-survey`;
+export function emailSurveyUrl(interest: string): string {
+  const url = new URL(baseHubUrl("/", { utm_medium: "email", utm_campaign: `${interestSlug(interest)}_survey` }));
+  url.hash = "pd-survey";
+  return url.toString();
 }
 
 function hubCta(interest: string): string {
   return `---
 Join Link & Dink — Find Events & Partners
-→ ${hubUrl(interest)}
+→ ${emailHubUrl(interest)}
 
 Browse upcoming events at Dill Dinkers Rockville & North Bethesda.
 No account needed to start exploring.
@@ -26,13 +29,13 @@ No account needed to start exploring.
 function hubCtaWithSurvey(interest: string): string {
   return `---
 Join Link & Dink — Find Events & Partners
-→ ${hubUrl(interest)}
+→ ${emailHubUrl(interest)}
 
 Browse upcoming events at Dill Dinkers Rockville & North Bethesda.
 No account needed to start exploring.
 
 Looking for a specific playing partner? Take our matching survey:
-→ ${surveyUrl(interest)}
+→ ${emailSurveyUrl(interest)}
 ---`;
 }
 
@@ -90,7 +93,7 @@ Thanks for reaching out about a potential partnership — I appreciate your inte
 
 I'm always open to exploring collaborations that help grow the community. Whether it's event sponsorship, facility partnerships, or something else entirely, I'd love to hear more about what you have in mind.
 
-Would you be open to a quick call this week or next? Just reply with a couple of times that work and we'll find something.${includeLnd ? `\n\nFor context, I run a local pickleball community called Link & Dink with 900+ players across two Dill Dinkers locations in Montgomery County: ${hubUrl(interest)}` : ""}
+Would you be open to a quick call this week or next? Just reply with a couple of times that work and we'll find something.${includeLnd ? `\n\nFor context, I run a local pickleball community called Link & Dink with 900+ players across two Dill Dinkers locations in Montgomery County: ${emailHubUrl(interest)}` : ""}
 
 ${SIGN_OFF}`;
 }
@@ -124,7 +127,7 @@ Thanks for your interest in the Ambassador program — this is exactly how we gr
 
 Ambassadors are player-organizer-coaches who help run events, welcome new players, and build community in their local area. It's a great fit for people who love the sport and want to be more involved in making it accessible to others.
 
-I'd love to tell you more about what the role looks like and what the next steps are. Want to set up a quick chat?${includeLnd ? `\n\nExplore the community you'll be helping to grow:\n→ ${hubUrl(interest)}` : `\n\n${LND_MEMBER_NOTE}`}
+I'd love to tell you more about what the role looks like and what the next steps are. Want to set up a quick chat?${includeLnd ? `\n\nExplore the community you'll be helping to grow:\n→ ${emailHubUrl(interest)}` : `\n\n${LND_MEMBER_NOTE}`}
 
 ${SIGN_OFF}`;
 }

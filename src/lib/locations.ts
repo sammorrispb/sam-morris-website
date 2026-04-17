@@ -1,5 +1,7 @@
 // ─── Dill Dinkers locations, CourtReserve widget URLs, and program data ───
 
+import { hubUrl, crUrl } from "./urls";
+
 const CR = "https://widgets.courtreserve.com/Online/Public/EmbedCode";
 const CR_APP = "https://app.courtreserve.com/Online";
 
@@ -64,36 +66,36 @@ interface WidgetUrls {
 
 export const WIDGET_URLS: Record<LocationId, WidgetUrls> = {
   rockville: {
-    allEvents: `${CR}/10869/44094`,
-    clinics: `${CR}/10869/42416`,
-    competitive: `${CR}/10869/42407`,
-    juniors: `${CR}/10869/42417`,
-    leagues: `${CR}/10869/42532`,
-    membership: `${CR}/10869/26919`,
-    openPlay: `${CR}/10869/42405`,
-    coachedOpenPlay: `${CR}/10869/79946`,
-    social: `${CR}/10869/58623`,
-    seniorPrograms: `${CR}/10869/68683`,
-    bookPrivateCourt: `${CR}/10869/68766`,
-    nextGenAcademy: `${CR}/10869/100672`,
-    publicBooking: `${CR_APP}/publicbookings/10869`,
+    allEvents: crUrl(`${CR}/10869/44094`),
+    clinics: crUrl(`${CR}/10869/42416`),
+    competitive: crUrl(`${CR}/10869/42407`),
+    juniors: crUrl(`${CR}/10869/42417`),
+    leagues: crUrl(`${CR}/10869/42532`),
+    membership: crUrl(`${CR}/10869/26919`),
+    openPlay: crUrl(`${CR}/10869/42405`),
+    coachedOpenPlay: crUrl(`${CR}/10869/79946`),
+    social: crUrl(`${CR}/10869/58623`),
+    seniorPrograms: crUrl(`${CR}/10869/68683`),
+    bookPrivateCourt: crUrl(`${CR}/10869/68766`),
+    nextGenAcademy: crUrl(`${CR}/10869/100672`),
+    publicBooking: crUrl(`${CR_APP}/publicbookings/10869`),
   },
   northBethesda: {
-    allEvents: `${CR}/10483/26211`,
-    clinics: `${CR}/10483/42411`,
-    competitive: `${CR}/10483/42409`,
-    juniors: `${CR}/10483/42990`,
-    leagues: `${CR}/10483/42896`,
-    membership: `${CR}/10483/27596`,
-    openPlay: `${CR}/10483/42406`,
-    coachedOpenPlay: `${CR}/10483/79944`,
-    social: `${CR}/10483/58624`,
-    seniorPrograms: `${CR}/10483/68684`,
-    bookPrivateCourt: `${CR}/10483/68765`,
-    nextGenAcademy: `${CR}/10483/100673`,
-    publicBooking: `${CR_APP}/publicbookings/10483`,
+    allEvents: crUrl(`${CR}/10483/26211`),
+    clinics: crUrl(`${CR}/10483/42411`),
+    competitive: crUrl(`${CR}/10483/42409`),
+    juniors: crUrl(`${CR}/10483/42990`),
+    leagues: crUrl(`${CR}/10483/42896`),
+    membership: crUrl(`${CR}/10483/27596`),
+    openPlay: crUrl(`${CR}/10483/42406`),
+    coachedOpenPlay: crUrl(`${CR}/10483/79944`),
+    social: crUrl(`${CR}/10483/58624`),
+    seniorPrograms: crUrl(`${CR}/10483/68684`),
+    bookPrivateCourt: crUrl(`${CR}/10483/68765`),
+    nextGenAcademy: crUrl(`${CR}/10483/100673`),
+    publicBooking: crUrl(`${CR_APP}/publicbookings/10483`),
   },
-} as const;
+};
 
 // ─── Program categories for the grid ───
 
@@ -288,7 +290,7 @@ export const COMMUNITY_LINKS: CommunityLink[] = [
     tag: "Community",
     tagColor: "#F47920",
     description: "Social discovery app connecting players for events, groups, and competitive play.",
-    href: "https://linkanddink.com/?utm_source=sammorrispb&utm_medium=website&utm_campaign=cross_site",
+    href: hubUrl("/"),
   },
   {
     label: "Next Gen Academy",

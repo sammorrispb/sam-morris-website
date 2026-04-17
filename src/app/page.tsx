@@ -7,6 +7,7 @@ import { TestimonialGrid } from "@/components/TestimonialGrid";
 import { AnimateOnScroll } from "@/components/AnimateOnScroll";
 import { TrackedLink } from "@/components/TrackedLink";
 import { TrackedExternalLink } from "@/components/TrackedExternalLink";
+import { hubUrl } from "@/lib/urls";
 
 export const metadata: Metadata = {
   title:
@@ -109,7 +110,7 @@ const PROGRAMS = [
     description:
       "Find groups, playing partners, and events at your level.",
     cta: "Find Players & Groups",
-    href: "https://linkanddink.com/?utm_source=sammorrispb&utm_medium=website&utm_campaign=cross_site",
+    href: hubUrl("/"),
     external: true,
     image: "/images/link-and-dink-logo.svg",
     isLogo: true,

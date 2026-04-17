@@ -1,4 +1,4 @@
-import { hubUrl, surveyUrl, SIGN_OFF } from "./emailTemplates";
+import { emailHubUrl, emailSurveyUrl, SIGN_OFF } from "./emailTemplates";
 import { SINGLE_LESSON_LINK, FOUR_PACK_LINK } from "./coaching";
 import { WIDGET_URLS } from "./locations";
 
@@ -51,7 +51,7 @@ function coaching3(name: string): DripEmail {
 I won't keep filling your inbox — just wanted to mention that community play is a great complement to lessons. You can practice what we work on in a real game setting.
 
 Browse upcoming events and find playing partners:
-${hubUrl("Coaching")}
+${emailHubUrl("Coaching")}
 
 Whenever you're ready for coaching, I'm here. Just reply to this email.
 
@@ -121,7 +121,7 @@ function social1(name: string): DripEmail {
 We've got events running every week at Dill Dinkers Rockville and North Bethesda — open play, social mixers, and themed nights.
 
 The easiest way to see what's happening and sign up:
-${hubUrl("Social/Recreational Play")}
+${emailHubUrl("Social/Recreational Play")}
 
 No commitment, no pressure — just show up and play.
 
@@ -137,7 +137,7 @@ function social2(name: string): DripEmail {
 Sometimes the hardest part is finding people who play at your pace. We've got a couple of ways to help:
 
 1. Take our quick matching survey and we'll connect you with compatible players:
-${surveyUrl("Social/Recreational Play")}
+${emailSurveyUrl("Social/Recreational Play")}
 
 2. Join the WhatsApp group where players post open court times and look for partners:
 https://chat.whatsapp.com/HMjGamk0Mtx662DbtGmDwe
@@ -175,8 +175,8 @@ function competitive1(name: string): DripEmail {
 Rating matters for competitive play — it determines who you're matched with and which events are the right fit.
 
 If you're not sure where you stand, sign up on the Hub and take our quick skill survey:
-${hubUrl("Competitive Play")}
-${surveyUrl("Competitive Play")}
+${emailHubUrl("Competitive Play")}
+${emailSurveyUrl("Competitive Play")}
 
 If you already have a DUPR or self-rating, just reply with it and I can point you to the right events.
 
@@ -216,7 +216,7 @@ Book a single lesson:
 ${SINGLE_LESSON_LINK}
 
 And keep browsing events on the Hub:
-${hubUrl("Competitive Play")}
+${emailHubUrl("Competitive Play")}
 
 Whenever you're ready, I'm here.
 
@@ -236,7 +236,7 @@ Wanted to give you a clearer picture of the Ambassador role.
 Ambassadors help run community events, welcome new players, and represent the sport in their local area. It's part organizer, part coach, part connector. You don't need to be a top-level player — you need to care about growing the community.
 
 Start by exploring the Hub to see the kind of events and community we're building:
-${hubUrl("Ambassador (Player-Organizer-Coach)")}
+${emailHubUrl("Ambassador (Player-Organizer-Coach)")}
 
 ${SIGN_OFF}`,
   };
@@ -252,10 +252,10 @@ Link & Dink is a community of 900+ pickleball players across two Dill Dinkers lo
 As an ambassador, you'd help shape what that looks like at the local level.
 
 Learn more:
-https://linkanddink.com/?utm_source=sammorrispb&utm_medium=website&utm_campaign=cross_site
+${emailHubUrl("Ambassador (Player-Organizer-Coach)")}
 
 See what's happening on the Hub:
-${hubUrl("Ambassador (Player-Organizer-Coach)")}
+${emailHubUrl("Ambassador (Player-Organizer-Coach)")}
 
 ${SIGN_OFF}`,
   };

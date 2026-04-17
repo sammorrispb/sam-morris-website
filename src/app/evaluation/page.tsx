@@ -5,6 +5,7 @@ import { TrackedExternalLink } from "@/components/TrackedExternalLink";
 import { TrackedLink } from "@/components/TrackedLink";
 import { faqJsonLd } from "@/lib/seo";
 import { CONTACT } from "@/lib/constants";
+import { hubUrl } from "@/lib/urls";
 
 export const metadata: Metadata = {
   title: "Free Pickleball Rating Evaluation — DMV | Coach Sam Morris",
@@ -180,7 +181,7 @@ export default function EvaluationPage() {
               <p className="text-text-muted text-lg leading-relaxed">
                 Your evaluation includes a free{" "}
                 <TrackedExternalLink
-                  href="https://linkanddink.com/?utm_source=sammorrispb&utm_medium=website&utm_campaign=evaluation_lp"
+                  href={hubUrl("/", { utm_campaign: "evaluation_lp" })}
                   label="Link & Dink"
                   page="evaluation"
                   className="text-accent-blue hover:text-accent-pink underline"
