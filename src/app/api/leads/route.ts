@@ -4,6 +4,7 @@ import { NextResponse } from "next/server";
 import { generateEmailDraft } from "@/lib/emailTemplates";
 import { sendEmail, notifySam } from "@/lib/email";
 import { ingestToOpenBrain } from "@/lib/open-brain-ingest";
+import { sendFunnelEvent } from "@/lib/funnelServer";
 
 async function checkLndMembership(email: string): Promise<boolean> {
   const url = process.env.LND_SUPABASE_URL;
@@ -166,6 +167,12 @@ export async function POST(request: Request) {
       metadata: {
         is_lnd_member: isLndMember,
       },
+    });
+
+    void sendFunnelEvent({
+      eventType: "lead_submitted",
+      email,
+      properties: { interest, source: "lead_form", is_lnd_member: isLndMember },
     });
 
     return NextResponse.json({ success: true });
