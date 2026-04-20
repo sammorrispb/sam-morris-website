@@ -15,12 +15,12 @@ export const SOCIAL_LINKS = [
   { platform: "Linktree", href: "https://linktr.ee/sammorrispb", icon: "linktree" },
 ] as const;
 
-import { hubUrl } from "./urls";
+import type { FamilyDest } from "./urls";
 
-export const PROJECT_LINKS = [
-  { label: "Next Gen Academy", href: "https://nextgenpbacademy.com" },
-  { label: "Link & Dink", href: hubUrl("/") },
-  { label: "Tournament Series", href: "https://tournamentwebsite.vercel.app/" },
+export const FAMILY_LINKS: ReadonlyArray<{ label: string; dest: FamilyDest }> = [
+  { label: "Link & Dink", dest: "linkanddink" },
+  { label: "Next Gen Academy", dest: "nga" },
+  { label: "MoCo PB", dest: "mocopb" },
 ] as const;
 
 export const CONTACT = {
