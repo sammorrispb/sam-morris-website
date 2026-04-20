@@ -1,8 +1,9 @@
 "use client";
 
 import Link from "next/link";
-import { NAV_LINKS, SOCIAL_LINKS, CONTACT, PROJECT_LINKS } from "@/lib/constants";
+import { NAV_LINKS, SOCIAL_LINKS, CONTACT, FAMILY_LINKS } from "@/lib/constants";
 import { trackEvent } from "@/lib/funnelClient";
+import { familySiteUrl, familyMarketingRef } from "@/lib/urls";
 
 export function Footer() {
   return (
@@ -39,23 +40,30 @@ export function Footer() {
             </ul>
           </nav>
 
-          {/* Projects */}
-          <nav aria-label="Footer projects">
+          {/* Link & Dink Family */}
+          <nav aria-label="Link & Dink family sites">
             <h4 className="font-heading text-sm font-semibold text-text-primary uppercase tracking-wider mb-4">
-              Projects
+              Link &amp; Dink Family
             </h4>
             <ul className="flex flex-col gap-2">
-              {PROJECT_LINKS.map((project) => {
-                const isExternal = project.href.startsWith("http");
+              {FAMILY_LINKS.map((link) => {
+                const href = familySiteUrl(link.dest);
                 return (
-                  <li key={project.label}>
+                  <li key={link.dest}>
                     <a
-                      href={project.href}
-                      {...(isExternal && { target: "_blank", rel: "noopener noreferrer" })}
+                      href={href}
+                      target="_blank"
+                      rel="noopener noreferrer"
                       className="text-text-muted hover:text-text-primary transition-colors text-sm"
-                      onClick={() => isExternal && trackEvent("external_link", { label: project.label, url: project.href, page: "footer" })}
+                      onClick={() =>
+                        trackEvent(
+                          "external_link",
+                          { label: link.label, url: href, page: "footer" },
+                          familyMarketingRef(link.dest),
+                        )
+                      }
                     >
-                      {project.label}
+                      {link.label}
                     </a>
                   </li>
                 );

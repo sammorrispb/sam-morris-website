@@ -5,6 +5,7 @@ type TrackBody = {
   event_type?: string;
   visitor_id?: string;
   email?: string;
+  marketing_ref?: string | null;
   properties?: Record<string, unknown>;
 };
 
@@ -22,6 +23,7 @@ export async function POST(request: Request) {
     eventType: body.event_type,
     visitorId: body.visitor_id ?? null,
     email: body.email ?? null,
+    marketingRef: body.marketing_ref ?? null,
     properties: body.properties ?? null,
   });
   return new NextResponse(null, { status: 204 });

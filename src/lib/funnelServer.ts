@@ -8,6 +8,7 @@ export type ServerEventParams = {
   eventType: string;
   visitorId?: string | null;
   email?: string | null;
+  marketingRef?: string | null;
   properties?: Record<string, unknown> | null;
 };
 
@@ -20,6 +21,7 @@ export async function sendFunnelEvent(params: ServerEventParams): Promise<void> 
 
   const email = params.email ? params.email.trim().toLowerCase() : "";
   const visitorId = params.visitorId ?? "";
+  const marketingRef = params.marketingRef?.trim() || MARKETING_REF;
   const timestamp = Date.now().toString();
   const signature = signFunnelPayload(secret, {
     timestamp,
@@ -27,7 +29,7 @@ export async function sendFunnelEvent(params: ServerEventParams): Promise<void> 
     eventType: params.eventType,
     visitorId,
     email,
-    marketingRef: MARKETING_REF,
+    marketingRef,
   });
 
   try {
@@ -42,7 +44,7 @@ export async function sendFunnelEvent(params: ServerEventParams): Promise<void> 
         event_type: params.eventType,
         visitor_id: visitorId || null,
         email: email || null,
-        marketing_ref: MARKETING_REF,
+        marketing_ref: marketingRef,
         properties: params.properties ?? null,
       }),
     });
