@@ -10,6 +10,7 @@ type EvalBookRequest = {
   email?: string;
   utm_campaign?: string;
   utm_content?: string;
+  visitor_id?: string;
 };
 
 async function forwardToHub(payload: {
@@ -49,8 +50,9 @@ async function forwardToHub(payload: {
 
 export async function POST(request: Request) {
   try {
-    const { name, email, utm_campaign, utm_content } =
+    const { name, email, utm_campaign, utm_content, visitor_id } =
       (await request.json()) as EvalBookRequest;
+    const visitorId = typeof visitor_id === "string" ? visitor_id : null;
 
     if (!name || !email) {
       return NextResponse.json(
@@ -103,6 +105,7 @@ export async function POST(request: Request) {
     void sendFunnelEvent({
       eventType: "lead_submitted",
       email: normalizedEmail,
+      visitorId,
       properties: { interest: "Free Evaluation", source: "eval_book", utm_campaign, utm_content },
     });
 

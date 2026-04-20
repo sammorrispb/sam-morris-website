@@ -3,7 +3,7 @@
 import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import { CONTACT, INTEREST_OPTIONS } from "@/lib/constants";
-import { trackEvent } from "@/lib/funnelClient";
+import { trackEvent, getVisitorIdForForm } from "@/lib/funnelClient";
 
 function matchInterestFromParam(param: string | null): string {
   if (!param) return "";
@@ -48,7 +48,7 @@ export function LeadForm({ heading = "Ready to Play?", page = "unknown" }: { hea
       const res = await fetch(endpoint, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form),
+        body: JSON.stringify({ ...form, visitor_id: getVisitorIdForForm() }),
         signal: controller.signal,
       });
 
