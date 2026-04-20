@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { QUIZ_QUESTIONS, QUIZ_RESULTS, calculateResult } from "@/lib/quiz";
-import { trackEvent } from "@/lib/funnelClient";
+import { trackEvent, getVisitorIdForForm } from "@/lib/funnelClient";
 
 export function QuizClient() {
   const [step, setStep] = useState(0);
@@ -51,6 +51,7 @@ export function QuizClient() {
           name,
           email,
           interest: `Quiz Result: ${QUIZ_RESULTS[key].level} (${QUIZ_RESULTS[key].dupr})`,
+          visitor_id: getVisitorIdForForm(),
         }),
       });
     } catch {

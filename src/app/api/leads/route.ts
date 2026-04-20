@@ -61,7 +61,9 @@ async function createEmailDraft(
 
 export async function POST(request: Request) {
   try {
-    const { name, email, interest } = await request.json();
+    const body = await request.json();
+    const { name, email, interest } = body;
+    const visitorId = typeof body.visitor_id === "string" ? body.visitor_id : null;
 
     if (!name || !email || !interest) {
       return NextResponse.json(
@@ -172,6 +174,7 @@ export async function POST(request: Request) {
     void sendFunnelEvent({
       eventType: "lead_submitted",
       email,
+      visitorId,
       properties: { interest, source: "lead_form", is_lnd_member: isLndMember },
     });
 
