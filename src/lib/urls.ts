@@ -58,10 +58,12 @@ export function familySiteUrl(dest: FamilyDest, path: string = "/"): string {
   url.searchParams.set("utm_medium", "cross_family_nav");
   url.searchParams.set("utm_campaign", "family_reciprocal");
   url.searchParams.set("utm_content", `footer_${dest}`);
-  // Hub reads ?ref= via captureUtmParams() — stamp the richer marketing_ref.
-  if (dest === "linkanddink") {
-    url.searchParams.set("ref", familyMarketingRef(dest));
-  }
+  // Every family site now reads ?ref= on landing — Hub via captureUtmParams(),
+  // NGA/mocopb/tournaments via their funnelClient.ts captureUtmParams
+  // equivalents. Stamp the richer marketing_ref on every dest so the
+  // destination site records the exact origin → dest pair, not just the
+  // utm_source. (Was linkanddink-only; extended 2026-04-20 post-P12.)
+  url.searchParams.set("ref", familyMarketingRef(dest));
   // Cross-domain visitor handoff: stamp ld_pid=<ld_visitor cookie> so the
   // destination (Hub/NGA/MoCoPB) can adopt the same visitor_id and keep
   // funnel events linked across domains. SSR-safe and fail-open.
