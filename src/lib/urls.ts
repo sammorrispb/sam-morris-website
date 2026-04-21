@@ -19,12 +19,13 @@ export function crUrl(target: string): string {
   return url.toString();
 }
 
-export type FamilyDest = "linkanddink" | "nga" | "mocopb";
+export type FamilyDest = "linkanddink" | "nga" | "mocopb" | "tournaments";
 
 const FAMILY_BASES: Record<FamilyDest, string> = {
   linkanddink: "https://linkanddink.com",
   nga: "https://nextgenpbacademy.com",
   mocopb: "https://mocopb.com",
+  tournaments: "https://tournamentwebsite.vercel.app",
 };
 
 const LD_VISITOR_COOKIE = "ld_visitor";

@@ -21,6 +21,7 @@ export const FAMILY_LINKS: ReadonlyArray<{ label: string; dest: FamilyDest }> = 
   { label: "Link & Dink", dest: "linkanddink" },
   { label: "Next Gen Academy", dest: "nga" },
   { label: "MoCo PB", dest: "mocopb" },
+  { label: "Tournament Series", dest: "tournaments" },
 ] as const;
 
 export const CONTACT = {
