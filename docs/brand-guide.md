@@ -12,8 +12,8 @@ Sam Morris is a **sports coach, community builder, and entrepreneur** based in M
 
 Unique intersection:
 - **Educator** — 9 years as a PE teacher (PK-8th grade), M.S. in Coaching from Ball State
-- **Facility Leader** — Director of Programming at Dill Dinkers (Rockville + North Bethesda), overseeing leagues, tournaments, and instruction for hundreds of players weekly
-- **Entrepreneur** — Co-founder of Next Gen Academy (youth) and Link and Dink (community app)
+- **Coach** — Professional pickleball coach in Montgomery County, MD, working with adults, families, and kids
+- **Entrepreneur** — Co-founder of Next Gen Academy (youth)
 - **Dad** — Father of two boys, Kobe and Owen, building programs you'd want for your own kids
 
 ### One-Liner Options
@@ -60,9 +60,8 @@ Signature methodology. Front-and-center on the website.
 - **Discovery:** Introduced by adult softball teammates in 2019, went deep during the pandemic
 - **Competitive highlight:** Mixed Gender Gold at the Legends Tournament, defeating future pro Alix Truong and John Truong in the Open Division final
 - **First business:** Climb 5.0 (2022) — organized competitive play for 3.5+ players
-- **Career pivot (2023):** Joined Dill Dinkers Rockville as Assistant Manager then promoted to Director of Programming at North Bethesda before training was even complete then now leads both locations
 - **Family:** Wife Kelly, sons Kobe (born 2019) and Owen (born 2023), living in Olney, MD
-- **Current ventures:** Next Gen Academy (co-founded with Amine Lahlou) + Link and Dink community app
+- **Current ventures:** Next Gen Academy (co-founded with Amine Lahlou) + independent private coaching in Montgomery County, MD
 
 ### Coaching Philosophy
 
@@ -85,9 +84,10 @@ Signature methodology. Front-and-center on the website.
 - Personalized 1-on-1 coaching
 - Tailored to individual goals and skill level (new to 5.0)
 
-### Link and Dink Community
-- Online community app connecting players of comparable skill levels
-- www.linkanddink.com
+### Skill Evaluation
+- Free 30-minute on-court evaluation for every DMV player
+- DUPR-aligned skill rating + a personalized improvement plan
+- Required for new Next Gen Academy placements; optional for adult coaching clients
 
 **Note:** No pricing on the site yet — will be added separately.
 
@@ -151,7 +151,7 @@ Signature methodology. Front-and-center on the website.
 > *"Level up one skill each week. Collect your EASE badge."*
 
 **Social media bio:**
-> *Coach. Dad. Builder. Director of Programming at Dill Dinkers. Co-founder of Next Gen Academy. Real talk about coaching, parenting, and sport.*
+> *Coach. Dad. Builder. Professional pickleball coach in Montgomery County, MD. Co-founder of Next Gen Academy. Real talk about coaching, parenting, and sport.*
 
 ---
 
@@ -203,16 +203,14 @@ Signature methodology. Front-and-center on the website.
 ## Social Proof and Credibility Markers
 
 - M.S. in Coaching from Ball State University
-- Program Director of 17 courts across two dedicated indoor pickleball facilities (Dill Dinkers Rockville + North Bethesda)
+- Professional pickleball coach in Montgomery County, MD
 - 5.0+ player
 - RPO Certified
 - PPR Pro
 - DUPR Coach Certified
 - Former MCPS Physical Educator (9 years)
-- Founder of Next Gen Pickleball Academy, Link and Dink, and Pickleball Climb 5.0
+- Co-founder of Next Gen Pickleball Academy and Pickleball Climb 5.0
 - Competitive player — Mixed Gender Gold medalist (Legends Tournament, Open Division)
-- Manages 20-30 coaches across two facilities
-- Programs hundreds of players weekly across leagues, clinics, open play, and academy
 - MoCo's only structured youth pathway (Red to Yellow)
 
 ---
@@ -220,6 +218,5 @@ Signature methodology. Front-and-center on the website.
 ## Key Links
 
 - Next Gen Academy: www.nexgenpbacademy.com
-- Link and Dink: www.linkanddink.com
 - Email: sam.morris2131@gmail.com
 - Phone: 301-325-4731

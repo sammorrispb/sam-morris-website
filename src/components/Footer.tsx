@@ -40,10 +40,10 @@ export function Footer() {
             </ul>
           </nav>
 
-          {/* Link & Dink Family */}
-          <nav aria-label="Link & Dink family sites">
+          {/* Sister Sites */}
+          <nav aria-label="Sister sites">
             <h4 className="font-heading text-sm font-semibold text-text-primary uppercase tracking-wider mb-4">
-              Link &amp; Dink Family
+              Sister Sites
             </h4>
             <ul className="flex flex-col gap-2">
               {FAMILY_LINKS.map((link) => {

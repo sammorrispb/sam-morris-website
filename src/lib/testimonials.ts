@@ -94,7 +94,7 @@ export const TESTIMONIALS: Testimonial[] = [
   },
   {
     id: "community-3",
-    quote: "Between the WhatsApp group and Link & Dink, I never have trouble finding people to play with. This community is the real deal.",
+    quote: "I never have trouble finding people to play with around here. The community is the real deal.",
     author: "Rachel F.",
     role: "Regular player",
     program: "community",

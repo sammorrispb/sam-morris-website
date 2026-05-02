@@ -4,23 +4,14 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 const PROGRAM_NAV: { href: string; label: string; external?: boolean }[] = [
-  { href: "/programs/hub", label: "Program Hub" },
-  { href: "/programs/leagues", label: "Leagues" },
-  { href: "/programs/open-play", label: "Open Play" },
-  { href: "/programs/coached-open-play", label: "Coached Open Play" },
   { href: "/programs/coaching", label: "Coaching & Clinics" },
+  { href: "/evaluation", label: "Skill Evaluation" },
   { href: "https://tournamentwebsite.vercel.app/", label: "Tournaments", external: true },
-  { href: "/programs/youth", label: "Youth Programs" },
 ];
 
 const BRAND_MAP: Record<string, { brand: string; color: string }> = {
-  "/programs/hub": { brand: "dill-dinkers", color: "#F47920" },
-  "/programs/leagues": { brand: "dill-dinkers", color: "#F47920" },
-  "/programs/open-play": { brand: "dill-dinkers", color: "#8BC751" },
-  "/programs/coached-open-play": { brand: "sam-morris", color: "#4DACD0" },
   "/programs/coaching": { brand: "sam-morris", color: "#4DACD0" },
-  "https://tournamentwebsite.vercel.app/": { brand: "link-and-dink", color: "#F47920" },
-  "/programs/youth": { brand: "next-gen", color: "#22c55e" },
+  "/evaluation": { brand: "sam-morris", color: "#EC4899" },
 };
 
 export function ProgramsNav() {
@@ -38,10 +29,10 @@ export function ProgramsNav() {
     >
       <div className="mx-auto max-w-6xl px-6 py-3 flex items-center gap-4 overflow-x-auto scrollbar-hide">
         <Link
-          href="/locations"
+          href="/programs"
           className="shrink-0 text-text-muted hover:text-accent-blue transition-colors text-sm font-semibold"
         >
-          &larr; Locations
+          &larr; Programs
         </Link>
         <span className="text-white/10">|</span>
         {PROGRAM_NAV.map((item) => {

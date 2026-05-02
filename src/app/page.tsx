@@ -6,31 +6,22 @@ import { TESTIMONIALS } from "@/lib/testimonials";
 import { TestimonialGrid } from "@/components/TestimonialGrid";
 import { AnimateOnScroll } from "@/components/AnimateOnScroll";
 import { TrackedLink } from "@/components/TrackedLink";
-import { TrackedExternalLink } from "@/components/TrackedExternalLink";
-import { hubUrl } from "@/lib/urls";
 
 export const metadata: Metadata = {
   title:
-    "Sam Morris — Pickleball Coach & Director of Programming at Dill Dinkers | Montgomery County, DC & Northern Virginia",
+    "Sam Morris — Pickleball Coach | Montgomery County, DC & Northern Virginia",
   description:
-    "PPR-certified pickleball coach at Dill Dinkers indoor facilities in Rockville and North Bethesda. Private lessons, leagues, tournaments, youth academy, and community programs serving Montgomery County MD, Washington DC, and Northern Virginia.",
+    "PPR-certified pickleball coach in Montgomery County, MD. Private lessons, skill evaluations, and youth academy serving Montgomery County MD, Washington DC, and Northern Virginia.",
   keywords: [
     "pickleball coach Montgomery County",
-    "Dill Dinkers Rockville",
-    "Dill Dinkers North Bethesda",
     "indoor pickleball facility near me",
     "pickleball lessons DC area",
     "pickleball coaching Northern Virginia",
-    "pickleball leagues Rockville",
-    "pickleball tournaments Montgomery County",
     "youth pickleball academy Maryland",
     "private pickleball lessons Bethesda",
     "beginner pickleball DMV",
-    "pickleball open play Rockville",
     "PPR certified coach Maryland",
-    "DUPR leagues DMV",
     "Next Gen Pickleball Academy",
-    "Link and Dink pickleball",
     "indoor pickleball courts Maryland",
     "pickleball near Washington DC",
   ],
@@ -48,8 +39,6 @@ export const metadata: Metadata = {
 
 const STATS = [
   { value: "M.S.", label: "in Coaching" },
-  { value: "17", label: "Courts Directed" },
-  { value: "2", label: "Indoor Facilities" },
   { value: "5.0+", label: "Player" },
   { value: "RPO", label: "Certified" },
   { value: "PPR", label: "Pro" },
@@ -91,7 +80,6 @@ const PROGRAMS = [
       "Structured youth pathway for ages 5-16. Four levels from beginner to coach-curated advanced.",
     cta: "Learn More",
     href: "/programs#academy",
-    external: false,
     image: "/images/nextgen-academy-logo.svg",
     isLogo: true,
   },
@@ -101,19 +89,17 @@ const PROGRAMS = [
       "Personalized 1-on-1 coaching tailored to your goals and skill level.",
     cta: "Get Started",
     href: "/contact",
-    external: false,
     image: "/images/sam-portrait-arms-crossed.jpg",
     isLogo: false,
   },
   {
-    title: "Link & Dink",
+    title: "Skill Evaluation",
     description:
-      "Find groups, playing partners, and events at your level.",
-    cta: "Find Players & Groups",
-    href: hubUrl("/"),
-    external: true,
-    image: "/images/link-and-dink-logo.svg",
-    isLogo: true,
+      "Get a clear, honest read on your level and a personalized growth plan.",
+    cta: "Book an Evaluation",
+    href: "/evaluation",
+    image: "/images/sam-portrait-with-paddle.jpg",
+    isLogo: false,
   },
 ];
 
@@ -264,24 +250,13 @@ export default function Home() {
                 <p className="text-text-muted text-sm mb-6 flex-1">
                   {program.description}
                 </p>
-                {program.external ? (
-                  <TrackedExternalLink
-                    href={program.href}
-                    label={program.title}
-                    page="home"
-                    className="text-accent-blue hover:text-accent-purple transition-colors text-sm font-semibold"
-                  >
-                    {program.cta} &rarr;
-                  </TrackedExternalLink>
-                ) : (
-                  <TrackedLink
-                    href={program.href}
-                    className="text-accent-blue hover:text-accent-purple transition-colors text-sm font-semibold"
-                    eventProps={{ label: program.title, page: "home", section: "program_card" }}
-                  >
-                    {program.cta} &rarr;
-                  </TrackedLink>
-                )}
+                <TrackedLink
+                  href={program.href}
+                  className="text-accent-blue hover:text-accent-purple transition-colors text-sm font-semibold"
+                  eventProps={{ label: program.title, page: "home", section: "program_card" }}
+                >
+                  {program.cta} &rarr;
+                </TrackedLink>
                 </div>
               </div>
             ))}

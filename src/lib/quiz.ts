@@ -82,18 +82,18 @@ export const QUIZ_RESULTS: Record<string, QuizResult> = {
       "You're just getting started — and that's exciting! The best way to build a strong foundation is with structured coaching and beginner-friendly play sessions. We'll get you comfortable on the court fast.",
     programs: [
       {
-        title: "Open Play (Beginner)",
-        description: "Drop-in sessions with skill-based courts — no partner needed.",
-        href: "/programs/open-play",
-      },
-      {
-        title: "Coached Open Play",
-        description: "Learn while you play with a coach giving real-time tips.",
-        href: "/programs/coached-open-play",
-      },
-      {
         title: "Book a Free Evaluation",
-        description: "30-minute assessment to map out your personalized path.",
+        description: "30-minute on-court assessment to map out your personalized path.",
+        href: "/evaluation",
+      },
+      {
+        title: "Private Lessons",
+        description: "Start with a single 1-on-1 session focused on the basics.",
+        href: "/programs/coaching",
+      },
+      {
+        title: "Contact Coach Sam",
+        description: "Tell us your goals and we'll point you to the right next step.",
         href: "/contact",
       },
     ],
@@ -102,22 +102,22 @@ export const QUIZ_RESULTS: Record<string, QuizResult> = {
     level: "Advanced Beginner",
     dupr: "2.5 – 3.0",
     description:
-      "You know the basics and you're hooked. Now it's time to build consistency and start thinking strategically. A mix of coached play and targeted lessons will accelerate your progress.",
+      "You know the basics and you're hooked. Now it's time to build consistency and start thinking strategically. Targeted lessons will accelerate your progress.",
     programs: [
-      {
-        title: "Coached Open Play",
-        description: "Real-time feedback while playing games at your level.",
-        href: "/programs/coached-open-play",
-      },
       {
         title: "Private Lessons",
         description: "1-on-1 coaching with video analysis to fix specific habits.",
         href: "/programs/coaching",
       },
       {
-        title: "Leagues (2.5-3.0 bracket)",
-        description: "Weekly competitive play with DUPR tracking.",
-        href: "/programs/leagues",
+        title: "4-Hour Package",
+        description: "Build on skills week-to-week with our best-value package ($100/session).",
+        href: "/programs/coaching",
+      },
+      {
+        title: "Free Skill Evaluation",
+        description: "Lock in a clear DUPR-aligned rating and a written growth plan.",
+        href: "/evaluation",
       },
     ],
   },
@@ -133,14 +133,14 @@ export const QUIZ_RESULTS: Record<string, QuizResult> = {
         href: "/programs/coaching",
       },
       {
-        title: "Leagues (3.0-3.6 bracket)",
-        description: "Competitive league play with DUPR-rated matches.",
-        href: "/programs/leagues",
+        title: "Free Skill Evaluation",
+        description: "Get a calibrated rating and a focused improvement plan.",
+        href: "/evaluation",
       },
       {
-        title: "Clinics & Drills",
-        description: "Group drill sessions focused on advanced techniques.",
-        href: "/programs/coaching",
+        title: "Tournament Series",
+        description: "Test your game in competitive tournament events in the DMV.",
+        href: "https://tournamentwebsite.vercel.app/",
       },
     ],
   },
@@ -156,14 +156,14 @@ export const QUIZ_RESULTS: Record<string, QuizResult> = {
         href: "/programs/coaching",
       },
       {
-        title: "Leagues (3.5+ bracket)",
-        description: "High-level league competition with DUPR tracking.",
-        href: "/programs/leagues",
-      },
-      {
         title: "Tournament Series",
         description: "Competitive tournament events in the DMV area.",
         href: "https://tournamentwebsite.vercel.app/",
+      },
+      {
+        title: "Free Skill Evaluation",
+        description: "Recalibrate your rating and get a focused growth plan.",
+        href: "/evaluation",
       },
     ],
   },

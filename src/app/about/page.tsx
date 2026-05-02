@@ -1,19 +1,18 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import { ScrollDepthTracker } from "@/components/ScrollDepthTracker";
-import { hubUrl } from "@/lib/urls";
 
 export const metadata: Metadata = {
   title: "About Sam Morris — PPR-Certified Pickleball Coach, Montgomery County MD",
   description:
-    "Meet Sam Morris — PPR-certified pickleball professional, DUPR coach, and Director of Programming at Dill Dinkers Rockville & North Bethesda. Former PE teacher with a Master's in Coaching, helping adults, families, and kids in Montgomery County, MD.",
+    "Meet Sam Morris — PPR-certified pickleball professional and DUPR coach in Montgomery County, MD. Former PE teacher with a Master's in Coaching, helping adults, families, and kids develop a growth mindset through pickleball.",
   alternates: {
     canonical: "https://www.sammorrispb.com/about",
   },
   openGraph: {
     title: "About Sam Morris — Pickleball Coach in Montgomery County, MD",
     description:
-      "From PE teacher to pickleball programming leader. PPR Pro, DUPR Certified Coach, and 3x founder serving Rockville, North Bethesda, Olney & greater Montgomery County.",
+      "From PE teacher to pickleball coach and community builder. PPR Pro, DUPR Certified Coach, and 3x founder serving Rockville, North Bethesda, Olney & greater Montgomery County.",
     url: "https://www.sammorrispb.com/about",
     images: [
       {
@@ -67,16 +66,10 @@ const TIMELINE = [
       "First pickleball business \u2014 organized competitive play for 3.5+ players.",
   },
   {
-    year: "2023",
-    title: "Dill Dinkers",
-    description:
-      "Joined as Assistant Manager at Rockville. Promoted to Director of Programming at North Bethesda before training was even complete. Now leads both locations.",
-  },
-  {
     year: "Now",
     title: "Building the Future",
     description:
-      "Co-founder of Next Gen Pickleball Academy (with Amine Lahlou) and Link & Dink community app. Father of Kobe and Owen. Husband to Kelly. Living in Olney, MD.",
+      "Co-founder of Next Gen Pickleball Academy (with Amine Lahlou). Father of Kobe and Owen. Husband to Kelly. Living in Olney, MD.",
   },
 ];
 
@@ -94,11 +87,7 @@ export default function AboutPage() {
             mainEntity: {
               "@type": "Person",
               name: "Sam Morris",
-              jobTitle: "Head Pro & Director of Programming",
-              worksFor: {
-                "@type": "SportsActivityLocation",
-                name: "Dill Dinkers",
-              },
+              jobTitle: "Pickleball Coach",
               url: "https://www.sammorrispb.com/about",
               sameAs: [
                 "https://instagram.com/sammorris.pb",
@@ -217,7 +206,7 @@ export default function AboutPage() {
           <h2 className="font-heading font-bold text-3xl md:text-4xl mb-8 text-center">
             Projects
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <a
               href="https://nextgenpbacademy.com"
               target="_blank"
@@ -237,24 +226,6 @@ export default function AboutPage() {
             </a>
 
             <a
-              href={hubUrl("/")}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="bg-navy-light glow-border rounded-xl p-6 text-center hover:scale-[1.02] transition-transform"
-            >
-              <div className="font-mono text-accent-lime text-sm uppercase tracking-wider mb-2">
-                Community
-              </div>
-              <h3 className="font-heading font-bold text-lg mb-2">
-                Link &amp; Dink
-              </h3>
-              <p className="text-text-muted text-sm leading-relaxed">
-                Social discovery platform connecting pickleball players for
-                events, groups, and community.
-              </p>
-            </a>
-
-            <a
               href="https://tournamentwebsite.vercel.app/"
               target="_blank"
               rel="noopener noreferrer"
@@ -269,24 +240,6 @@ export default function AboutPage() {
               <p className="text-text-muted text-sm leading-relaxed">
                 Competitive tournament events for players looking to test their
                 skills.
-              </p>
-            </a>
-
-            <a
-              href={hubUrl("/")}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="bg-navy-light glow-border rounded-xl p-6 text-center hover:scale-[1.02] transition-transform"
-            >
-              <div className="font-mono text-accent-blue text-sm uppercase tracking-wider mb-2">
-                Community Hub
-              </div>
-              <h3 className="font-heading font-bold text-lg mb-2">
-                The Hub
-              </h3>
-              <p className="text-text-muted text-sm leading-relaxed">
-                Find events, connect with players, and manage your pickleball
-                community in one place.
               </p>
             </a>
           </div>

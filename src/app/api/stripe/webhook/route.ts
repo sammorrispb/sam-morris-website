@@ -1,5 +1,4 @@
 import { Client } from "@notionhq/client";
-import { createClient } from "@supabase/supabase-js";
 import { NextResponse } from "next/server";
 import Stripe from "stripe";
 import { generateEmailDraft } from "@/lib/emailTemplates";
@@ -20,24 +19,6 @@ function mapProduct(amountCents: number): string {
   return `$${(amountCents / 100).toFixed(2)} purchase`;
 }
 
-async function checkLndMembership(email: string): Promise<boolean> {
-  const url = process.env.LND_SUPABASE_URL;
-  const key = process.env.LND_SUPABASE_SERVICE_KEY;
-  if (!url || !key || !email) return false;
-
-  const supabase = createClient(url, key, {
-    auth: { autoRefreshToken: false, persistSession: false },
-  });
-
-  const { data, error } = await supabase.auth.admin.listUsers({ perPage: 1000 });
-  if (error || !data?.users) return false;
-
-  return data.users.some(
-    (u) => u.email?.toLowerCase() === email.toLowerCase()
-  );
-}
-
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 async function hasDuplicatePaidLead(notion: Client, dbId: string, email: string): Promise<boolean> {
   const oneHourAgo = new Date(Date.now() - 60 * 60 * 1000).toISOString();
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -158,14 +139,7 @@ export async function POST(request: Request) {
   // Send welcome email to buyer
   if (email) {
     try {
-      let isLndMember = false;
-      try {
-        isLndMember = await checkLndMembership(email);
-      } catch {
-        console.error("Stripe webhook: L&D membership check failed");
-      }
-
-      const emailBody = generateEmailDraft("Coaching", name, isLndMember);
+      const emailBody = generateEmailDraft("Coaching", name);
       await sendEmail(email, `Thanks for booking, ${name}!`, emailBody);
     } catch (emailError) {
       console.error("Stripe webhook: welcome email failed:", emailError);

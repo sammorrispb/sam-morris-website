@@ -73,28 +73,19 @@ export function getVisitorIdForForm(): string {
   return getOrCreateVisitorId();
 }
 
+/**
+ * No-op since 2026-05-02 (Hub funnel ingest decoupled). Kept as an export so
+ * existing callers continue to type-check; consider removing call sites in a
+ * follow-up. Visitor-id helpers above remain in use for cross-domain ld_pid
+ * handoff in `familySiteUrl()`.
+ */
 export function trackEvent<K extends keyof AnalyticsEventMap>(
-  name: K,
-  props: AnalyticsEventMap[K],
-  marketingRefOverride?: string,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  _name: K,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  _props: AnalyticsEventMap[K],
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  _marketingRefOverride?: string,
 ): void {
-  if (typeof window === "undefined") return;
-  const visitorId = getOrCreateVisitorId();
-  const page_url = window.location.href;
-  const body = JSON.stringify({
-    event_type: name,
-    visitor_id: visitorId,
-    marketing_ref: marketingRefOverride ?? null,
-    properties: { ...props, page_url },
-  });
-  try {
-    void fetch("/api/funnel-track", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      keepalive: true,
-      body,
-    }).catch(() => {});
-  } catch {
-    // Never block UI on tracking failure.
-  }
+  return;
 }
