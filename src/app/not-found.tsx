@@ -33,12 +33,6 @@ export default function NotFound() {
             Programs
           </Link>
           <Link
-            href="/locations"
-            className="border border-white/20 text-text-primary px-6 py-3 rounded-lg font-heading font-semibold hover:border-white/40 transition-colors"
-          >
-            Facilities
-          </Link>
-          <Link
             href="/contact"
             className="border border-white/20 text-text-primary px-6 py-3 rounded-lg font-heading font-semibold hover:border-white/40 transition-colors"
           >

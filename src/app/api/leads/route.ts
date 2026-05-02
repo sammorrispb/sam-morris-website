@@ -1,40 +1,19 @@
 import { Client } from "@notionhq/client";
-import { createClient } from "@supabase/supabase-js";
 import { NextResponse } from "next/server";
 import { generateEmailDraft } from "@/lib/emailTemplates";
 import { sendEmail, notifySam } from "@/lib/email";
 import { ingestToOpenBrain } from "@/lib/open-brain-ingest";
-import { sendFunnelEvent } from "@/lib/funnelServer";
-
-async function checkLndMembership(email: string): Promise<boolean> {
-  const url = process.env.LND_SUPABASE_URL;
-  const key = process.env.LND_SUPABASE_SERVICE_KEY;
-  if (!url || !key) return false;
-
-  const supabase = createClient(url, key, {
-    auth: { autoRefreshToken: false, persistSession: false },
-  });
-
-  // Use admin API to search for user by email (service role required)
-  const { data, error } = await supabase.auth.admin.listUsers({ perPage: 1000 });
-  if (error || !data?.users) return false;
-
-  return data.users.some(
-    (u) => u.email?.toLowerCase() === email.toLowerCase()
-  );
-}
 
 async function createEmailDraft(
   notion: Client,
   name: string,
   email: string,
   interest: string,
-  isLndMember: boolean
 ): Promise<void> {
   const draftsDbId = process.env.NOTION_DRAFTS_DB_ID?.trim();
   if (!draftsDbId) return;
 
-  const emailBody = generateEmailDraft(interest, name, isLndMember);
+  const emailBody = generateEmailDraft(interest, name);
 
   // Split email body into paragraph blocks for Notion page content
   const paragraphs = emailBody.split("\n\n").map((paragraph) => ({
@@ -51,7 +30,6 @@ async function createEmailDraft(
       Name: { title: [{ text: { content: name } }] },
       Email: { email: email },
       Interest: { select: { name: interest } },
-      "L&D Member": { checkbox: isLndMember },
       Created: { date: { start: new Date().toISOString() } },
       Status: { select: { name: "Draft" } },
     },
@@ -63,7 +41,6 @@ export async function POST(request: Request) {
   try {
     const body = await request.json();
     const { name, email, interest } = body;
-    const visitorId = typeof body.visitor_id === "string" ? body.visitor_id : null;
 
     if (!name || !email || !interest) {
       return NextResponse.json(
@@ -106,17 +83,9 @@ export async function POST(request: Request) {
       },
     });
 
-    // Check L&D membership once — used by draft and welcome email
-    let isLndMember = false;
-    try {
-      isLndMember = await checkLndMembership(email);
-    } catch {
-      console.error("L&D membership check failed, defaulting to false");
-    }
-
     // Generate email draft — isolated so lead creation never fails
     try {
-      await createEmailDraft(notion, name, email, interest, isLndMember);
+      await createEmailDraft(notion, name, email, interest);
     } catch (draftError) {
       console.error("Email draft creation failed (lead still saved):", draftError);
     }
@@ -125,7 +94,7 @@ export async function POST(request: Request) {
     try {
       await notifySam(
         `New Lead: ${name} — ${interest}`,
-        `Name: ${name}\nEmail: ${email}\nInterest: ${interest}\nL&D Member: ${isLndMember ? "Yes" : "No"}\nSubmitted: ${new Date().toLocaleString("en-US", { timeZone: "America/New_York" })}`
+        `Name: ${name}\nEmail: ${email}\nInterest: ${interest}\nSubmitted: ${new Date().toLocaleString("en-US", { timeZone: "America/New_York" })}`
       );
     } catch (notifyError) {
       console.error("Lead notification email failed:", notifyError);
@@ -133,7 +102,7 @@ export async function POST(request: Request) {
 
     // Send welcome email to the lead
     try {
-      const emailBody = generateEmailDraft(interest, name, isLndMember);
+      const emailBody = generateEmailDraft(interest, name);
       const result = await sendEmail(
         email,
         `Thanks for reaching out, ${name}!`,
@@ -158,24 +127,12 @@ export async function POST(request: Request) {
     }
 
     // Ingest to Open Brain master CRM (fire-and-forget)
-    // "coaching" is always the business here — Business Partnerships still
-    // lands in coaching pipeline since that's how Sam tracks them.
     void ingestToOpenBrain({
       email,
       name,
       business: "coaching",
       source: "sammorrispb_coaching",
       interest,
-      metadata: {
-        is_lnd_member: isLndMember,
-      },
-    });
-
-    void sendFunnelEvent({
-      eventType: "lead_submitted",
-      email,
-      visitorId,
-      properties: { interest, source: "lead_form", is_lnd_member: isLndMember },
     });
 
     return NextResponse.json({ success: true });

@@ -2,23 +2,22 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import { SINGLE_LESSON_LINK, FOUR_PACK_LINK } from "@/lib/coaching";
-import { hubUrl } from "@/lib/urls";
 
 export const metadata: Metadata = {
   title: "Pickleball Programs & Lessons — Youth Academy, Private Coaching, Family Sessions",
   description:
-    "Pickleball programs for all ages in Montgomery County, MD. Next Gen Academy for kids 5-16, private lessons for adults, family coaching, and community play at Dill Dinkers Rockville & North Bethesda.",
+    "Pickleball programs for all ages in Montgomery County, MD. Next Gen Academy for kids 5-16, private lessons for adults, and family coaching.",
   alternates: {
     canonical: "https://www.sammorrispb.com/programs",
   },
   openGraph: {
     title: "Pickleball Programs in Montgomery County, MD — Kids, Adults & Families",
     description:
-      "Youth pickleball academy (ages 5-16), private lessons, family coaching, and community programs. Rockville & North Bethesda locations.",
+      "Youth pickleball academy (ages 5-16), private lessons, and family coaching in Montgomery County, MD.",
     url: "https://www.sammorrispb.com/programs",
     images: [
       {
-        url: "/og?title=Programs%20%26%20Services&subtitle=Leagues%20%C2%B7%20Open%20Play%20%C2%B7%20Coaching%20%C2%B7%20Youth%20Academy",
+        url: "/og?title=Programs%20%26%20Services&subtitle=Coaching%20%C2%B7%20Youth%20Academy%20%C2%B7%20Skill%20Evaluation",
         width: 1200,
         height: 630,
         alt: "Pickleball Programs & Services — Sam Morris",
@@ -70,8 +69,7 @@ export default function ProgramsPage() {
             </h1>
             <p className="text-text-muted text-lg md:text-xl max-w-2xl">
               Clear pathways for every player — from first-time beginners to
-              competitive athletes. Serving Rockville, North Bethesda, Olney,
-              and all of Montgomery County, MD.
+              competitive athletes. Serving Montgomery County, MD.
             </p>
           </div>
           <div className="flex justify-center">
@@ -98,8 +96,7 @@ export default function ProgramsPage() {
             </h2>
             <p className="text-text-muted max-w-2xl mx-auto">
               Structured youth pickleball pathway for kids ages 5-16 in
-              Montgomery County, MD. Four skill levels with clear progression
-              at Dill Dinkers Rockville and North Bethesda.
+              Montgomery County, MD. Four skill levels with clear progression.
             </p>
           </div>
 
@@ -164,7 +161,7 @@ export default function ProgramsPage() {
               {[
                 { title: "Video Analysis", desc: "Film review with frame-by-frame breakdown of your mechanics and positioning." },
                 { title: "Custom Practice Plans", desc: "Structured drills and homework tailored to your specific development areas." },
-                { title: "Flexible Scheduling", desc: "Sessions available mornings, evenings, and weekends at both Rockville and North Bethesda." },
+                { title: "Flexible Scheduling", desc: "Sessions available mornings, evenings, and weekends across Montgomery County." },
               ].map((item) => (
                 <li key={item.title} className="flex gap-3">
                   <span className="text-accent-blue mt-1 shrink-0">●</span>
@@ -230,27 +227,6 @@ export default function ProgramsPage() {
         </div>
       </section>
 
-      {/* Link and Dink Community */}
-      <section className="py-20 px-6">
-        <div className="mx-auto max-w-4xl text-center">
-          <h2 className="font-heading font-bold text-3xl md:text-4xl mb-4">
-            Link &amp; Dink
-          </h2>
-          <p className="text-text-muted max-w-2xl mx-auto mb-8">
-            A community app connecting pickleball players of comparable skill
-            levels. Find your game, grow your network.
-          </p>
-          <a
-            href={hubUrl("/")}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-accent-blue hover:text-accent-purple transition-colors font-semibold"
-          >
-            Join the Community &rarr;
-          </a>
-        </div>
-      </section>
-
       {/* Coaching Resources */}
       <section className="bg-navy-light py-20 px-6">
         <div className="mx-auto max-w-6xl">
@@ -289,27 +265,6 @@ export default function ProgramsPage() {
                 </div>
               </div>
             ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Schedule CTA */}
-      <section className="py-20 px-6 pb-0">
-        <div className="mx-auto max-w-2xl">
-          <div className="bg-navy-light glow-border rounded-xl p-10 text-center">
-            <p className="font-heading font-bold text-xl md:text-2xl mb-3">
-              Find a Session That Fits
-            </p>
-            <p className="text-text-muted mb-6">
-              Browse class times by location and register &mdash; drop in
-              anytime or commit to the full season.
-            </p>
-            <Link
-              href="/locations#programs"
-              className="inline-block text-white font-heading font-semibold px-8 py-3 rounded-lg btn-gradient"
-            >
-              View Schedule &amp; Register
-            </Link>
           </div>
         </div>
       </section>

@@ -68,7 +68,6 @@ export async function GET(request: Request) {
     let attentionCount = 0;
     const interestCounts: Record<string, number> = {};
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     for (const page of allPages) {
       const props = page.properties;
       const interest = props.Interest?.select?.name ?? "";
