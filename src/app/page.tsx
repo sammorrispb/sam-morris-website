@@ -7,17 +7,13 @@ import { TestimonialGrid } from "@/components/TestimonialGrid";
 import { AnimateOnScroll } from "@/components/AnimateOnScroll";
 import { TrackedLink } from "@/components/TrackedLink";
 import { TrackedExternalLink } from "@/components/TrackedExternalLink";
-import { hubUrl } from "@/lib/urls";
 
 export const metadata: Metadata = {
-  title:
-    "Sam Morris — Pickleball Coach & Director of Programming at Dill Dinkers | Montgomery County, DC & Northern Virginia",
+  title: "Sam Morris — Pickleball Coach",
   description:
-    "PPR-certified pickleball coach at Dill Dinkers indoor facilities in Rockville and North Bethesda. Private lessons, leagues, tournaments, youth academy, and community programs serving Montgomery County MD, Washington DC, and Northern Virginia.",
+    "PPR-certified pickleball coach in Montgomery County, MD.",
   keywords: [
     "pickleball coach Montgomery County",
-    "Dill Dinkers Rockville",
-    "Dill Dinkers North Bethesda",
     "indoor pickleball facility near me",
     "pickleball lessons DC area",
     "pickleball coaching Northern Virginia",
@@ -30,7 +26,6 @@ export const metadata: Metadata = {
     "PPR certified coach Maryland",
     "DUPR leagues DMV",
     "Next Gen Pickleball Academy",
-    "Link and Dink pickleball",
     "indoor pickleball courts Maryland",
     "pickleball near Washington DC",
   ],
@@ -48,8 +43,6 @@ export const metadata: Metadata = {
 
 const STATS = [
   { value: "M.S.", label: "in Coaching" },
-  { value: "17", label: "Courts Directed" },
-  { value: "2", label: "Indoor Facilities" },
   { value: "5.0+", label: "Player" },
   { value: "RPO", label: "Certified" },
   { value: "PPR", label: "Pro" },
@@ -104,16 +97,6 @@ const PROGRAMS = [
     external: false,
     image: "/images/sam-portrait-arms-crossed.jpg",
     isLogo: false,
-  },
-  {
-    title: "Link & Dink",
-    description:
-      "Find groups, playing partners, and events at your level.",
-    cta: "Find Players & Groups",
-    href: hubUrl("/"),
-    external: true,
-    image: "/images/link-and-dink-logo.svg",
-    isLogo: true,
   },
 ];
 
@@ -189,8 +172,8 @@ export default function Home() {
             </h2>
             <p className="text-text-muted max-w-2xl mx-auto">
               A coaching methodology built on four pillars that guide everything
-              we do — on the court and beyond. From beginner lessons in Rockville to
-              competitive training in North Bethesda.
+              we do — on the court and beyond. From beginner lessons to
+              competitive training in Montgomery County, MD.
             </p>
           </div>
           <div className="mx-auto max-w-6xl grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -242,7 +225,7 @@ export default function Home() {
           <h2 className="font-heading font-bold text-3xl md:text-4xl text-center mb-12">
             Programs &amp; Services
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8 max-w-4xl mx-auto">
             {PROGRAMS.map((program) => (
               <div
                 key={program.title}

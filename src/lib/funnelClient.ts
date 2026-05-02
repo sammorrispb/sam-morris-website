@@ -78,23 +78,11 @@ export function trackEvent<K extends keyof AnalyticsEventMap>(
   props: AnalyticsEventMap[K],
   marketingRefOverride?: string,
 ): void {
-  if (typeof window === "undefined") return;
-  const visitorId = getOrCreateVisitorId();
-  const page_url = window.location.href;
-  const body = JSON.stringify({
-    event_type: name,
-    visitor_id: visitorId,
-    marketing_ref: marketingRefOverride ?? null,
-    properties: { ...props, page_url },
-  });
-  try {
-    void fetch("/api/funnel-track", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      keepalive: true,
-      body,
-    }).catch(() => {});
-  } catch {
-    // Never block UI on tracking failure.
-  }
+  // The Hub funnel ingest endpoint was retired on 2026-05-02.
+  // trackEvent is preserved as a no-op so existing call sites still
+  // compile; visitor cookie helpers above are still used for ld_pid
+  // handoff to family sites that ARE still live (NGA, MoCoPB, Tournaments).
+  void name;
+  void props;
+  void marketingRefOverride;
 }

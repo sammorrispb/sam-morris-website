@@ -18,48 +18,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.9,
     },
     {
-      url: `${BASE_URL}/locations`,
-      lastModified: BUILD_DATE,
-      changeFrequency: "weekly",
-      priority: 0.9,
-    },
-    {
-      url: `${BASE_URL}/locations/rockville`,
-      lastModified: BUILD_DATE,
-      changeFrequency: "monthly",
-      priority: 0.8,
-    },
-    {
-      url: `${BASE_URL}/locations/north-bethesda`,
-      lastModified: BUILD_DATE,
-      changeFrequency: "monthly",
-      priority: 0.8,
-    },
-    {
-      url: `${BASE_URL}/programs/hub`,
-      lastModified: BUILD_DATE,
-      changeFrequency: "weekly",
-      priority: 0.8,
-    },
-    {
-      url: `${BASE_URL}/programs/leagues`,
-      lastModified: BUILD_DATE,
-      changeFrequency: "weekly",
-      priority: 0.8,
-    },
-    {
-      url: `${BASE_URL}/programs/open-play`,
-      lastModified: BUILD_DATE,
-      changeFrequency: "weekly",
-      priority: 0.8,
-    },
-    {
-      url: `${BASE_URL}/programs/coached-open-play`,
-      lastModified: BUILD_DATE,
-      changeFrequency: "weekly",
-      priority: 0.8,
-    },
-    {
       url: `${BASE_URL}/programs/coaching`,
       lastModified: BUILD_DATE,
       changeFrequency: "weekly",

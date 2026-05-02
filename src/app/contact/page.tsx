@@ -1,22 +1,21 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import { LeadForm } from "@/components/LeadForm";
-import { TrackedExternalLink } from "@/components/TrackedExternalLink";
 import { ContactLink } from "@/components/ContactLink";
+import { TrackedExternalLink } from "@/components/TrackedExternalLink";
 import { CONTACT, SOCIAL_LINKS } from "@/lib/constants";
-import { hubUrl } from "@/lib/urls";
 
 export const metadata: Metadata = {
   title: "Contact — Book Pickleball Lessons in Montgomery County, MD",
   description:
-    "Book a free pickleball evaluation with Coach Sam Morris in Montgomery County, MD. Private lessons, youth academy enrollment, and family coaching at Dill Dinkers Rockville & North Bethesda. Call 301-325-4731.",
+    "Book a free pickleball evaluation with Coach Sam Morris in Montgomery County, MD. Private lessons, youth academy enrollment, and family coaching. Call 301-325-4731.",
   alternates: {
     canonical: "https://www.sammorrispb.com/contact",
   },
   openGraph: {
     title: "Book Pickleball Lessons — Sam Morris | Montgomery County, MD",
     description:
-      "Free evaluation, private lessons, youth academy, and family coaching. Dill Dinkers Rockville & North Bethesda. Call 301-325-4731.",
+      "Free evaluation, private lessons, youth academy, and family coaching in Montgomery County, MD.",
     url: "https://www.sammorrispb.com/contact",
     images: [
       {
@@ -127,16 +126,9 @@ export default function ContactPage() {
                 Skill Evaluation
               </h2>
               <p className="text-text-muted leading-relaxed mb-4">
-                Every evaluation includes creating a free{" "}
-                <TrackedExternalLink
-                  href={hubUrl("/")}
-                  label="Link & Dink"
-                  page="contact"
-                  className="text-accent-blue hover:text-accent-purple transition-colors underline"
-                >
-                  Link&nbsp;&amp;&nbsp;Dink
-                </TrackedExternalLink>{" "}
-                account so your skill level is tracked over time.
+                A 30-minute on-court session to determine your DUPR-aligned
+                skill level, identify what you&apos;re doing well, and pinpoint
+                the highest-leverage things to work on next.
               </p>
               <ul className="space-y-3 text-text-muted text-sm">
                 <li className="flex items-start gap-2">
@@ -144,13 +136,6 @@ export default function ContactPage() {
                   <span>
                     <strong className="text-text">Required</strong> for new Next
                     Gen Pickleball Academy players
-                  </span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <span className="text-accent-blue font-bold mt-0.5">○</span>
-                  <span>
-                    <strong className="text-text">Optional</strong> for Dill
-                    Dinkers players
                   </span>
                 </li>
               </ul>

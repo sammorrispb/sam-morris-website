@@ -1,22 +1,20 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import Link from "next/link";
 import { AnimateOnScroll } from "@/components/AnimateOnScroll";
 import { PageSectionNav } from "@/components/PageSectionNav";
 import { BackToTop } from "@/components/BackToTop";
 import { LeadForm } from "@/components/LeadForm";
 import { TrackedExternalLink } from "@/components/TrackedExternalLink";
 import { ScrollDepthTracker } from "@/components/ScrollDepthTracker";
-import { WIDGET_URLS } from "@/lib/locations";
 import { breadcrumbJsonLd } from "@/lib/seo";
 import { RelatedPrograms } from "@/components/RelatedPrograms";
 import { getTestimonialsByProgram } from "@/lib/testimonials";
 import { TestimonialGrid } from "@/components/TestimonialGrid";
 
 export const metadata: Metadata = {
-  title: "Coaching & Clinics — Dill Dinkers Rockville & North Bethesda",
+  title: "Coaching & Clinics — Sam Morris Pickleball, Montgomery County MD",
   description:
-    "Pickleball coaching programs at Dill Dinkers. Private lessons, group clinics, coached open play, and coach profiles for Rockville and North Bethesda.",
+    "Private pickleball lessons and group clinics with PPR-certified Coach Sam Morris in Montgomery County, MD.",
   keywords: [
     "private pickleball lessons Rockville",
     "pickleball coach Montgomery County",
@@ -29,36 +27,30 @@ export const metadata: Metadata = {
   ],
   alternates: { canonical: "https://www.sammorrispb.com/programs/coaching" },
   openGraph: {
-    title: "Coaching & Clinics — Dill Dinkers Rockville & North Bethesda",
-    description: "Private lessons, clinics, and coached open play. Meet our coaching staff.",
+    title: "Coaching & Clinics — Sam Morris Pickleball, Montgomery County MD",
+    description: "Private lessons and group clinics with PPR-certified Coach Sam Morris.",
     url: "https://www.sammorrispb.com/programs/coaching",
     images: [
       {
-        url: "/og?title=Coaching%20%26%20Clinics&subtitle=Private%20Lessons%20from%20%24130%20%C2%B7%20Group%20Clinics%20%C2%B7%206%20Coaches",
+        url: "/og?title=Coaching%20%26%20Clinics&subtitle=Private%20Lessons%20from%20%24130",
         width: 1200,
         height: 630,
-        alt: "Coaching & Clinics — Dill Dinkers Rockville & North Bethesda",
+        alt: "Coaching & Clinics — Sam Morris Pickleball",
       },
     ],
   },
 };
 
-const COACHES = [
-  { name: "Sam Morris", role: "Head Pro \u00b7 Director of Programming", email: "Smorris@Dilldinkers.com", bio: "9 years MCPS Physical Educator, Master\u2019s in Coaching. Co-founder of Next Gen Pickleball Academy, Link and Dink, and Pickleball Climb 5.0.", color: "#4DACD0", isHead: true },
-  { name: "Art Shenk", role: "PPR Certified Coach", email: "aeshenk@gmail.com", phone: "301.956.3590", link: "https://sendfox.com/aeshenkpb", linkLabel: "Artful Pickleball Academy", color: "#22c55e", isHead: false },
-  { name: "Ben Fan", role: "Coach", phone: "562.881.8625", link: "https://calendly.com/bfcoachingllc", linkLabel: "Book via Calendly", color: "#8b5cf6", isHead: false },
-  { name: "Bridgit Fried", role: "Coach", phone: "301.996.1673", color: "#eab308", isHead: false },
-  { name: "Collin Danielson", role: "Coach", phone: "301.775.5706", color: "#f97316", isHead: false },
-  { name: "Gary Rosen", role: "Coach", phone: "240.375.2399", color: "#64748b", isHead: false },
+type CoachLink = { name: string; role: string; email?: string; phone?: string; bio?: string; link?: string; linkLabel?: string; color: string; isHead: boolean };
+
+const COACHES: CoachLink[] = [
+  { name: "Sam Morris", role: "PPR-Certified Pickleball Coach", email: "sam.morris2131@gmail.com", bio: "9 years MCPS Physical Educator, Master\u2019s in Coaching. Co-founder of Next Gen Pickleball Academy and Pickleball Climb 5.0.", color: "#4DACD0", isHead: true },
 ];
 
 const SECTIONS = [
-  { id: "location-links", label: "Locations" },
   { id: "why-train", label: "Why Train" },
-  { id: "cop-vs-clinics", label: "COP vs Clinics" },
   { id: "private-lessons", label: "Private Lessons" },
-  { id: "group-coaching", label: "Group Coaching" },
-  { id: "coaches", label: "Coaches" },
+  { id: "coaches", label: "About Sam" },
   { id: "ready-to-start", label: "Get Started" },
 ];
 
@@ -89,14 +81,14 @@ export default function CoachingPage() {
             provider: {
               "@type": "Person",
               name: "Sam Morris",
-              jobTitle: "Head Pro & Director of Programming",
+              jobTitle: "Professional Pickleball Coach",
             },
             areaServed: {
-              "@type": "City",
-              name: "Rockville, MD",
+              "@type": "AdministrativeArea",
+              name: "Montgomery County, MD",
             },
             description:
-              "One-on-one private pickleball lessons with PPR-certified coach Sam Morris at Dill Dinkers. Court time included.",
+              "One-on-one private pickleball lessons with PPR-certified coach Sam Morris in Montgomery County, MD.",
             offers: [
               {
                 "@type": "Offer",
@@ -122,25 +114,25 @@ export default function CoachingPage() {
           __html: JSON.stringify({
             "@context": "https://schema.org",
             "@type": "HowTo",
-            name: "How to Book Pickleball Coaching at Dill Dinkers",
+            name: "How to Book Pickleball Coaching with Sam Morris",
             step: [
               {
                 "@type": "HowToStep",
-                text: "Browse the clinic schedule for your preferred Dill Dinkers location.",
+                text: "Choose a single lesson or a 4-session package.",
               },
               {
                 "@type": "HowToStep",
-                text: "Book a coached open play session for coaching during live games.",
+                text: "Book and pay through the Stripe Payment Link.",
               },
               {
                 "@type": "HowToStep",
-                text: "Schedule a private lesson for one-on-one attention with a certified coach.",
+                text: "Schedule your session with Coach Sam after purchase.",
               },
             ],
           }),
         }}
       />
-      {/* Coaching Team Person Schema */}
+      {/* Coach Person Schema */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -150,10 +142,6 @@ export default function CoachingPage() {
               "@type": "Person",
               name: coach.name,
               jobTitle: coach.role,
-              worksFor: {
-                "@type": "SportsActivityLocation",
-                name: "Dill Dinkers",
-              },
               ...(coach.email && { email: coach.email }),
               ...(coach.phone && { telephone: coach.phone }),
             })),
@@ -170,26 +158,18 @@ export default function CoachingPage() {
             mainEntity: [
               {
                 "@type": "Question",
-                name: "How much do private pickleball lessons cost at Dill Dinkers?",
+                name: "How much do private pickleball lessons with Sam Morris cost?",
                 acceptedAnswer: {
                   "@type": "Answer",
-                  text: "Private 1-on-1 pickleball lessons with Sam Morris are $130 per session or $400 for a 4-session package ($100/session). Court time is included. Book at sammorrispb.com/programs/coaching.",
+                  text: "Private 1-on-1 pickleball lessons with Sam Morris are $130 per session or $400 for a 4-session package ($100/session). Book at sammorrispb.com/programs/coaching.",
                 },
               },
               {
                 "@type": "Question",
-                name: "What is the difference between coached open play and clinics?",
+                name: "How do I find a pickleball coach in Montgomery County, MD?",
                 acceptedAnswer: {
                   "@type": "Answer",
-                  text: "Coached open play provides real-time feedback during live games — great for players who learn through playing. Clinics are drill-focused sessions that build muscle memory on specific techniques like serves, volleys, and dinks. Both are available at Dill Dinkers Rockville and North Bethesda.",
-                },
-              },
-              {
-                "@type": "Question",
-                name: "How do I find a pickleball coach near Rockville or Bethesda?",
-                acceptedAnswer: {
-                  "@type": "Answer",
-                  text: "Dill Dinkers Rockville and North Bethesda have a team of certified coaches on staff. Sam Morris (Head Pro, PPR/DUPR certified) leads the coaching team along with 5 additional coaches. Visit sammorrispb.com/programs/coaching to see coach profiles and book lessons.",
+                  text: "Sam Morris is a PPR/DUPR-certified pickleball coach serving Montgomery County, MD. Visit sammorrispb.com/programs/coaching to book lessons.",
                 },
               },
             ],
@@ -204,7 +184,7 @@ export default function CoachingPage() {
             "@context": "https://schema.org",
             "@type": "VideoObject",
             name: "Pickleball Coaching Tips with Sam Morris",
-            description: "Professional pickleball coaching tips, drills, and strategy from PPR-certified coach Sam Morris at Dill Dinkers in Montgomery County, MD.",
+            description: "Professional pickleball coaching tips, drills, and strategy from PPR-certified coach Sam Morris in Montgomery County, MD.",
             thumbnailUrl: "https://www.sammorrispb.com/images/sam-court-smile.jpg",
             uploadDate: "2025-01-01",
             contentUrl: "https://youtube.com/@sammorris.pb8",
@@ -230,7 +210,7 @@ export default function CoachingPage() {
                 Coaching &amp; <span className="gradient-text-sm">Clinics</span>
               </h1>
               <p className="text-text-muted text-lg md:text-xl max-w-xl">
-                Your complete guide to coaching programs in Rockville and North Bethesda.
+                Private lessons and clinics with PPR-certified Coach Sam Morris in Montgomery County, MD.
               </p>
             </div>
             <div className="shrink-0 hidden md:block">
@@ -241,28 +221,6 @@ export default function CoachingPage() {
                 height={340}
                 className="rounded-2xl glow-border-sm object-cover"
               />
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Location Quick Links */}
-      <section id="location-links" className="py-12 px-6 scroll-mt-28">
-        <div className="mx-auto max-w-4xl grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div className="card-sm p-6">
-            <h2 className="font-heading font-bold text-xl mb-3">Rockville</h2>
-            <div className="flex flex-wrap gap-3">
-              <TrackedExternalLink href={WIDGET_URLS.rockville.clinics} label="Clinics — Rockville" page="coaching" className="text-[#4DACD0] hover:text-[#3b82f6] transition-colors font-semibold text-sm">Clinics</TrackedExternalLink>
-              <span className="text-white/20">&middot;</span>
-              <TrackedExternalLink href={WIDGET_URLS.rockville.coachedOpenPlay} label="COP — Rockville" page="coaching" className="text-[#4DACD0] hover:text-[#3b82f6] transition-colors font-semibold text-sm">Coached Open Play</TrackedExternalLink>
-            </div>
-          </div>
-          <div className="card-sm p-6">
-            <h2 className="font-heading font-bold text-xl mb-3">North Bethesda</h2>
-            <div className="flex flex-wrap gap-3">
-              <TrackedExternalLink href={WIDGET_URLS.northBethesda.clinics} label="Classes — North Bethesda" page="coaching" className="text-[#4DACD0] hover:text-[#3b82f6] transition-colors font-semibold text-sm">Classes</TrackedExternalLink>
-              <span className="text-white/20">&middot;</span>
-              <TrackedExternalLink href={WIDGET_URLS.northBethesda.coachedOpenPlay} label="COP — North Bethesda" page="coaching" className="text-[#4DACD0] hover:text-[#3b82f6] transition-colors font-semibold text-sm">Coached Open Play</TrackedExternalLink>
             </div>
           </div>
         </div>
@@ -294,45 +252,6 @@ export default function CoachingPage() {
                   height={200}
                   className="rounded-xl glow-border-sm object-cover w-full h-full"
                 />
-              </div>
-            </div>
-          </AnimateOnScroll>
-        </div>
-      </section>
-
-      {/* COP vs Clinics */}
-      <section id="cop-vs-clinics" className="py-16 px-6 scroll-mt-28">
-        <div className="mx-auto max-w-4xl">
-          <AnimateOnScroll>
-            <h2 className="font-heading text-2xl md:text-3xl mb-8">
-              Coached Open Play vs. Clinics
-            </h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div className="card-sm p-6" style={{ borderTop: "3px solid #4DACD0" }}>
-                <h3 className="font-heading font-bold text-lg mb-3">Coached Open Play</h3>
-                <p className="text-[#4DACD0] text-sm font-semibold mb-3">Gameplay-Based Learning</p>
-                <ul className="space-y-2 text-text-muted text-sm">
-                  <li>Real-time feedback during live games</li>
-                  <li>Strategic advice for match situations</li>
-                  <li>Quick technical corrections between points</li>
-                  <li>Partner rotation and competitive play</li>
-                </ul>
-                <p className="text-text-muted text-xs mt-4 italic">
-                  Best for players who learn through playing
-                </p>
-              </div>
-              <div className="card-sm p-6" style={{ borderTop: "3px solid #22c55e" }}>
-                <h3 className="font-heading font-bold text-lg mb-3">Clinics</h3>
-                <p className="text-[#22c55e] text-sm font-semibold mb-3">Drill-Focused Training</p>
-                <ul className="space-y-2 text-text-muted text-sm">
-                  <li>Repetitive drills to build muscle memory</li>
-                  <li>Isolated skill development (serves, volleys, dinks)</li>
-                  <li>Progressive difficulty levels</li>
-                  <li>Strategy-specific training (drops, transitions)</li>
-                </ul>
-                <p className="text-text-muted text-xs mt-4 italic">
-                  Best for focused practice on specific techniques
-                </p>
               </div>
             </div>
           </AnimateOnScroll>
@@ -395,45 +314,16 @@ export default function CoachingPage() {
         </div>
       </section>
 
-      {/* Group Coaching */}
-      <section id="group-coaching" className="py-16 px-6 scroll-mt-28">
-        <div className="mx-auto max-w-4xl">
-          <AnimateOnScroll>
-            <h2 className="font-heading text-2xl md:text-3xl mb-8">Group Coaching Programs</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              <div>
-                <h3 className="font-heading font-bold text-xl mb-4">Rockville</h3>
-                <p className="text-text-muted text-sm mb-4">40C Southlawn Court, Rockville, MD 20850</p>
-                <div className="space-y-3">
-                  <TrackedExternalLink href={WIDGET_URLS.rockville.clinics} label="Browse All Clinics — Rockville" page="coaching" className="block text-[#4DACD0] hover:text-[#3b82f6] transition-colors font-semibold text-sm">Browse All Clinics &rarr;</TrackedExternalLink>
-                  <TrackedExternalLink href={WIDGET_URLS.rockville.coachedOpenPlay} label="COP — Rockville" page="coaching" className="block text-[#4DACD0] hover:text-[#3b82f6] transition-colors font-semibold text-sm">Coached Open Play &rarr;</TrackedExternalLink>
-                  <TrackedExternalLink href={WIDGET_URLS.rockville.allEvents} label="All Events — Rockville" page="coaching" className="block text-[#4DACD0] hover:text-[#3b82f6] transition-colors font-semibold text-sm">All Events &rarr;</TrackedExternalLink>
-                </div>
-              </div>
-              <div>
-                <h3 className="font-heading font-bold text-xl mb-4">North Bethesda</h3>
-                <p className="text-text-muted text-sm mb-4">4942 Boiling Brook Pkwy, North Bethesda, MD 20852</p>
-                <div className="space-y-3">
-                  <TrackedExternalLink href={WIDGET_URLS.northBethesda.clinics} label="Browse All Classes — NB" page="coaching" className="block text-[#4DACD0] hover:text-[#3b82f6] transition-colors font-semibold text-sm">Browse All Classes &rarr;</TrackedExternalLink>
-                  <TrackedExternalLink href={WIDGET_URLS.northBethesda.coachedOpenPlay} label="COP — North Bethesda" page="coaching" className="block text-[#4DACD0] hover:text-[#3b82f6] transition-colors font-semibold text-sm">Coached Open Play &rarr;</TrackedExternalLink>
-                  <TrackedExternalLink href={WIDGET_URLS.northBethesda.allEvents} label="All Events — North Bethesda" page="coaching" className="block text-[#4DACD0] hover:text-[#3b82f6] transition-colors font-semibold text-sm">All Events &rarr;</TrackedExternalLink>
-                </div>
-              </div>
-            </div>
-          </AnimateOnScroll>
-        </div>
-      </section>
-
       {/* Meet Our Coaches */}
       <section id="coaches" className="py-16 px-6 scroll-mt-28">
         <div className="mx-auto max-w-4xl">
           <AnimateOnScroll>
-            <h2 className="font-heading text-2xl md:text-3xl mb-8">Meet Our Coaches</h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <h2 className="font-heading text-2xl md:text-3xl mb-8">About Coach Sam</h2>
+            <div className="grid grid-cols-1 gap-6 max-w-2xl mx-auto">
               {COACHES.map((coach) => (
                 <div
                   key={coach.name}
-                  className={`card-sm p-6 ${coach.isHead ? "sm:col-span-2 lg:col-span-1" : ""}`}
+                  className="card-sm p-6"
                   style={{ borderLeft: `4px solid ${coach.color}` }}
                 >
                   {coach.isHead && (
@@ -482,9 +372,9 @@ export default function CoachingPage() {
           <div className="card-sm p-8">
             <h2 className="font-heading font-bold text-xl mb-4 text-center">Ready to Start?</h2>
             <ol className="space-y-2 text-text-muted text-sm list-decimal list-inside max-w-md mx-auto">
-              <li><strong className="text-text-primary">Browse the clinic schedule</strong> for your preferred location</li>
-              <li><strong className="text-text-primary">Book a coached open play session</strong> for coaching during live games</li>
-              <li><strong className="text-text-primary">Schedule a private lesson</strong> for one-on-one attention</li>
+              <li><strong className="text-text-primary">Book a single lesson</strong> to try out coaching</li>
+              <li><strong className="text-text-primary">Pick up the 4-pack</strong> for the best per-session rate</li>
+              <li><strong className="text-text-primary">Schedule your sessions</strong> after purchase</li>
             </ol>
           </div>
         </div>
@@ -511,10 +401,7 @@ export default function CoachingPage() {
 
       {/* Bottom Nav */}
       <section className="py-12 px-6">
-        <div className="mx-auto max-w-3xl flex justify-between items-center">
-          <Link href="/programs/coached-open-play" className="text-[#4DACD0] hover:text-[#3b82f6] transition-colors font-semibold text-sm">
-            &larr; Coached Open Play
-          </Link>
+        <div className="mx-auto max-w-3xl flex justify-end items-center">
           <TrackedExternalLink href="https://tournamentwebsite.vercel.app/" label="Tournaments" page="coaching" className="text-[#4DACD0] hover:text-[#3b82f6] transition-colors font-semibold text-sm">
             Tournaments &rarr;
           </TrackedExternalLink>

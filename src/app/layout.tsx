@@ -70,7 +70,6 @@ export const metadata: Metadata = {
     "pickleball league Rockville MD",
     "new to pickleball DC Maryland Virginia",
     "beginner pickleball class near me",
-    "Dill Dinkers pickleball",
   ],
   alternates: {
     canonical: SITE_URL,
@@ -83,7 +82,7 @@ export const metadata: Metadata = {
     title:
       "Sam Morris — Pickleball Coach in Montgomery County, MD | Adults, Families & Kids",
     description:
-      "Professional pickleball coaching for adults, families, and kids in Montgomery County, MD. Private lessons, youth academy, and community programs in Rockville & North Bethesda.",
+      "Professional pickleball coaching for adults, families, and kids in Montgomery County, MD. Private lessons, youth academy, and community programs.",
     images: [
       {
         url: "/images/sam-portrait-with-paddle.jpg",
@@ -98,7 +97,7 @@ export const metadata: Metadata = {
     title:
       "Sam Morris — Pickleball Coach in Montgomery County, MD",
     description:
-      "Professional pickleball coaching for adults, families, and kids. Private lessons, youth academy & community programs in Rockville & North Bethesda, MD.",
+      "Professional pickleball coaching for adults, families, and kids. Private lessons, youth academy, and community programs in Montgomery County, MD.",
     images: ["/images/sam-portrait-with-paddle.jpg"],
   },
   robots: {
@@ -137,9 +136,9 @@ export default function RootLayout({
               "@type": "Person",
               "@id": "https://www.sammorrispb.com/#person",
               name: "Sam Morris",
-              jobTitle: "Professional Pickleball Coach & Director of Programming",
+              jobTitle: "Professional Pickleball Coach",
               description:
-                "PPR-certified professional pickleball coach in Montgomery County, MD. Specializes in coaching adults, families, and kids ages 5-16 at Dill Dinkers Rockville and North Bethesda.",
+                "PPR-certified professional pickleball coach in Montgomery County, MD. Specializes in coaching adults, families, and kids ages 5-16.",
               email: "sam.morris2131@gmail.com",
               telephone: "301-325-4731",
               address: {
@@ -201,7 +200,7 @@ export default function RootLayout({
               "@id": "https://www.sammorrispb.com/#location",
               name: "Sam Morris Pickleball Coaching",
               description:
-                "Professional pickleball coaching for adults, families, and kids in Montgomery County, MD. Private lessons, group clinics, youth academy programs, and skill evaluations at Dill Dinkers Rockville and North Bethesda.",
+                "Professional pickleball coaching for adults, families, and kids in Montgomery County, MD. Private lessons, group clinics, youth academy programs, and skill evaluations.",
               url: "https://www.sammorrispb.com",
               telephone: "301-325-4731",
               email: "sam.morris2131@gmail.com",
@@ -232,42 +231,6 @@ export default function RootLayout({
                 { "@type": "City", name: "McLean, VA" },
                 { "@type": "City", name: "Tysons, VA" },
                 { "@type": "City", name: "Reston, VA" },
-              ],
-              location: [
-                {
-                  "@type": "Place",
-                  name: "Dill Dinkers Rockville",
-                  address: {
-                    "@type": "PostalAddress",
-                    streetAddress: "40C Southlawn Court",
-                    addressLocality: "Rockville",
-                    addressRegion: "MD",
-                    postalCode: "20850",
-                    addressCountry: "US",
-                  },
-                  geo: {
-                    "@type": "GeoCoordinates",
-                    latitude: 39.0753,
-                    longitude: -77.1249,
-                  },
-                },
-                {
-                  "@type": "Place",
-                  name: "Dill Dinkers North Bethesda",
-                  address: {
-                    "@type": "PostalAddress",
-                    streetAddress: "4942 Boiling Brook Pkwy",
-                    addressLocality: "North Bethesda",
-                    addressRegion: "MD",
-                    postalCode: "20852",
-                    addressCountry: "US",
-                  },
-                  geo: {
-                    "@type": "GeoCoordinates",
-                    latitude: 39.0334,
-                    longitude: -77.1144,
-                  },
-                },
               ],
               hasOfferCatalog: {
                 "@type": "OfferCatalog",
@@ -410,7 +373,7 @@ export default function RootLayout({
                   name: "Where can I take pickleball lessons in Montgomery County, MD?",
                   acceptedAnswer: {
                     "@type": "Answer",
-                    text: "Sam Morris offers professional pickleball coaching at Dill Dinkers Rockville and Dill Dinkers North Bethesda. Private lessons, group clinics, and youth academy programs are available for all skill levels — from complete beginners to 5.0+ players. Visit sammorrispb.com/contact to book a free evaluation.",
+                    text: "Sam Morris offers professional pickleball coaching across Montgomery County, MD. Private lessons, group clinics, and youth academy programs are available for all skill levels — from complete beginners to 5.0+ players. Visit sammorrispb.com/contact to book a free evaluation.",
                   },
                 },
                 {
@@ -434,15 +397,7 @@ export default function RootLayout({
                   name: "How much do private pickleball lessons cost in Montgomery County?",
                   acceptedAnswer: {
                     "@type": "Answer",
-                    text: "Sam Morris offers private 1-on-1 pickleball lessons with video analysis and custom practice plans. Lessons are $130 per session or $400 for a 4-session package ($100/session). Skill evaluations start at $15 per person (free for Dill Dinkers members). Visit sammorrispb.com/programs to book or contact Sam at 301-325-4731.",
-                  },
-                },
-                {
-                  "@type": "Question",
-                  name: "Where can I play indoor pickleball in Montgomery County, MD?",
-                  acceptedAnswer: {
-                    "@type": "Answer",
-                    text: "Dill Dinkers operates indoor pickleball facilities in Rockville and North Bethesda, both in Montgomery County, MD. Sam Morris directs programming at both locations, which together offer 17 courts for lessons, open play, leagues, and tournaments year-round.",
+                    text: "Sam Morris offers private 1-on-1 pickleball lessons with video analysis and custom practice plans. Lessons are $130 per session or $400 for a 4-session package ($100/session). Visit sammorrispb.com/programs to book or contact Sam at 301-325-4731.",
                   },
                 },
                 {

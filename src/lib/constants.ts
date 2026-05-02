@@ -1,7 +1,6 @@
 export const NAV_LINKS = [
   { label: "About", href: "/about" },
   { label: "Programs", href: "/programs" },
-  { label: "Facilities", href: "/locations" },
   { label: "Blog", href: "/blog" },
   { label: "Contact", href: "/contact" },
 ] as const;
@@ -18,7 +17,6 @@ export const SOCIAL_LINKS = [
 import type { FamilyDest } from "./urls";
 
 export const FAMILY_LINKS: ReadonlyArray<{ label: string; dest: FamilyDest }> = [
-  { label: "Link & Dink", dest: "linkanddink" },
   { label: "Next Gen Academy", dest: "nga" },
   { label: "MoCo PB", dest: "mocopb" },
   { label: "Tournament Series", dest: "tournaments" },
@@ -34,12 +32,7 @@ export const ANNOUNCEMENT: {
   message: string;
   href?: string;
   linkText?: string;
-} | null = {
-  id: "spring-2026",
-  message: "Spring 2026 sessions are open for registration!",
-  href: "/locations#programs",
-  linkText: "View Schedule",
-};
+} | null = null;
 
 export const INTEREST_OPTIONS = [
   "Free Evaluation",

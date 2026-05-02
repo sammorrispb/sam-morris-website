@@ -1,20 +1,18 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import Link from "next/link";
 import { AnimateOnScroll } from "@/components/AnimateOnScroll";
 import { BackToTop } from "@/components/BackToTop";
 import { TrackedExternalLink } from "@/components/TrackedExternalLink";
 import { ScrollDepthTracker } from "@/components/ScrollDepthTracker";
-import { breadcrumbJsonLd, faqJsonLd, eventJsonLd } from "@/lib/seo";
+import { breadcrumbJsonLd, faqJsonLd } from "@/lib/seo";
 import { RelatedPrograms } from "@/components/RelatedPrograms";
 import { getTestimonialsByProgram } from "@/lib/testimonials";
 import { TestimonialGrid } from "@/components/TestimonialGrid";
-import { crUrl } from "@/lib/urls";
 
 export const metadata: Metadata = {
-  title: "Youth & Junior Programs — Next Gen Academy at Dill Dinkers",
+  title: "Youth & Junior Programs — Next Gen Academy",
   description:
-    "Youth and junior pickleball programs at Dill Dinkers. Next Gen Academy sessions, summer camp, and junior coaching in Rockville and North Bethesda.",
+    "Next Gen Academy youth pickleball programs in Montgomery County, MD. Multi-week sessions and summer camps for kids ages 5-16.",
   keywords: [
     "kids pickleball lessons Rockville",
     "youth pickleball Montgomery County",
@@ -29,14 +27,14 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Youth & Junior Programs — Next Gen Academy",
     description:
-      "Youth pickleball academy, summer camp, and junior coaching at Dill Dinkers Rockville and North Bethesda.",
+      "Next Gen Academy youth pickleball programs and summer camps in Montgomery County, MD.",
     url: "https://www.sammorrispb.com/programs/youth",
     images: [
       {
         url: "/og?title=Youth%20%26%20Junior%20Programs&subtitle=Next%20Gen%20Academy%20%C2%B7%20Summer%20Camp%20%C2%B7%20Ages%205-16",
         width: 1200,
         height: 630,
-        alt: "Youth & Junior Pickleball Programs at Dill Dinkers",
+        alt: "Youth & Junior Pickleball Programs — Next Gen Academy",
       },
     ],
   },
@@ -73,26 +71,6 @@ const LEVELS = [
   },
 ];
 
-const SUMMER_CAMP_DATES = [
-  { start: "2026-06-29", end: "2026-07-03" },
-  { start: "2026-07-06", end: "2026-07-10" },
-  { start: "2026-07-13", end: "2026-07-17" },
-  { start: "2026-07-20", end: "2026-07-24" },
-  { start: "2026-07-27", end: "2026-07-31" },
-  { start: "2026-08-03", end: "2026-08-07" },
-  { start: "2026-08-10", end: "2026-08-14" },
-];
-
-const SUMMER_CAMP_WEEKS = [
-  { week: "Week 1", dates: "June 29 – July 3", url: "https://app.courtreserve.com/online/publicbookings/10483?tab=explore&eventId=1910295&reservationId=48742136" },
-  { week: "Week 2", dates: "July 6 – 10", url: "https://app.courtreserve.com/online/publicbookings/10483?tab=explore&eventId=1823568&reservationId=47572311" },
-  { week: "Week 3", dates: "July 13 – 17", url: "https://app.courtreserve.com/online/publicbookings/10483?tab=explore&eventId=1823577&reservationId=47572594" },
-  { week: "Week 4", dates: "July 20 – 24", url: "https://app.courtreserve.com/online/publicbookings/10483?tab=explore&eventId=1823579&reservationId=47572641" },
-  { week: "Week 5", dates: "July 27 – 31", url: "https://app.courtreserve.com/online/publicbookings/10483?tab=explore&eventId=1910312&reservationId=48742447" },
-  { week: "Week 6", dates: "August 3 – 7", url: "https://app.courtreserve.com/online/publicbookings/10483?tab=explore&eventId=1823592&reservationId=47572852" },
-  { week: "Week 7", dates: "August 10 – 14", url: "https://app.courtreserve.com/online/publicbookings/10483?tab=explore&eventId=1823597&reservationId=47572934" },
-];
-
 export default function YouthPage() {
 
   return (
@@ -117,19 +95,14 @@ export default function YouthPage() {
           __html: JSON.stringify(
             faqJsonLd([
               {
-                question: "What age can kids start pickleball at Dill Dinkers?",
+                question: "What age can kids start pickleball at Next Gen Academy?",
                 answer:
                   "Kids can start as young as age 5 in the Red Ball level at Next Gen Academy. The program has four progressive levels: Red Ball (5+), Orange Ball (7+), Green Ball (9+), and Yellow Ball (11+).",
               },
               {
                 question: "How much does Next Gen Academy cost?",
                 answer:
-                  "Next Gen Academy sessions run in multi-week seasons at Dill Dinkers Rockville and North Bethesda. Visit nextgenpbacademy.com or contact Sam Morris for current pricing and registration.",
-              },
-              {
-                question: "Does Dill Dinkers offer pickleball summer camp for kids?",
-                answer:
-                  "Yes. Next Gen Academy runs summer camp sessions for kids at Dill Dinkers. Camps are grouped by age and skill level with structured coaching, games, and match play.",
+                  "Next Gen Academy sessions run in multi-week seasons in Montgomery County, MD. Visit nextgenpbacademy.com for current pricing and registration.",
               },
             ])
           ),
@@ -177,64 +150,6 @@ export default function YouthPage() {
           }),
         }}
       />
-      {/* Event Schema — Summer Camp Weeks */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(
-            SUMMER_CAMP_WEEKS.map((week, i) => ({
-              "@context": "https://schema.org",
-              "@type": "Event",
-              name: `Next Gen Summer Camp — ${week.week}`,
-              description: "Week-long pickleball summer camp for ages 6-16 at Dill Dinkers North Bethesda.",
-              startDate: SUMMER_CAMP_DATES[i].start,
-              endDate: SUMMER_CAMP_DATES[i].end,
-              eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
-              eventStatus: "https://schema.org/EventScheduled",
-              location: {
-                "@type": "Place",
-                name: "Dill Dinkers North Bethesda",
-                address: {
-                  "@type": "PostalAddress",
-                  streetAddress: "4942 Boiling Brook Pkwy",
-                  addressLocality: "North Bethesda",
-                  addressRegion: "MD",
-                  postalCode: "20852",
-                  addressCountry: "US",
-                },
-              },
-              organizer: { "@type": "Person", name: "Sam Morris" },
-              offers: {
-                "@type": "Offer",
-                url: week.url,
-                availability: "https://schema.org/InStock",
-                priceCurrency: "USD",
-              },
-            }))
-          ),
-        }}
-      />
-      {/* Event Schema — Little Dill Academy */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(eventJsonLd({
-            name: "Little Dill Academy — Spring Break Camp",
-            description: "Half coaching, half STEM/art/fitness spring break camp for ages 5-13 at Dill Dinkers North Bethesda.",
-            startDate: "2026-03-30",
-            endDate: "2026-04-03",
-            location: {
-              name: "Dill Dinkers North Bethesda",
-              address: "4942 Boiling Brook Pkwy",
-              city: "North Bethesda",
-              state: "MD",
-              zip: "20852",
-            },
-            price: "50.00",
-            organizer: "Sam Morris",
-          })),
-        }}
-      />
       <ScrollDepthTracker page="youth" />
       <BackToTop />
 
@@ -254,8 +169,8 @@ export default function YouthPage() {
           </h1>
           <p className="text-text-muted text-lg md:text-xl max-w-2xl mx-auto">
             Next Gen Academy brings age-appropriate pickleball coaching to young
-            athletes at Dill Dinkers Rockville and North Bethesda. Four progressive
-            levels from first-timers to competitive juniors.
+            athletes in Montgomery County, MD. Four progressive levels from
+            first-timers to competitive juniors.
           </p>
         </div>
       </section>
@@ -326,107 +241,10 @@ export default function YouthPage() {
               </div>
             </div>
             <p className="text-text-muted text-xs font-semibold italic">
-              Schedules are subject to change. Please check your CourtReserve
+              Schedules are subject to change. Please check your registration
               confirmation email for accurate session times.
             </p>
           </div>
-        </div>
-      </section>
-
-      {/* Little Dill Academy — Spring Break */}
-      <section className="py-16 px-6">
-        <div className="mx-auto max-w-4xl">
-          <AnimateOnScroll>
-            <h2 className="font-heading text-2xl md:text-3xl mb-2">Little Dill Academy</h2>
-            <p className="text-text-muted text-sm mb-6">
-              Spring Break Camp &middot; Dill Dinkers North Bethesda &middot; Ages 5&ndash;13
-            </p>
-
-            <div className="card-ng p-6 space-y-5">
-              <p className="text-text-muted text-sm leading-relaxed">
-                Get ready for an action-packed week at Dill Dinkers North Bethesda!
-                Players spend half the day with a certified coach focusing on
-                pickleball skills and drills, and the other half with a certified
-                school teacher learning and experimenting with STEM projects, art,
-                and fitness. Equipment, dedicated courts, and healthy snacks included.
-              </p>
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
-                <div>
-                  <p className="text-text-muted mb-1 font-semibold text-xs uppercase tracking-wide">When</p>
-                  <p className="text-text-primary">March 30 &ndash; April 3, 2026</p>
-                  <p className="text-text-muted">Mon&ndash;Fri &middot; 9:30 AM &ndash; 12:30 PM</p>
-                </div>
-                <div>
-                  <p className="text-text-muted mb-1 font-semibold text-xs uppercase tracking-wide">Where</p>
-                  <p className="text-text-primary">Dill Dinkers North Bethesda</p>
-                  <p className="text-text-muted">4942 Boiling Brook Pkwy</p>
-                </div>
-              </div>
-
-              <div>
-                <p className="text-text-muted mb-2 font-semibold text-xs uppercase tracking-wide">Pricing</p>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm">
-                  <div className="rounded-lg bg-white/[0.03] border border-white/10 p-3">
-                    <p className="font-semibold text-text-primary">Drop-In (per day)</p>
-                    <p className="text-text-muted">$50 members &middot; $60 non-members</p>
-                  </div>
-                  <div className="rounded-lg bg-white/[0.03] border border-white/10 p-3">
-                    <p className="font-semibold text-text-primary">Full Week</p>
-                    <p className="text-text-muted">$250 members &middot; $300 non-members</p>
-                  </div>
-                </div>
-              </div>
-
-              <div className="text-center pt-2">
-                <TrackedExternalLink
-                  href={crUrl("https://app.courtreserve.com/Online/Events/Public/10483/1836399")}
-                  label="Register — Little Dill Academy"
-                  page="youth"
-                  className="inline-block text-white font-heading font-semibold px-8 py-3 rounded-lg btn-ng"
-                >
-                  Register Now
-                </TrackedExternalLink>
-              </div>
-            </div>
-          </AnimateOnScroll>
-        </div>
-      </section>
-
-      {/* Summer Camp */}
-      <section className="py-16 px-6">
-        <div className="mx-auto max-w-4xl">
-          <AnimateOnScroll>
-            <h2 className="font-heading text-2xl md:text-3xl mb-2">Summer Camp</h2>
-            <p className="text-text-muted text-sm mb-6">
-              Dill Dinkers North Bethesda &middot; Ages 6&ndash;16
-            </p>
-
-            <div className="card-ng p-6">
-                <h3 className="font-heading text-lg mb-4">Summer 2026 Schedule</h3>
-                <div className="space-y-3">
-                  {SUMMER_CAMP_WEEKS.map((week) => (
-                    <div
-                      key={week.week}
-                      className="flex items-center justify-between gap-4 text-sm border-b border-white/5 pb-3 last:border-0 last:pb-0"
-                    >
-                      <div>
-                        <span className="font-semibold text-text-primary">{week.week}</span>
-                        <span className="text-text-muted ml-2">{week.dates}</span>
-                      </div>
-                      <TrackedExternalLink
-                        href={crUrl(week.url)}
-                        label={`Summer Camp — ${week.week}`}
-                        page="youth"
-                        className="font-semibold text-[#22c55e] hover:text-[#4ade80] transition-colors shrink-0"
-                      >
-                        Register
-                      </TrackedExternalLink>
-                    </div>
-                  ))}
-                </div>
-              </div>
-          </AnimateOnScroll>
         </div>
       </section>
 
@@ -490,7 +308,7 @@ export default function YouthPage() {
           <div className="space-y-6">
             <div>
               <h3 className="font-heading font-semibold text-lg mb-2">
-                What age can kids start pickleball at Dill Dinkers?
+                What age can kids start pickleball at Next Gen Academy?
               </h3>
               <p className="text-text-muted leading-relaxed">
                 Kids can start as young as age 5 in the Red Ball level at Next Gen
@@ -503,19 +321,9 @@ export default function YouthPage() {
                 How much does Next Gen Academy cost?
               </h3>
               <p className="text-text-muted leading-relaxed">
-                Next Gen Academy sessions run in multi-week seasons at Dill Dinkers
-                Rockville and North Bethesda. Visit nextgenpbacademy.com or contact
-                Sam Morris for current pricing and registration.
-              </p>
-            </div>
-            <div>
-              <h3 className="font-heading font-semibold text-lg mb-2">
-                Does Dill Dinkers offer pickleball summer camp for kids?
-              </h3>
-              <p className="text-text-muted leading-relaxed">
-                Yes. Next Gen Academy runs summer camp sessions for kids at Dill
-                Dinkers. Camps are grouped by age and skill level with structured
-                coaching, games, and match play.
+                Next Gen Academy sessions run in multi-week seasons in Montgomery
+                County, MD. Visit nextgenpbacademy.com for current pricing and
+                registration.
               </p>
             </div>
           </div>
@@ -526,21 +334,15 @@ export default function YouthPage() {
 
       {/* Bottom Nav */}
       <section className="py-12 px-6">
-        <div className="mx-auto max-w-3xl flex justify-between items-center">
+        <div className="mx-auto max-w-3xl flex justify-end items-center">
           <TrackedExternalLink
             href="https://tournamentwebsite.vercel.app/"
             label="Tournaments"
             page="youth"
             className="text-[#22c55e] hover:text-[#4ade80] transition-colors font-semibold text-sm"
           >
-            &larr; Tournaments
+            Tournaments &rarr;
           </TrackedExternalLink>
-          <Link
-            href="/programs/hub"
-            className="text-[#22c55e] hover:text-[#4ade80] transition-colors font-semibold text-sm"
-          >
-            Program Hub &rarr;
-          </Link>
         </div>
       </section>
     </div>

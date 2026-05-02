@@ -1,16 +1,14 @@
 import type { Metadata } from "next";
 import { AnimateOnScroll } from "@/components/AnimateOnScroll";
 import { BackToTop } from "@/components/BackToTop";
-import { TrackedExternalLink } from "@/components/TrackedExternalLink";
 import { TrackedLink } from "@/components/TrackedLink";
 import { faqJsonLd } from "@/lib/seo";
 import { CONTACT } from "@/lib/constants";
-import { hubUrl } from "@/lib/urls";
 
 export const metadata: Metadata = {
   title: "Free Pickleball Rating Evaluation — DMV | Coach Sam Morris",
   description:
-    "Free 30-minute pickleball skill evaluation in the DMV. Get your rating, a personalized improvement plan, and a free Link & Dink account — with DUPR-certified Coach Sam Morris at Dill Dinkers Rockville & North Bethesda.",
+    "Free 30-minute pickleball skill evaluation in the DMV. Get your rating and a personalized improvement plan with DUPR-certified Coach Sam Morris in Montgomery County, MD.",
   keywords: [
     "pickleball rating evaluation DMV",
     "DUPR rating Maryland",
@@ -40,7 +38,7 @@ const STEPS = [
   {
     n: "1",
     title: "30-minute on-court session",
-    body: "Rally, dink, serve, and play points with Coach Sam at Dill Dinkers Rockville or North Bethesda.",
+    body: "Rally, dink, serve, and play points with Coach Sam in Montgomery County, MD.",
   },
   {
     n: "2",
@@ -49,8 +47,8 @@ const STEPS = [
   },
   {
     n: "3",
-    title: "Get placed in the right play",
-    body: "We route you to the right clinics, open play, and groups on Link & Dink so you stop guessing and start improving.",
+    title: "Get a clear next step",
+    body: "Walk away with the right drills to practice and a recommendation for clinics, lessons, or events that match your level.",
   },
 ];
 
@@ -61,7 +59,7 @@ const FAQS = [
   },
   {
     q: "What will I walk away with?",
-    a: "A skill rating, a short written improvement plan, and a free Link & Dink account that tracks your level and matches you to the right play over time.",
+    a: "A DUPR-aligned skill rating and a short written improvement plan you can take into clinics, lessons, or events.",
   },
   {
     q: "Do I need experience?",
@@ -69,7 +67,7 @@ const FAQS = [
   },
   {
     q: "Where does it happen?",
-    a: "Dill Dinkers Rockville or Dill Dinkers North Bethesda — whichever is closer. Both are indoor, year-round facilities.",
+    a: "On a court in Montgomery County, MD. We'll coordinate the location when we book the time.",
   },
 ];
 
@@ -124,7 +122,7 @@ export default function EvaluationPage() {
                 </a>
               </div>
               <p className="text-text-muted text-sm mt-6">
-                Dill Dinkers Rockville · Dill Dinkers North Bethesda
+                Montgomery County, MD
               </p>
             </div>
           </AnimateOnScroll>
@@ -179,17 +177,9 @@ export default function EvaluationPage() {
                 something. That&apos;s how improvement compounds.
               </p>
               <p className="text-text-muted text-lg leading-relaxed">
-                Your evaluation includes a free{" "}
-                <TrackedExternalLink
-                  href={hubUrl("/", { utm_campaign: "evaluation_lp" })}
-                  label="Link & Dink"
-                  page="evaluation"
-                  className="text-accent-blue hover:text-accent-pink underline"
-                >
-                  Link &amp; Dink
-                </TrackedExternalLink>{" "}
-                account so your rating travels with you — to clinics, open play,
-                leagues, and matches across the DMV.
+                Your evaluation gives you a clear, DUPR-aligned read on your
+                level so you can find clinics, open play, leagues, and matches
+                that fit you — across the DMV.
               </p>
             </div>
           </AnimateOnScroll>

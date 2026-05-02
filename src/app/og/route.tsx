@@ -96,7 +96,7 @@ export async function GET(request: NextRequest) {
             fontSize: 18,
           }}
         >
-          Montgomery County, MD · Dill Dinkers Rockville & North Bethesda
+          Montgomery County, MD
         </div>
       </div>
     ),

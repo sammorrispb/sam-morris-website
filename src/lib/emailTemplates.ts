@@ -1,45 +1,5 @@
 import { CONTACT } from "./constants";
 import { SINGLE_LESSON_LINK, FOUR_PACK_LINK, BOOKING_URL } from "./coaching";
-import { hubUrl as baseHubUrl } from "./urls";
-
-export function interestSlug(interest: string): string {
-  return interest.toLowerCase().replace(/[^a-z0-9]+/g, "_").replace(/^_|_$/g, "");
-}
-
-export function emailHubUrl(interest: string): string {
-  return baseHubUrl("/", { utm_medium: "email", utm_campaign: interestSlug(interest) });
-}
-
-export function emailSurveyUrl(interest: string): string {
-  const url = new URL(baseHubUrl("/", { utm_medium: "email", utm_campaign: `${interestSlug(interest)}_survey` }));
-  url.hash = "pd-survey";
-  return url.toString();
-}
-
-function hubCta(interest: string): string {
-  return `---
-Join Link & Dink — Find Events & Partners
-→ ${emailHubUrl(interest)}
-
-Browse upcoming events at Dill Dinkers Rockville & North Bethesda.
-No account needed to start exploring.
----`;
-}
-
-function hubCtaWithSurvey(interest: string): string {
-  return `---
-Join Link & Dink — Find Events & Partners
-→ ${emailHubUrl(interest)}
-
-Browse upcoming events at Dill Dinkers Rockville & North Bethesda.
-No account needed to start exploring.
-
-Looking for a specific playing partner? Take our matching survey:
-→ ${emailSurveyUrl(interest)}
----`;
-}
-
-const LND_MEMBER_NOTE = `Great to hear from a fellow Link & Dink member! I'll reach out directly.`;
 
 export const SIGN_OFF = `Looking forward to connecting!
 
@@ -48,7 +8,7 @@ ${CONTACT.phone}
 ${CONTACT.email}
 sammorrispb.com`;
 
-function coachingTemplate(name: string, includeLnd: boolean, interest: string): string {
+function coachingTemplate(name: string): string {
   return `Hi ${name},
 
 Thanks for reaching out about coaching — I'd love to help you level up your game.
@@ -63,12 +23,12 @@ Ready to book?
 Already purchased? Pick your time:
 → Schedule Your Lesson: ${BOOKING_URL}
 
-Or just reply with a few times that work and we'll set something up.${includeLnd ? `\n\n${hubCta(interest)}` : `\n\n${LND_MEMBER_NOTE}`}
+Or just reply with a few times that work and we'll set something up.
 
 ${SIGN_OFF}`;
 }
 
-function youthTemplate(name: string, _includeLnd: boolean, interest: string): string {
+function youthTemplate(name: string): string {
   return `Hi ${name},
 
 Thanks for your interest in youth programs! I run the Next Gen Pickleball Academy, designed to get kids ages 6-17 excited about the sport while building real skills.
@@ -79,77 +39,73 @@ Learn more about the academy:
 → https://nextgenpbacademy.com
 
 I also offer private lessons for juniors who want focused, one-on-one coaching:
-→ https://sammorrispb.com/programs/coaching?utm_source=website&utm_medium=email&utm_campaign=${interestSlug(interest)}
+→ https://sammorrispb.com/programs/coaching
 
 Reply here or visit the links above and we'll get something set up.
 
 ${SIGN_OFF}`;
 }
 
-function businessTemplate(name: string, includeLnd: boolean, interest: string): string {
+function businessTemplate(name: string): string {
   return `Hi ${name},
 
 Thanks for reaching out about a potential partnership — I appreciate your interest.
 
-I'm always open to exploring collaborations that help grow the community. Whether it's event sponsorship, facility partnerships, or something else entirely, I'd love to hear more about what you have in mind.
+I'm always open to exploring collaborations that help grow the community. Whether it's event sponsorship, youth program partnerships, or something else entirely, I'd love to hear more about what you have in mind.
 
-Would you be open to a quick call this week or next? Just reply with a couple of times that work and we'll find something.${includeLnd ? `\n\nFor context, I run a local pickleball community called Link & Dink with 900+ players across two Dill Dinkers locations in Montgomery County: ${emailHubUrl(interest)}` : ""}
+Would you be open to a quick call this week or next? Just reply with a couple of times that work and we'll find something.
 
 ${SIGN_OFF}`;
 }
 
-function socialTemplate(name: string, includeLnd: boolean, interest: string): string {
+function socialTemplate(name: string): string {
   return `Hi ${name},
 
 Great to hear you're looking for some social play! There are a lot of ways to get involved in the local scene, and I'd love to help you find the right fit.
 
-I organize regular community play sessions that are open to all skill levels — the vibe is relaxed, friendly, and focused on having a good time on the court.${includeLnd ? `\n\n${hubCtaWithSurvey(interest)}` : `\n\n${LND_MEMBER_NOTE}`}
+I organize community play sessions that are open to all skill levels — the vibe is relaxed, friendly, and focused on having a good time on the court. Reply with where you're located and what kind of play you're looking for, and I'll point you in the right direction.
 
 ${SIGN_OFF}`;
 }
 
-function competitiveTemplate(name: string, includeLnd: boolean, interest: string): string {
+function competitiveTemplate(name: string): string {
   return `Hi ${name},
 
 Thanks for reaching out about competitive play — love the drive to compete!
 
 I can help with skill assessments to dial in your current level, and I stay plugged into local and regional tournament schedules so I can point you in the right direction. If you're looking to sharpen specific parts of your game before competing, coaching sessions are a great complement.
 
-Let me know where you're at skill-wise and what your goals are, and I'll put together some recommendations.${includeLnd ? `\n\n${hubCtaWithSurvey(interest)}\n\nWe have competitive players in the community always looking for drilling partners and tournament teammates.` : `\n\n${LND_MEMBER_NOTE}`}
+Let me know where you're at skill-wise and what your goals are, and I'll put together some recommendations.
 
 ${SIGN_OFF}`;
 }
 
-function ambassadorTemplate(name: string, includeLnd: boolean, interest: string): string {
+function ambassadorTemplate(name: string): string {
   return `Hi ${name},
 
-Thanks for your interest in the Ambassador program — this is exactly how we grow the sport at the grassroots level.
+Thanks for your interest in growing the sport at the grassroots level.
 
-Ambassadors are player-organizer-coaches who help run events, welcome new players, and build community in their local area. It's a great fit for people who love the sport and want to be more involved in making it accessible to others.
-
-I'd love to tell you more about what the role looks like and what the next steps are. Want to set up a quick chat?${includeLnd ? `\n\nExplore the community you'll be helping to grow:\n→ ${emailHubUrl(interest)}` : `\n\n${LND_MEMBER_NOTE}`}
+I'd love to tell you more about how to get more involved as a player-organizer-coach in the local pickleball community. Want to set up a quick chat?
 
 ${SIGN_OFF}`;
 }
 
-function evaluationTemplate(name: string, _includeLnd: boolean, _interest: string): string {
+function evaluationTemplate(name: string): string {
   return `Hi ${name},
 
 Thanks for booking a free pickleball evaluation — looking forward to getting you on court.
 
 Here's what to expect:
-• 30 minutes at Dill Dinkers Rockville or North Bethesda (I'll pick based on your availability)
+• 30 minutes on a court in Montgomery County, MD (we'll coordinate the location)
 • We'll rally, dink, and play a few points so I can see where your game is
 • You leave with your rating, the two things to work on next, and the right games to jump into
 
 I'll reach out within 24 hours to lock in a time that works for you. If you want to speed it up, reply with a couple of windows that work this week or next.
 
-One note: every player I evaluate gets a free Link & Dink account so your rating and progress travel with you across the DMV pickleball scene.
-
 ${SIGN_OFF}`;
 }
 
-const TEMPLATE_MAP: Record<string, (name: string, includeLnd: boolean, interest: string) => string> = {
+const TEMPLATE_MAP: Record<string, (name: string) => string> = {
   "Free Evaluation": evaluationTemplate,
   "Coaching": coachingTemplate,
   "Youth Programs": youthTemplate,
@@ -162,9 +118,12 @@ const TEMPLATE_MAP: Record<string, (name: string, includeLnd: boolean, interest:
 export function generateEmailDraft(
   interest: string,
   name: string,
-  isLndMember: boolean
+  // Kept in signature for backward compat with existing callers; no longer
+  // changes the body since the Hub-only "L&D member" flow was retired
+  // 2026-05-02.
+  _isLndMember: boolean = false,
 ): string {
+  void _isLndMember;
   const templateFn = TEMPLATE_MAP[interest] ?? coachingTemplate;
-  const includeLnd = !isLndMember;
-  return templateFn(name, includeLnd, interest);
+  return templateFn(name);
 }
