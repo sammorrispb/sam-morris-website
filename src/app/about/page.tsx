@@ -206,7 +206,7 @@ export default function AboutPage() {
           <h2 className="font-heading font-bold text-3xl md:text-4xl mb-8 text-center">
             Projects
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 gap-6">
             <a
               href="https://nextgenpbacademy.com"
               target="_blank"
@@ -222,24 +222,6 @@ export default function AboutPage() {
               <p className="text-text-muted text-sm leading-relaxed">
                 Youth pickleball academy co-founded with Amine Lahlou, building
                 the next generation of players.
-              </p>
-            </a>
-
-            <a
-              href="https://tournamentwebsite.vercel.app/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="bg-navy-light glow-border rounded-xl p-6 text-center hover:scale-[1.02] transition-transform"
-            >
-              <div className="font-mono text-accent-pink text-sm uppercase tracking-wider mb-2">
-                Tournaments
-              </div>
-              <h3 className="font-heading font-bold text-lg mb-2">
-                Tournament Series
-              </h3>
-              <p className="text-text-muted text-sm leading-relaxed">
-                Competitive tournament events for players looking to test their
-                skills.
               </p>
             </a>
           </div>

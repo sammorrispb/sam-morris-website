@@ -6,7 +6,6 @@ import { usePathname } from "next/navigation";
 const PROGRAM_NAV: { href: string; label: string; external?: boolean }[] = [
   { href: "/programs/coaching", label: "Coaching & Clinics" },
   { href: "/evaluation", label: "Skill Evaluation" },
-  { href: "https://tournamentwebsite.vercel.app/", label: "Tournaments", external: true },
 ];
 
 const BRAND_MAP: Record<string, { brand: string; color: string }> = {

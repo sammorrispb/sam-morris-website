@@ -1,12 +1,11 @@
 const MARKETING_REF = "sammorrispb";
 const UTM_SOURCE = "sammorrispb";
 
-export type FamilyDest = "nga" | "mocopb" | "tournaments";
+export type FamilyDest = "nga" | "mocopb";
 
 const FAMILY_BASES: Record<FamilyDest, string> = {
   nga: "https://nextgenpbacademy.com",
   mocopb: "https://mocopb.com",
-  tournaments: "https://tournamentwebsite.vercel.app",
 };
 
 const LD_VISITOR_COOKIE = "ld_visitor";
@@ -42,7 +41,7 @@ export function familySiteUrl(dest: FamilyDest, path: string = "/"): string {
   // Every family site reads ?ref= on landing for marketing_ref attribution.
   url.searchParams.set("ref", familyMarketingRef(dest));
   // Cross-domain visitor handoff: stamp ld_pid=<ld_visitor cookie> so the
-  // destination (NGA/MoCoPB/tournaments) can adopt the same visitor_id and
+  // destination (NGA/MoCoPB) can adopt the same visitor_id and
   // keep funnel events linked across domains. SSR-safe and fail-open.
   const ldPid = readLdVisitorCookie();
   if (ldPid) {
