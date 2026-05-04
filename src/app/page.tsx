@@ -122,7 +122,7 @@ export default function Home() {
               <TrackedLink
                 href="/contact"
                 className="text-white font-heading font-semibold px-8 py-3 rounded-lg btn-gradient"
-                eventProps={{ label: "Book a Free Evaluation", page: "home", section: "hero" }}
+                eventProps={{ label: "Book a Free Evaluation", page: "home", section: "hero", destination: "/evaluation" }}
               >
                 Book a Free Evaluation
               </TrackedLink>
@@ -253,7 +253,7 @@ export default function Home() {
                 <TrackedLink
                   href={program.href}
                   className="text-accent-blue hover:text-accent-purple transition-colors text-sm font-semibold"
-                  eventProps={{ label: program.title, page: "home", section: "program_card" }}
+                  eventProps={{ label: program.title, page: "home", section: "program_card", destination: program.href }}
                 >
                   {program.cta} &rarr;
                 </TrackedLink>

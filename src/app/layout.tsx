@@ -1,10 +1,13 @@
 import type { Metadata } from "next";
 import { Montserrat, Inter, Roboto_Mono } from "next/font/google";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import { Analytics } from "@vercel/analytics/next";
 import { TESTIMONIALS, getAggregateRating } from "@/lib/testimonials";
 import { Nav } from "@/components/Nav";
 import { Footer } from "@/components/Footer";
 import { AnnouncementBanner } from "@/components/AnnouncementBanner";
+import { PageViewTracker } from "@/components/PageViewTracker";
+import { UtmCapture } from "@/components/UtmCapture";
 import "./globals.css";
 
 const montserrat = Montserrat({
@@ -420,7 +423,10 @@ export default function RootLayout({
           {children}
         </main>
         <Footer />
+        <UtmCapture />
+        <PageViewTracker />
         <SpeedInsights />
+        <Analytics />
       </body>
     </html>
   );

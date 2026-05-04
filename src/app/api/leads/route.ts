@@ -42,11 +42,22 @@ function sanitizeNotes(raw: unknown): string {
   return raw.replace(/\s+/g, " ").trim().slice(0, 1000);
 }
 
+type LeadUtm = {
+  utm_source?: string;
+  utm_campaign?: string;
+  utm_medium?: string;
+  ref?: string;
+};
+
 export async function POST(request: Request) {
   try {
     const body = await request.json();
     const { name, email, interest } = body;
     const notes = sanitizeNotes(body?.notes);
+    const utm: LeadUtm =
+      body?.utm && typeof body.utm === "object" ? body.utm : {};
+    const page: string | undefined =
+      typeof body?.page === "string" ? body.page : undefined;
 
     if (!name || !email || !interest) {
       return NextResponse.json(
@@ -177,6 +188,15 @@ export async function POST(request: Request) {
       business: "coaching",
       source: "sammorrispb_coaching",
       interest,
+      utm: {
+        source: utm.utm_source,
+        campaign: utm.utm_campaign,
+        medium: utm.utm_medium,
+      },
+      metadata: {
+        page,
+        ref: utm.ref,
+      },
     });
 
     return NextResponse.json({ success: true });

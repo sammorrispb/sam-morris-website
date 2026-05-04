@@ -3,7 +3,7 @@
 import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import { CONTACT, INTEREST_OPTIONS } from "@/lib/constants";
-import { trackEvent, getVisitorIdForForm } from "@/lib/funnelClient";
+import { trackEvent, getVisitorIdForForm, getUtm } from "@/lib/funnelClient";
 
 function matchInterestFromParam(param: string | null): string {
   if (!param) return "";
@@ -32,6 +32,7 @@ export function LeadForm({ heading = "Ready to Play?", page = "unknown" }: { hea
     if (!formStarted.current) {
       formStarted.current = true;
       trackEvent("lead_form", { action: "started", page });
+      trackEvent("lead_form_started", { interest: form.interest || undefined, page });
     }
   }
 
@@ -45,15 +46,24 @@ export function LeadForm({ heading = "Ready to Play?", page = "unknown" }: { hea
     try {
       const endpoint =
         form.interest === "Free Evaluation" ? "/api/eval-book" : "/api/leads";
+      const utm = getUtm();
+      const pageUrl =
+        typeof window !== "undefined" ? window.location.pathname : page;
       const res = await fetch(endpoint, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...form, visitor_id: getVisitorIdForForm() }),
+        body: JSON.stringify({
+          ...form,
+          visitor_id: getVisitorIdForForm(),
+          utm,
+          page: pageUrl,
+        }),
         signal: controller.signal,
       });
 
       if (!res.ok) throw new Error("Failed to submit");
       trackEvent("lead_form", { action: "submitted", interest: form.interest, page });
+      trackEvent("lead_form_submitted", { interest: form.interest, page });
       setStatus("sent");
       setForm({ name: "", email: "", interest: "", notes: "" });
     } catch {
