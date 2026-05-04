@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Image from "next/image";
+import Link from "next/link";
 import { AnimateOnScroll } from "@/components/AnimateOnScroll";
 import { PageSectionNav } from "@/components/PageSectionNav";
 import { BackToTop } from "@/components/BackToTop";
@@ -9,27 +10,39 @@ import { ScrollDepthTracker } from "@/components/ScrollDepthTracker";
 import { breadcrumbJsonLd } from "@/lib/seo";
 import { getTestimonialsByProgram } from "@/lib/testimonials";
 import { TestimonialGrid } from "@/components/TestimonialGrid";
+import {
+  SINGLE_LESSON_LINK,
+  FOUR_PACK_LINK,
+  GROUP_LESSON_LINK,
+  THREE_PLUS_ONE_LINK,
+  BOOKING_URL,
+  PRICING,
+} from "@/lib/coaching";
+import { SERVICE_AREA } from "@/lib/constants";
 
 export const metadata: Metadata = {
-  title: "Coaching & Clinics — Sam Morris Pickleball | Montgomery County, MD",
+  title: "Coaching, Clinics & Group Lessons — Sam Morris Pickleball | DMV",
   description:
-    "Private pickleball lessons and coaching with PPR-certified Coach Sam Morris. Single sessions and 4-pack packages in Montgomery County, MD.",
+    "Private lessons, group lessons, and the 3+1 Play-In Special with PPR-certified Coach Sam Morris. Sam travels to your court within ~35 minutes of Olney, MD — covering MoCo, DC, and nearby PG/Howard/NoVA.",
   keywords: [
     "private pickleball lessons Montgomery County",
     "pickleball coach Montgomery County",
-    "PPR certified pickleball coach Maryland",
-    "pickleball coaching near me",
-    "pickleball instruction DC area",
+    "group pickleball lessons DMV",
     "pickleball coach near DC",
+    "pickleball coach northern Virginia",
+    "PPR certified pickleball coach Maryland",
+    "mobile pickleball coach Olney MD",
+    "pickleball clinic Bethesda Rockville Olney",
   ],
   alternates: { canonical: "https://www.sammorrispb.com/programs/coaching" },
   openGraph: {
-    title: "Coaching & Clinics — Sam Morris Pickleball",
-    description: "Private lessons and coaching in Montgomery County, MD.",
+    title: "Coaching, Clinics & Group Lessons — Sam Morris Pickleball",
+    description:
+      "Private + group + play-in lessons in the DMV. Sam travels to your court.",
     url: "https://www.sammorrispb.com/programs/coaching",
     images: [
       {
-        url: "/og?title=Coaching%20%26%20Clinics&subtitle=Private%20Lessons%20from%20%24130%20%C2%B7%204-Pack%20Available",
+        url: "/og?title=Coaching%20%26%20Clinics&subtitle=Private%20%24130%20%C2%B7%20Group%20%2450pp%20%C2%B7%203%2B1%20%24150",
         width: 1200,
         height: 630,
         alt: "Coaching & Clinics — Sam Morris Pickleball",
@@ -40,7 +53,9 @@ export const metadata: Metadata = {
 
 const SECTIONS = [
   { id: "why-train", label: "Why Train" },
-  { id: "private-lessons", label: "Private Lessons" },
+  { id: "private-lessons", label: "Private" },
+  { id: "group-and-play-in", label: "Group & Play-In" },
+  { id: "service-area", label: "Service Area" },
   { id: "ready-to-start", label: "Get Started" },
 ];
 
@@ -67,31 +82,49 @@ export default function CoachingPage() {
           __html: JSON.stringify({
             "@context": "https://schema.org",
             "@type": "Service",
-            name: "Private Pickleball Lessons",
+            name: "Pickleball Coaching — Private, Group & Play-In",
             provider: {
               "@type": "Person",
               name: "Sam Morris",
               jobTitle: "PPR-Certified Pickleball Coach",
             },
-            areaServed: {
-              "@type": "AdministrativeArea",
-              name: "Montgomery County, Maryland",
-            },
+            areaServed: [
+              { "@type": "AdministrativeArea", name: "Montgomery County, Maryland" },
+              { "@type": "AdministrativeArea", name: "Washington, DC" },
+              { "@type": "AdministrativeArea", name: "Prince George's County, Maryland" },
+              { "@type": "AdministrativeArea", name: "Howard County, Maryland" },
+              { "@type": "AdministrativeArea", name: "Northern Virginia" },
+            ],
             description:
-              "One-on-one private pickleball lessons with PPR-certified coach Sam Morris in Montgomery County, MD.",
+              "Private 1-on-1 lessons, small-group lessons (2+), and the 3+1 Play-In Special with PPR-certified coach Sam Morris. Sam travels to your court within roughly 35 minutes of Olney, MD.",
             offers: [
               {
                 "@type": "Offer",
-                name: "Single Lesson",
-                price: "130.00",
+                name: "Single Private Lesson",
+                price: PRICING.singleHourly.toFixed(2),
                 priceCurrency: "USD",
+                description: "1 hour of 1-on-1 coaching",
               },
               {
                 "@type": "Offer",
-                name: "4-Session Package",
-                price: "400.00",
+                name: "4-Session Private Package",
+                price: PRICING.fourPackTotal.toFixed(2),
                 priceCurrency: "USD",
-                description: "$100 per session",
+                description: `$${PRICING.fourPackHourly} per session`,
+              },
+              {
+                "@type": "Offer",
+                name: "Group Lesson (2+ players)",
+                price: PRICING.groupPerPersonHourly.toFixed(2),
+                priceCurrency: "USD",
+                description: `$${PRICING.groupPerPersonHourly} per person per hour`,
+              },
+              {
+                "@type": "Offer",
+                name: "3+1 Play-In Special",
+                price: PRICING.threePlusOneTotal.toFixed(2),
+                priceCurrency: "USD",
+                description: `${PRICING.threePlusOneHours}-hour play-in session — ${PRICING.threePlusOneStudents} students plus Sam in the lineup`,
               },
             ],
           }),
@@ -110,7 +143,23 @@ export default function CoachingPage() {
                 name: "How much do private pickleball lessons cost?",
                 acceptedAnswer: {
                   "@type": "Answer",
-                  text: "Private 1-on-1 pickleball lessons with Sam Morris are $130 per session or $400 for a 4-session package ($100/session). Book at sammorrispb.com/programs/coaching.",
+                  text: `Private 1-on-1 lessons with Sam Morris are $${PRICING.singleHourly} per hour, or $${PRICING.fourPackTotal} for a 4-session package ($${PRICING.fourPackHourly}/session). Book at sammorrispb.com/programs/coaching.`,
+                },
+              },
+              {
+                "@type": "Question",
+                name: "Do you offer group pickleball lessons?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: `Yes — group lessons are $${PRICING.groupPerPersonHourly} per person per hour with 2 or more players. Bring a friend, partner, or small crew and we'll build the session around the group's level and goals.`,
+                },
+              },
+              {
+                "@type": "Question",
+                name: "What is the 3+1 Play-In Special?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: `The 3+1 Play-In Special is a ${PRICING.threePlusOneHours}-hour session for $${PRICING.threePlusOneTotal} where you bring ${PRICING.threePlusOneStudents} players and Sam plays as the 4th. You get real doubles reps with live coaching baked in — great for players who want to compete and learn at the same time.`,
                 },
               },
               {
@@ -118,7 +167,7 @@ export default function CoachingPage() {
                 name: "Where do lessons happen?",
                 acceptedAnswer: {
                   "@type": "Answer",
-                  text: "Sam Morris coaches in Montgomery County, MD. Exact location is confirmed when you book based on your availability and the area you're closest to.",
+                  text: `Sam travels to your court within roughly 35 minutes of Olney, MD — covering Montgomery County, Washington DC, and nearby parts of Prince George's, Howard, and northern Virginia. You arrange and pay for the court; Sam brings the coaching.`,
                 },
               },
             ],
@@ -135,12 +184,13 @@ export default function CoachingPage() {
             <div className="flex-1 text-center md:text-left">
               <span className="brand-badge brand-badge-sm mb-4">Sam Morris Coaching</span>
               <h1 className="font-heading font-black text-4xl md:text-6xl leading-tight mb-6">
-                Coaching &amp; <span className="gradient-text-sm">Clinics</span>
+                Coaching, Clinics &amp; <span className="gradient-text-sm">Play-In</span>
               </h1>
               <p className="text-text-muted text-lg md:text-xl max-w-xl">
-                Private lessons and small-group coaching in Montgomery County, MD —
-                tailored to your level and the parts of your game you most want to
-                level up.
+                Private 1-on-1 lessons, group lessons (2+), and the 3+1 Play-In
+                Special — built around the part of your game you most want to
+                level up. Sam travels to your court anywhere within ~35 minutes
+                of Olney, MD.
               </p>
             </div>
             <div className="shrink-0 hidden md:block">
@@ -197,13 +247,13 @@ export default function CoachingPage() {
               <div className="card-sm p-6">
                 <h3 className="font-heading font-bold text-lg mb-3">Single Session</h3>
                 <ul className="space-y-2 text-text-muted text-sm mb-4">
-                  <li>1 hour of personalized instruction</li>
-                  <li>Court time included</li>
-                  <li>Great for trying out coaching or a specific skill</li>
+                  <li>1 hour of personalized 1-on-1 instruction</li>
+                  <li>Built around the skill or game-situation you choose</li>
+                  <li>Great for trying out coaching or a specific focus</li>
                 </ul>
-                <p className="font-heading font-bold text-xl mb-4">$130<span className="text-text-muted text-sm font-normal">/hour</span></p>
+                <p className="font-heading font-bold text-xl mb-4">${PRICING.singleHourly}<span className="text-text-muted text-sm font-normal">/hour</span></p>
                 <TrackedExternalLink
-                  href="https://buy.stripe.com/aFabJ3ehjaUhfI7g6s3Je01"
+                  href={SINGLE_LESSON_LINK}
                   label="Book Single Session"
                   page="coaching"
                   className="inline-block text-white font-heading font-semibold px-6 py-3 rounded-lg btn-sm text-sm"
@@ -214,13 +264,13 @@ export default function CoachingPage() {
               <div className="card-sm p-6">
                 <h3 className="font-heading font-bold text-lg mb-3">4-Session Package</h3>
                 <ul className="space-y-2 text-text-muted text-sm mb-4">
-                  <li>4 hours of personalized instruction</li>
-                  <li>Court time included for all sessions</li>
-                  <li>Best value — save $120</li>
+                  <li>4 hours of structured 1-on-1 progression</li>
+                  <li>Skill tracking across sessions</li>
+                  <li>Best value — save ${(PRICING.singleHourly - PRICING.fourPackHourly) * 4}</li>
                 </ul>
-                <p className="font-heading font-bold text-xl mb-4">$400<span className="text-text-muted text-sm font-normal"> ($100/hour)</span></p>
+                <p className="font-heading font-bold text-xl mb-4">${PRICING.fourPackTotal}<span className="text-text-muted text-sm font-normal"> (${PRICING.fourPackHourly}/hour)</span></p>
                 <TrackedExternalLink
-                  href="https://buy.stripe.com/00w00l8WZe6t7bBdYk3Je08"
+                  href={FOUR_PACK_LINK}
                   label="Book 4-Session Package"
                   page="coaching"
                   className="inline-block text-white font-heading font-semibold px-6 py-3 rounded-lg btn-sm text-sm"
@@ -232,13 +282,89 @@ export default function CoachingPage() {
             <div className="mt-8 text-center">
               <p className="text-text-muted text-sm mb-4">Already purchased? Pick your time:</p>
               <TrackedExternalLink
-                href="https://calendar.app.google/FsvvwDzNPGUX6VZbA"
+                href={BOOKING_URL}
                 label="Schedule Your Lesson"
                 page="coaching"
                 className="inline-block text-white font-heading font-semibold px-8 py-3 rounded-lg btn-sm text-sm"
               >
                 Schedule Your Lesson →
               </TrackedExternalLink>
+            </div>
+          </AnimateOnScroll>
+        </div>
+      </section>
+
+      {/* Group + Play-In */}
+      <section id="group-and-play-in" className="py-16 px-6 scroll-mt-28">
+        <div className="mx-auto max-w-4xl">
+          <AnimateOnScroll>
+            <h2 className="font-heading text-2xl md:text-3xl mb-3">Group Lessons &amp; Play-In</h2>
+            <p className="text-text-muted mb-8 max-w-2xl">
+              Bring your crew. Two formats designed around small groups —
+              cheaper per person, more reps, and live coaching in the flow of
+              real games.
+            </p>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="card-sm p-6">
+                <h3 className="font-heading font-bold text-lg mb-3">Group Lesson (2+)</h3>
+                <ul className="space-y-2 text-text-muted text-sm mb-4">
+                  <li>2 or more players, 1 hour</li>
+                  <li>Drills + game situations tailored to the group&apos;s level</li>
+                  <li>Bring a friend, partner, or small crew</li>
+                </ul>
+                <p className="font-heading font-bold text-xl mb-4">
+                  ${PRICING.groupPerPersonHourly}
+                  <span className="text-text-muted text-sm font-normal"> / person / hour</span>
+                </p>
+                <Link
+                  href={GROUP_LESSON_LINK}
+                  className="inline-block text-white font-heading font-semibold px-6 py-3 rounded-lg btn-sm text-sm"
+                >
+                  Request Group Lesson
+                </Link>
+              </div>
+              <div className="card-sm p-6">
+                <h3 className="font-heading font-bold text-lg mb-3">3+1 Play-In Special</h3>
+                <ul className="space-y-2 text-text-muted text-sm mb-4">
+                  <li>{PRICING.threePlusOneHours}-hour session, you bring {PRICING.threePlusOneStudents} players + Sam plays as 4th</li>
+                  <li>Doubles reps with a coach in the lineup, calling shots and resetting points</li>
+                  <li>Great for players who want to compete and learn at the same time</li>
+                </ul>
+                <p className="font-heading font-bold text-xl mb-4">
+                  ${PRICING.threePlusOneTotal}
+                  <span className="text-text-muted text-sm font-normal"> flat / {PRICING.threePlusOneHours} hrs</span>
+                </p>
+                <Link
+                  href={THREE_PLUS_ONE_LINK}
+                  className="inline-block text-white font-heading font-semibold px-6 py-3 rounded-lg btn-sm text-sm"
+                >
+                  Request 3+1 Special
+                </Link>
+              </div>
+            </div>
+            <p className="text-text-muted text-xs mt-6 text-center">
+              Group + Play-In bookings are confirmed manually — Sam replies within
+              24 hours with a Stripe invoice and a time block on his calendar.
+            </p>
+          </AnimateOnScroll>
+        </div>
+      </section>
+
+      {/* Service Area */}
+      <section id="service-area" className="py-16 px-6 scroll-mt-28">
+        <div className="mx-auto max-w-3xl">
+          <AnimateOnScroll>
+            <h2 className="font-heading text-2xl md:text-3xl mb-4">Service Area</h2>
+            <div className="card-sm p-6">
+              <p className="text-text-muted leading-relaxed mb-4">
+                {SERVICE_AREA.description}
+              </p>
+              <p className="text-text-muted leading-relaxed text-sm">
+                Common courts include indoor + outdoor facilities across Olney,
+                Rockville, Bethesda, Silver Spring, North Bethesda, Gaithersburg,
+                Potomac, DC, and Arlington. If you have a regular court you
+                already play at, that&apos;s usually the easiest spot.
+              </p>
             </div>
           </AnimateOnScroll>
         </div>
@@ -251,8 +377,8 @@ export default function CoachingPage() {
             <h2 className="font-heading font-bold text-xl mb-4 text-center">Ready to Start?</h2>
             <ol className="space-y-2 text-text-muted text-sm list-decimal list-inside max-w-md mx-auto">
               <li><strong className="text-text-primary">Book a free skill evaluation</strong> if you&apos;re new to coaching</li>
-              <li><strong className="text-text-primary">Pick a single session</strong> to try out a focused topic</li>
-              <li><strong className="text-text-primary">Commit to the 4-pack</strong> for real, structured improvement</li>
+              <li><strong className="text-text-primary">Pick a single session or 4-pack</strong> for focused 1-on-1 progression</li>
+              <li><strong className="text-text-primary">Bring a crew</strong> for the group or 3+1 play-in rate</li>
             </ol>
           </div>
         </div>

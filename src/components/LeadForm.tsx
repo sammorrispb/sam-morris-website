@@ -16,7 +16,7 @@ function matchInterestFromParam(param: string | null): string {
 }
 
 export function LeadForm({ heading = "Ready to Play?", page = "unknown" }: { heading?: string; page?: string }) {
-  const [form, setForm] = useState({ name: "", email: "", interest: "" });
+  const [form, setForm] = useState({ name: "", email: "", interest: "", notes: "" });
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
   const formStarted = useRef(false);
 
@@ -55,7 +55,7 @@ export function LeadForm({ heading = "Ready to Play?", page = "unknown" }: { hea
       if (!res.ok) throw new Error("Failed to submit");
       trackEvent("lead_form", { action: "submitted", interest: form.interest, page });
       setStatus("sent");
-      setForm({ name: "", email: "", interest: "" });
+      setForm({ name: "", email: "", interest: "", notes: "" });
     } catch {
       trackEvent("lead_form", { action: "error", page });
       setStatus("error");
@@ -124,6 +124,16 @@ export function LeadForm({ heading = "Ready to Play?", page = "unknown" }: { hea
           <option key={opt} value={opt}>{opt}</option>
         ))}
       </select>
+
+      <textarea
+        placeholder="Anything else? Skill level, preferred court, group size, days/times that work…"
+        aria-label="Notes — skill, court, availability, group size"
+        value={form.notes}
+        onChange={(e) => updateField("notes", e.target.value)}
+        rows={4}
+        maxLength={1000}
+        className="w-full bg-navy border border-white/10 rounded-lg px-4 py-3 text-text-primary placeholder:text-text-muted/50 focus:border-accent-blue focus:outline-none transition-colors resize-none"
+      />
 
       <button
         type="submit"
