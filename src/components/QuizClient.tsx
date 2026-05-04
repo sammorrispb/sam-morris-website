@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { QUIZ_QUESTIONS, QUIZ_RESULTS, calculateResult } from "@/lib/quiz";
-import { trackEvent, getVisitorIdForForm } from "@/lib/funnelClient";
+import { trackEvent, getVisitorIdForForm, getUtm } from "@/lib/funnelClient";
 
 export function QuizClient() {
   const [step, setStep] = useState(0);
@@ -52,6 +52,8 @@ export function QuizClient() {
           email,
           interest: `Quiz Result: ${QUIZ_RESULTS[key].level} (${QUIZ_RESULTS[key].dupr})`,
           visitor_id: getVisitorIdForForm(),
+          utm: getUtm(),
+          page: "/quiz",
         }),
       });
     } catch {
@@ -124,7 +126,8 @@ export function QuizClient() {
 
         <div className="text-center">
           <Link
-            href="/contact"
+            href="/evaluation"
+            onClick={() => trackEvent("cta_click", { label: "Book a Free Evaluation", page: "/quiz", section: "result", destination: "/evaluation" })}
             className="btn-gradient px-8 py-3 rounded-lg text-white font-bold inline-block"
           >
             Book a Free Evaluation
