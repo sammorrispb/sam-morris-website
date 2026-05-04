@@ -137,11 +137,6 @@ export const QUIZ_RESULTS: Record<string, QuizResult> = {
         description: "Get a calibrated rating and a focused improvement plan.",
         href: "/evaluation",
       },
-      {
-        title: "Tournament Series",
-        description: "Test your game in competitive tournament events in the DMV.",
-        href: "https://tournamentwebsite.vercel.app/",
-      },
     ],
   },
   advanced: {
@@ -154,11 +149,6 @@ export const QUIZ_RESULTS: Record<string, QuizResult> = {
         title: "Private Coaching",
         description: "Advanced video analysis and match strategy with Coach Sam.",
         href: "/programs/coaching",
-      },
-      {
-        title: "Tournament Series",
-        description: "Competitive tournament events in the DMV area.",
-        href: "https://tournamentwebsite.vercel.app/",
       },
       {
         title: "Free Skill Evaluation",
