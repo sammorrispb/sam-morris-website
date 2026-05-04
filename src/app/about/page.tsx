@@ -66,10 +66,10 @@ const TIMELINE = [
       "First pickleball business \u2014 organized competitive play for 3.5+ players.",
   },
   {
-    year: "Now",
-    title: "Building the Future",
+    year: "Fall 2025",
+    title: "Co-founded Next Gen Pickleball Academy",
     description:
-      "Co-founder of Next Gen Pickleball Academy (with Amine Lahlou). Father of Kobe and Owen. Husband to Kelly. Living in Olney, MD.",
+      "Co-founded NGA with Amine Lahlou — youth pickleball pathway for ages 5–16 across Montgomery County, MD. Current focus.",
   },
 ];
 
