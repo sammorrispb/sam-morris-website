@@ -277,7 +277,7 @@ export default function ProgramsPage() {
               Not sure which program is right for you?
             </p>
             <TrackedLink
-              href="/contact"
+              href="/evaluation"
               className="inline-block text-white font-heading font-semibold px-8 py-3 rounded-lg btn-gradient"
               eventProps={{
                 label: "Book a Free Evaluation",

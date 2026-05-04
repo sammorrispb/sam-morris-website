@@ -120,7 +120,7 @@ export default function Home() {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
               <TrackedLink
-                href="/contact"
+                href="/evaluation"
                 className="text-white font-heading font-semibold px-8 py-3 rounded-lg btn-gradient"
                 eventProps={{ label: "Book a Free Evaluation", page: "home", section: "hero", destination: "/evaluation" }}
               >

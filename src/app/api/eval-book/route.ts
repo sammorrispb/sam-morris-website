@@ -64,8 +64,9 @@ export async function POST(request: Request) {
       console.error("[eval-book] Sam notification failed", err);
     }
 
-    // Ingest to Open Brain master CRM (fire-and-forget)
-    void ingestToOpenBrain({
+    // Ingest to Open Brain master CRM. AWAIT — Vercel drops fire-and-forget
+    // Promises when the lambda returns. Helper has its own 5s timeout.
+    await ingestToOpenBrain({
       email: normalizedEmail,
       name,
       business: "coaching",
