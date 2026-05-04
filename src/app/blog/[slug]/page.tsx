@@ -53,7 +53,39 @@ type NotionRichText = {
   href?: string | null;
 };
 
-function renderBlock(block: NotionBlock) {
+/**
+ * Returns true when an href points at the /evaluation page (relative or
+ * absolute). We append blog-attribution UTMs to these links at render time
+ * so the Notion source content stays clean.
+ */
+function isEvaluationHref(href: string): boolean {
+  if (!href) return false;
+  if (href.startsWith("/evaluation")) return true;
+  try {
+    const u = new URL(href);
+    return (
+      (u.hostname === "www.sammorrispb.com" || u.hostname === "sammorrispb.com") &&
+      (u.pathname === "/evaluation" || u.pathname.startsWith("/evaluation/"))
+    );
+  } catch {
+    return false;
+  }
+}
+
+function appendBlogUtm(href: string, slug: string): string {
+  try {
+    const isAbsolute = /^https?:\/\//.test(href);
+    const u = new URL(href, isAbsolute ? undefined : "https://www.sammorrispb.com");
+    if (!u.searchParams.has("utm_source")) u.searchParams.set("utm_source", "blog");
+    if (!u.searchParams.has("utm_campaign")) u.searchParams.set("utm_campaign", slug);
+    if (!u.searchParams.has("utm_medium")) u.searchParams.set("utm_medium", "organic");
+    return isAbsolute ? u.toString() : `${u.pathname}${u.search}${u.hash}`;
+  } catch {
+    return href;
+  }
+}
+
+function renderBlock(block: NotionBlock, slug: string) {
   const type = block.type;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const value = block[type] as any;
@@ -62,43 +94,43 @@ function renderBlock(block: NotionBlock) {
     case "paragraph":
       return (
         <p className="text-text-primary leading-relaxed mb-4">
-          {renderRichText(value.rich_text)}
+          {renderRichText(value.rich_text, slug)}
         </p>
       );
     case "heading_1":
       return (
         <h1 className="text-3xl font-heading font-bold text-text-primary mt-8 mb-4">
-          {renderRichText(value.rich_text)}
+          {renderRichText(value.rich_text, slug)}
         </h1>
       );
     case "heading_2":
       return (
         <h2 className="text-2xl font-heading font-bold text-text-primary mt-6 mb-3">
-          {renderRichText(value.rich_text)}
+          {renderRichText(value.rich_text, slug)}
         </h2>
       );
     case "heading_3":
       return (
         <h3 className="text-xl font-heading font-semibold text-text-primary mt-5 mb-2">
-          {renderRichText(value.rich_text)}
+          {renderRichText(value.rich_text, slug)}
         </h3>
       );
     case "bulleted_list_item":
       return (
         <li className="text-text-primary leading-relaxed ml-6 list-disc">
-          {renderRichText(value.rich_text)}
+          {renderRichText(value.rich_text, slug)}
         </li>
       );
     case "numbered_list_item":
       return (
         <li className="text-text-primary leading-relaxed ml-6 list-decimal">
-          {renderRichText(value.rich_text)}
+          {renderRichText(value.rich_text, slug)}
         </li>
       );
     case "quote":
       return (
         <blockquote className="border-l-4 border-accent-blue pl-4 my-4 italic text-text-muted">
-          {renderRichText(value.rich_text)}
+          {renderRichText(value.rich_text, slug)}
         </blockquote>
       );
     case "code":
@@ -132,7 +164,7 @@ function renderBlock(block: NotionBlock) {
   }
 }
 
-function renderRichText(richText: NotionRichText[] | undefined) {
+function renderRichText(richText: NotionRichText[] | undefined, slug: string) {
   if (!richText) return null;
   return richText.map((text: NotionRichText, i: number) => {
     let content: React.ReactNode = text.plain_text;
@@ -145,11 +177,14 @@ function renderRichText(richText: NotionRichText[] | undefined) {
           {content}
         </code>
       );
-    if (text.href)
+    if (text.href) {
+      const finalHref = isEvaluationHref(text.href)
+        ? appendBlogUtm(text.href, slug)
+        : text.href;
       content = (
         <a
           key={i}
-          href={text.href}
+          href={finalHref}
           className="text-accent-blue hover:underline"
           target="_blank"
           rel="noopener noreferrer"
@@ -157,6 +192,7 @@ function renderRichText(richText: NotionRichText[] | undefined) {
           {content}
         </a>
       );
+    }
 
     return <span key={i}>{content}</span>;
   });
@@ -250,7 +286,7 @@ export default async function BlogPostPage({ params }: Props) {
           <div className="prose-invert max-w-none">
             {post.blocks.map((block: unknown, i: number) => {
               const b = block as NotionBlock;
-              return <div key={b.id ?? i}>{renderBlock(b)}</div>;
+              return <div key={b.id ?? i}>{renderBlock(b, slug)}</div>;
             })}
           </div>
         </div>

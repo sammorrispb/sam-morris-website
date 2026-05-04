@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import Image from "next/image";
 import { SINGLE_LESSON_LINK, FOUR_PACK_LINK } from "@/lib/coaching";
+import { TrackedLink } from "@/components/TrackedLink";
 
 export const metadata: Metadata = {
   title: "Pickleball Programs & Lessons — Youth Academy, Private Coaching, Family Sessions",
@@ -276,12 +276,18 @@ export default function ProgramsPage() {
             <p className="font-heading font-bold text-xl md:text-2xl mb-6">
               Not sure which program is right for you?
             </p>
-            <Link
+            <TrackedLink
               href="/contact"
               className="inline-block text-white font-heading font-semibold px-8 py-3 rounded-lg btn-gradient"
+              eventProps={{
+                label: "Book a Free Evaluation",
+                page: "programs",
+                section: "footer_cta",
+                destination: "/evaluation",
+              }}
             >
               Book a Free Evaluation
-            </Link>
+            </TrackedLink>
           </div>
         </div>
       </section>
