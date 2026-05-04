@@ -181,8 +181,11 @@ export async function POST(request: Request) {
       console.error("Welcome email failed:", emailError);
     }
 
-    // Ingest to Open Brain master CRM (fire-and-forget)
-    void ingestToOpenBrain({
+    // Ingest to Open Brain master CRM. AWAIT the call — Vercel can freeze the
+    // lambda after `return` and a fire-and-forget Promise gets dropped, which
+    // is what was happening (~50% of leads landed in Notion but never reached
+    // OB). The helper has its own 5s timeout so this can't block long.
+    await ingestToOpenBrain({
       email,
       name,
       business: "coaching",

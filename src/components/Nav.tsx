@@ -43,9 +43,9 @@ export function Nav() {
           ))}
           <SearchBar onOpenChange={(open) => { if (open) setMobileOpen(false); }} />
           <Link
-            href="/contact"
+            href="/evaluation"
             className="text-white px-4 py-2 rounded-lg text-sm font-medium btn-gradient"
-            onClick={() => trackEvent("cta_click", { label: "Book a Free Evaluation", page: "nav", section: "header_cta" })}
+            onClick={() => trackEvent("cta_click", { label: "Book a Free Evaluation", page: "nav", section: "header_cta", destination: "/evaluation" })}
           >
             Book a Free Evaluation
           </Link>
@@ -107,9 +107,9 @@ export function Nav() {
               </Link>
             ))}
             <Link
-              href="/contact"
+              href="/evaluation"
               className="text-white px-4 py-2 rounded-lg text-sm font-medium text-center mt-2 btn-gradient"
-              onClick={() => { trackEvent("cta_click", { label: "Book a Free Evaluation", page: "nav", section: "header_cta_mobile" }); setMobileOpen(false); }}
+              onClick={() => { trackEvent("cta_click", { label: "Book a Free Evaluation", page: "nav", section: "header_cta_mobile", destination: "/evaluation" }); setMobileOpen(false); }}
             >
               Book a Free Evaluation
             </Link>
