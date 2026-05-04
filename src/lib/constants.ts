@@ -41,10 +41,21 @@ export const ANNOUNCEMENT: {
 
 export const INTEREST_OPTIONS = [
   "Free Evaluation",
-  "Coaching",
+  "Private Lesson",
+  "Group Lesson (2+)",
+  "3+1 Play-In Special",
   "Youth Programs",
   "Business Partnerships",
   "Social/Recreational Play",
   "Competitive Play",
   "Ambassador (Player-Organizer-Coach)",
 ] as const;
+
+export const SERVICE_AREA = {
+  homeBase: "Olney, MD",
+  radiusMinutes: 35,
+  description:
+    "Sam travels to your court within roughly 35 minutes of Olney, MD — covering Montgomery County, Washington DC, and nearby parts of Prince George's, Howard, and northern Virginia. You arrange and pay for the court; Sam brings the coaching.",
+  shortDescription:
+    "Within ~35 min of Olney, MD (MoCo + DC + nearby PG/Howard/NoVA)",
+} as const;

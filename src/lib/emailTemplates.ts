@@ -1,5 +1,10 @@
-import { CONTACT } from "./constants";
-import { SINGLE_LESSON_LINK, FOUR_PACK_LINK, BOOKING_URL } from "./coaching";
+import { CONTACT, SERVICE_AREA } from "./constants";
+import {
+  SINGLE_LESSON_LINK,
+  FOUR_PACK_LINK,
+  BOOKING_URL,
+  PRICING,
+} from "./coaching";
 
 export function interestSlug(interest: string): string {
   return interest.toLowerCase().replace(/[^a-z0-9]+/g, "_").replace(/^_|_$/g, "");
@@ -12,22 +17,64 @@ ${CONTACT.phone}
 ${CONTACT.email}
 sammorrispb.com`;
 
-function coachingTemplate(name: string): string {
+function privateLessonTemplate(name: string): string {
   return `Hi ${name},
 
-Thanks for reaching out about coaching — I'd love to help you level up your game.
+Thanks for reaching out about a private lesson — I'd love to help you level up your game.
 
-I offer private and small-group lessons tailored to your current skill level and goals. Whether you're working on your third shot drop, resetting under pressure, or sharpening your serve, we'll build a plan that fits. I also use video analysis so you can see exactly what we're working on and track your progress over time.
+Every session is 1-on-1 and built around what you most want to work on: third shot drops, resets under pressure, kitchen battles, serve patterns, doubles strategy — whatever's the bottleneck. I bring video review when it helps so you can see exactly what we're working on.
+
+Service area: ${SERVICE_AREA.shortDescription}. You arrange and pay for the court; I bring the coaching.
 
 Ready to book?
 
-→ Single Lesson ($130/hour): ${SINGLE_LESSON_LINK}
-→ 4-Hour Package ($400 — best value): ${FOUR_PACK_LINK}
+→ Single Lesson ($${PRICING.singleHourly}/hour): ${SINGLE_LESSON_LINK}
+→ 4-Hour Package ($${PRICING.fourPackTotal} — best value, $${PRICING.fourPackHourly}/hour): ${FOUR_PACK_LINK}
 
 Already purchased? Pick your time:
 → Schedule Your Lesson: ${BOOKING_URL}
 
-Or just reply with a few times that work and we'll set something up.
+Or reply with a couple times + your preferred court and we'll lock it in.
+
+${SIGN_OFF}`;
+}
+
+function groupLessonTemplate(name: string): string {
+  return `Hi ${name},
+
+Thanks for reaching out about a group lesson — small-group coaching is one of the most efficient ways to level up because you get reps with real partners and live feedback at the same time.
+
+Rate: $${PRICING.groupPerPersonHourly}/person/hour, 2 or more players. Bring a friend, a partner, or a small crew — I'll build the session around the group's level and goals.
+
+Service area: ${SERVICE_AREA.shortDescription}. You arrange and pay for the court; I bring the coaching.
+
+To get this scheduled, reply with:
+  • How many players (and rough skill level)
+  • A couple of times that work for the group
+  • Your preferred court / facility
+
+I'll confirm the time and send a Stripe invoice once we've locked it in.
+
+${SIGN_OFF}`;
+}
+
+function threePlusOneTemplate(name: string): string {
+  return `Hi ${name},
+
+Thanks for reaching out about the 3+1 Play-In Special — this is one of my favorite formats.
+
+Here's how it works: you bring 3 players, I make 4. Two hours of doubles with live coaching baked in — you get real-game reps with a coach in the lineup calling shots, resetting points, and giving feedback in flow. Great for players who want to compete and learn at the same time.
+
+Rate: $${PRICING.threePlusOneTotal} flat for the ${PRICING.threePlusOneHours}-hour session (works out to ~$${Math.round(PRICING.threePlusOneTotal / PRICING.threePlusOneStudents / PRICING.threePlusOneHours)}/person/hour).
+
+Service area: ${SERVICE_AREA.shortDescription}. You arrange and pay for the court; I bring the coaching and play in.
+
+To get this scheduled, reply with:
+  • Names + rough skill levels of your 3 players
+  • A couple of 2-hour windows that work
+  • Your preferred court / facility
+
+I'll confirm and send a Stripe invoice once we've locked it in.
 
 ${SIGN_OFF}`;
 }
@@ -113,7 +160,11 @@ ${SIGN_OFF}`;
 
 const TEMPLATE_MAP: Record<string, (name: string, interest: string) => string> = {
   "Free Evaluation": (name) => evaluationTemplate(name),
-  "Coaching": (name) => coachingTemplate(name),
+  "Private Lesson": (name) => privateLessonTemplate(name),
+  "Group Lesson (2+)": (name) => groupLessonTemplate(name),
+  "3+1 Play-In Special": (name) => threePlusOneTemplate(name),
+  // Legacy alias — older "Coaching" leads still route to private-lesson copy
+  "Coaching": (name) => privateLessonTemplate(name),
   "Youth Programs": (name, interest) => youthTemplate(name, interest),
   "Business Partnerships": (name) => businessTemplate(name),
   "Social/Recreational Play": (name) => socialTemplate(name),
@@ -132,6 +183,6 @@ export function generateEmailDraft(
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   _isLndMember: boolean = false,
 ): string {
-  const templateFn = TEMPLATE_MAP[interest] ?? ((n: string) => coachingTemplate(n));
+  const templateFn = TEMPLATE_MAP[interest] ?? ((n: string) => privateLessonTemplate(n));
   return templateFn(name, interest);
 }

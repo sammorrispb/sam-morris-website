@@ -37,10 +37,16 @@ async function createEmailDraft(
   });
 }
 
+function sanitizeNotes(raw: unknown): string {
+  if (typeof raw !== "string") return "";
+  return raw.replace(/\s+/g, " ").trim().slice(0, 1000);
+}
+
 export async function POST(request: Request) {
   try {
     const body = await request.json();
     const { name, email, interest } = body;
+    const notes = sanitizeNotes(body?.notes);
 
     if (!name || !email || !interest) {
       return NextResponse.json(
@@ -81,7 +87,45 @@ export async function POST(request: Request) {
         "Drip Step": { number: 0 },
         "Drip Opted Out": { checkbox: interest === "Business Partnerships" },
       },
+      // Notes from the player land as the lead page's body so they're visible
+      // regardless of whether a "Notes" Notion property exists yet.
+      ...(notes
+        ? {
+            children: [
+              {
+                object: "block" as const,
+                type: "heading_3" as const,
+                heading_3: {
+                  rich_text: [{ type: "text" as const, text: { content: "Notes from lead" } }],
+                },
+              },
+              {
+                object: "block" as const,
+                type: "paragraph" as const,
+                paragraph: {
+                  rich_text: [{ type: "text" as const, text: { content: notes } }],
+                },
+              },
+            ],
+          }
+        : {}),
     });
+
+    // Also try to set a Notes rich_text property if the DB has one — best-effort.
+    if (notes) {
+      try {
+        await notion.pages.update({
+          page_id: leadPage.id,
+          properties: {
+            Notes: {
+              rich_text: [{ type: "text", text: { content: notes } }],
+            },
+          },
+        });
+      } catch {
+        // Notes property may not exist on the DB yet — body block above still preserves it.
+      }
+    }
 
     // Generate email draft — isolated so lead creation never fails
     try {
@@ -94,7 +138,7 @@ export async function POST(request: Request) {
     try {
       await notifySam(
         `New Lead: ${name} — ${interest}`,
-        `Name: ${name}\nEmail: ${email}\nInterest: ${interest}\nSubmitted: ${new Date().toLocaleString("en-US", { timeZone: "America/New_York" })}`
+        `Name: ${name}\nEmail: ${email}\nInterest: ${interest}\nSubmitted: ${new Date().toLocaleString("en-US", { timeZone: "America/New_York" })}${notes ? `\n\nNotes from lead:\n${notes}` : ""}`
       );
     } catch (notifyError) {
       console.error("Lead notification email failed:", notifyError);
