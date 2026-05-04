@@ -28,10 +28,10 @@ export async function getBlogPosts(): Promise<BlogPost[]> {
     const response: any = await (notion as any).dataSources.query({
       data_source_id: DATABASE_ID,
       filter: {
-        property: "Published",
-        checkbox: { equals: true },
+        property: "Status",
+        status: { equals: "Published" },
       },
-      sorts: [{ property: "Date", direction: "descending" }],
+      sorts: [{ property: "Published", direction: "descending" }],
     });
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -41,9 +41,9 @@ export async function getBlogPosts(): Promise<BlogPost[]> {
         id: page.id,
         slug: props.Slug?.rich_text?.[0]?.plain_text ?? page.id,
         title: props.Title?.title?.[0]?.plain_text ?? "Untitled",
-        date: props.Date?.date?.start ?? "",
+        date: props.Published?.date?.start ?? "",
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        tags: props.Tags?.multi_select?.map((t: any) => t.name) ?? [],
+        tags: props.Category?.multi_select?.map((t: any) => t.name) ?? [],
         coverImage: page.cover?.external?.url ?? page.cover?.file?.url ?? null,
         excerpt: props.Excerpt?.rich_text?.[0]?.plain_text ?? "",
       };
@@ -64,7 +64,7 @@ export async function getBlogPost(slug: string): Promise<BlogPostContent | null>
       filter: {
         and: [
           { property: "Slug", rich_text: { equals: slug } },
-          { property: "Published", checkbox: { equals: true } },
+          { property: "Status", status: { equals: "Published" } },
         ],
       },
     });
@@ -80,9 +80,9 @@ export async function getBlogPost(slug: string): Promise<BlogPostContent | null>
       id: page.id,
       slug,
       title: props.Title?.title?.[0]?.plain_text ?? "Untitled",
-      date: props.Date?.date?.start ?? "",
+      date: props.Published?.date?.start ?? "",
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      tags: props.Tags?.multi_select?.map((t: any) => t.name) ?? [],
+      tags: props.Category?.multi_select?.map((t: any) => t.name) ?? [],
       coverImage: page.cover?.external?.url ?? page.cover?.file?.url ?? null,
       excerpt: props.Excerpt?.rich_text?.[0]?.plain_text ?? "",
       blocks,
