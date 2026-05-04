@@ -2,6 +2,7 @@ import { CONTACT, SERVICE_AREA } from "./constants";
 import {
   SINGLE_LESSON_LINK,
   FOUR_PACK_LINK,
+  THREE_PLUS_ONE_LINK,
   BOOKING_URL,
   PRICING,
 } from "./coaching";
@@ -67,14 +68,16 @@ Here's how it works: you bring 3 players, I make 4. Two hours of doubles with li
 
 Rate: $${PRICING.threePlusOneTotal} flat for the ${PRICING.threePlusOneHours}-hour session (works out to ~$${Math.round(PRICING.threePlusOneTotal / PRICING.threePlusOneStudents / PRICING.threePlusOneHours)}/person/hour).
 
-Service area: ${SERVICE_AREA.shortDescription}. You arrange and pay for the court; I bring the coaching and play in.
+→ Pay & lock it in: ${THREE_PLUS_ONE_LINK}
 
-To get this scheduled, reply with:
+Once you've paid, just reply with:
   • Names + rough skill levels of your 3 players
   • A couple of 2-hour windows that work
   • Your preferred court / facility
 
-I'll confirm and send a Stripe invoice once we've locked it in.
+I'll confirm the time within 24 hours.
+
+Service area: ${SERVICE_AREA.shortDescription}. You arrange and pay for the court; I bring the coaching and play in.
 
 ${SIGN_OFF}`;
 }

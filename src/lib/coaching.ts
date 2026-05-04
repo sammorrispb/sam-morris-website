@@ -2,10 +2,10 @@
 export const SINGLE_LESSON_LINK = "https://buy.stripe.com/aFabJ3ehjaUhfI7g6s3Je01";
 export const FOUR_PACK_LINK = "https://buy.stripe.com/00w00l8WZe6t7bBdYk3Je08";
 
-// Group + Play-In tiers — invoice-based for now (Sam confirms time + sends Stripe invoice)
-// When Stripe Payment Links are minted, swap these constants for the buy.stripe.com URLs.
+// Group lessons stay invoice-based (price varies with headcount) — players inquire,
+// Sam confirms time + sends a Stripe invoice. Play-In is fixed-price → real Payment Link.
 export const GROUP_LESSON_LINK = "/contact?interest=Group+Lesson+%282%2B%29";
-export const THREE_PLUS_ONE_LINK = "/contact?interest=3%2B1+Play-In+Special";
+export const THREE_PLUS_ONE_LINK = "https://book.stripe.com/eVqeVf6OR0fDcvV9I43Je0a";
 
 // Pricing — single source of truth for the coaching page + emails + JSON-LD
 export const PRICING = {

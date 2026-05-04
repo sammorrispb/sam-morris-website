@@ -334,17 +334,21 @@ export default function CoachingPage() {
                   ${PRICING.threePlusOneTotal}
                   <span className="text-text-muted text-sm font-normal"> flat / {PRICING.threePlusOneHours} hrs</span>
                 </p>
-                <Link
+                <TrackedExternalLink
                   href={THREE_PLUS_ONE_LINK}
+                  label="Book 3+1 Play-In Special"
+                  page="coaching"
                   className="inline-block text-white font-heading font-semibold px-6 py-3 rounded-lg btn-sm text-sm"
                 >
-                  Request 3+1 Special
-                </Link>
+                  Book 3+1 Special
+                </TrackedExternalLink>
               </div>
             </div>
             <p className="text-text-muted text-xs mt-6 text-center">
-              Group + Play-In bookings are confirmed manually — Sam replies within
-              24 hours with a Stripe invoice and a time block on his calendar.
+              Group lessons are invoiced after Sam confirms the time (price varies with
+              headcount). The 3+1 Play-In is a flat $150 — pay up front and reply with
+              your preferred court + a couple of windows that work, and Sam locks it in
+              within 24 hours.
             </p>
           </AnimateOnScroll>
         </div>
