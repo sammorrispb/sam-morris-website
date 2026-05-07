@@ -4,6 +4,8 @@ import Link from "next/link";
 import { getBlogPost, getBlogPosts } from "@/lib/blog";
 import { breadcrumbJsonLd } from "@/lib/seo";
 
+export const revalidate = 300;
+
 interface Props {
   params: Promise<{ slug: string }>;
 }
