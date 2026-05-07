@@ -31,35 +31,44 @@ export const metadata: Metadata = {
 export default function ContactPage() {
   return (
     <>
-      {/* ─── Hero ─── */}
-      <section className="relative py-20 px-6 bg-[radial-gradient(ellipse_at_center,rgba(59,130,246,0.08),transparent_70%)]">
-        <div className="mx-auto max-w-3xl text-center">
-          <h1 className="font-heading font-black text-5xl md:text-6xl mb-6">
-            Let&apos;s <span className="gradient-text">Connect</span>
+      {/* ─── Hero with photo backdrop ─── */}
+      <section className="relative section-photo-backdrop py-24 md:py-32 px-6 -mt-16 pt-32">
+        <div className="photo-bg">
+          <Image
+            src="/images/multi-court-outdoor.jpeg"
+            alt=""
+            fill
+            sizes="100vw"
+            className="object-cover"
+            aria-hidden="true"
+          />
+        </div>
+        <div className="relative mx-auto max-w-4xl text-center">
+          <p className="eyebrow mb-4">Let&apos;s connect</p>
+          <h1 className="font-heading font-black text-5xl md:text-7xl mb-6 leading-[0.95]">
+            Get on the <span className="gradient-text-warm">court.</span>
           </h1>
           <p className="text-text-muted text-lg md:text-xl max-w-2xl mx-auto leading-relaxed">
-            Whether you&apos;re looking for pickleball lessons in Montgomery
-            County, want to enroll your kids in the youth academy, or need
-            coaching for your whole family &mdash; I&apos;d love to hear from
-            you. Serving Rockville, North Bethesda, Olney, Bethesda,
-            Gaithersburg, and all of Montgomery County, MD.
+            Whether you&apos;re looking for private lessons, want to enroll your
+            kids in the youth academy, or need coaching for your whole family
+            — I&apos;d love to hear from you.
           </p>
         </div>
       </section>
 
       {/* ─── Two-Column Grid ─── */}
-      <section className="py-16 px-6">
-        <div className="mx-auto max-w-5xl grid grid-cols-1 md:grid-cols-2 gap-12">
+      <section className="py-20 px-6">
+        <div className="mx-auto max-w-6xl grid grid-cols-1 lg:grid-cols-[1.1fr_1fr] gap-12">
           {/* Left column: Lead Form */}
           <div>
-            <LeadForm heading="Get in Touch" page="contact" />
+            <LeadForm heading="Get in touch" page="contact" />
           </div>
 
           {/* Right column: Contact Info */}
-          <div className="space-y-6">
-            {/* Portrait */}
-            <div className="flex justify-center">
-              <div className="relative w-32 h-32 rounded-full overflow-hidden glow-border">
+          <div className="space-y-5">
+            {/* Portrait card */}
+            <div className="glass-card-amber rounded-2xl p-7 text-center">
+              <div className="relative w-32 h-32 rounded-full overflow-hidden glow-border mx-auto mb-5">
                 <Image
                   src="/images/sam-portrait-arms-crossed.jpg"
                   alt="Sam Morris"
@@ -68,25 +77,31 @@ export default function ContactPage() {
                   className="object-cover"
                 />
               </div>
+              <h3 className="font-heading font-bold text-xl mb-1">Coach Sam Morris</h3>
+              <p className="text-text-muted text-sm">
+                PPR Pro · DUPR Coach · M.S. in Coaching
+              </p>
             </div>
 
             {/* Direct Contact */}
-            <div className="bg-navy-light glow-border rounded-xl p-6">
-              <h2 className="font-heading font-bold text-2xl mb-4">
-                Direct Contact
+            <div className="glass-card rounded-2xl p-7">
+              <h2 className="font-heading font-bold text-xl mb-4">
+                Direct contact
               </h2>
               <ul className="space-y-3 text-text-muted">
-                <li>
+                <li className="flex items-center gap-3">
+                  <span className="text-accent-blue text-lg">✉</span>
                   <ContactLink
                     href={`mailto:${CONTACT.email}`}
                     method="email"
                     page="contact"
-                    className="hover:text-accent-blue transition-colors"
+                    className="hover:text-accent-blue transition-colors break-all"
                   >
                     {CONTACT.email}
                   </ContactLink>
                 </li>
-                <li>
+                <li className="flex items-center gap-3">
+                  <span className="text-accent-blue text-lg">☎</span>
                   <ContactLink
                     href={`tel:${CONTACT.phone}`}
                     method="phone"
@@ -100,60 +115,56 @@ export default function ContactPage() {
             </div>
 
             {/* Social Media */}
-            <div className="bg-navy-light glow-border rounded-xl p-6">
-              <h2 className="font-heading font-bold text-2xl mb-4">
-                Social Media
-              </h2>
-              <ul className="space-y-3">
+            <div className="glass-card rounded-2xl p-7">
+              <h2 className="font-heading font-bold text-xl mb-4">Social</h2>
+              <div className="flex flex-wrap gap-2">
                 {SOCIAL_LINKS.map((link) => (
-                  <li key={link.platform}>
-                    <TrackedExternalLink
-                      href={link.href}
-                      label={link.platform}
-                      page="contact"
-                      className="text-text-muted hover:text-accent-pink transition-colors"
-                    >
-                      {link.platform}
-                    </TrackedExternalLink>
-                  </li>
+                  <TrackedExternalLink
+                    key={link.platform}
+                    href={link.href}
+                    label={link.platform}
+                    page="contact"
+                    className="px-4 py-2 rounded-full text-sm border border-white/12 text-text-muted hover:text-accent-blue hover:border-accent-blue/45 transition-colors"
+                  >
+                    {link.platform}
+                  </TrackedExternalLink>
                 ))}
-              </ul>
+              </div>
             </div>
 
             {/* Skill Evaluation Card */}
-            <div className="bg-navy-light glow-border rounded-xl p-6">
-              <h2 className="font-heading font-bold text-2xl mb-3">
-                Skill Evaluation
+            <div className="glass-card rounded-2xl p-7">
+              <h2 className="font-heading font-bold text-xl mb-3">
+                Skill evaluation
               </h2>
-              <p className="text-text-muted leading-relaxed mb-4">
+              <p className="text-text-muted leading-relaxed mb-4 text-sm">
                 A 30-minute on-court evaluation gives you an honest read on
                 your level and a personalized growth plan.
               </p>
               <ul className="space-y-3 text-text-muted text-sm">
-                <li className="flex items-start gap-2">
-                  <span className="text-accent-green font-bold mt-0.5">✓</span>
+                <li className="flex items-start gap-3">
+                  <span className="text-accent-lime font-bold mt-0.5">✓</span>
                   <span>
-                    <strong className="text-text">Required</strong> for new Next
+                    <strong className="text-text-primary">Required</strong> for new Next
                     Gen Pickleball Academy players
                   </span>
                 </li>
-                <li className="flex items-start gap-2">
+                <li className="flex items-start gap-3">
                   <span className="text-accent-blue font-bold mt-0.5">○</span>
                   <span>
-                    <strong className="text-text">Optional</strong> for adult
+                    <strong className="text-text-primary">Optional</strong> for adult
                     private-lesson clients
                   </span>
                 </li>
               </ul>
               <div className="mt-5 pt-4 border-t border-white/10 space-y-2 text-sm text-text-muted">
                 <p>
-                  <strong className="text-text">Free</strong> &mdash; 30-minute
+                  <strong className="text-text-primary">Free</strong> — 30-minute
                   initial evaluation for every DMV player
                 </p>
                 <p>
-                  <strong className="text-text">Re-evaluation:</strong> priced
-                  as a private lesson &mdash; same rate as regular 1-on-1
-                  sessions
+                  <strong className="text-text-primary">Re-evaluation:</strong> priced
+                  as a private lesson
                 </p>
               </div>
             </div>

@@ -2,7 +2,7 @@ import type { Testimonial } from "@/lib/testimonials";
 
 function StarRating({ rating }: { rating: number }) {
   return (
-    <div className="flex gap-0.5 text-yellow-400" aria-label={`${rating} out of 5 stars`}>
+    <div className="flex gap-0.5 text-accent-blue" aria-label={`${rating} out of 5 stars`}>
       {Array.from({ length: 5 }, (_, i) => (
         <svg
           key={i}
@@ -26,19 +26,24 @@ export function TestimonialGrid({
   const items = limit ? testimonials.slice(0, limit) : testimonials;
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
       {items.map((t) => (
         <div
           key={t.id}
-          className="glow-border rounded-xl p-6 bg-white/[0.02]"
+          className="glass-card rounded-2xl p-7 flex flex-col"
         >
-          <StarRating rating={t.rating} />
-          <blockquote className="mt-3 text-text-primary text-sm leading-relaxed italic">
-            &ldquo;{t.quote}&rdquo;
+          <div className="text-accent-blue/40 font-heading text-5xl leading-none mb-2 select-none">
+            &ldquo;
+          </div>
+          <blockquote className="text-text-primary text-sm leading-relaxed flex-1">
+            {t.quote}
           </blockquote>
-          <div className="mt-4 border-t border-white/5 pt-3">
-            <p className="text-text-primary text-sm font-medium">{t.author}</p>
-            <p className="text-text-muted text-xs">{t.role}</p>
+          <div className="mt-5 pt-4 border-t border-white/8 flex items-center justify-between gap-3">
+            <div>
+              <p className="text-text-primary text-sm font-semibold">{t.author}</p>
+              <p className="text-text-muted text-xs">{t.role}</p>
+            </div>
+            <StarRating rating={t.rating} />
           </div>
         </div>
       ))}

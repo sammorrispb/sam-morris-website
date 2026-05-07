@@ -11,7 +11,6 @@ export function MobileCTA() {
   useEffect(() => {
     const handleScroll = () => {
       const currentY = window.scrollY;
-      // Hide on scroll down, show on scroll up
       if (currentY > lastScrollY && currentY > 100) {
         setVisible(false);
       } else {
@@ -30,7 +29,7 @@ export function MobileCTA() {
         visible ? "translate-y-0" : "translate-y-full"
       }`}
     >
-      <div className="bg-navy/95 backdrop-blur-md border-t border-white/10 px-4 py-3 flex gap-3">
+      <div className="bg-navy/95 backdrop-blur-xl border-t border-white/10 px-4 py-3 flex gap-3 shadow-[0_-4px_20px_rgba(0,0,0,0.4)]">
         <a
           href="tel:301-325-4731"
           onClick={() =>
@@ -40,7 +39,7 @@ export function MobileCTA() {
               section: "mobile_sticky_cta",
             })
           }
-          className="flex-1 flex items-center justify-center gap-2 rounded-lg border border-white/20 px-4 py-2.5 text-sm font-medium text-text-primary hover:bg-white/5 transition-colors"
+          className="flex-1 flex items-center justify-center gap-2 rounded-full btn-outline px-4 py-2.5 text-sm font-medium"
         >
           <svg
             className="h-4 w-4"
@@ -66,7 +65,7 @@ export function MobileCTA() {
               section: "mobile_sticky_cta",
             })
           }
-          className="flex-1 flex items-center justify-center gap-2 rounded-lg bg-gradient-to-r from-accent-blue to-accent-purple px-4 py-2.5 text-sm font-bold text-white transition-opacity hover:opacity-90"
+          className="flex-1 flex items-center justify-center gap-2 rounded-full btn-gradient px-4 py-2.5 text-sm"
         >
           Book Free Eval
         </Link>

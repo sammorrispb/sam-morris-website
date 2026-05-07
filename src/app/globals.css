@@ -3,16 +3,34 @@
 
 @plugin "@tailwindcss/typography";
 
+/* ═══════════════════════════════════════════════════════════════
+   SAM MORRIS — PERSONAL COACH BRAND PALETTE
+   Warm premium charcoal + amber/honey + burnt sienna + sage.
+   Distinct from Next Gen Academy's cool navy/teal.
+   Token names are PRESERVED so existing utilities keep working.
+   ═══════════════════════════════════════════════════════════════ */
+
 @theme inline {
-  /* Colors */
-  --color-navy: #0a0e27;
-  --color-navy-light: #141937;
-  --color-accent-blue: #3b82f6;
-  --color-accent-purple: #8b5cf6;
-  --color-accent-pink: #ec4899;
-  --color-accent-lime: #a3e635;
-  --color-text-primary: #f0f0f5;
-  --color-text-muted: #94a3b8;
+  /* Surfaces — warm charcoal */
+  --color-navy: #0F0E0C;          /* deep warm charcoal (page bg) */
+  --color-navy-light: #1B1815;    /* cocoa charcoal (alt sections / cards) */
+
+  /* Accents — amber, sienna, terracotta, sage */
+  --color-accent-blue: #E8A03A;   /* amber/honey gold — primary CTA */
+  --color-accent-purple: #B85C2F; /* burnt sienna — gradient partner */
+  --color-accent-pink: #D9523E;   /* terracotta — energy pop / eval */
+  --color-accent-lime: #A5C49C;   /* sage — EASE / success */
+
+  /* Text — warm cream / taupe */
+  --color-text-primary: #F4ECE0;
+  --color-text-muted: #A89F8E;
+
+  /* Extras */
+  --color-amber: #E8A03A;
+  --color-amber-deep: #B85C2F;
+  --color-sage: #A5C49C;
+  --color-cream: #F4ECE0;
+  --color-sand: #25201B;          /* card surface, between navy and navy-light */
 
   /* Fonts */
   --font-heading: var(--font-montserrat), sans-serif;
@@ -25,8 +43,8 @@ html {
 }
 
 ::selection {
-  background-color: rgba(59, 130, 246, 0.3);
-  color: #f0f0f5;
+  background-color: rgba(232, 160, 58, 0.32);
+  color: #F4ECE0;
 }
 
 body {
@@ -35,60 +53,213 @@ body {
   font-family: var(--font-body);
 }
 
-/* Accessibility — focus rings for keyboard users */
+/* Subtle film-grain warmth across the whole page */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background:
+    radial-gradient(ellipse 80% 60% at 0% 0%, rgba(232, 160, 58, 0.05), transparent 60%),
+    radial-gradient(ellipse 60% 50% at 100% 100%, rgba(184, 92, 47, 0.04), transparent 60%);
+}
+
+/* Accessibility — focus rings */
 :focus-visible {
   outline: 2px solid var(--color-accent-blue);
   outline-offset: 2px;
 }
 
-/* Utility classes */
+/* ─── Glow Borders ─── */
 .glow-border {
-  border: 1px solid rgba(59, 130, 246, 0.14);
-  box-shadow: 0 0 20px rgba(59, 130, 246, 0.05);
+  border: 1px solid rgba(232, 160, 58, 0.16);
+  box-shadow: 0 0 24px rgba(232, 160, 58, 0.04);
 }
 
 .glow-border-hover:hover {
-  border-color: rgba(59, 130, 246, 0.3);
-  box-shadow: 0 0 30px rgba(59, 130, 246, 0.1);
+  border-color: rgba(232, 160, 58, 0.34);
+  box-shadow: 0 0 36px rgba(232, 160, 58, 0.10);
 }
 
+/* ─── Gradient Text ─── */
 .gradient-text {
-  background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+  background: linear-gradient(135deg, #E8A03A, #B85C2F);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
-/* Card and button hover effects */
+.gradient-text-warm {
+  background: linear-gradient(135deg, #F2C078, #E8A03A 45%, #B85C2F);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ─── Card Hover ─── */
 .card-hover {
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
 }
 
 .card-hover:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+  transform: translateY(-3px);
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.45);
 }
 
+/* ─── Buttons ─── */
 .btn-gradient {
-  background: linear-gradient(135deg, #3b82f6, #8b5cf6);
-  transition: filter 0.2s ease, transform 0.2s ease;
+  background: linear-gradient(135deg, #E8A03A 0%, #C77327 100%);
+  color: #1B1815;
+  font-weight: 700;
+  transition: filter 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 6px 18px rgba(232, 160, 58, 0.22);
 }
 
 .btn-gradient:hover {
-  filter: brightness(1.15);
+  filter: brightness(1.08);
+  transform: translateY(-1px);
+  box-shadow: 0 10px 28px rgba(232, 160, 58, 0.32);
+}
+
+.btn-outline {
+  border: 1px solid rgba(244, 236, 224, 0.22);
+  color: var(--color-text-primary);
+  background: rgba(244, 236, 224, 0.03);
+  transition: border-color 0.2s ease, background 0.2s ease, transform 0.2s ease;
+}
+
+.btn-outline:hover {
+  border-color: rgba(232, 160, 58, 0.55);
+  background: rgba(232, 160, 58, 0.06);
   transform: translateY(-1px);
 }
 
-/* Animations */
+.btn-ember {
+  background: linear-gradient(135deg, #D9523E, #B85C2F);
+  color: #fff;
+  font-weight: 700;
+  transition: filter 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 6px 18px rgba(217, 82, 62, 0.22);
+}
+
+.btn-ember:hover {
+  filter: brightness(1.08);
+  transform: translateY(-1px);
+  box-shadow: 0 10px 28px rgba(217, 82, 62, 0.34);
+}
+
+/* ─── Glassmorphism cards ─── */
+.glass-card {
+  background: rgba(244, 236, 224, 0.04);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(244, 236, 224, 0.10);
+  border-radius: 1rem;
+  transition: transform 0.25s ease, border-color 0.25s ease, background 0.25s ease, box-shadow 0.25s ease;
+}
+
+.glass-card:hover {
+  border-color: rgba(232, 160, 58, 0.32);
+  background: rgba(244, 236, 224, 0.06);
+  transform: translateY(-3px);
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.45);
+}
+
+.glass-card-amber {
+  background: linear-gradient(135deg, rgba(232, 160, 58, 0.08), rgba(184, 92, 47, 0.04));
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(232, 160, 58, 0.22);
+  border-radius: 1rem;
+  transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.glass-card-amber:hover {
+  border-color: rgba(232, 160, 58, 0.45);
+  transform: translateY(-3px);
+  box-shadow: 0 16px 48px rgba(232, 160, 58, 0.18);
+}
+
+/* ─── Solid card on warm sand surface ─── */
+.card-warm {
+  background: linear-gradient(160deg, #25201B 0%, #1B1815 100%);
+  border: 1px solid rgba(232, 160, 58, 0.16);
+  border-radius: 1rem;
+  transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.card-warm:hover {
+  border-color: rgba(232, 160, 58, 0.38);
+  transform: translateY(-3px);
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.5);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   PHOTO-FORWARD HERO PATTERNS
+   ═══════════════════════════════════════════════════════════════ */
+
+/* Full-bleed hero — photo with gradient overlay for legibility */
+.hero-full-bleed {
+  position: relative;
+  isolation: isolate;
+}
+
+.hero-full-bleed::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(180deg, rgba(15, 14, 12, 0.55) 0%, rgba(15, 14, 12, 0.78) 60%, #0F0E0C 100%),
+    linear-gradient(90deg, rgba(15, 14, 12, 0.65) 0%, rgba(15, 14, 12, 0.15) 50%, rgba(15, 14, 12, 0.45) 100%);
+  z-index: 0;
+}
+
+.hero-full-bleed > * {
+  position: relative;
+  z-index: 1;
+}
+
+.hero-image-warm {
+  filter: saturate(0.9) brightness(0.85) contrast(1.05);
+}
+
+/* Section backdrop — photo at very low opacity behind content */
+.section-photo-backdrop {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+}
+
+.section-photo-backdrop > .photo-bg {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  opacity: 0.10;
+  filter: saturate(0.6) contrast(1.1);
+}
+
+.section-photo-backdrop::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(180deg, #0F0E0C 0%, rgba(15, 14, 12, 0.85) 50%, #0F0E0C 100%);
+}
+
+/* Premium "spotlight" radial behind a hero subject */
+.hero-spotlight {
+  background:
+    radial-gradient(ellipse 70% 60% at 50% 40%, rgba(232, 160, 58, 0.14), transparent 65%),
+    radial-gradient(ellipse 60% 70% at 80% 70%, rgba(184, 92, 47, 0.10), transparent 70%),
+    #0F0E0C;
+}
+
+/* ─── Animations ─── */
 @keyframes fadeUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 @keyframes fadeIn {
@@ -96,321 +267,96 @@ body {
   to { opacity: 1; }
 }
 
-.animate-fade-up {
-  animation: fadeUp 0.6s ease-out forwards;
+@keyframes slideInFromLeft {
+  from { opacity: 0; transform: translateX(-20px); }
+  to { opacity: 1; transform: translateX(0); }
 }
 
-.animate-fade-in {
-  animation: fadeIn 0.4s ease-out forwards;
+@keyframes bounceIn {
+  0% { opacity: 0; transform: scale(0.92); }
+  60% { opacity: 1; transform: scale(1.04); }
+  100% { transform: scale(1); }
 }
 
-/* ═══════════════════════════════════════════════
-   Brand Design System
-   SM = Sam Morris (primary) | NG = Next Gen Academy
-   ═══════════════════════════════════════════════ */
-
-/* ─── Hero Backgrounds ─── */
-.hero-dill-dinkers {
-  background:
-    radial-gradient(ellipse at 30% 20%, rgba(244, 121, 32, 0.10), transparent 60%),
-    radial-gradient(ellipse at 70% 80%, rgba(139, 199, 81, 0.06), transparent 60%),
-    #11254C;
-}
-.hero-dill-dinkers::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background:
-    linear-gradient(90deg, transparent 49.5%, rgba(244, 121, 32, 0.04) 49.5%, rgba(244, 121, 32, 0.04) 50.5%, transparent 50.5%),
-    linear-gradient(0deg, transparent 49.5%, rgba(139, 199, 81, 0.03) 49.5%, rgba(139, 199, 81, 0.03) 50.5%, transparent 50.5%);
-  pointer-events: none;
+@keyframes glowPulse {
+  0%, 100% { box-shadow: 0 0 24px rgba(232, 160, 58, 0.12); }
+  50% { box-shadow: 0 0 40px rgba(232, 160, 58, 0.28); }
 }
 
-.hero-dill-dinkers-lime {
-  background:
-    radial-gradient(ellipse at 30% 20%, rgba(139, 199, 81, 0.10), transparent 60%),
-    radial-gradient(ellipse at 70% 80%, rgba(244, 121, 32, 0.06), transparent 60%),
-    #11254C;
-}
+.animate-fade-up { animation: fadeUp 0.6s ease-out forwards; }
+.animate-fade-in { animation: fadeIn 0.4s ease-out forwards; }
+.animate-slide-in { animation: slideInFromLeft 0.5s ease-out forwards; }
+.animate-glow { animation: glowPulse 4s ease-in-out infinite; }
+
+/* ═══════════════════════════════════════════════════════════════
+   LEGACY brand-coupled utilities (preserved so coaching page etc keep working)
+   These now resolve to the new amber/sienna palette.
+   ═══════════════════════════════════════════════════════════════ */
 
 .hero-sam-morris {
   background:
-    radial-gradient(ellipse at 40% 30%, rgba(77, 172, 208, 0.10), transparent 60%),
-    radial-gradient(ellipse at 80% 70%, rgba(59, 130, 246, 0.06), transparent 60%),
-    #0a0e27;
-}
-
-.hero-link-and-dink {
-  background:
-    radial-gradient(ellipse at 50% 20%, rgba(244, 121, 32, 0.12), transparent 55%),
-    radial-gradient(ellipse at 80% 80%, rgba(255, 207, 49, 0.06), transparent 50%),
-    #0a0e27;
-}
-
-.hero-next-gen {
-  background:
-    radial-gradient(circle at 15% 50%, rgba(239, 68, 68, 0.08), transparent 40%),
-    radial-gradient(circle at 50% 50%, rgba(249, 115, 22, 0.08), transparent 40%),
-    radial-gradient(circle at 85% 50%, rgba(34, 197, 94, 0.08), transparent 40%),
-    #0a0e27;
-}
-
-/* ─── Gradient Text ─── */
-.gradient-text-dd {
-  background: linear-gradient(135deg, #F47920, #8BC751);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+    radial-gradient(ellipse at 40% 30%, rgba(232, 160, 58, 0.16), transparent 60%),
+    radial-gradient(ellipse at 80% 70%, rgba(184, 92, 47, 0.10), transparent 60%),
+    #0F0E0C;
 }
 
 .gradient-text-sm {
-  background: linear-gradient(135deg, #4DACD0, #3b82f6);
+  background: linear-gradient(135deg, #E8A03A, #B85C2F);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-}
-
-.gradient-text-ld {
-  background: linear-gradient(135deg, #F47920, #FFCF31);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-.gradient-text-ng {
-  background: linear-gradient(135deg, #ef4444, #f97316, #22c55e);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-/* ─── CTA Buttons ─── */
-.btn-dd {
-  background: linear-gradient(135deg, #F47920, #d4680e);
-  color: #fff;
-  transition: filter 0.2s ease, transform 0.2s ease;
-}
-.btn-dd:hover {
-  filter: brightness(1.15);
-  transform: translateY(-1px);
 }
 
 .btn-sm {
-  background: linear-gradient(135deg, #4DACD0, #3b82f6);
-  color: #fff;
-  transition: filter 0.2s ease, transform 0.2s ease;
-}
-.btn-sm:hover {
-  filter: brightness(1.15);
-  transform: translateY(-1px);
-}
-
-.btn-ld {
-  background: linear-gradient(135deg, #F47920, #FFCF31);
-  color: #11254C;
+  background: linear-gradient(135deg, #E8A03A, #C77327);
+  color: #1B1815;
   font-weight: 700;
   transition: filter 0.2s ease, transform 0.2s ease;
+  box-shadow: 0 6px 18px rgba(232, 160, 58, 0.22);
 }
-.btn-ld:hover {
-  filter: brightness(1.1);
+.btn-sm:hover {
+  filter: brightness(1.08);
   transform: translateY(-1px);
-}
-
-.btn-ng {
-  background: linear-gradient(135deg, #22c55e, #f97316);
-  color: #fff;
-  transition: filter 0.2s ease, transform 0.2s ease;
-}
-.btn-ng:hover {
-  filter: brightness(1.15);
-  transform: translateY(-1px);
-}
-
-/* ─── Card Styles ─── */
-.card-dd {
-  background: linear-gradient(135deg, #141937, #1a1f3a);
-  border: 1px solid rgba(244, 121, 32, 0.14);
-  box-shadow: 0 0 20px rgba(244, 121, 32, 0.05);
-  border-radius: 0.75rem;
-  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
-}
-.card-dd:hover {
-  border-color: rgba(244, 121, 32, 0.3);
-  box-shadow: 0 0 30px rgba(244, 121, 32, 0.1);
-  transform: translateY(-2px);
 }
 
 .card-sm {
-  background: linear-gradient(135deg, #0d1a2e, #141937);
-  border: 1px solid rgba(77, 172, 208, 0.14);
-  box-shadow: 0 0 20px rgba(77, 172, 208, 0.05);
-  border-radius: 0.75rem;
-  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+  background: linear-gradient(160deg, #25201B, #1B1815);
+  border: 1px solid rgba(232, 160, 58, 0.18);
+  box-shadow: 0 0 24px rgba(232, 160, 58, 0.05);
+  border-radius: 1rem;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
 }
 .card-sm:hover {
-  border-color: rgba(77, 172, 208, 0.3);
-  box-shadow: 0 0 30px rgba(77, 172, 208, 0.1);
-  transform: translateY(-2px);
-}
-
-.card-ld {
-  background: linear-gradient(135deg, #1a1020, #141937);
-  border: 1px solid rgba(244, 121, 32, 0.18);
-  box-shadow: 0 0 20px rgba(244, 121, 32, 0.08);
-  border-radius: 0.75rem;
-  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
-}
-.card-ld:hover {
-  border-color: rgba(255, 207, 49, 0.3);
-  box-shadow: 0 0 30px rgba(255, 207, 49, 0.1);
-  transform: translateY(-2px);
-}
-
-.card-ng {
-  background: #0e1a1e;
-  border: 1px solid rgba(34, 197, 94, 0.14);
-  box-shadow: 0 0 20px rgba(34, 197, 94, 0.05);
-  border-radius: 0.75rem;
-  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
-}
-.card-ng:hover {
-  border-color: rgba(34, 197, 94, 0.3);
-  box-shadow: 0 0 30px rgba(34, 197, 94, 0.1);
-  transform: translateY(-2px);
-  animation: triColorPulse 4s ease-in-out infinite;
-}
-
-/* ─── Glow Borders ─── */
-.glow-border-dd {
-  border: 1px solid rgba(244, 121, 32, 0.14);
-  box-shadow: 0 0 20px rgba(244, 121, 32, 0.05);
+  border-color: rgba(232, 160, 58, 0.40);
+  box-shadow: 0 16px 44px rgba(232, 160, 58, 0.10);
+  transform: translateY(-3px);
 }
 
 .glow-border-sm {
-  border: 1px solid rgba(77, 172, 208, 0.14);
-  box-shadow: 0 0 20px rgba(77, 172, 208, 0.05);
+  border: 1px solid rgba(232, 160, 58, 0.18);
+  box-shadow: 0 0 24px rgba(232, 160, 58, 0.05);
 }
 
-.glow-border-ld {
-  border: 1px solid rgba(244, 121, 32, 0.18);
-  box-shadow: 0 0 20px rgba(244, 121, 32, 0.08);
-}
-
-.glow-border-ng {
-  border: 1px solid rgba(34, 197, 94, 0.14);
-  box-shadow: 0 0 20px rgba(34, 197, 94, 0.05);
-}
-
-/* ─── Table Styles ─── */
-.table-dd thead tr {
-  border-bottom: 2px solid rgba(244, 121, 32, 0.20);
-}
-
-.table-sm thead tr {
-  border-bottom: 2px solid rgba(77, 172, 208, 0.20);
-}
-
-.table-ld thead tr {
-  border-bottom: 2px solid rgba(244, 121, 32, 0.20);
-}
-
-.table-ng thead tr {
-  border-bottom: 2px solid rgba(34, 197, 94, 0.20);
-}
-
-/* ─── Page Wrappers (alternating section backgrounds) ─── */
-.page-dill-dinkers section:nth-child(even) {
-  background: #11254C;
-}
-
-.page-sam-morris section:nth-child(even) {
-  background: #0d1a2e;
-}
-
-.page-link-and-dink section:nth-child(even) {
-  background: #1a1020;
-}
-
-.page-next-gen section:nth-child(even) {
-  background: #0e1a1e;
-}
-
-/* ─── Typography per Brand ─── */
-.page-dill-dinkers h2 { font-weight: 800; }
-.page-dill-dinkers h3 { font-weight: 700; }
-
-.page-sam-morris h2 { font-weight: 700; }
-.page-sam-morris h3 { font-weight: 600; }
-
-.page-link-and-dink h2 { font-weight: 800; }
-.page-link-and-dink h3 { font-weight: 700; }
-
-.page-next-gen h2 { font-weight: 900; letter-spacing: -0.01em; }
-.page-next-gen h3 { font-weight: 700; }
-
-/* ─── Brand Badges ─── */
 .brand-badge {
   display: inline-block;
-  padding: 0.25rem 0.75rem;
+  padding: 0.3rem 0.85rem;
   border-radius: 9999px;
   font-size: 0.6875rem;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.08em;
   animation: bounceIn 0.5s ease-out;
 }
 
-.brand-badge-dd {
-  background: rgba(244, 121, 32, 0.12);
-  border: 1px solid rgba(244, 121, 32, 0.25);
-  color: #F47920;
-}
-
 .brand-badge-sm {
-  background: rgba(77, 172, 208, 0.12);
-  border: 1px solid rgba(77, 172, 208, 0.25);
-  color: #4DACD0;
+  background: rgba(232, 160, 58, 0.14);
+  border: 1px solid rgba(232, 160, 58, 0.32);
+  color: #E8A03A;
 }
 
-.brand-badge-ld {
-  background: rgba(244, 121, 32, 0.12);
-  border: 1px solid rgba(244, 121, 32, 0.25);
-  color: #F47920;
-}
-
-.brand-badge-ng {
-  background: rgba(34, 197, 94, 0.12);
-  border: 1px solid rgba(34, 197, 94, 0.25);
-  color: #22c55e;
-}
-
-/* ─── Custom Animations ─── */
-@keyframes triColorPulse {
-  0%, 100% { border-color: rgba(239, 68, 68, 0.3); }
-  33% { border-color: rgba(249, 115, 22, 0.3); }
-  66% { border-color: rgba(34, 197, 94, 0.3); }
-}
-
-@keyframes slideInFromLeft {
-  from {
-    opacity: 0;
-    transform: translateX(-20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-@keyframes bounceIn {
-  0% { opacity: 0; transform: scale(0.8); }
-  60% { opacity: 1; transform: scale(1.05); }
-  100% { transform: scale(1); }
-}
-
-.animate-slide-in {
-  animation: slideInFromLeft 0.5s ease-out forwards;
-}
+/* Page-level wrapper for legacy support */
+.page-sam-morris h2 { font-weight: 800; letter-spacing: -0.01em; }
+.page-sam-morris h3 { font-weight: 700; }
 
 /* ─── Active Nav Indicator ─── */
 .nav-link-active {
@@ -419,7 +365,7 @@ body {
 .nav-link-active::after {
   content: "";
   position: absolute;
-  bottom: -4px;
+  bottom: -6px;
   left: 0;
   right: 0;
   height: 2px;
@@ -448,3 +394,32 @@ body {
     overflow-y: auto;
   }
 }
+
+/* ─── Tag pill (blog, etc.) ─── */
+.tag-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  background: rgba(232, 160, 58, 0.12);
+  border: 1px solid rgba(232, 160, 58, 0.22);
+  color: #E8A03A;
+}
+
+/* ─── Eyebrow (small label above headlines) ─── */
+.eyebrow {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: #E8A03A;
+}
+
+/* Hide scrollbars on horizontal nav */
+.scrollbar-hide::-webkit-scrollbar { display: none; }
+.scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }

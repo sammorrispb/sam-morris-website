@@ -204,7 +204,7 @@ export default async function BlogPostPage({ params }: Props) {
   if (!post) notFound();
 
   return (
-    <main className="min-h-screen pt-28 pb-20">
+    <main className="min-h-screen pt-16 pb-20">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -245,28 +245,25 @@ export default async function BlogPostPage({ params }: Props) {
         <div className="mx-auto max-w-3xl">
           <Link
             href="/blog"
-            className="text-text-muted hover:text-text-primary text-sm transition-colors mb-8 inline-block"
+            className="text-text-muted hover:text-accent-blue text-sm transition-colors mb-8 inline-flex items-center gap-1.5"
           >
             &larr; Back to Blog
           </Link>
 
           <header className="mb-10">
             {post.tags.length > 0 && (
-              <div className="flex flex-wrap gap-2 mb-4">
+              <div className="flex flex-wrap gap-2 mb-5">
                 {post.tags.map((tag) => (
-                  <span
-                    key={tag}
-                    className="text-xs px-2 py-1 rounded-full bg-accent-blue/10 text-accent-blue"
-                  >
+                  <span key={tag} className="tag-pill">
                     {tag}
                   </span>
                 ))}
               </div>
             )}
-            <h1 className="text-3xl md:text-5xl font-heading font-bold text-text-primary mb-4">
+            <h1 className="text-4xl md:text-6xl font-heading font-black text-text-primary mb-5 leading-[1.05]">
               {post.title}
             </h1>
-            <p className="text-text-muted text-sm">
+            <p className="text-text-muted text-xs uppercase tracking-[0.14em] font-mono">
               {new Date(post.date).toLocaleDateString("en-US", {
                 year: "numeric",
                 month: "long",
@@ -279,7 +276,7 @@ export default async function BlogPostPage({ params }: Props) {
             <img
               src={post.coverImage}
               alt={post.title}
-              className="w-full rounded-xl mb-10"
+              className="w-full rounded-2xl mb-12 glow-border"
             />
           )}
 
@@ -288,6 +285,18 @@ export default async function BlogPostPage({ params }: Props) {
               const b = block as NotionBlock;
               return <div key={b.id ?? i}>{renderBlock(b, slug)}</div>;
             })}
+          </div>
+
+          <div className="mt-16 pt-10 border-t border-white/8 text-center">
+            <p className="text-text-muted text-sm mb-5">
+              Want a free 30-minute pickleball evaluation with Coach Sam?
+            </p>
+            <Link
+              href="/evaluation"
+              className="inline-flex items-center btn-gradient font-heading font-semibold px-7 py-3.5 rounded-full text-sm"
+            >
+              Book a Free Evaluation →
+            </Link>
           </div>
         </div>
       </article>

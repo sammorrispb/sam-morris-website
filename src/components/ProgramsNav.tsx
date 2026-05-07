@@ -9,8 +9,8 @@ const PROGRAM_NAV: { href: string; label: string; external?: boolean }[] = [
 ];
 
 const BRAND_MAP: Record<string, { brand: string; color: string }> = {
-  "/programs/coaching": { brand: "sam-morris", color: "#4DACD0" },
-  "/evaluation": { brand: "sam-morris", color: "#EC4899" },
+  "/programs/coaching": { brand: "sam-morris", color: "#E8A03A" },
+  "/evaluation": { brand: "sam-morris", color: "#D9523E" },
 };
 
 export function ProgramsNav() {

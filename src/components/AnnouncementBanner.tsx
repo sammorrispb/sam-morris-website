@@ -33,7 +33,7 @@ export function AnnouncementBanner() {
   }
 
   return (
-    <div className="bg-accent-blue text-white px-6 py-3 flex items-center justify-center gap-3 text-sm">
+    <div className="relative bg-gradient-to-r from-accent-purple via-accent-blue to-accent-purple text-navy px-6 py-3 flex items-center justify-center gap-3 text-sm font-medium">
       <p className="text-center">
         {ANNOUNCEMENT.message}
         {ANNOUNCEMENT.href && ANNOUNCEMENT.linkText && (
@@ -41,7 +41,7 @@ export function AnnouncementBanner() {
             {" "}
             <Link
               href={ANNOUNCEMENT.href}
-              className="underline underline-offset-2 font-semibold hover:text-white/80"
+              className="underline underline-offset-2 font-bold hover:opacity-80"
             >
               {ANNOUNCEMENT.linkText} &rarr;
             </Link>
@@ -51,7 +51,7 @@ export function AnnouncementBanner() {
       <button
         onClick={handleDismiss}
         aria-label="Dismiss announcement"
-        className="ml-2 shrink-0 p-1 rounded hover:bg-white/20 transition-colors"
+        className="ml-2 shrink-0 p-1 rounded hover:bg-black/15 transition-colors"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"

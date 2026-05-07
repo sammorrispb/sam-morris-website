@@ -71,17 +71,18 @@ export function QuizClient() {
       <div className="text-center max-w-lg mx-auto">
         <div className="text-6xl mb-6">🏓</div>
         <h2 className="text-2xl md:text-3xl font-heading font-bold text-text-primary mb-4">
-          Find out where you stand
+          Find out where you stand.
         </h2>
         <p className="text-text-muted mb-8 leading-relaxed">
-          Answer 6 quick questions about your pickleball game. We&apos;ll tell you your
-          estimated skill level and recommend the perfect programs to help you improve.
+          Six quick questions about your pickleball game. You&apos;ll get an
+          estimated skill level and recommendations for programs that match
+          your game.
         </p>
         <button
           onClick={handleStart}
-          className="btn-gradient px-8 py-3 rounded-lg text-white font-bold text-lg"
+          className="btn-gradient px-8 py-3.5 rounded-full font-semibold text-base"
         >
-          Take the Quiz
+          Take the Quiz →
         </button>
         <p className="text-text-muted text-xs mt-4">Takes about 1 minute</p>
       </div>
@@ -128,9 +129,9 @@ export function QuizClient() {
           <Link
             href="/evaluation"
             onClick={() => trackEvent("cta_click", { label: "Book a Free Evaluation", page: "/quiz", section: "result", destination: "/evaluation" })}
-            className="btn-gradient px-8 py-3 rounded-lg text-white font-bold inline-block"
+            className="btn-gradient px-8 py-3.5 rounded-full font-semibold inline-block"
           >
-            Book a Free Evaluation
+            Book a Free Evaluation →
           </Link>
           <p className="text-text-muted text-xs mt-3">
             Get a personalized assessment from Coach Sam
@@ -171,9 +172,9 @@ export function QuizClient() {
           <button
             type="submit"
             disabled={submitting}
-            className="w-full btn-gradient px-8 py-3 rounded-lg text-white font-bold disabled:opacity-50"
+            className="w-full btn-gradient px-8 py-3.5 rounded-full font-semibold disabled:opacity-50"
           >
-            {submitting ? "Loading..." : "See My Results"}
+            {submitting ? "Loading..." : "See My Results →"}
           </button>
         </form>
         <p className="text-text-muted text-xs mt-4">
@@ -211,9 +212,14 @@ export function QuizClient() {
           <button
             key={i}
             onClick={() => handleAnswer(opt.points)}
-            className="w-full text-left px-5 py-4 rounded-xl border border-white/10 hover:border-accent-blue/50 hover:bg-white/[0.03] transition-all text-text-primary text-sm leading-relaxed"
+            className="w-full text-left px-5 py-4 rounded-xl border border-white/10 hover:border-accent-blue/50 hover:bg-accent-blue/5 transition-all text-text-primary text-sm leading-relaxed group"
           >
-            {opt.label}
+            <span className="inline-flex items-center gap-3">
+              <span className="font-mono text-xs text-text-muted group-hover:text-accent-blue transition-colors">
+                {String.fromCharCode(65 + i)}
+              </span>
+              <span>{opt.label}</span>
+            </span>
           </button>
         ))}
       </div>
