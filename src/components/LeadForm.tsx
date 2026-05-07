@@ -15,7 +15,7 @@ function matchInterestFromParam(param: string | null): string {
   );
 }
 
-export function LeadForm({ heading = "Ready to Play?", page = "unknown" }: { heading?: string; page?: string }) {
+export function LeadForm({ heading = "Ready to play?", page = "unknown" }: { heading?: string; page?: string }) {
   const [form, setForm] = useState({ name: "", email: "", interest: "", notes: "" });
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
   const formStarted = useRef(false);
@@ -76,18 +76,22 @@ export function LeadForm({ heading = "Ready to Play?", page = "unknown" }: { hea
 
   if (status === "sent") {
     return (
-      <div role="status" aria-live="polite" className="bg-navy-light glow-border rounded-2xl p-8 text-center max-w-lg mx-auto">
-        <div className="text-accent-lime text-4xl mb-4">✓</div>
-        <h3 className="font-heading font-bold text-xl mb-2">You&apos;re in!</h3>
+      <div
+        role="status"
+        aria-live="polite"
+        className="glass-card-amber rounded-2xl p-8 text-center max-w-lg mx-auto"
+      >
+        <div className="text-accent-lime text-5xl mb-4">✓</div>
+        <h3 className="font-heading font-bold text-2xl mb-3">You&apos;re in.</h3>
         <p className="text-text-muted mb-2">
-          Check your email for a personal message from Sam.
+          Check your email for a personal note from Sam.
         </p>
         <p className="text-text-muted text-sm mb-6">
-          Sam typically responds within 24 hours.
+          Replies typically within 24 hours.
         </p>
         <Link
           href="/programs"
-          className="inline-block text-white font-heading font-semibold py-2.5 px-6 rounded-lg btn-gradient"
+          className="inline-block font-heading font-semibold py-3 px-7 rounded-full btn-gradient text-sm"
         >
           Explore Programs
         </Link>
@@ -98,9 +102,12 @@ export function LeadForm({ heading = "Ready to Play?", page = "unknown" }: { hea
   return (
     <form
       onSubmit={handleSubmit}
-      className="bg-navy-light glow-border glow-border-hover rounded-2xl p-8 max-w-lg mx-auto space-y-4 transition-all"
+      className="glass-card rounded-2xl p-7 md:p-8 max-w-lg mx-auto space-y-4 transition-all"
     >
-      <h3 className="font-heading font-bold text-2xl text-center">{heading}</h3>
+      <h3 className="font-heading font-bold text-2xl mb-1">{heading}</h3>
+      <p className="text-text-muted text-sm">
+        Quick note from Sam in your inbox within a day.
+      </p>
 
       <input
         type="text"
@@ -109,7 +116,7 @@ export function LeadForm({ heading = "Ready to Play?", page = "unknown" }: { hea
         required
         value={form.name}
         onChange={(e) => updateField("name", e.target.value)}
-        className="w-full bg-navy border border-white/10 rounded-lg px-4 py-3 text-text-primary placeholder:text-text-muted/50 focus:border-accent-blue focus:outline-none transition-colors"
+        className="w-full bg-navy/60 border border-white/10 rounded-xl px-4 py-3 text-text-primary placeholder:text-text-muted/60 focus:border-accent-blue focus:outline-none transition-colors"
       />
 
       <input
@@ -119,7 +126,7 @@ export function LeadForm({ heading = "Ready to Play?", page = "unknown" }: { hea
         required
         value={form.email}
         onChange={(e) => updateField("email", e.target.value)}
-        className="w-full bg-navy border border-white/10 rounded-lg px-4 py-3 text-text-primary placeholder:text-text-muted/50 focus:border-accent-blue focus:outline-none transition-colors"
+        className="w-full bg-navy/60 border border-white/10 rounded-xl px-4 py-3 text-text-primary placeholder:text-text-muted/60 focus:border-accent-blue focus:outline-none transition-colors"
       />
 
       <select
@@ -127,7 +134,7 @@ export function LeadForm({ heading = "Ready to Play?", page = "unknown" }: { hea
         aria-label="What are you interested in?"
         value={form.interest}
         onChange={(e) => updateField("interest", e.target.value)}
-        className="w-full bg-navy border border-white/10 rounded-lg px-4 py-3 text-text-primary focus:border-accent-blue focus:outline-none transition-colors"
+        className="w-full bg-navy/60 border border-white/10 rounded-xl px-4 py-3 text-text-primary focus:border-accent-blue focus:outline-none transition-colors"
       >
         <option value="" disabled>What are you interested in?</option>
         {INTEREST_OPTIONS.map((opt) => (
@@ -142,15 +149,15 @@ export function LeadForm({ heading = "Ready to Play?", page = "unknown" }: { hea
         onChange={(e) => updateField("notes", e.target.value)}
         rows={4}
         maxLength={1000}
-        className="w-full bg-navy border border-white/10 rounded-lg px-4 py-3 text-text-primary placeholder:text-text-muted/50 focus:border-accent-blue focus:outline-none transition-colors resize-none"
+        className="w-full bg-navy/60 border border-white/10 rounded-xl px-4 py-3 text-text-primary placeholder:text-text-muted/60 focus:border-accent-blue focus:outline-none transition-colors resize-none"
       />
 
       <button
         type="submit"
         disabled={status === "sending"}
-        className="w-full text-white font-heading font-semibold py-3 rounded-lg btn-gradient disabled:opacity-50"
+        className="w-full font-heading font-semibold py-3.5 rounded-full btn-gradient disabled:opacity-50 text-base"
       >
-        {status === "sending" ? "Sending..." : "Let's Go"}
+        {status === "sending" ? "Sending..." : "Let's Go →"}
       </button>
 
       {status === "error" && (

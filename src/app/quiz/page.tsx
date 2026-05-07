@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import { QuizClient } from "@/components/QuizClient";
 import { breadcrumbJsonLd } from "@/lib/seo";
 
@@ -27,7 +28,7 @@ export const metadata: Metadata = {
 
 export default function QuizPage() {
   return (
-    <main className="min-h-screen pt-28 pb-20">
+    <main className="relative min-h-screen pb-24">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -49,26 +50,39 @@ export default function QuizPage() {
             description:
               "A 6-question assessment to determine your pickleball skill level and recommend the right programs.",
             educationalLevel: "beginner to advanced",
-            about: {
-              "@type": "Thing",
-              name: "Pickleball",
-            },
+            about: { "@type": "Thing", name: "Pickleball" },
           }),
         }}
       />
 
-      <section className="px-6">
-        <div className="mx-auto max-w-4xl text-center mb-12">
-          <h1 className="text-4xl md:text-6xl font-heading font-bold text-text-primary mb-4">
-            What&apos;s Your Pickleball Level?
+      {/* Hero — photo backdrop */}
+      <section className="relative section-photo-backdrop pt-32 pb-12 px-6">
+        <div className="photo-bg">
+          <Image
+            src="/images/pickleballs-cluster.webp"
+            alt=""
+            fill
+            sizes="100vw"
+            className="object-cover"
+            aria-hidden="true"
+          />
+        </div>
+        <div className="relative mx-auto max-w-4xl text-center">
+          <p className="eyebrow mb-3">1-minute quiz</p>
+          <h1 className="text-5xl md:text-7xl font-heading font-black text-text-primary mb-5 leading-[0.95]">
+            What&apos;s your <span className="gradient-text-warm">pickleball level?</span>
           </h1>
           <p className="text-text-muted text-lg max-w-2xl mx-auto">
-            Find your skill level and discover the perfect programs for your game.
+            Six questions. Real recommendations. Find the perfect programs for your game.
           </p>
         </div>
+      </section>
 
-        <div className="mx-auto max-w-4xl">
-          <QuizClient />
+      <section className="px-6">
+        <div className="mx-auto max-w-3xl">
+          <div className="glass-card rounded-3xl p-8 md:p-12">
+            <QuizClient />
+          </div>
         </div>
       </section>
     </main>

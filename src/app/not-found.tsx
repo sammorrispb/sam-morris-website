@@ -8,33 +8,31 @@ export const metadata: Metadata = {
 
 export default function NotFound() {
   return (
-    <section className="py-32 px-6 text-center">
-      <div className="mx-auto max-w-lg">
-        <p className="font-mono text-accent-blue text-sm uppercase tracking-wider mb-4">
-          404
-        </p>
-        <h1 className="font-heading font-black text-4xl md:text-5xl mb-4">
-          Page Not Found
+    <section className="relative py-32 px-6 text-center hero-spotlight overflow-hidden min-h-[70vh] flex items-center">
+      <div className="mx-auto max-w-lg relative">
+        <p className="eyebrow mb-4">Error 404</p>
+        <h1 className="font-heading font-black text-5xl md:text-7xl mb-5 leading-[0.95]">
+          Out of <span className="gradient-text-warm">bounds.</span>
         </h1>
         <p className="text-text-muted text-lg mb-10">
           The page you&apos;re looking for doesn&apos;t exist or has been moved.
         </p>
-        <nav aria-label="Page not found navigation" className="flex flex-wrap justify-center gap-4">
+        <nav aria-label="Page not found navigation" className="flex flex-wrap justify-center gap-3">
           <Link
             href="/"
-            className="btn-primary-sm px-6 py-3 rounded-lg font-heading font-semibold"
+            className="btn-gradient px-7 py-3 rounded-full font-heading font-semibold text-sm"
           >
             Go Home
           </Link>
           <Link
             href="/programs"
-            className="border border-white/20 text-text-primary px-6 py-3 rounded-lg font-heading font-semibold hover:border-white/40 transition-colors"
+            className="btn-outline px-7 py-3 rounded-full font-heading font-semibold text-sm"
           >
             Programs
           </Link>
           <Link
             href="/contact"
-            className="border border-white/20 text-text-primary px-6 py-3 rounded-lg font-heading font-semibold hover:border-white/40 transition-colors"
+            className="btn-outline px-7 py-3 rounded-full font-heading font-semibold text-sm"
           >
             Contact
           </Link>
