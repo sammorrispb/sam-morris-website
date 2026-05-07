@@ -4,6 +4,8 @@ import Image from "next/image";
 import { getBlogPosts } from "@/lib/blog";
 import { breadcrumbJsonLd } from "@/lib/seo";
 
+export const revalidate = 300;
+
 export const metadata: Metadata = {
   title: "Blog — Pickleball Tips, Strategy & Community",
   description:
