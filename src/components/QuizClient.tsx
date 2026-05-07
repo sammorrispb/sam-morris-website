@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { QUIZ_QUESTIONS, QUIZ_RESULTS, calculateResult } from "@/lib/quiz";
 import { trackEvent, getVisitorIdForForm, getUtm } from "@/lib/funnelClient";
 
@@ -69,7 +70,14 @@ export function QuizClient() {
   if (!started) {
     return (
       <div className="text-center max-w-lg mx-auto">
-        <div className="text-6xl mb-6">🏓</div>
+        <Image
+          src="/images/pickleball-single.webp"
+          alt=""
+          width={96}
+          height={96}
+          className="mx-auto mb-6 w-20 h-20 object-contain"
+          aria-hidden="true"
+        />
         <h2 className="text-2xl md:text-3xl font-heading font-bold text-text-primary mb-4">
           Find out where you stand.
         </h2>
