@@ -220,7 +220,14 @@ export default function Home() {
             href="/quiz"
             className="glass-card-amber rounded-2xl p-8 md:p-10 flex flex-col md:flex-row items-center gap-6 group transition-all"
           >
-            <div className="text-5xl md:text-6xl">🏓</div>
+            <Image
+              src="/images/pickleball-single.webp"
+              alt=""
+              width={72}
+              height={72}
+              className="shrink-0 w-14 h-14 md:w-16 md:h-16 object-contain"
+              aria-hidden="true"
+            />
             <div className="text-center md:text-left flex-1">
               <p className="eyebrow mb-2">1-minute quiz</p>
               <h2 className="text-xl md:text-2xl font-heading font-bold text-text-primary group-hover:text-accent-blue transition-colors">
