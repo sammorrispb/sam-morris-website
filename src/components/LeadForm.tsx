@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
-import { CONTACT, INTEREST_OPTIONS } from "@/lib/constants";
+import { CONTACT, INTEREST_OPTIONS, EVENT_TYPES } from "@/lib/constants";
 import { trackEvent, getVisitorIdForForm, getUtm } from "@/lib/funnelClient";
 
 function matchInterestFromParam(param: string | null): string {
@@ -15,16 +15,33 @@ function matchInterestFromParam(param: string | null): string {
   );
 }
 
-export function LeadForm({ heading = "Ready to play?", page = "unknown" }: { heading?: string; page?: string }) {
-  const [form, setForm] = useState({ name: "", email: "", interest: "", notes: "" });
+export function LeadForm({
+  heading = "Ready to play?",
+  page = "unknown",
+  lockedInterest,
+  eventTypeRequired = false,
+}: {
+  heading?: string;
+  page?: string;
+  lockedInterest?: string;
+  eventTypeRequired?: boolean;
+}) {
+  const [form, setForm] = useState({
+    name: "",
+    email: "",
+    interest: lockedInterest ?? "",
+    notes: "",
+    event_type: "",
+  });
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
   const formStarted = useRef(false);
 
   useEffect(() => {
+    if (lockedInterest) return;
     const param = new URLSearchParams(window.location.search).get("interest");
     const matched = matchInterestFromParam(param);
     if (matched) setForm((prev) => ({ ...prev, interest: matched }));
-  }, []);
+  }, [lockedInterest]);
 
   function updateField(field: string, value: string) {
     setForm((prev) => ({ ...prev, [field]: value }));
@@ -65,7 +82,13 @@ export function LeadForm({ heading = "Ready to play?", page = "unknown" }: { hea
       trackEvent("lead_form", { action: "submitted", interest: form.interest, page });
       trackEvent("lead_form_submitted", { interest: form.interest, page });
       setStatus("sent");
-      setForm({ name: "", email: "", interest: "", notes: "" });
+      setForm({
+        name: "",
+        email: "",
+        interest: lockedInterest ?? "",
+        notes: "",
+        event_type: "",
+      });
     } catch {
       trackEvent("lead_form", { action: "error", page });
       setStatus("error");
@@ -129,18 +152,37 @@ export function LeadForm({ heading = "Ready to play?", page = "unknown" }: { hea
         className="w-full bg-navy/60 border border-white/10 rounded-xl px-4 py-3 text-text-primary placeholder:text-text-muted/60 focus:border-accent-blue focus:outline-none transition-colors"
       />
 
-      <select
-        required
-        aria-label="What are you interested in?"
-        value={form.interest}
-        onChange={(e) => updateField("interest", e.target.value)}
-        className="w-full bg-navy/60 border border-white/10 rounded-xl px-4 py-3 text-text-primary focus:border-accent-blue focus:outline-none transition-colors"
-      >
-        <option value="" disabled>What are you interested in?</option>
-        {INTEREST_OPTIONS.map((opt) => (
-          <option key={opt} value={opt}>{opt}</option>
-        ))}
-      </select>
+      {lockedInterest ? (
+        <input type="hidden" name="interest" value={lockedInterest} />
+      ) : (
+        <select
+          required
+          aria-label="What are you interested in?"
+          value={form.interest}
+          onChange={(e) => updateField("interest", e.target.value)}
+          className="w-full bg-navy/60 border border-white/10 rounded-xl px-4 py-3 text-text-primary focus:border-accent-blue focus:outline-none transition-colors"
+        >
+          <option value="" disabled>What are you interested in?</option>
+          {INTEREST_OPTIONS.map((opt) => (
+            <option key={opt} value={opt}>{opt}</option>
+          ))}
+        </select>
+      )}
+
+      {eventTypeRequired && (
+        <select
+          required
+          aria-label="Event type"
+          value={form.event_type}
+          onChange={(e) => updateField("event_type", e.target.value)}
+          className="w-full bg-navy/60 border border-white/10 rounded-xl px-4 py-3 text-text-primary focus:border-accent-blue focus:outline-none transition-colors"
+        >
+          <option value="" disabled>Event type</option>
+          {EVENT_TYPES.map((opt) => (
+            <option key={opt} value={opt}>{opt}</option>
+          ))}
+        </select>
+      )}
 
       <textarea
         placeholder="Anything else? Skill level, preferred court, group size, days/times that work…"

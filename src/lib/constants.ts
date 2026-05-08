@@ -45,11 +45,20 @@ export const INTEREST_OPTIONS = [
   "Private Lesson",
   "Group Lesson (2+)",
   "3+1 Play-In Special",
+  "Event / Clinic",
   "Youth Programs",
   "Business Partnerships",
   "Social/Recreational Play",
   "Competitive Play",
   "Ambassador (Player-Organizer-Coach)",
+] as const;
+
+export const EVENT_TYPES = [
+  "Birthday",
+  "Corporate",
+  "Social",
+  "Health/Wellness",
+  "Other",
 ] as const;
 
 export const SERVICE_AREA = {

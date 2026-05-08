@@ -54,6 +54,10 @@ export async function POST(request: Request) {
     const body = await request.json();
     const { name, email, interest } = body;
     const notes = sanitizeNotes(body?.notes);
+    const eventType: string | undefined =
+      typeof body?.event_type === "string" && body.event_type.trim()
+        ? body.event_type.trim()
+        : undefined;
     const utm: LeadUtm =
       body?.utm && typeof body.utm === "object" ? body.utm : {};
     const page: string | undefined =
@@ -62,6 +66,13 @@ export async function POST(request: Request) {
     if (!name || !email || !interest) {
       return NextResponse.json(
         { error: "Name, email, and interest are required" },
+        { status: 400 }
+      );
+    }
+
+    if (interest === "Event / Clinic" && !eventType) {
+      return NextResponse.json(
+        { error: "Event type is required for event/clinic inquiries" },
         { status: 400 }
       );
     }
@@ -86,6 +97,45 @@ export async function POST(request: Request) {
 
     const notion = new Client({ auth: apiKey });
 
+    const bodyBlocks = [
+      ...(eventType
+        ? [
+            {
+              object: "block" as const,
+              type: "heading_3" as const,
+              heading_3: {
+                rich_text: [{ type: "text" as const, text: { content: "Event Type" } }],
+              },
+            },
+            {
+              object: "block" as const,
+              type: "paragraph" as const,
+              paragraph: {
+                rich_text: [{ type: "text" as const, text: { content: eventType } }],
+              },
+            },
+          ]
+        : []),
+      ...(notes
+        ? [
+            {
+              object: "block" as const,
+              type: "heading_3" as const,
+              heading_3: {
+                rich_text: [{ type: "text" as const, text: { content: "Notes from lead" } }],
+              },
+            },
+            {
+              object: "block" as const,
+              type: "paragraph" as const,
+              paragraph: {
+                rich_text: [{ type: "text" as const, text: { content: notes } }],
+              },
+            },
+          ]
+        : []),
+    ];
+
     const leadPage = await notion.pages.create({
       parent: { data_source_id: dbId },
       properties: {
@@ -98,28 +148,7 @@ export async function POST(request: Request) {
         "Drip Step": { number: 0 },
         "Drip Opted Out": { checkbox: interest === "Business Partnerships" },
       },
-      // Notes from the player land as the lead page's body so they're visible
-      // regardless of whether a "Notes" Notion property exists yet.
-      ...(notes
-        ? {
-            children: [
-              {
-                object: "block" as const,
-                type: "heading_3" as const,
-                heading_3: {
-                  rich_text: [{ type: "text" as const, text: { content: "Notes from lead" } }],
-                },
-              },
-              {
-                object: "block" as const,
-                type: "paragraph" as const,
-                paragraph: {
-                  rich_text: [{ type: "text" as const, text: { content: notes } }],
-                },
-              },
-            ],
-          }
-        : {}),
+      ...(bodyBlocks.length > 0 ? { children: bodyBlocks } : {}),
     });
 
     // Also try to set a Notes rich_text property if the DB has one — best-effort.
@@ -147,9 +176,10 @@ export async function POST(request: Request) {
 
     // Notify Sam about the new lead
     try {
+      const subjectInterest = eventType ? `${interest} — ${eventType}` : interest;
       await notifySam(
-        `New Lead: ${name} — ${interest}`,
-        `Name: ${name}\nEmail: ${email}\nInterest: ${interest}\nSubmitted: ${new Date().toLocaleString("en-US", { timeZone: "America/New_York" })}${notes ? `\n\nNotes from lead:\n${notes}` : ""}`
+        `New Lead: ${name} — ${subjectInterest}`,
+        `Name: ${name}\nEmail: ${email}\nInterest: ${interest}${eventType ? `\nEvent Type: ${eventType}` : ""}\nSubmitted: ${new Date().toLocaleString("en-US", { timeZone: "America/New_York" })}${notes ? `\n\nNotes from lead:\n${notes}` : ""}`
       );
     } catch (notifyError) {
       console.error("Lead notification email failed:", notifyError);
@@ -157,7 +187,7 @@ export async function POST(request: Request) {
 
     // Send welcome email to the lead
     try {
-      const emailBody = generateEmailDraft(interest, name);
+      const emailBody = generateEmailDraft(interest, name, false, eventType);
       const result = await sendEmail(
         email,
         `Thanks for reaching out, ${name}!`,
@@ -199,6 +229,7 @@ export async function POST(request: Request) {
       metadata: {
         page,
         ref: utm.ref,
+        ...(eventType ? { event_type: eventType } : {}),
       },
     });
 

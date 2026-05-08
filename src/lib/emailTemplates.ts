@@ -146,6 +146,29 @@ I'd love to tell you more about what the role looks like and what the next steps
 ${SIGN_OFF}`;
 }
 
+function eventTemplate(name: string, eventType?: string): string {
+  const opening = eventType
+    ? `Thanks for reaching out about a ${eventType.toLowerCase()} pickleball event — these are some of my favorite gigs to run.`
+    : `Thanks for reaching out about an event — these are some of my favorite gigs to run.`;
+  return `Hi ${name},
+
+${opening}
+
+Whether it's 8 first-timers or 40 repeat players, I'll tailor the format — quick fundamentals, dink ladders, mini-tournaments, or a coached round-robin — to match the vibe and the experience level. I bring paddles, balls, and portable nets if your venue doesn't have courts set up.
+
+Service area: ${SERVICE_AREA.shortDescription}. You arrange and pay for the court (or I'll help find one); I bring the coaching, the format, and the energy.
+
+To put together a quick quote, reply with:
+• Approximate group size + skill mix (mostly beginners? mixed levels?)
+• Date + time window you have in mind
+• Venue / location (or "need help finding a court")
+• What "good" looks like for the day (skill-building? laughs? competitive?)
+
+I'll come back within a day with a recommended format and pricing.
+
+${SIGN_OFF}`;
+}
+
 function evaluationTemplate(name: string): string {
   return `Hi ${name},
 
@@ -161,11 +184,15 @@ I'll reach out within 24 hours to lock in a time that works for you. If you want
 ${SIGN_OFF}`;
 }
 
-const TEMPLATE_MAP: Record<string, (name: string, interest: string) => string> = {
+const TEMPLATE_MAP: Record<
+  string,
+  (name: string, interest: string, eventType?: string) => string
+> = {
   "Free Evaluation": (name) => evaluationTemplate(name),
   "Private Lesson": (name) => privateLessonTemplate(name),
   "Group Lesson (2+)": (name) => groupLessonTemplate(name),
   "3+1 Play-In Special": (name) => threePlusOneTemplate(name),
+  "Event / Clinic": (name, _interest, eventType) => eventTemplate(name, eventType),
   // Legacy alias — older "Coaching" leads still route to private-lesson copy
   "Coaching": (name) => privateLessonTemplate(name),
   "Youth Programs": (name, interest) => youthTemplate(name, interest),
@@ -178,14 +205,16 @@ const TEMPLATE_MAP: Record<string, (name: string, interest: string) => string> =
 /**
  * Generate the email body for a given lead interest. The third arg is
  * accepted for backward compatibility with existing callers; it is ignored
- * since the membership-lookup branch was removed on 2026-05-02.
+ * since the membership-lookup branch was removed on 2026-05-02. The fourth
+ * arg (eventType) is used by the Event / Clinic template.
  */
 export function generateEmailDraft(
   interest: string,
   name: string,
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   _isLndMember: boolean = false,
+  eventType?: string,
 ): string {
   const templateFn = TEMPLATE_MAP[interest] ?? ((n: string) => privateLessonTemplate(n));
-  return templateFn(name, interest);
+  return templateFn(name, interest, eventType);
 }

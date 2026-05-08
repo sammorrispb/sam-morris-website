@@ -95,7 +95,7 @@ export default function ProgramsPage() {
       {/* ─── Three quick paths ─── */}
       <section className="py-20 px-6">
         <AnimateOnScroll>
-          <div className="mx-auto max-w-6xl grid grid-cols-1 md:grid-cols-3 gap-5">
+          <div className="mx-auto max-w-6xl grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
             {[
               {
                 badge: "Free for DMV",
@@ -112,6 +112,14 @@ export default function ProgramsPage() {
                 href: "/programs/coaching",
                 cta: "Coaching Details",
                 image: "/images/coach-sam.jpeg",
+              },
+              {
+                badge: "Hire Sam",
+                title: "Events & Clinics",
+                desc: "Birthdays, corporate, social, wellness — Sam runs the format.",
+                href: "/programs/events",
+                cta: "Request a Quote",
+                image: "/images/sam-group-selfie.jpg",
               },
               {
                 badge: "Ages 5-16",
@@ -132,7 +140,7 @@ export default function ProgramsPage() {
                     src={card.image}
                     alt={card.title}
                     fill
-                    sizes="(max-width: 768px) 100vw, 33vw"
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
                     className="object-cover transition-transform duration-500 group-hover:scale-105"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-navy-light via-navy-light/40 to-transparent" />
