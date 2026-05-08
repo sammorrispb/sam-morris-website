@@ -5,11 +5,13 @@ import { usePathname } from "next/navigation";
 
 const PROGRAM_NAV: { href: string; label: string; external?: boolean }[] = [
   { href: "/programs/coaching", label: "Coaching & Clinics" },
+  { href: "/programs/events", label: "Events" },
   { href: "/evaluation", label: "Skill Evaluation" },
 ];
 
 const BRAND_MAP: Record<string, { brand: string; color: string }> = {
   "/programs/coaching": { brand: "sam-morris", color: "#E8A03A" },
+  "/programs/events": { brand: "sam-morris", color: "#A5C49C" },
   "/evaluation": { brand: "sam-morris", color: "#D9523E" },
 };
 
