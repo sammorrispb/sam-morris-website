@@ -5,6 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { QUIZ_QUESTIONS, QUIZ_RESULTS, calculateResult } from "@/lib/quiz";
 import { trackEvent, getVisitorIdForForm, getUtm } from "@/lib/funnelClient";
+import { COACH_BOOKING_URL } from "@/lib/constants";
 
 export function QuizClient() {
   const [step, setStep] = useState(0);
@@ -135,8 +136,8 @@ export function QuizClient() {
 
         <div className="text-center">
           <Link
-            href="/evaluation"
-            onClick={() => trackEvent("cta_click", { label: "Book a Free Evaluation", page: "/quiz", section: "result", destination: "/evaluation" })}
+            href={COACH_BOOKING_URL}
+            onClick={() => trackEvent("cta_click", { label: "Book a Free Evaluation", page: "/quiz", section: "result", destination: COACH_BOOKING_URL })}
             className="btn-gradient px-8 py-3.5 rounded-full font-semibold inline-block"
           >
             Book a Free Evaluation →

@@ -26,6 +26,8 @@ export const CONTACT = {
   phone: "301-325-4731",
 } as const;
 
+export const COACH_BOOKING_URL = "https://coach.sammorrispb.com/book/evaluation";
+
 export const ANNOUNCEMENT: {
   id: string;
   message: string;

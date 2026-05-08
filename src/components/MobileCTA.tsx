@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { trackEvent } from "@/lib/funnelClient";
+import { COACH_BOOKING_URL } from "@/lib/constants";
 
 export function MobileCTA() {
   const [visible, setVisible] = useState(true);
@@ -57,12 +58,13 @@ export function MobileCTA() {
           Call
         </a>
         <Link
-          href="/contact"
+          href={COACH_BOOKING_URL}
           onClick={() =>
             trackEvent("cta_click", {
               label: "Book Free Eval",
               page: window.location.pathname,
               section: "mobile_sticky_cta",
+              destination: COACH_BOOKING_URL,
             })
           }
           className="flex-1 flex items-center justify-center gap-2 rounded-full btn-gradient px-4 py-2.5 text-sm"
