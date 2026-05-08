@@ -6,6 +6,7 @@ import { TESTIMONIALS } from "@/lib/testimonials";
 import { TestimonialGrid } from "@/components/TestimonialGrid";
 import { AnimateOnScroll } from "@/components/AnimateOnScroll";
 import { TrackedLink } from "@/components/TrackedLink";
+import { COACH_BOOKING_URL } from "@/lib/constants";
 
 export const metadata: Metadata = {
   title:
@@ -88,7 +89,7 @@ const PROGRAMS = [
     description:
       "30 minutes on the court. Walk away with a DUPR-aligned rating and a personalized plan.",
     cta: "Book a Free Evaluation",
-    href: "/evaluation",
+    href: COACH_BOOKING_URL,
     image: "/images/sam-portrait-with-paddle.jpg",
     badge: "Free for DMV",
   },
@@ -131,9 +132,9 @@ export default function Home() {
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
               <TrackedLink
-                href="/evaluation"
+                href={COACH_BOOKING_URL}
                 className="inline-flex items-center justify-center font-heading font-semibold px-8 py-4 rounded-full btn-gradient text-base"
-                eventProps={{ label: "Book a Free Evaluation", page: "home", section: "hero", destination: "/evaluation" }}
+                eventProps={{ label: "Book a Free Evaluation", page: "home", section: "hero", destination: COACH_BOOKING_URL }}
               >
                 Book a Free Evaluation
               </TrackedLink>

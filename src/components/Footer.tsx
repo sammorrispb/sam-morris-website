@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { NAV_LINKS, SOCIAL_LINKS, CONTACT, FAMILY_LINKS } from "@/lib/constants";
+import { NAV_LINKS, SOCIAL_LINKS, CONTACT, FAMILY_LINKS, COACH_BOOKING_URL } from "@/lib/constants";
 import { trackEvent } from "@/lib/funnelClient";
 import { familySiteUrl, familyMarketingRef } from "@/lib/urls";
 
@@ -32,8 +32,16 @@ export function Footer() {
               </h2>
             </div>
             <Link
-              href="/evaluation"
+              href={COACH_BOOKING_URL}
               className="inline-flex items-center justify-center px-6 py-3 rounded-full btn-gradient text-sm whitespace-nowrap"
+              onClick={() =>
+                trackEvent("cta_click", {
+                  label: "Book a Free Evaluation",
+                  page: "footer",
+                  section: "tagline_strip",
+                  destination: COACH_BOOKING_URL,
+                })
+              }
             >
               Book a Free Evaluation &rarr;
             </Link>
