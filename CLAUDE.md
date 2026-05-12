@@ -1,71 +1,52 @@
-# Sam Morris Website — CLAUDE.md
+# CLAUDE.md
 
-**NOTE (2026-05-02):** This site was decoupled from Dill Dinkers / CourtReserve / The Hub on 2026-05-02. The Hub (linkanddink.com) DNS is OFFLINE. No DD/CR/Hub references should be re-introduced.
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-## What This Is
-Personal/professional website for Sam Morris — coach, community builder, and entrepreneur based in Montgomery County, MD. Showcases coaching programs, blog, and contact.
+## What this is
+Sam Morris's personal coaching site at **sammorrispb.com** — Next.js 16 (App Router) + TypeScript + Tailwind v4. Hosts coaching offers, blog, evaluation funnel, contact form, and admin dashboard. Independent coaching launched 2026-05-04; this is the public face for that practice.
 
-## Ecosystem (current)
-- **Next Gen Academy** (`sammorrispb/nextgen-academy`) — Youth academy site
-- **Open Brain** (`sammorrispb/open-brain`) — Semantic knowledge + MCP server
-- **MoCo PB** (`sammorrispb/mocopb`) — Local SEO lead gen site
-- **Tournament Series** (`sammorrispb/tournament-website`) — Public tournament results
+## Commands
+- `npm run dev` — Next dev server on :3000.
+- `npm run build` — regenerates the static blog/page search index via `scripts/generate-search-index.ts`, then `next build`. The prebuild script runs every time, so build failures often surface there first.
+- `npm run lint` — flat-config ESLint (`eslint.config.mjs`, extends `eslint-config-next`).
+- `npm run search-index` — regenerate `public/search-index.json` standalone.
+- No `test` or `typecheck` script — type errors only surface during `next build` (strict mode).
 
-- **Domain**: sammorrispb.com
-- **Git**: github.com/sammorrispb/sam-morris-website
-- **Deploy**: Vercel (auto-deploy on push to main)
+## Architecture
+**App Router layout** in `src/app/`: public marketing pages (`/`, `/about`, `/programs`, `/programs/coaching`, `/programs/events`, `/evaluation`, `/quiz`, `/blog`, `/blog/[slug]`, `/contact`), plus an `/admin` dashboard. `/tournament/*` is rewritten through to `tournamentwebsite.vercel.app` (see `vercel.json`). Many legacy `/locations/*`, `/playdate/*`, and old program slugs are 301'd to current pages — check `vercel.json` before adding new routes that might collide.
 
-## Stack
-- **Framework**: Next.js 16 (App Router)
-- **Language**: TypeScript
-- **Styling**: Tailwind CSS v4
-- **Fonts**: Montserrat (headings), Inter (body), Roboto Mono (code)
-- **Analytics**: @vercel/analytics
-- **CMS**: Notion API (@notionhq/client) for blog posts
-- **Email**: Nodemailer for contact form
-- **Payments**: Stripe Payment Links (no SDK/webhooks)
-- **DB**: Supabase (admin features)
+**Blog/MDX system** is Notion-backed via `@notionhq/client`. `src/lib/blog.ts` pulls Published rows from `NOTION_BLOG_DB_ID`, renders blocks server-side, and `next-mdx-remote` handles inline MDX. Posts gracefully degrade to empty list if env is missing — don't add throws there.
 
-## Key Routes
-- `/` — Homepage
-- `/about` — Bio, EASE framework
-- `/programs` — Program hub
-- `/programs/coaching` — Private lessons with Stripe Payment Links ($130 single, $400 4-pack)
-- `/evaluation` — Free skill evaluation landing page
-- `/blog` — Notion-powered blog with MDX rendering
-- `/contact` — Contact form (Nodemailer)
-- `/admin` — Admin dashboard
+**Lead / booking flow**: `/contact` and `/evaluation` submit to `src/app/api/leads/route.ts` and `src/app/api/eval-book/route.ts`, which write to Supabase (`@supabase/supabase-js`, admin features only) and send email via Nodemailer (`src/lib/email.ts`, `src/lib/emailTemplates.ts`). Paid lessons use **Stripe Payment Links** (external checkout) — there is no Stripe SDK flow on this site. The Stripe webhook at `src/app/api/stripe/webhook` exists for receipt logging only. A daily Vercel cron at `/api/cron/follow-up` (12:00 UTC, see `vercel.json`) drives lead follow-up email sequences.
 
-## Key Files
-- `src/lib/coaching.ts` — Stripe Payment Links (`SINGLE_LESSON_LINK`, `FOUR_PACK_LINK`)
-- `src/lib/blog.ts` — Notion blog integration
-- `src/lib/constants.ts` — Site-wide constants
-- `docs/brand-guide.md` — Sam's personal brand guide (EASE framework, positioning)
+**Analytics**: outbound CTA clicks, lead submits, scroll depth, and quiz events are forwarded to the Open Brain analytics-ingest edge function via the same-origin `/api/analytics` proxy. See `src/lib/funnelClient.ts` (browser → `/api/analytics`) and `src/app/api/analytics/route.ts` (server → OB, token-authed with `LEAD_INGEST_TOKEN` + `OPEN_BRAIN_ANALYTICS_URL`). `src/lib/urls.ts` stamps `?ref=sammorrispb` / `utm_source=sammorrispb` on cross-site family links. Fire-and-forget; analytics failures never block the page. Don't re-add Hub funnel calls.
 
-## Conventions
-- App Router (Next.js 16) — pages in `src/app/`, components in `src/components/`
-- Tailwind v4 — use `@tailwindcss/postcss`, no tailwind.config file
-- TypeScript strict mode
-- Server Components by default, `"use client"` only when needed
-- JSON-LD structured data on program pages for rich snippets
-- ESLint via `eslint-config-next`
+**Deployment**: Vercel, auto-deploy on push to `main`. Repo: `github.com/sammorrispb/sam-morris-website`.
 
-## Development
-```
-npm run dev    # Start dev server
-npm run build  # Production build
-npm run lint   # ESLint
-```
+## Repo-specific gotchas
 
-## Notes for Claude Code
-- This is Sam's personal site. He is building technical skills while developing it.
-- Prefer simple, readable code. Explain non-obvious decisions.
-- Always consider mobile responsiveness.
-- Stripe Payment Links are external — no server-side Stripe processing needed.
+### Pricing is single-sourced in `src/lib/coaching.ts`
+The `PRICING` constant (`singleHourly: 130`, `fourPackTotal: 400`, `fourPackHourly: 100`, `groupPerPersonHourly: 50`, `threePlusOneTotal: 150`) **is the only source of truth** for coaching prices across the site, email templates, and JSON-LD. Never hard-code dollar amounts in `/programs/coaching`, emails, structured data, or blog copy. Stripe Payment Link constants (`SINGLE_LESSON_LINK`, `FOUR_PACK_LINK`, `THREE_PLUS_ONE_LINK`) and the Google Calendar `BOOKING_URL` also live here — edit there, not inline.
 
-## Testing Standards
-- **Build must pass**: `npm run build` with zero errors before every push
-- **Test behavior, not implementation** — validate what pages render and how APIs respond, not internal code paths
-- **Form validation**: Test contact form and any user inputs against XSS, injection, and empty/malformed data
-- **Mobile-first**: Visually verify all pages on mobile viewport before shipping layout changes
-- **Notion API**: Test that blog pages handle Notion API failures gracefully (timeout, empty response)
+### Service area is locked at 35-min radius from Olney, MD
+`SERVICE_AREA` in `src/lib/constants.ts` is the canonical description. Don't introduce new copy about Sam traveling to facilities outside that radius or list specific competitor venues by name.
+
+### Partner-link rules (blog, programs, anywhere user-facing)
+- **JOOLA** is the default paddle/gear link (Pike & Rose flagship + joola.com). It is the only paddle brand allowed in copy.
+- **ActiveMontgomery** (activemontgomery.org) is the default link for MoCo court booking.
+- Do **NOT** mention other paddle brands by name (no Selkirk, Joola is exclusive on this site even though it is not a formal sponsor of NGA).
+
+### No Dill Dinkers / CourtReserve / Hub references
+This site was decoupled from DD/CR/The Hub on 2026-05-02 after Sam's 2026-05-01 termination. Do not re-introduce links, copy, embeds, iframes, or programs referencing dilldinkers.com, DD's Rockville/North Bethesda facilities, or any CR-hosted page. The Hub's `linkanddink.com` DNS is offline. Analytics now flows to Open Brain via `/api/analytics`; if you find any remaining Hub-coupled code, remove it rather than extending it.
+
+### Notion / Supabase / Stripe env vars
+`NOTION_API_KEY` + `NOTION_BLOG_DB_ID` for blog, `SUPABASE_*` for lead storage / admin, `STRIPE_*` for webhook receipts only, `OPEN_BRAIN_ANALYTICS_URL` + `LEAD_INGEST_TOKEN` for analytics. See `.env.example`. Watch for trailing newlines on copied keys (global rule).
+
+### `vercel.json` already owns redirects and crons
+Before adding `redirect()` calls in route handlers, check `vercel.json` — there's a long redirect block and a cron schedule. Edge headers (`X-Frame-Options: DENY`, etc.) are also set there, not in middleware.
+
+## Cursor / Copilot rules
+None present (`.cursor*` and `.github/copilot-instructions.md` do not exist). This file is the only IDE/AI guide.
+
+## README highlights
+The root `README.md` is mostly the create-next-app boilerplate, but its **"Unified funnel ingest"** section documents the Hub analytics pipeline and the required `FUNNEL_INGEST_SECRET_SAMMORRISPB` env var. That section is the authoritative reference for any analytics work — keep it in sync if you change the funnel client/server.
