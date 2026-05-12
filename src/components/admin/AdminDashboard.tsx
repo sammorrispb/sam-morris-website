@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useEffect, useCallback, useRef } from "react";
-import { FunnelCard } from "./FunnelCard";
 
 interface Lead {
   id: string;
@@ -385,9 +384,6 @@ export function AdminDashboard() {
           ))}
         </div>
       </div>
-
-      {/* Lead-to-Player Funnel */}
-      <FunnelCard />
 
       {/* Search & Filter Bar */}
       <div className="flex flex-wrap gap-3 mb-6">

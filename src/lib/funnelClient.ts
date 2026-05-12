@@ -72,14 +72,9 @@ export function getOrCreateVisitorId(): string {
 /**
  * Form-hidden-input / JSON-body friendly visitor id accessor.
  *
- * Use this when constructing the body (or hidden input) for a form that
- * POSTs to a lead handler so the server can forward `visitor_id` to the
- * Hub funnel ingest. Without this, `funnel_events_external.visitor_id`
- * lands NULL and the event is permanently unlinkable to a profile.
- *
  * On the server (during SSR) the cookie isn't available and we return
  * an empty string — callers should tolerate that (the POST will still
- * succeed; the event just won't carry a visitor id, same as today).
+ * succeed; the event just won't carry a visitor id).
  */
 export function getVisitorIdForForm(): string {
   if (typeof document === "undefined") return "";
