@@ -46,8 +46,37 @@ type LeadUtm = {
   utm_source?: string;
   utm_campaign?: string;
   utm_medium?: string;
+  utm_content?: string;
   ref?: string;
 };
+
+// Maps client-side utm_source to a Notion `Source` select option.
+// Closed vocabulary lives in ~/.claude/skills/cmo/utm.md.
+function attributedSource(utm: LeadUtm): string {
+  const src = utm.utm_source?.toLowerCase()?.trim();
+  if (!src) return "Website";
+  const map: Record<string, string> = {
+    "email-warm": "Email - Warm",
+    "email-cold": "Email - Cold",
+    "email-newsletter": "Email - Newsletter",
+    newsletter: "Email - Newsletter",
+    court: "Court - In Person",
+    gbp: "GBP",
+    "gbp-nga": "GBP",
+    "gbp-mocopb": "GBP",
+    referral: "Referral",
+    nextdoor: "NextDoor",
+    "fb-group": "FB Group",
+    fb: "FB Group",
+    facebook: "FB Group",
+    organic: "Organic",
+    direct: "Direct",
+    press: "Press",
+  };
+  if (map[src]) return map[src];
+  if (src.startsWith("partner-") || src === "partner") return "Partner";
+  return "Website";
+}
 
 export async function POST(request: Request) {
   try {
@@ -136,18 +165,36 @@ export async function POST(request: Request) {
         : []),
     ];
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const baseProperties: Record<string, any> = {
+      Name: { title: [{ text: { content: name } }] },
+      Email: { email: email },
+      Interest: { select: { name: interest } },
+      Status: { select: { name: "New" } },
+      Source: { select: { name: attributedSource(utm) } },
+      "Date Submitted": { date: { start: new Date().toISOString() } },
+      "Drip Step": { number: 0 },
+      "Drip Opted Out": { checkbox: interest === "Business Partnerships" },
+    };
+    if (utm.utm_campaign?.trim()) {
+      baseProperties["UTM Campaign"] = {
+        rich_text: [{ type: "text", text: { content: utm.utm_campaign.trim().slice(0, 200) } }],
+      };
+    }
+    if (utm.utm_content?.trim()) {
+      baseProperties["UTM Content"] = {
+        rich_text: [{ type: "text", text: { content: utm.utm_content.trim().slice(0, 200) } }],
+      };
+    }
+    if (page?.trim()) {
+      baseProperties["Landing Page"] = {
+        rich_text: [{ type: "text", text: { content: page.trim().slice(0, 200) } }],
+      };
+    }
+
     const leadPage = await notion.pages.create({
       parent: { data_source_id: dbId },
-      properties: {
-        Name: { title: [{ text: { content: name } }] },
-        Email: { email: email },
-        Interest: { select: { name: interest } },
-        Status: { select: { name: "New" } },
-        Source: { select: { name: "Website" } },
-        "Date Submitted": { date: { start: new Date().toISOString() } },
-        "Drip Step": { number: 0 },
-        "Drip Opted Out": { checkbox: interest === "Business Partnerships" },
-      },
+      properties: baseProperties,
       ...(bodyBlocks.length > 0 ? { children: bodyBlocks } : {}),
     });
 
@@ -229,6 +276,7 @@ export async function POST(request: Request) {
       metadata: {
         page,
         ref: utm.ref,
+        utm_content: utm.utm_content,
         ...(eventType ? { event_type: eventType } : {}),
       },
     });

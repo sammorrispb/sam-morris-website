@@ -87,6 +87,7 @@ export type CapturedUtm = {
   utm_source?: string;
   utm_campaign?: string;
   utm_medium?: string;
+  utm_content?: string;
   ref?: string;
 };
 
@@ -135,10 +136,12 @@ export function captureUtm(): void {
   const utmSource = params.get("utm_source");
   const utmCampaign = params.get("utm_campaign");
   const utmMedium = params.get("utm_medium");
+  const utmContent = params.get("utm_content");
   const ref = params.get("ref");
   if (utmSource) fromUrl.utm_source = utmSource;
   if (utmCampaign) fromUrl.utm_campaign = utmCampaign;
   if (utmMedium) fromUrl.utm_medium = utmMedium;
+  if (utmContent) fromUrl.utm_content = utmContent;
   if (ref) fromUrl.ref = ref;
 
   // Nothing to capture from URL — bail (don't touch existing stash).
@@ -152,7 +155,7 @@ export function captureUtm(): void {
   // Strip the captured params from the URL for cleaner sharing.
   try {
     let mutated = false;
-    for (const key of ["utm_source", "utm_campaign", "utm_medium", "ref"]) {
+    for (const key of ["utm_source", "utm_campaign", "utm_medium", "utm_content", "ref"]) {
       if (params.has(key)) {
         params.delete(key);
         mutated = true;
