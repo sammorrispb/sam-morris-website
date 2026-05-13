@@ -71,7 +71,7 @@ const TIMELINE = [
     year: "Fall 2025",
     title: "Co-founded Next Gen Pickleball Academy",
     description:
-      "Co-founded NGA with Amine Lahlou — youth pickleball pathway for ages 5–16 across Montgomery County, MD. Current focus.",
+      "Co-founded NGA with Amine Lahlou — youth pickleball pathway for ages 8–16 across Montgomery County, MD. Current focus.",
   },
 ];
 
@@ -351,8 +351,9 @@ export default function AboutPage() {
                   </h3>
                   <p className="text-text-muted leading-relaxed mb-6">
                     Co-founded with Amine Lahlou. A structured youth pathway —
-                    Red, Orange, Green, Yellow — building confidence and
-                    competitive skill in players ages 5-16 across Montgomery County.
+                    Red (private bridge), Orange, Green, Yellow — building
+                    confidence and competitive skill in players ages 8–16 who
+                    can rally, across Montgomery County.
                   </p>
                   <span className="inline-flex items-center text-accent-blue font-semibold text-sm group-hover:translate-x-1 transition-transform">
                     Visit nextgenpbacademy.com ↗
