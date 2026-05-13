@@ -184,7 +184,7 @@ export default function RootLayout({
                 "https://linkedin.com/in/sammorris2131",
                 "https://tiktok.com/@sammorris.pb",
                 "https://youtube.com/@sammorris.pb8",
-                // TODO: Add Google Business Profile URL after claiming
+                "https://www.google.com/maps/place/Sam+Morris+Pickleball+Coaching/data=!4m2!3m1!1s0x0:0x38cdd944077fe2e",
               ],
             }),
           }}
@@ -329,7 +329,7 @@ export default function RootLayout({
                 "https://linkedin.com/in/sammorris2131",
                 "https://tiktok.com/@sammorris.pb",
                 "https://youtube.com/@sammorris.pb8",
-                // TODO: Add Google Business Profile URL after claiming
+                "https://www.google.com/maps/place/Sam+Morris+Pickleball+Coaching/data=!4m2!3m1!1s0x0:0x38cdd944077fe2e",
               ],
             }),
           }}
@@ -354,7 +354,7 @@ export default function RootLayout({
                 "https://linkedin.com/in/sammorris2131",
                 "https://tiktok.com/@sammorris.pb",
                 "https://youtube.com/@sammorris.pb8",
-                // TODO: Add Google Business Profile URL after claiming
+                "https://www.google.com/maps/place/Sam+Morris+Pickleball+Coaching/data=!4m2!3m1!1s0x0:0x38cdd944077fe2e",
               ],
             }),
           }}
