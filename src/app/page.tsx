@@ -96,11 +96,11 @@ const PROGRAMS = [
   {
     title: "Next Gen Academy",
     description:
-      "Structured youth pathway for ages 5-16. Four levels — Red, Orange, Green, Yellow.",
+      "Structured youth pathway for ages 8-16. Four levels — Red, Orange, Green, Yellow.",
     cta: "Explore the Academy",
     href: "/programs#academy",
     image: "/images/youth-indoor-player.jpeg",
-    badge: "Ages 5-16",
+    badge: "Ages 8-16",
   },
 ];
 

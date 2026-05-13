@@ -137,7 +137,7 @@ export default function RootLayout({
               name: "Sam Morris",
               jobTitle: "Professional Pickleball Coach",
               description:
-                "PPR-certified professional pickleball coach in Montgomery County, MD. Specializes in coaching adults, families, and kids ages 5-16.",
+                "PPR-certified professional pickleball coach in Montgomery County, MD. Specializes in coaching adults, families, and kids ages 8-16.",
               email: "sam.morris2131@gmail.com",
               telephone: "301-325-4731",
               address: {
@@ -261,7 +261,7 @@ export default function RootLayout({
                       "@type": "Service",
                       name: "Next Gen Pickleball Academy — Youth Program",
                       description:
-                        "Structured pickleball academy for kids ages 5-16 in Montgomery County, MD. Four skill levels (Red, Orange, Green, Yellow) with clear progression from beginner to advanced.",
+                        "Structured pickleball academy for kids ages 8-16 in Montgomery County, MD. Four skill levels (Red, Orange, Green, Yellow) with clear progression from beginner to advanced.",
                       provider: {
                         "@type": "Person",
                         name: "Sam Morris",
@@ -269,7 +269,7 @@ export default function RootLayout({
                       areaServed: "Montgomery County, MD",
                       audience: {
                         "@type": "Audience",
-                        audienceType: "Children and Youth ages 5-16",
+                        audienceType: "Children and Youth ages 8-16",
                       },
                     },
                   },
@@ -380,7 +380,7 @@ export default function RootLayout({
                   name: "Is pickleball good for kids and families?",
                   acceptedAnswer: {
                     "@type": "Answer",
-                    text: "Pickleball is one of the best family sports — it's easy for beginners of all ages to learn, requires minimal equipment, and provides great exercise. The Next Gen Pickleball Academy in Montgomery County offers structured programs for kids ages 5-16 with four skill levels. Many families play together and it's a wonderful way to bond through sport.",
+                    text: "Pickleball is one of the best family sports — it's easy for beginners of all ages to learn, requires minimal equipment, and provides great exercise. The Next Gen Pickleball Academy in Montgomery County offers structured programs for kids ages 8-16 with four skill levels. Many families play together and it's a wonderful way to bond through sport.",
                   },
                 },
                 {

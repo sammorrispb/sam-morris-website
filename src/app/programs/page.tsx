@@ -9,14 +9,14 @@ import { COACH_BOOKING_URL } from "@/lib/constants";
 export const metadata: Metadata = {
   title: "Pickleball Programs & Lessons — Youth Academy, Private Coaching, Family Sessions",
   description:
-    "Pickleball programs for all ages in Montgomery County, MD. Next Gen Academy for kids 5-16, private lessons for adults, and family coaching.",
+    "Pickleball programs for all ages in Montgomery County, MD. Next Gen Academy for kids 8-16, private lessons for adults, and family coaching.",
   alternates: {
     canonical: "https://www.sammorrispb.com/programs",
   },
   openGraph: {
     title: "Pickleball Programs in Montgomery County, MD — Kids, Adults & Families",
     description:
-      "Youth pickleball academy (ages 5-16), private lessons, and family coaching in Montgomery County, MD.",
+      "Youth pickleball academy (ages 8-16), private lessons, and family coaching in Montgomery County, MD.",
     url: "https://www.sammorrispb.com/programs",
     images: [
       {
@@ -122,7 +122,7 @@ export default function ProgramsPage() {
                 image: "/images/sam-group-selfie.jpg",
               },
               {
-                badge: "Ages 5-16",
+                badge: "Ages 8-16",
                 title: "Youth Academy",
                 desc: "Red → Yellow pathway with structured progression.",
                 href: "#academy",
@@ -181,7 +181,7 @@ export default function ProgramsPage() {
         <AnimateOnScroll>
           <div className="mx-auto max-w-6xl">
             <div className="text-center mb-14">
-              <p className="eyebrow mb-3">Youth pathway · Ages 5-16</p>
+              <p className="eyebrow mb-3">Youth pathway · Ages 8-16</p>
               <h2 className="font-heading font-black text-4xl md:text-5xl mb-5 leading-tight">
                 Next Gen <span className="gradient-text-warm">Pickleball Academy.</span>
               </h2>
