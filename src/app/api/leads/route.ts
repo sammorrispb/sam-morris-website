@@ -63,7 +63,6 @@ function attributedSource(utm: LeadUtm): string {
     court: "Court - In Person",
     gbp: "GBP",
     "gbp-nga": "GBP",
-    "gbp-mocopb": "GBP",
     referral: "Referral",
     nextdoor: "NextDoor",
     "fb-group": "FB Group",
