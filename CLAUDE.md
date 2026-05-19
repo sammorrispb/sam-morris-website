@@ -37,7 +37,11 @@ The `PRICING` constant (`singleHourly: 130`, `fourPackTotal: 400`, `fourPackHour
 - Do **NOT** mention other paddle brands by name (no Selkirk, Joola is exclusive on this site even though it is not a formal sponsor of NGA).
 
 ### No Dill Dinkers / CourtReserve / Hub references
-This site was decoupled from DD/CR/The Hub on 2026-05-02 after Sam's 2026-05-01 termination. Do not re-introduce links, copy, embeds, iframes, or programs referencing dilldinkers.com, DD's Rockville/North Bethesda facilities, or any CR-hosted page. The Hub's `linkanddink.com` DNS is offline. Analytics now flows to Open Brain via `/api/analytics`; if you find any remaining Hub-coupled code, remove it rather than extending it.
+This site was decoupled from DD/CR/The Hub on 2026-05-02 after Sam's 2026-05-01 termination. Do not re-introduce links, copy, embeds, iframes, or programs referencing dilldinkers.com, DD's Rockville/North Bethesda facilities, or any CR-hosted page. The legacy DD-coupled Hub (archived `Link-Dink` repo, formerly `The-Hub`) is dead — do not extend it.
+
+**Note:** `linkanddink.com` itself is no longer the Hub. As of 2026-05-18 the domain has been repurposed onto a fresh, non-archived `link-and-dink` repo (community-os umbrella; newsletter + pop-up tournaments). It is a valid Sam-owned sibling site — `Organization.sameAs` lists it alongside mocopb and NGA, and family-nav links to `linkanddink.com` are fine. The prohibition above refers strictly to the archived Hub, not the current domain.
+
+Analytics now flows to Open Brain via `/api/analytics`; if you find any remaining Hub-coupled code, remove it rather than extending it.
 
 ### Notion / Supabase / Stripe env vars
 `NOTION_API_KEY` + `NOTION_BLOG_DB_ID` for blog, `SUPABASE_*` for lead storage / admin, `STRIPE_*` for webhook receipts only, `OPEN_BRAIN_ANALYTICS_URL` + `LEAD_INGEST_TOKEN` for analytics. See `.env.example`. Watch for trailing newlines on copied keys (global rule).
