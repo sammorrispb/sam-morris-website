@@ -39,7 +39,9 @@ The `PRICING` constant (`singleHourly: 130`, `fourPackTotal: 400`, `fourPackHour
 ### No Dill Dinkers / CourtReserve / Hub references
 This site was decoupled from DD/CR/The Hub on 2026-05-02 after Sam's 2026-05-01 termination. Do not re-introduce links, copy, embeds, iframes, or programs referencing dilldinkers.com, DD's Rockville/North Bethesda facilities, or any CR-hosted page. The legacy DD-coupled Hub (archived `Link-Dink` repo, formerly `The-Hub`) is dead — do not extend it.
 
-**Note:** `linkanddink.com` itself is no longer the Hub. As of 2026-05-18 the domain has been repurposed onto a fresh, non-archived `link-and-dink` repo (community-os umbrella; newsletter + pop-up tournaments). It is a valid Sam-owned sibling site — `Organization.sameAs` lists it alongside mocopb and NGA, and family-nav links to `linkanddink.com` are fine. The prohibition above refers strictly to the archived Hub, not the current domain.
+**Note:** `linkanddink.com` itself is no longer the Hub. As of 2026-05-18 the domain has been repurposed onto a fresh, non-archived `link-and-dink` repo (community-os umbrella; newsletter + pop-up tournaments). It is a valid Sam-owned sibling site — `Organization.sameAs` lists it alongside NGA, and family-nav links to `linkanddink.com` are fine. The prohibition above refers strictly to the archived Hub, not the current domain.
+
+**`mocopb.com` is retired (2026-05-19).** Soft-410'd via `sammorrispb/mocopb#47`. Do NOT add `mocopb.com` to `sameAs` graphs, family-nav, or copy on this site. Existing references have been removed.
 
 Analytics now flows to Open Brain via `/api/analytics`; if you find any remaining Hub-coupled code, remove it rather than extending it.
 

@@ -9,7 +9,7 @@
  *   LEAD_INGEST_TOKEN        — shared secret
  */
 
-export type OpenBrainBusiness = "ld" | "nga" | "coaching" | "dd" | "mocopb";
+export type OpenBrainBusiness = "ld" | "nga" | "coaching" | "dd";
 
 export interface OpenBrainIngestPayload {
   email: string;

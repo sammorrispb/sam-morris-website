@@ -29,7 +29,7 @@ moves the item to the **Done log** below.
 - [ ] (schema, S) Add BreadcrumbList JSON-LD to `/`, `/about`, `/programs`, `/evaluation`, `/contact`, `/blog`. (Already on `/programs/coaching` and `/quiz`.)
 - [ ] (schema, S) Add FAQPage JSON-LD with 4 Qs to `/` (home): pricing, programs offered, scheduling, service area.
 - [ ] (schema, S) Add FAQPage JSON-LD with 3 Qs to `/programs`: which program is right for me, age range, refund policy.
-- [ ] (schema, M) Add `LocalBusiness` JSON-LD to `src/app/layout.tsx` with NAP (name, address, telephone), `priceRange: "$130-$400"`, and `sameAs: [https://www.nextgenpbacademy.com, https://www.mocopb.com]`. Why: cross-site entity graph + map-pack candidacy.
+- [ ] (schema, M) Add `LocalBusiness` JSON-LD to `src/app/layout.tsx` with NAP (name, address, telephone), `priceRange: "$130-$400"`, and `sameAs: [https://www.nextgenpbacademy.com, https://www.linkanddink.com]`. Why: cross-site entity graph + map-pack candidacy.
 - [ ] (schema, M) Add `Review` JSON-LD per testimonial in `src/components/TestimonialGrid.tsx`. Parent each Review to the LocalBusiness via `itemReviewed`. Use existing `src/lib/testimonials.ts` data — no new content. Skip aggregateRating until 5+ reviews with public attribution.
 - [ ] (technical, S) `/blog` stub hardening: add `robots: { index: false, follow: true }` via `generateMetadata`. Remove `/blog` from `src/app/sitemap.ts` until first post lands.
 - [ ] (technical, S) Image alt-text audit on `Footer`, `Nav`, hero blocks in `src/app/page.tsx` and `src/app/about/page.tsx`. Decorative images get `alt=""`; content images get descriptive alt mentioning skill/city keywords.
@@ -39,8 +39,8 @@ moves the item to the **Done log** below.
 
 Cities approved for Phase 1: rockville, bethesda, north-bethesda, potomac, gaithersburg, silver-spring, germantown, olney.
 
-- [ ] (page, M) Create `src/lib/cities.ts` (slim port from mocopb's cities.ts — name/slug/short description). **Hand-written coach POV per city, not generated.** Sam's voice is the differentiator.
-- [ ] (page, M) Add `/lessons/rockville`. H1: "Private Pickleball Lessons in Rockville, MD". 600–800 words. LeadForm + Stripe Payment Link CTAs (`SINGLE_LESSON_LINK`/`FOUR_PACK_LINK` from `src/lib/coaching.ts`). 3-Q city-specific FAQ. Service schema with `areaServed: City`. BreadcrumbList. Cross-link to mocopb `/play/rockville` and NGA `/montgomery-county-youth-pickleball`. Register via `generateStaticParams` + sitemap.
+- [ ] (page, M) Create `src/lib/cities.ts` with a slim set of MoCo cities (name/slug/short description). **Hand-written coach POV per city, not generated.** Sam's voice is the differentiator.
+- [ ] (page, M) Add `/lessons/rockville`. H1: "Private Pickleball Lessons in Rockville, MD". 600–800 words. LeadForm + Stripe Payment Link CTAs (`SINGLE_LESSON_LINK`/`FOUR_PACK_LINK` from `src/lib/coaching.ts`). 3-Q city-specific FAQ. Service schema with `areaServed: City`. BreadcrumbList. Cross-link to NGA `/montgomery-county-youth-pickleball`. Register via `generateStaticParams` + sitemap.
 - [ ] (page, M) Add `/lessons/bethesda`. Same template. Hand-written city description.
 - [ ] (page, M) Add `/lessons/north-bethesda`. Same template.
 - [ ] (page, M) Add `/lessons/potomac`. Same template.
@@ -56,7 +56,7 @@ Cities approved for Phase 1: rockville, bethesda, north-bethesda, potomac, gaith
 - [ ] (page, M) Add `/learn/dink-vs-drive`. Technique page with `HowTo` schema + embedded video (reuse `VideoObject` pattern from `/about`).
 - [ ] (page, M) Add `/learn/third-shot-options`. Technique page (drop / drive / lob). `HowTo` schema + video.
 - [ ] (page, S) Add `/learn` hub with `CollectionPage` schema linking all 4 child pages. Link from `/programs/coaching` and footer.
-- [ ] (internal-link, S) Cross-site `sameAs` audit: every `Person`/`Organization`/`LocalBusiness` JSON-LD on this site references nextgenpbacademy.com + mocopb.com in `sameAs`.
+- [ ] (internal-link, S) Cross-site `sameAs` audit: every `Person`/`Organization`/`LocalBusiness` JSON-LD on this site references nextgenpbacademy.com + linkanddink.com in `sameAs`.
 
 ---
 
