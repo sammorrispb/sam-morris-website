@@ -2,6 +2,14 @@
 
 **Source of Truth for all content, structure, and design direction.**
 
+> **2026 visual direction:** the site has been redesigned around a
+> **premium warm charcoal** palette — cocoa grounds with amber, burnt
+> sienna, terracotta, and sage accents. This is deliberately distinct
+> from NGA's cool navy/teal and L&D's spruce/lime. The Color Palette
+> section below reflects the live `src/app/globals.css`. See
+> `DESIGN.md` at the repo root for the spec-compliant machine-readable
+> mirror.
+
 ---
 
 ## Brand Identity Overview
@@ -169,13 +177,52 @@ Signature methodology. Front-and-center on the website.
 - **Numbers/Stats:** Roboto Mono
 
 ### Color Palette (Site Implementation)
-- **Deep Navy** (`#0a0e27`) — primary background
-- **Electric Blue** (`#3b82f6`) — primary accent, CTAs
-- **Vivid Purple** (`#8b5cf6`) — secondary accent, gradients
-- **Hot Pink** (`#ec4899`) — energy pop, social icons
-- **Lime Green** (`#a3e635`) — EASE highlights, success
-- **Off-White** (`#f0f0f5`) — text
-- **Slate** (`#94a3b8`) — muted text
+
+The palette is **warm and tonal** — cocoa grounds, amber/sienna accents,
+sage as the singular cool note reserved for EASE.
+
+**Grounds**
+- **Warm Charcoal** (`#0F0E0C`) — page background. Not navy; the warm
+  undertone is load-bearing.
+- **Cocoa** (`#1B1815`) — card surfaces, alt sections.
+- **Warm Sand** (`#25201B`) — half-step lighter cocoa for stacked cards.
+
+**Accents**
+- **Amber / Honey Gold** (`#E8A03A`) — primary CTAs, eyebrow text, focus
+  rings, tag pills, gradient origin. The brand's signature.
+- **Amber Deep** (`#C77327`) — deeper amber; gradient terminus for primary
+  buttons and the hover-state ground.
+- **Burnt Sienna** (`#B85C2F`) — amber's gradient partner; second stop in
+  `gradient-text` and `gradient-text-warm`.
+- **Terracotta** (`#D9523E`) — the **ember** tone for higher-urgency CTAs
+  ("Book Evaluation," "Schedule a Lesson"). Distinct visual heat from the
+  soft amber.
+- **Sage** (`#A5C49C`) — the **only cool note** in the palette. Scoped
+  strictly to EASE moments — EASE badges, success states, milestone
+  callouts. Don't put sage on chrome.
+- **Light Amber** (`#F2C078`) — third stop in `gradient-text-warm` only.
+  Not a fill color.
+
+**Text**
+- **Cream** (`#F4ECE0`) — primary text. Never pure white.
+- **Taupe** (`#A89F8E`) — captions, metadata, muted text.
+
+**Rules**
+- **Sage is for EASE.** If a surface isn't about EASE, success, or
+  milestone language, it doesn't use sage. The brand's warmth is the rule;
+  sage is the exception that makes the rule readable.
+- **Two CTA ladders, not three.** Amber = soft action ("Read the Post,"
+  "View the Pathway"). Ember (terracotta) = hot action ("Book Evaluation,"
+  "Schedule a Lesson"). Outline = tertiary nav.
+- **Glassmorphism is on-brand here** (unlike NGA and L&D). The
+  `backdrop-filter: blur(14px)` over low-alpha cream tint matches the
+  premium-warm direction. Use sparingly.
+- Pure white (`#fff`) and pure black (`#000`) are banned. Always cream and
+  warm charcoal.
+- Sanctioned gradients: `amber → amber-deep` (buttons),
+  `amber → sienna` (text), `terracotta → sienna` (ember buttons),
+  `light-amber → amber → sienna` (warm gradient text). No multi-color
+  rainbow gradients outside these four.
 
 ---
 
