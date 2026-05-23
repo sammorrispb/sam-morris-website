@@ -34,16 +34,16 @@ export const ANNOUNCEMENT: {
   href?: string;
   linkText?: string;
 } | null = {
-  // REVERT AFTER 2026-05-28 — temporary Pot Night v0 promo. Restore the
+  // REVERT AFTER 2026-05-28 — temporary Popup Pickleball v0 promo. Restore the
   // "spring-2026" entry preserved below once the event ships.
-  id: "pot-night-may-28-2026",
+  id: "popup-pickleball-may-28-2026",
   message:
-    "This Thursday: my first Pot Night — $120 winner-takes-all, 8 spots, 3.0–4.5 DUPR.",
-  href: "https://p3.linkanddink.com/pot/pot-night-may-28-2026-05-28?utm_source=sammorrispb&utm_medium=banner&utm_campaign=pot-v0",
-  linkText: "Enter the pot",
+    "This Thursday: my first Popup Pickleball event — free, 8 spots, 3.0–4.5 DUPR.",
+  href: "https://p3.linkanddink.com/popup/pot-night-may-28-2026-05-28?utm_source=sammorrispb&utm_medium=banner&utm_campaign=popup-v0",
+  linkText: "Grab a spot",
 };
 
-// Previous announcement (restore after the Pot Night promo ends):
+// Previous announcement (restore after the Popup Pickleball promo ends):
 // {
 //   id: "spring-2026",
 //   message: "Spring 2026 private lessons and skill evaluations are open for booking!",
