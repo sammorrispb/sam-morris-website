@@ -95,7 +95,7 @@ export default function ProgramsPage() {
       {/* ─── Three quick paths ─── */}
       <section className="py-20 px-6">
         <AnimateOnScroll>
-          <div className="mx-auto max-w-6xl grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+          <div className="mx-auto max-w-7xl grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-5">
             {[
               {
                 badge: "Free for DMV",
@@ -104,6 +104,14 @@ export default function ProgramsPage() {
                 href: COACH_BOOKING_URL,
                 cta: "Book Free Eval",
                 image: "/images/sam-portrait-with-paddle.jpg",
+              },
+              {
+                badge: "4-week series",
+                title: "Training Cohorts",
+                desc: "4 players, 4 weeks, ends at a tournament. $160 all-in.",
+                href: "/programs/cohort",
+                cta: "See Cohort Details",
+                image: "/images/multi-court-outdoor.jpeg",
               },
               {
                 badge: "Adults · 1-on-1",
