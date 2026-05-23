@@ -16,6 +16,8 @@ function getStripe() {
 function mapProduct(amountCents: number): string {
   if (amountCents === 13000) return "Single Lesson";
   if (amountCents === 40000) return "4-Hour Package";
+  if (amountCents === 15000) return "3+1 Play-In";
+  if (amountCents === 16000) return "Cohort Series";
   return `$${(amountCents / 100).toFixed(2)} purchase`;
 }
 
