@@ -18,6 +18,7 @@ import type { FamilyDest } from "./urls";
 
 export const FAMILY_LINKS: ReadonlyArray<{ label: string; dest: FamilyDest }> = [
   { label: "Next Gen Academy", dest: "nga" },
+  { label: "Link & Dink", dest: "ld" },
 ] as const;
 
 export const CONTACT = {

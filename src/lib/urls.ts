@@ -1,10 +1,11 @@
 const MARKETING_REF = "sammorrispb";
 const UTM_SOURCE = "sammorrispb";
 
-export type FamilyDest = "nga";
+export type FamilyDest = "nga" | "ld";
 
 const FAMILY_BASES: Record<FamilyDest, string> = {
   nga: "https://nextgenpbacademy.com",
+  ld: "https://linkanddink.com",
 };
 
 export function familyMarketingRef(dest: FamilyDest): string {
