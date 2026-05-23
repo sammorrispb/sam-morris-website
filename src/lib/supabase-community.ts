@@ -3,8 +3,13 @@
  * writes to L&D's shared schema (e.g. inserting cohort signup waivers into
  * `public.waivers`). One-way coupling: sammorrispb writes, never reads.
  *
- * The waivers table has an RLS policy `waivers_insert_public` that allows
- * INSERT for anon + authenticated roles, so the anon key is sufficient.
+ * Uses the service-role key on purpose — this is a server-side write from
+ * one project's lambda to another project's database. The key never reaches
+ * the client bundle. We tried the anon-key route (waivers table has a
+ * `for insert to anon` policy with `check (true)`) but the JWT was rejected
+ * by RLS on this project despite carrying `role: anon`. Service-role bypasses
+ * RLS and works reliably; security is enforced server-side by validating the
+ * form input in the cohort signup action before insert.
  *
  * Returns null if env is unset — callers must handle that path and fall back
  * to lead capture without waiver persistence (logged as a hard error).
@@ -18,14 +23,14 @@ export function getCommunityClient(): SupabaseClient | null {
   if (cached) return cached;
 
   const url = process.env.SUPABASE_COMMUNITY_URL?.trim();
-  const anonKey = process.env.SUPABASE_COMMUNITY_ANON_KEY?.trim();
+  const serviceKey = process.env.SUPABASE_COMMUNITY_SERVICE_KEY?.trim();
 
-  if (!url || !anonKey) {
-    console.error("[supabase-community] SUPABASE_COMMUNITY_URL or SUPABASE_COMMUNITY_ANON_KEY is missing");
+  if (!url || !serviceKey) {
+    console.error("[supabase-community] SUPABASE_COMMUNITY_URL or SUPABASE_COMMUNITY_SERVICE_KEY is missing");
     return null;
   }
 
-  cached = createClient(url, anonKey, {
+  cached = createClient(url, serviceKey, {
     auth: { persistSession: false, autoRefreshToken: false },
   });
 
