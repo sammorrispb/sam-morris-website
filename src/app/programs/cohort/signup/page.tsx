@@ -24,7 +24,9 @@ export default function CohortSignupPage() {
 
   const isMinor = dob ? computeIsMinor(dob) : false;
 
-  function handleSubmit(formData: FormData) {
+  function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    const formData = new FormData(event.currentTarget);
     setError(null);
     setErrorField(null);
     startTransition(async () => {
@@ -64,7 +66,7 @@ export default function CohortSignupPage() {
           weeks · {PRICING.cohortPlayers} players per cohort
         </p>
 
-        <form action={handleSubmit} className="space-y-8">
+        <form onSubmit={handleSubmit} className="space-y-8">
           {/* Participant */}
           <fieldset className="space-y-4">
             <legend className="font-heading font-bold text-xl mb-3">
