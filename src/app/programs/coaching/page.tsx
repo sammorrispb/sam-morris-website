@@ -21,9 +21,11 @@ import {
 import { SERVICE_AREA } from "@/lib/constants";
 
 export const metadata: Metadata = {
-  title: "Coaching, Clinics & Group Lessons — Sam Morris Pickleball | DMV",
+  // Title ≤60 chars (audit baseline: 94 with duplicated brand suffix).
+  title: "Pickleball Coaching & Clinics in MoCo — Sam Morris",
+  // Description ≤160 chars (audit baseline: 202).
   description:
-    "Private lessons, group lessons, and the 3+1 Play-In Special with PPR-certified Coach Sam Morris. Sam travels to your court within ~35 minutes of Olney, MD — covering MoCo, DC, and nearby PG/Howard/NoVA.",
+    "Private lessons, group clinics, and the 3+1 Play-In with PPR-certified Coach Sam Morris. Travels to your court within ~35 min of Olney, MD.",
   keywords: [
     "private pickleball lessons Montgomery County",
     "pickleball coach Montgomery County",
@@ -36,9 +38,9 @@ export const metadata: Metadata = {
   ],
   alternates: { canonical: "https://www.sammorrispb.com/programs/coaching" },
   openGraph: {
-    title: "Coaching, Clinics & Group Lessons — Sam Morris Pickleball",
+    title: "Pickleball Coaching & Clinics in MoCo — Sam Morris",
     description:
-      "Private + group + play-in lessons in the DMV. Sam travels to your court.",
+      "Private lessons, group clinics, and 3+1 Play-In with PPR-certified Coach Sam Morris across the DMV.",
     url: "https://www.sammorrispb.com/programs/coaching",
     images: [
       {
@@ -48,6 +50,9 @@ export const metadata: Metadata = {
         alt: "Coaching & Clinics — Sam Morris Pickleball",
       },
     ],
+  },
+  twitter: {
+    title: "Pickleball Coaching & Clinics in MoCo — Sam Morris",
   },
 };
 
