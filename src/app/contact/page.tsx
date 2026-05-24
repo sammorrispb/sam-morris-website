@@ -4,16 +4,17 @@ import { LeadForm } from "@/components/LeadForm";
 import { TrackedExternalLink } from "@/components/TrackedExternalLink";
 import { ContactLink } from "@/components/ContactLink";
 import { CONTACT, SOCIAL_LINKS } from "@/lib/constants";
+import { breadcrumbJsonLd } from "@/lib/seo";
 
 export const metadata: Metadata = {
-  title: "Contact — Book Pickleball Lessons in Montgomery County, MD",
+  title: "Contact — Book Pickleball Lessons in MoCo, MD",
   description:
-    "Book a free pickleball evaluation with Coach Sam Morris in Montgomery County, MD. Private lessons, youth academy enrollment, and family coaching. Call 301-325-4731.",
+    "Book a free pickleball evaluation with Coach Sam Morris in Montgomery County, MD. Private lessons, youth academy, family coaching. Call 301-325-4731.",
   alternates: {
     canonical: "https://www.sammorrispb.com/contact",
   },
   openGraph: {
-    title: "Book Pickleball Lessons — Sam Morris | Montgomery County, MD",
+    title: "Contact — Book Pickleball Lessons in MoCo, MD",
     description:
       "Free evaluation, private lessons, youth academy, and family coaching in Montgomery County, MD. Call 301-325-4731.",
     url: "https://www.sammorrispb.com/contact",
@@ -26,11 +27,25 @@ export const metadata: Metadata = {
       },
     ],
   },
+  twitter: {
+    title: "Contact — Book Pickleball Lessons in MoCo, MD",
+  },
 };
 
 export default function ContactPage() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(
+            breadcrumbJsonLd([
+              { name: "Home", href: "/" },
+              { name: "Contact", href: "/contact" },
+            ])
+          ),
+        }}
+      />
       {/* ─── Hero with photo backdrop ─── */}
       <section className="relative section-photo-backdrop py-24 md:py-32 px-6 -mt-16 pt-32">
         <div className="photo-bg">

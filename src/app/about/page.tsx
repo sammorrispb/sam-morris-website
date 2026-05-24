@@ -3,18 +3,21 @@ import Image from "next/image";
 import Link from "next/link";
 import { ScrollDepthTracker } from "@/components/ScrollDepthTracker";
 import { AnimateOnScroll } from "@/components/AnimateOnScroll";
+import { breadcrumbJsonLd } from "@/lib/seo";
 
 export const metadata: Metadata = {
-  title: "About Sam Morris — PPR-Certified Pickleball Coach, Montgomery County MD",
+  // Title ≤60 chars (audit baseline: 96 with template suffix).
+  title: "About Sam Morris — Pickleball Coach in MoCo, MD",
+  // Description ≤160 chars (audit baseline: 228).
   description:
-    "Meet Sam Morris — PPR-certified pickleball professional and DUPR coach in Montgomery County, MD. Former PE teacher with a Master's in Coaching, helping adults, families, and kids develop a growth mindset through pickleball.",
+    "PPR-certified pickleball pro and DUPR coach in Montgomery County, MD. Former PE teacher, M.S. in Coaching — growth-mindset coaching for all ages.",
   alternates: {
     canonical: "https://www.sammorrispb.com/about",
   },
   openGraph: {
-    title: "About Sam Morris — Pickleball Coach in Montgomery County, MD",
+    title: "About Sam Morris — Pickleball Coach in MoCo, MD",
     description:
-      "From PE teacher to pickleball coach and community builder. PPR Pro, DUPR Certified Coach, and 3x founder serving Rockville, North Bethesda, Olney & greater Montgomery County.",
+      "PPR-certified pickleball pro and DUPR coach in Montgomery County, MD. Former PE teacher, M.S. in Coaching, 3x founder.",
     url: "https://www.sammorrispb.com/about",
     images: [
       {
@@ -24,6 +27,9 @@ export const metadata: Metadata = {
         alt: "About Sam Morris — PPR-Certified Pickleball Coach",
       },
     ],
+  },
+  twitter: {
+    title: "About Sam Morris — Pickleball Coach in MoCo, MD",
   },
 };
 
@@ -90,6 +96,17 @@ export default function AboutPage() {
   return (
     <>
       <ScrollDepthTracker page="about" />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(
+            breadcrumbJsonLd([
+              { name: "Home", href: "/" },
+              { name: "About", href: "/about" },
+            ])
+          ),
+        }}
+      />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
