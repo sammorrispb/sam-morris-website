@@ -26,10 +26,16 @@ export function Footer() {
           <div className="grid grid-cols-1 md:grid-cols-[1fr_auto] items-end gap-8">
             <div>
               <p className="eyebrow mb-3">Coach. Builder. Dad.</p>
-              <h2 className="font-heading font-black text-3xl md:text-5xl leading-tight max-w-2xl">
+              {/* Tagline is brand decor in the footer — rendered as a styled
+                  paragraph (not a heading) so per-page H2s remain
+                  section-specific and unique. SEO audit 2026-05-24. */}
+              <p
+                role="doc-tip"
+                className="font-heading font-black text-3xl md:text-5xl leading-tight max-w-2xl"
+              >
                 Better than yesterday —{" "}
                 <span className="gradient-text-warm">together.</span>
-              </h2>
+              </p>
             </div>
             <Link
               href={COACH_BOOKING_URL}

@@ -9,10 +9,11 @@ import { TrackedLink } from "@/components/TrackedLink";
 import { COACH_BOOKING_URL } from "@/lib/constants";
 
 export const metadata: Metadata = {
-  title:
-    "Sam Morris — Pickleball Coach | Montgomery County, DC & Northern Virginia",
+  // Title kept ≤60 chars (audit baseline: 84 with old template).
+  title: "Pickleball Coach in Montgomery County, MD — Sam Morris",
+  // Description kept ≤160 chars (audit baseline: 178).
   description:
-    "PPR-certified pickleball coach in Montgomery County, MD. Private lessons, skill evaluations, and youth academy serving Montgomery County MD, Washington DC, and Northern Virginia.",
+    "PPR-certified pickleball coach in Montgomery County, MD. Private lessons, free skill evaluations, and youth academy for adults, families, and kids.",
   keywords: [
     "pickleball coach Montgomery County",
     "indoor pickleball facility near me",
@@ -26,7 +27,12 @@ export const metadata: Metadata = {
     "indoor pickleball courts Maryland",
     "pickleball near Washington DC",
   ],
+  alternates: { canonical: "https://www.sammorrispb.com/" },
   openGraph: {
+    url: "https://www.sammorrispb.com/",
+    title: "Pickleball Coach in Montgomery County, MD — Sam Morris",
+    description:
+      "PPR-certified pickleball coach in Montgomery County, MD. Private lessons, free skill evaluations, and youth academy for adults, families, and kids.",
     images: [
       {
         url: "/og?title=Better%20Than%20Yesterday%20%E2%80%94%20Together&subtitle=Pickleball%20Coaching%20for%20Adults%2C%20Families%20%26%20Kids",
@@ -35,6 +41,10 @@ export const metadata: Metadata = {
         alt: "Sam Morris Pickleball — Better Than Yesterday, Together",
       },
     ],
+  },
+  twitter: {
+    // Mirror og:title so social cards don't share the sitewide fallback.
+    title: "Pickleball Coach in Montgomery County, MD — Sam Morris",
   },
 };
 
@@ -104,9 +114,64 @@ const PROGRAMS = [
   },
 ];
 
+// FAQ JSON-LD — previously emitted sitewide via layout.tsx. Moved here per
+// Google's FAQPage policy: only emit on pages with visible FAQ-equivalent
+// content. Home renders the same answers across the lead form, programs preview,
+// and CTAs, so it's the canonical spot. SEO audit 2026-05-24.
+const HOME_FAQ_JSONLD = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: [
+    {
+      "@type": "Question",
+      name: "Where can I take pickleball lessons in Montgomery County, MD?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Sam Morris offers professional pickleball coaching across Montgomery County, MD. Private lessons, group clinics, and youth academy programs are available for all skill levels — from complete beginners to 5.0+ players. Visit sammorrispb.com/contact to book a free evaluation.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "Is pickleball good for kids and families?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Pickleball is one of the best family sports — it's easy for beginners of all ages to learn, requires minimal equipment, and provides great exercise. The Next Gen Pickleball Academy in Montgomery County offers structured programs for kids ages 8-16 with four skill levels. Many families play together and it's a wonderful way to bond through sport.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "What age can kids start learning pickleball?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Kids can start learning pickleball as young as age 5. The Next Gen Pickleball Academy's Red Level is designed specifically for first-time players, teaching grip, stance, basic serves, and court awareness in a fun, supportive environment.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "How much do private pickleball lessons cost in Montgomery County?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Sam Morris offers private 1-on-1 pickleball lessons with video analysis and custom practice plans. Lessons are $130 per session or $400 for a 4-session package ($100/session). The first 30-minute skill evaluation is free for every DMV player. Visit sammorrispb.com/programs to book or contact Sam at 301-325-4731.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "What is DUPR and why does it matter for pickleball?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "DUPR (Dynamic Universal Pickleball Rating) is the global pickleball rating system used to match players of similar skill levels. Sam Morris is a DUPR Certified Coach who provides skill evaluations and helps players track their improvement over time.",
+      },
+    },
+  ],
+};
+
 export default function Home() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(HOME_FAQ_JSONLD) }}
+      />
       {/* ─── Full-Bleed Hero ─── */}
       <section className="relative min-h-[92vh] flex items-center hero-full-bleed -mt-16 pt-16 overflow-hidden">
         <Image
@@ -120,15 +185,15 @@ export default function Home() {
         <div className="relative z-10 mx-auto max-w-6xl px-6 w-full py-24">
           <div className="max-w-3xl">
             <p className="eyebrow mb-5 animate-fade-in">
-              Coach. Builder. Dad.
+              Coach. Builder. Dad. &middot; Better than yesterday — together.
             </p>
             <h1 className="font-heading font-black text-5xl sm:text-6xl md:text-7xl lg:text-8xl leading-[0.95] mb-8 animate-fade-up">
-              Better than yesterday —{" "}
-              <span className="gradient-text-warm">together.</span>
+              Pickleball coach in{" "}
+              <span className="gradient-text-warm">Montgomery County.</span>
             </h1>
             <p className="text-text-primary/85 text-lg md:text-xl mb-10 max-w-xl leading-relaxed">
-              Premium pickleball coaching for adults, families, and kids in
-              Montgomery County, MD. Real progress, every session.
+              PPR-certified coaching for adults, families, and kids across the
+              DMV. Real progress, every session — better than yesterday, together.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
               <TrackedLink
@@ -177,11 +242,10 @@ export default function Home() {
         <div className="photo-bg">
           <Image
             src="/images/indoor-play-action.jpeg"
-            alt=""
+            alt="Indoor pickleball drill led by Coach Sam Morris in Montgomery County, MD"
             fill
             sizes="100vw"
             className="object-cover"
-            aria-hidden="true"
           />
         </div>
         <AnimateOnScroll>
@@ -363,11 +427,10 @@ export default function Home() {
         <div className="photo-bg">
           <Image
             src="/images/multi-court-outdoor.jpeg"
-            alt=""
+            alt="Outdoor pickleball courts in Montgomery County, MD where Coach Sam Morris teaches"
             fill
             sizes="100vw"
             className="object-cover"
-            aria-hidden="true"
           />
         </div>
         <AnimateOnScroll>
