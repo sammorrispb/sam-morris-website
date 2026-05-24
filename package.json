@@ -7,7 +7,9 @@
     "build": "npx tsx scripts/generate-search-index.ts && next build",
     "start": "next start",
     "lint": "eslint",
-    "search-index": "npx tsx scripts/generate-search-index.ts"
+    "search-index": "npx tsx scripts/generate-search-index.ts",
+    "test": "vitest run",
+    "test:seo": "npm run build && vitest run tests/seo.spec.ts"
   },
   "dependencies": {
     "@notionhq/client": "^5.11.0",
@@ -27,14 +29,16 @@
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
     "@tailwindcss/typography": "^0.5.19",
-    "@types/node": "^20",
+    "@types/node": "^20.19.41",
     "@types/nodemailer": "^7.0.11",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "cheerio": "^1.2.0",
     "eslint": "^9",
     "eslint-config-next": "16.1.6",
     "tailwindcss": "^4",
     "tsx": "^4.21.0",
-    "typescript": "5.9.3"
+    "typescript": "5.9.3",
+    "vitest": "^4.1.7"
   }
 }
