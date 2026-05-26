@@ -54,7 +54,12 @@ function needsAttention(lead: Lead): string | null {
 
 export function AdminDashboard() {
   const [password, setPassword] = useState("");
-  const [authed, setAuthed] = useState(false);
+  // Initialize from sessionStorage at mount so a returning admin doesn't
+  // see the password screen flash. SSR pre-render falls back to false
+  // (no sessionStorage); client hydration picks up the real value.
+  const [authed, setAuthed] = useState(() =>
+    typeof window !== "undefined" && sessionStorage.getItem("admin_token") !== null,
+  );
   const [error, setError] = useState("");
   const [data, setData] = useState<LeadsData | null>(null);
   const [loading, setLoading] = useState(false);
@@ -108,25 +113,25 @@ export function AdminDashboard() {
     [debouncedSearch, statusFilter, interestFilter, sourceFilter]
   );
 
-  // Reset pagination when filters change
+  // Refetch when filters change. Pagination reset moved into each filter's
+  // onChange handler — see resetPagination() above.
   useEffect(() => {
+    const token = sessionStorage.getItem("admin_token");
+    if (token && authed) {
+      // The setState calls inside fetchLeads (setLoading/setData/setError)
+      // are unavoidable for an async data fetch; the rule flags them
+      // defensively but this is the canonical client-side filtered-fetch
+      // pattern. React 19 + Server Components is the proper refactor.
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      fetchLeads(token);
+    }
+  }, [debouncedSearch, statusFilter, interestFilter, sourceFilter, authed, fetchLeads]);
+
+  function resetPagination() {
     setPage(1);
     setCurrentCursor(undefined);
     setCursors([]);
-    const token = sessionStorage.getItem("admin_token");
-    if (token && authed) {
-      fetchLeads(token);
-    }
-  }, [debouncedSearch, statusFilter, interestFilter, sourceFilter]); // eslint-disable-line react-hooks/exhaustive-deps
-
-  // Initial load from stored token
-  useEffect(() => {
-    const stored = sessionStorage.getItem("admin_token");
-    if (stored) {
-      setAuthed(true);
-      fetchLeads(stored);
-    }
-  }, [fetchLeads]);
+  }
 
   // Close dropdown on outside click
   useEffect(() => {
@@ -391,12 +396,18 @@ export function AdminDashboard() {
           type="text"
           placeholder="Search name or email..."
           value={search}
-          onChange={(e) => setSearch(e.target.value)}
+          onChange={(e) => {
+            setSearch(e.target.value);
+            resetPagination();
+          }}
           className="min-w-[200px] flex-1 bg-navy border border-white/10 rounded-lg px-4 py-2.5 text-sm text-text-primary placeholder:text-text-muted/50 focus:border-accent-blue focus:outline-none transition-colors"
         />
         <select
           value={statusFilter}
-          onChange={(e) => setStatusFilter(e.target.value)}
+          onChange={(e) => {
+            setStatusFilter(e.target.value);
+            resetPagination();
+          }}
           className="bg-navy border border-white/10 rounded-lg px-3 py-2.5 text-sm text-text-primary focus:border-accent-blue focus:outline-none transition-colors"
         >
           <option value="">All Statuses</option>
@@ -408,7 +419,10 @@ export function AdminDashboard() {
         </select>
         <select
           value={interestFilter}
-          onChange={(e) => setInterestFilter(e.target.value)}
+          onChange={(e) => {
+            setInterestFilter(e.target.value);
+            resetPagination();
+          }}
           className="bg-navy border border-white/10 rounded-lg px-3 py-2.5 text-sm text-text-primary focus:border-accent-blue focus:outline-none transition-colors"
         >
           <option value="">All Interests</option>
@@ -420,7 +434,10 @@ export function AdminDashboard() {
         </select>
         <select
           value={sourceFilter}
-          onChange={(e) => setSourceFilter(e.target.value)}
+          onChange={(e) => {
+            setSourceFilter(e.target.value);
+            resetPagination();
+          }}
           className="bg-navy border border-white/10 rounded-lg px-3 py-2.5 text-sm text-text-primary focus:border-accent-blue focus:outline-none transition-colors"
         >
           <option value="">All Sources</option>
