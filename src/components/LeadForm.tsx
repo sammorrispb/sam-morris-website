@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef } from "react";
 import Link from "next/link";
 import { CONTACT, INTEREST_OPTIONS, EVENT_TYPES } from "@/lib/constants";
 import { trackEvent, getVisitorIdForForm, getUtm } from "@/lib/funnelClient";
@@ -26,22 +26,26 @@ export function LeadForm({
   lockedInterest?: string;
   eventTypeRequired?: boolean;
 }) {
-  const [form, setForm] = useState({
-    name: "",
-    email: "",
-    interest: lockedInterest ?? "",
-    notes: "",
-    event_type: "",
+  const [form, setForm] = useState(() => {
+    // Read ?interest=… from the URL once at mount. window is unavailable
+    // during the SSR pre-render of this Client Component; in that pass we
+    // fall back to "" and the value lands on client hydration.
+    const urlInterest =
+      typeof window !== "undefined"
+        ? matchInterestFromParam(
+            new URLSearchParams(window.location.search).get("interest"),
+          )
+        : "";
+    return {
+      name: "",
+      email: "",
+      interest: lockedInterest ?? urlInterest,
+      notes: "",
+      event_type: "",
+    };
   });
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
   const formStarted = useRef(false);
-
-  useEffect(() => {
-    if (lockedInterest) return;
-    const param = new URLSearchParams(window.location.search).get("interest");
-    const matched = matchInterestFromParam(param);
-    if (matched) setForm((prev) => ({ ...prev, interest: matched }));
-  }, [lockedInterest]);
 
   function updateField(field: string, value: string) {
     setForm((prev) => ({ ...prev, [field]: value }));
