@@ -26,6 +26,11 @@ export const CONTACT = {
   phone: "301-325-4731",
 } as const;
 
+export const WHATSAPP_GROUP = {
+  name: "Sam Morris Pickleball",
+  href: "https://chat.whatsapp.com/LaRjBQT8O5p5aJS5vSAk0i?s=cl&p=i&mlu=2",
+} as const;
+
 export const COACH_BOOKING_URL = "https://coach.sammorrispb.com/book/evaluation";
 
 export const ANNOUNCEMENT: {
