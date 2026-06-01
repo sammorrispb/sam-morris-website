@@ -1,15 +1,15 @@
 /**
- * Supabase client for the community-os tqqh project. Used for cross-app
- * writes to L&D's shared schema (e.g. inserting cohort signup waivers into
- * `public.waivers`). One-way coupling: sammorrispb writes, never reads.
+ * Supabase client for the community-os hivux project (Phase 5 storage
+ * unification, 2026-06-01: L&D's consumer tables moved tqqh public.* →
+ * hivux `ld.*`). Used for cross-app writes to L&D's shared schema (e.g.
+ * inserting cohort signup waivers into `ld.waivers` — same table P3 uses).
+ * One-way coupling: sammorrispb writes, never reads.
  *
  * Uses the service-role key on purpose — this is a server-side write from
  * one project's lambda to another project's database. The key never reaches
- * the client bundle. We tried the anon-key route (waivers table has a
- * `for insert to anon` policy with `check (true)`) but the JWT was rejected
- * by RLS on this project despite carrying `role: anon`. Service-role bypasses
- * RLS and works reliably; security is enforced server-side by validating the
- * form input in the cohort signup action before insert.
+ * the client bundle. Service-role bypasses RLS; security is enforced
+ * server-side by validating the form input in the cohort signup action
+ * before insert.
  *
  * Returns null if env is unset — callers must handle that path and fall back
  * to lead capture without waiver persistence (logged as a hard error).
@@ -32,6 +32,10 @@ export function getCommunityClient(): SupabaseClient | null {
 
   cached = createClient(url, serviceKey, {
     auth: { persistSession: false, autoRefreshToken: false },
+    // L&D consumer tables live in the `ld` schema on hivux (not `public`,
+    // which belongs to coach-os on this project). Cast is sound — `ld` is a
+    // 1:1 copy of the former tqqh `public` shape.
+    db: { schema: "ld" as "public" },
   });
 
   return cached;
