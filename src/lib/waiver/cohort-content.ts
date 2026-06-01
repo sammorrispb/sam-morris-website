@@ -1,8 +1,8 @@
 /**
  * Waiver + consent copy for Coach Sam's 4-Week Training Cohorts.
  *
- * Storage: rows land in community-os `public.waivers` (Supabase project
- * tqqhbccomjhfnylafwnk) — same table P3 uses. The schema captures booleans
+ * Storage: rows land in community-os `ld.waivers` (Supabase project
+ * hivuxgbiczpeqtnfzhnm, `ld` schema) — same table P3 uses. The schema captures booleans
  * for liability + media consent; the actual legal text shown to the signer
  * lives here in version control. Git log of this file is the audit trail
  * for what wording was in effect on any given date.
