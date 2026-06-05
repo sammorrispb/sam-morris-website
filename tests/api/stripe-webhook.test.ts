@@ -7,6 +7,7 @@ const sendEmailMock = vi.fn();
 const notifySamMock = vi.fn();
 const generateEmailDraftMock = vi.fn(() => "Welcome body");
 const createCoachingClientMock = vi.fn();
+const upsertCommunityPlayerMock = vi.fn();
 
 vi.mock("stripe", () => {
   class Stripe {
@@ -35,17 +36,28 @@ vi.mock("@/lib/coaching-crm", () => ({
   createCoachingClient: createCoachingClientMock,
 }));
 
+vi.mock("@/lib/supabase-community", () => ({
+  upsertCommunityPlayer: upsertCommunityPlayerMock,
+}));
+
 function checkoutEvent(
-  overrides: Partial<{ amount_total: number; email: string; name: string }> = {},
+  overrides: Partial<{
+    amount_total: number;
+    email: string;
+    name: string;
+    phone: string | null;
+  }> = {},
 ) {
   return {
     id: "evt_test_1",
     type: "checkout.session.completed",
     data: {
       object: {
+        id: "cs_test_1",
         customer_details: {
           email: overrides.email ?? "buyer@example.com",
           name: overrides.name ?? "Buyer One",
+          phone: overrides.phone ?? null,
         },
         amount_total: overrides.amount_total ?? 13000,
       },
@@ -75,6 +87,7 @@ beforeEach(() => {
   });
   sendEmailMock.mockResolvedValue({ success: true });
   notifySamMock.mockResolvedValue(undefined);
+  upsertCommunityPlayerMock.mockResolvedValue({ ok: true, playerId: "cp_1" });
   process.env.STRIPE_SECRET_KEY = "sk_test_x";
   process.env.STRIPE_WEBHOOK_SECRET = "whsec_test";
   process.env.NOTION_API_KEY = "secret_notion";
@@ -182,5 +195,29 @@ describe("POST /api/stripe/webhook", () => {
     expect(createCoachingClientMock.mock.calls[1][3]).toMatchObject({
       hoursPurchased: 0,
     });
+  });
+
+  it("upserts the buyer into the L&D community spine with email/phone/name", async () => {
+    constructEventMock.mockReturnValue(
+      checkoutEvent({ email: "lessons@example.com", name: "Pat Buyer", phone: "+13015551234" }),
+    );
+    const { POST } = await import("@/app/api/stripe/webhook/route");
+    const res = await POST(makeRequest("payload", "sig_ok"));
+    expect(res.status).toBe(200);
+    expect(upsertCommunityPlayerMock).toHaveBeenCalledTimes(1);
+    expect(upsertCommunityPlayerMock.mock.calls[0][0]).toMatchObject({
+      name: "Pat Buyer",
+      email: "lessons@example.com",
+      phone: "+13015551234",
+      raw: { source: "coach_sam_stripe", stripe_session_id: "cs_test_1", product: "Single Lesson" },
+    });
+  });
+
+  it("spine upsert failure never propagates — webhook still returns 200", async () => {
+    constructEventMock.mockReturnValue(checkoutEvent());
+    upsertCommunityPlayerMock.mockRejectedValue(new Error("spine down"));
+    const { POST } = await import("@/app/api/stripe/webhook/route");
+    const res = await POST(makeRequest("payload", "sig_ok"));
+    expect(res.status).toBe(200);
   });
 });
