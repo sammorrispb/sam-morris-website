@@ -4,6 +4,7 @@ import Stripe from "stripe";
 import { generateEmailDraft } from "@/lib/emailTemplates";
 import { sendEmail, notifySam } from "@/lib/email";
 import { createCoachingClient } from "@/lib/coaching-crm";
+import { upsertCommunityPlayer } from "@/lib/supabase-community";
 
 export const dynamic = "force-dynamic";
 
@@ -126,6 +127,29 @@ export async function POST(request: Request) {
     }
   } catch (crmError) {
     console.error("Stripe webhook: coaching client creation failed:", crmError);
+  }
+
+  // Link the buyer into the L&D community identity spine (fail-open — never
+  // block the receipt path). Dedupes against any existing p3/newsletter/coach-os
+  // profile via normalized email/phone. Phone is only present when phone
+  // collection is enabled on the payment link.
+  try {
+    const phone = session.customer_details?.phone ?? null;
+    if (email || phone) {
+      const res = await upsertCommunityPlayer({
+        name,
+        email: email || null,
+        phone,
+        raw: { source: "coach_sam_stripe", stripe_session_id: session.id, product },
+      });
+      if (res.ok) {
+        console.log("Stripe webhook: community player upserted:", res.playerId);
+      } else {
+        console.error("Stripe webhook: community player upsert skipped:", res.error);
+      }
+    }
+  } catch (spineError) {
+    console.error("Stripe webhook: community spine write failed:", spineError);
   }
 
   // Notify Sam

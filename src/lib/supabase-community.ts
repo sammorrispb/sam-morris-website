@@ -41,6 +41,98 @@ export function getCommunityClient(): SupabaseClient | null {
   return cached;
 }
 
+/**
+ * Service-role client scoped to the platform `community` schema (the L&D
+ * identity spine: community.players + identity_links + the resolver RPCs).
+ * Distinct from getCommunityClient() above, which is `ld`-scoped for waivers.
+ * Returns null if env is unset — callers fail open.
+ */
+let cachedCommunitySchema: SupabaseClient | null = null;
+
+export function getCommunitySchemaClient(): SupabaseClient | null {
+  if (cachedCommunitySchema) return cachedCommunitySchema;
+
+  const url = process.env.SUPABASE_COMMUNITY_URL?.trim();
+  const serviceKey = process.env.SUPABASE_COMMUNITY_SERVICE_KEY?.trim();
+
+  if (!url || !serviceKey) {
+    console.error(
+      "[supabase-community] SUPABASE_COMMUNITY_URL or SUPABASE_COMMUNITY_SERVICE_KEY is missing"
+    );
+    return null;
+  }
+
+  cachedCommunitySchema = createClient(url, serviceKey, {
+    auth: { persistSession: false, autoRefreshToken: false },
+    db: { schema: "community" as "public" },
+  });
+
+  return cachedCommunitySchema;
+}
+
+/**
+ * Upsert a person into the L&D community identity spine and return their
+ * canonical community.players id. Keyed on normalized email/phone via the
+ * existing resolver RPCs (community.resolve_or_create_player[_dual]) — so a
+ * Coach Sam lesson buyer who is also a p3 player / newsletter subscriber folds
+ * into ONE profile instead of creating a duplicate.
+ *
+ * Fail-open: returns { ok: false } on any problem; the caller (Stripe webhook)
+ * must never let a spine-write failure block the receipt/CRM/email path.
+ */
+export async function upsertCommunityPlayer(input: {
+  name?: string | null;
+  email?: string | null;
+  phone?: string | null;
+  raw?: Record<string, unknown> | null;
+}): Promise<{ ok: true; playerId: string } | { ok: false; error: string }> {
+  const client = getCommunitySchemaClient();
+  if (!client) return { ok: false, error: "community schema client not configured" };
+
+  const name = input.name?.trim() || null;
+  const email = input.email?.trim().toLowerCase() || null;
+  const phone = input.phone?.trim() || null;
+  if (!email && !phone) return { ok: false, error: "no email or phone to resolve" };
+
+  // Paid Stripe checkout → reasonably trusted identity. Not marked `verified`
+  // (we didn't independently confirm ownership), but above the default floor.
+  const confidence = 70;
+  const raw = input.raw ?? null;
+
+  try {
+    const { data, error } =
+      email && phone
+        ? await client.rpc("resolve_or_create_player_dual", {
+            p_primary_source: "email",
+            p_primary_value: email,
+            p_secondary_source: "phone",
+            p_secondary_value: phone,
+            p_display_name: name,
+            p_confidence: confidence,
+            p_raw: raw,
+            p_verified: false,
+          })
+        : await client.rpc("resolve_or_create_player", {
+            p_source: email ? "email" : "phone",
+            p_value: email ?? phone,
+            p_display_name: name,
+            p_confidence: confidence,
+            p_raw: raw,
+            p_verified: false,
+          });
+
+    if (error) {
+      console.error("[supabase-community] resolve_or_create_player failed", error);
+      return { ok: false, error: error.message };
+    }
+    return { ok: true, playerId: data as string };
+  } catch (err) {
+    const msg = err instanceof Error ? err.message : String(err);
+    console.error("[supabase-community] resolve_or_create_player threw", msg);
+    return { ok: false, error: msg };
+  }
+}
+
 export type CohortWaiverInsert = {
   full_name: string;
   email: string;
