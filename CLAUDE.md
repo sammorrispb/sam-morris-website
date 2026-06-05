@@ -56,3 +56,21 @@ None present (`.cursor*` and `.github/copilot-instructions.md` do not exist). Th
 
 ## README highlights
 The root `README.md` is mostly the create-next-app boilerplate, but its **"Unified funnel ingest"** section documents the Hub analytics pipeline and the required `FUNNEL_INGEST_SECRET_SAMMORRISPB` env var. That section is the authoritative reference for any analytics work — keep it in sync if you change the funnel client/server.
+
+
+## Git Safety
+- Never run `git reset --hard` without first checking for uncommitted work in parallel sessions/worktrees
+- Prefer `git stash` or branch-based recovery
+
+## Date Handling
+- Never use `new Date(y, m, d)` for date-only values — it breaks on UTC build servers
+- Use ISO date strings or date-fns with explicit timezone handling
+
+## Deployment Verification
+- After merging any PR, verify the change is live in production via curl/browser before declaring done
+- For migrations, confirm schema applied in prod Supabase
+- For cron jobs, smoke-test the endpoint
+
+## Session End Protocol
+- Always save learnings to Open Brain (OB) at session end via MCP, with SQL fallback if MCP transport is unhealthy
+- Persist key decisions, friction points, and resolved bugs as searchable thoughts
