@@ -5,6 +5,15 @@ type EmailResult = { success: true } | { success: false; error: string };
 
 let transporter: nodemailer.Transporter | null = null;
 
+/**
+ * True when both Gmail SMTP credentials are present. Note this only checks
+ * that the env vars are set — an invalid/expired app password (or one with a
+ * trailing newline) still passes here but fails at send time.
+ */
+export function isEmailConfigured(): boolean {
+  return Boolean(process.env.GMAIL_USER && process.env.GMAIL_APP_PASSWORD);
+}
+
 function getTransporter(): nodemailer.Transporter | null {
   if (transporter) return transporter;
 
@@ -29,7 +38,14 @@ export async function sendEmail(
   cc?: string
 ): Promise<EmailResult> {
   const t = getTransporter();
-  if (!t) return { success: false, error: "Email not configured" };
+  if (!t) {
+    // Loud on purpose: a missing GMAIL_USER/GMAIL_APP_PASSWORD means every
+    // confirmation and notification silently drops. Surface it at error level.
+    console.error(
+      `sendEmail skipped — GMAIL_USER/GMAIL_APP_PASSWORD not configured (to: ${to})`
+    );
+    return { success: false, error: "Email not configured" };
+  }
 
   try {
     await t.sendMail({

@@ -42,26 +42,48 @@ export async function POST(request: Request) {
 
     const normalizedEmail = email.toLowerCase();
 
-    // Welcome email to player (fire-and-forget; never block the response)
+    // Welcome email to player. We capture the result instead of fire-and-forget
+    // so a silent mailer outage (missing/invalid GMAIL_APP_PASSWORD) becomes a
+    // durable signal in Open Brain below rather than vanishing. Incident: an
+    // eval lead submitted, saw a success screen, but no confirmation was ever
+    // delivered and Sam was never notified.
+    let confirmationSent = false;
+    let confirmationError: string | undefined;
     try {
       const body = generateEmailDraft("Free Evaluation", name);
-      await sendEmail(
+      const result = await sendEmail(
         normalizedEmail,
         "Your free pickleball evaluation — next steps",
         body
       );
+      confirmationSent = result.success;
+      if (!result.success) confirmationError = result.error;
     } catch (err) {
+      confirmationError = err instanceof Error ? err.message : "unknown";
       console.error("[eval-book] welcome email failed", err);
     }
+    if (!confirmationSent) {
+      console.error(
+        `[eval-book] confirmation email NOT delivered to ${normalizedEmail}: ${confirmationError ?? "unknown"}`
+      );
+    }
 
-    // Notify Sam
+    // Notify Sam (same transporter — if it's down, Sam never hears about the
+    // lead via email, so we record whether the alert actually went out).
+    let samNotified = false;
     try {
-      await notifySam(
+      const result = await notifySam(
         `New Eval Booking: ${name}`,
         `Name: ${name}\nEmail: ${normalizedEmail}\nSource: meta_ad\nCampaign: ${utm_campaign ?? utm?.utm_campaign ?? "n/a"}\nVariant: ${utm_content ?? "n/a"}\nSubmitted: ${new Date().toLocaleString("en-US", { timeZone: "America/New_York" })}`
       );
+      samNotified = result.success;
     } catch (err) {
       console.error("[eval-book] Sam notification failed", err);
+    }
+    if (!samNotified) {
+      console.error(
+        `[eval-book] Sam NOT notified of eval booking for ${name} <${normalizedEmail}>`
+      );
     }
 
     // Ingest to Open Brain master CRM. AWAIT — Vercel drops fire-and-forget
@@ -81,10 +103,16 @@ export async function POST(request: Request) {
         page,
         ref: utm?.ref,
         utm_content,
+        // Durable delivery record. Open Brain is the one channel that survives
+        // a Gmail outage, so flag here when the booking generated no email —
+        // these are the leads that need manual follow-up.
+        confirmation_email_sent: confirmationSent,
+        sam_notified: samNotified,
+        ...(confirmationError ? { email_error: confirmationError } : {}),
       },
     });
 
-    return NextResponse.json({ success: true });
+    return NextResponse.json({ success: true, confirmationEmailSent: confirmationSent });
   } catch (err) {
     console.error("[eval-book] unhandled", err);
     return NextResponse.json(

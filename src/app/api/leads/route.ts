@@ -220,18 +220,27 @@ export async function POST(request: Request) {
       console.error("Email draft creation failed (lead still saved):", draftError);
     }
 
-    // Notify Sam about the new lead
+    // Notify Sam about the new lead. Capture the result so a silent mailer
+    // outage doesn't leave Sam unaware that a lead came in (Open Brain below
+    // carries the durable flag).
+    let samNotified = false;
     try {
       const subjectInterest = eventType ? `${interest} — ${eventType}` : interest;
-      await notifySam(
+      const result = await notifySam(
         `New Lead: ${name} — ${subjectInterest}`,
         `Name: ${name}\nEmail: ${email}\nInterest: ${interest}${eventType ? `\nEvent Type: ${eventType}` : ""}\nSubmitted: ${new Date().toLocaleString("en-US", { timeZone: "America/New_York" })}${notes ? `\n\nNotes from lead:\n${notes}` : ""}`
       );
+      samNotified = result.success;
     } catch (notifyError) {
       console.error("Lead notification email failed:", notifyError);
     }
+    if (!samNotified) {
+      console.error(`Sam NOT notified of new lead: ${name} <${email}>`);
+    }
 
     // Send welcome email to the lead
+    let confirmationSent = false;
+    let confirmationError: string | undefined;
     try {
       const emailBody = generateEmailDraft(interest, name, false, eventType);
       const result = await sendEmail(
@@ -239,6 +248,8 @@ export async function POST(request: Request) {
         `Thanks for reaching out, ${name}!`,
         emailBody
       );
+      confirmationSent = result.success;
+      if (!result.success) confirmationError = result.error;
 
       // Mark as sent in Notion
       if (result.success && leadPage) {
@@ -254,7 +265,13 @@ export async function POST(request: Request) {
         }
       }
     } catch (emailError) {
+      confirmationError = emailError instanceof Error ? emailError.message : "unknown";
       console.error("Welcome email failed:", emailError);
+    }
+    if (!confirmationSent) {
+      console.error(
+        `Confirmation email NOT delivered to ${email}: ${confirmationError ?? "unknown"}`
+      );
     }
 
     // Ingest to Open Brain master CRM. AWAIT the call — Vercel can freeze the
@@ -277,10 +294,15 @@ export async function POST(request: Request) {
         ref: utm.ref,
         utm_content: utm.utm_content,
         ...(eventType ? { event_type: eventType } : {}),
+        // Durable delivery record (see eval-book route) — flags leads that
+        // generated no email so they can be followed up manually.
+        confirmation_email_sent: confirmationSent,
+        sam_notified: samNotified,
+        ...(confirmationError ? { email_error: confirmationError } : {}),
       },
     });
 
-    return NextResponse.json({ success: true });
+    return NextResponse.json({ success: true, confirmationEmailSent: confirmationSent });
   } catch (error) {
     console.error("Lead submission error:", error);
     return NextResponse.json(
