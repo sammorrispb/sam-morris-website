@@ -44,3 +44,9 @@ next-env.d.ts
 
 # search index (generated at build time)
 /public/search-index.json
+
+# Playwright
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
