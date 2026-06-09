@@ -43,7 +43,7 @@ export const REFUND_BODY = [
   "Full refund available any time before the week 1 start date.",
   "After week 1 begins, no refunds will be issued. Missed sessions cannot be made up or credited to a future cohort.",
   "If Coach Sam cancels a session, a make-up session will be offered at a mutually agreed time within the cohort window. If a make-up is not possible, the missed session will be prorated and refunded.",
-  "The $160 cohort price includes one tournament entry on or shortly after week 4. If the originally targeted tournament is cancelled (rainout, organizer cancellation, etc.), Coach Sam will select a substitute local tournament within 30 days of the cohort end date. No refund is issued if a substitute is offered.",
+  "The all-in cohort price includes one tournament entry on or shortly after week 4. If the originally targeted tournament is cancelled (rainout, organizer cancellation, etc.), Coach Sam will select a substitute local tournament within 30 days of the cohort end date. No refund is issued if a substitute is offered.",
 ];
 
 export const COHORT_CONTEXT = "sammorrispb-cohort-2026";

@@ -120,7 +120,7 @@ export function QuizClient() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-10">
           {result.programs.map((p) => (
             <Link
-              key={p.href}
+              key={p.title}
               href={p.href}
               className="glow-border rounded-xl p-5 bg-white/[0.02] hover:bg-white/[0.05] transition-colors group"
             >

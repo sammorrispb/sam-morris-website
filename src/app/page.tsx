@@ -6,7 +6,7 @@ import { TESTIMONIALS } from "@/lib/testimonials";
 import { TestimonialGrid } from "@/components/TestimonialGrid";
 import { AnimateOnScroll } from "@/components/AnimateOnScroll";
 import { TrackedLink } from "@/components/TrackedLink";
-import { COACH_BOOKING_URL } from "@/lib/constants";
+import { COACH_BOOKING_URL, COACH_REQUEST_URL } from "@/lib/constants";
 
 export const metadata: Metadata = {
   // Title kept ≤60 chars (audit baseline: 84 with old template).
@@ -89,10 +89,10 @@ const PROGRAMS = [
     title: "Private Lessons",
     description:
       "1-on-1 coaching tailored to your goals — video review, custom drills, and a clear path forward.",
-    cta: "Book a Lesson",
-    href: "/programs/coaching",
+    cta: "Request a Lesson",
+    href: COACH_REQUEST_URL,
     image: "/images/coach-sam.jpeg",
-    badge: "$130 / hr",
+    badge: "1-on-1",
   },
   {
     title: "Free Skill Evaluation",
@@ -148,10 +148,10 @@ const HOME_FAQ_JSONLD = {
     },
     {
       "@type": "Question",
-      name: "How much do private pickleball lessons cost in Montgomery County?",
+      name: "How do I book a private pickleball lesson in Montgomery County?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Sam Morris offers private 1-on-1 pickleball lessons with video analysis and custom practice plans. Lessons are $130 per session or $400 for a 4-session package ($100/session). The first 30-minute skill evaluation is free for every DMV player. Visit sammorrispb.com/programs to book or contact Sam at 301-325-4731.",
+        text: "Sam Morris offers private 1-on-1 pickleball lessons with video analysis and custom practice plans. Request a lesson at coach.sammorrispb.com and Sam will confirm a time that works. The first 30-minute skill evaluation is free for every DMV player. Visit sammorrispb.com/programs to get started or contact Sam at 301-325-4731.",
       },
     },
     {

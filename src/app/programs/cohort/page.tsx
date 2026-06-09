@@ -4,11 +4,10 @@ import Link from "next/link";
 import { AnimateOnScroll } from "@/components/AnimateOnScroll";
 import { BackToTop } from "@/components/BackToTop";
 import { breadcrumbJsonLd, faqJsonLd } from "@/lib/seo";
-import { PRICING } from "@/lib/coaching";
 
 export const metadata: Metadata = {
   title: "4-Week Training Cohorts — Coach Sam | DMV Pickleball",
-  description: `Small-group, 4-week pickleball cohorts with Coach Sam. ${PRICING.cohortPlayers} players, ${PRICING.cohortWeeks} weeks, $${PRICING.cohortTotal} total ($${PRICING.cohortPerSession}/session). Ends with paired entry into a local tournament. Surfaced by Link & Dink.`,
+  description: `Small-group, 4-week pickleball cohorts with Coach Sam. 4 players, 4 weeks, one all-in price. Ends with paired entry into a local tournament. Surfaced by Link & Dink.`,
   keywords: [
     "pickleball cohort Montgomery County",
     "pickleball training series Maryland",
@@ -19,11 +18,11 @@ export const metadata: Metadata = {
   alternates: { canonical: "https://www.sammorrispb.com/programs/cohort" },
   openGraph: {
     title: "4-Week Training Cohorts — Coach Sam Pickleball",
-    description: `${PRICING.cohortPlayers} players, ${PRICING.cohortWeeks} weeks, $${PRICING.cohortTotal}. Ends at a local tournament.`,
+    description: `4 players, 4 weeks, one all-in price. Ends at a local tournament.`,
     url: "https://www.sammorrispb.com/programs/cohort",
     images: [
       {
-        url: `/og?title=4-Week%20Cohorts&subtitle=%24${PRICING.cohortTotal}%20%C2%B7%20${PRICING.cohortPlayers}%20players%20%C2%B7%20${PRICING.cohortWeeks}%20weeks`,
+        url: `/og?title=4-Week%20Cohorts&subtitle=4%20players%20%C2%B7%204%20weeks%20%C2%B7%20one%20tournament`,
         width: 1200,
         height: 630,
         alt: "Coach Sam 4-Week Training Cohorts",
@@ -70,7 +69,7 @@ const FAQS = [
   },
   {
     q: "Is the tournament entry included?",
-    a: "Yes. The $160 covers $120 of training (4 sessions × $30) plus $40 toward the cohort-ending tournament entry — one charge at signup. Coach Sam picks the tournament based on your cohort's level and age band, and pairs you with a partner from the cohort.",
+    a: "Yes. The all-in cohort price covers your four training sessions plus entry into the cohort-ending tournament — one commitment, no add-ons. Coach Sam picks the tournament based on your cohort's level and age band, and pairs you with a partner from the cohort.",
   },
   {
     q: "What if the tournament gets cancelled?",
@@ -127,13 +126,13 @@ export default function CohortPage() {
             <div className="max-w-3xl">
               <p className="eyebrow mb-4">4-Week Training Cohorts · Surfaced by Link &amp; Dink</p>
               <h1 className="font-heading font-black text-5xl md:text-7xl lg:text-8xl leading-[0.95] mb-6">
-                {PRICING.cohortWeeks} weeks. {PRICING.cohortPlayers} players.{" "}
+                4 weeks. 4 players.{" "}
                 <span className="gradient-text-warm">One tournament.</span>
               </h1>
               <p className="text-text-primary/85 text-lg md:text-xl mb-10 max-w-2xl leading-relaxed">
                 A small-group training series that builds chemistry, then ships
                 you to a local tournament with a partner you&apos;ve actually
-                practiced with. ${PRICING.cohortTotal} per player, tournament
+                practiced with. One all-in price per player, tournament
                 entry included.
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
@@ -151,7 +150,7 @@ export default function CohortPage() {
                 </a>
               </div>
               <p className="text-text-muted text-sm mt-6">
-                Saturdays at Walter Johnson HS · Sundays at Gaithersburg HS · Cap {PRICING.cohortPlayers} per cohort
+                Saturdays at Walter Johnson HS · Sundays at Gaithersburg HS · Cap 4 per cohort
               </p>
             </div>
           </AnimateOnScroll>
@@ -211,16 +210,13 @@ export default function CohortPage() {
                   Tournament entry included
                 </span>
               </div>
-              <p className="text-text-muted text-sm mb-1">
-                {PRICING.cohortWeeks} sessions × 1 hour · {PRICING.cohortPlayers}-player roster ·
+              <p className="text-text-muted text-sm mb-4">
+                4 sessions × 1 hour · 4-player roster ·
                 paired tournament entry on or after week 4
               </p>
-              <p className="text-accent-lime text-sm font-semibold mb-4">
-                All-in vs. ~$200 á la carte (${PRICING.cohortPerSession} drop-in × {PRICING.cohortWeeks} + $${PRICING.cohortTournamentPortion} tournament)
+              <p className="text-accent-lime text-sm font-semibold mb-6">
+                One all-in price — training plus your tournament entry, bundled.
               </p>
-              <div className="font-heading font-black text-5xl text-text-primary mb-6">
-                ${PRICING.cohortTotal}
-              </div>
               <Link
                 href="/programs/cohort/signup"
                 className="inline-block w-full text-center font-heading font-semibold px-6 py-4 rounded-full btn-gradient text-base"
@@ -228,8 +224,8 @@ export default function CohortPage() {
                 Reserve Your Spot →
               </Link>
               <p className="text-text-muted text-xs mt-4 text-center">
-                ${PRICING.cohortTrainingPortion} training + ${PRICING.cohortTournamentPortion}{" "}
-                tournament entry, one charge.
+                Training plus tournament entry, one commitment. Sam confirms your
+                spot and sends an invoice once the cohort is set.
               </p>
             </div>
           </div>
@@ -274,7 +270,7 @@ export default function CohortPage() {
             <span className="gradient-text-warm">Compete with a plan.</span>
           </h2>
           <p className="text-text-muted text-lg mb-8 max-w-xl mx-auto">
-            {PRICING.cohortPlayers} spots per cohort. New cohorts launch
+            4 spots per cohort. New cohorts launch
             monthly through August. Reserve before the roster closes.
           </p>
           <Link

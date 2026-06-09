@@ -1,11 +1,4 @@
-import { CONTACT, SERVICE_AREA } from "./constants";
-import {
-  SINGLE_LESSON_LINK,
-  FOUR_PACK_LINK,
-  THREE_PLUS_ONE_LINK,
-  BOOKING_URL,
-  PRICING,
-} from "./coaching";
+import { CONTACT, SERVICE_AREA, COACH_REQUEST_URL } from "./constants";
 
 export function interestSlug(interest: string): string {
   return interest.toLowerCase().replace(/[^a-z0-9]+/g, "_").replace(/^_|_$/g, "");
@@ -27,15 +20,9 @@ Every session is 1-on-1 and built around what you most want to work on: third sh
 
 Service area: ${SERVICE_AREA.shortDescription}. You arrange and pay for the court; I bring the coaching.
 
-Ready to book?
+Single sessions and 4-session packages are both available — whatever fits your goals.
 
-→ Single Lesson ($${PRICING.singleHourly}/hour): ${SINGLE_LESSON_LINK}
-→ 4-Hour Package ($${PRICING.fourPackTotal} — best value, $${PRICING.fourPackHourly}/hour): ${FOUR_PACK_LINK}
-
-Already purchased? Pick your time:
-→ Schedule Your Lesson: ${BOOKING_URL}
-
-Or reply with a couple times + your preferred court and we'll lock it in.
+Reply to this email or request a time at ${COACH_REQUEST_URL} and I'll confirm a slot.
 
 ${SIGN_OFF}`;
 }
@@ -45,7 +32,7 @@ function groupLessonTemplate(name: string): string {
 
 Thanks for reaching out about a group lesson — small-group coaching is one of the most efficient ways to level up because you get reps with real partners and live feedback at the same time.
 
-Rate: $${PRICING.groupPerPersonHourly}/person/hour, 2 or more players. Bring a friend, a partner, or a small crew — I'll build the session around the group's level and goals.
+Group lessons are for 2 or more players. Bring a friend, a partner, or a small crew — I'll build the session around the group's level and goals.
 
 Service area: ${SERVICE_AREA.shortDescription}. You arrange and pay for the court; I bring the coaching.
 
@@ -54,7 +41,7 @@ To get this scheduled, reply with:
   • A couple of times that work for the group
   • Your preferred court / facility
 
-I'll confirm the time and send a Stripe invoice once we've locked it in.
+Reply to this email or request a time at ${COACH_REQUEST_URL} and I'll confirm a slot.
 
 ${SIGN_OFF}`;
 }
@@ -66,16 +53,12 @@ Thanks for reaching out about the 3+1 Play-In Special — this is one of my favo
 
 Here's how it works: you bring 3 players, I make 4. Two hours of doubles with live coaching baked in — you get real-game reps with a coach in the lineup calling shots, resetting points, and giving feedback in flow. Great for players who want to compete and learn at the same time.
 
-Rate: $${PRICING.threePlusOneTotal} flat for the ${PRICING.threePlusOneHours}-hour session (works out to ~$${Math.round(PRICING.threePlusOneTotal / PRICING.threePlusOneStudents / PRICING.threePlusOneHours)}/person/hour).
-
-→ Pay & lock it in: ${THREE_PLUS_ONE_LINK}
-
-Once you've paid, just reply with:
+To get this on the calendar, reply with:
   • Names + rough skill levels of your 3 players
   • A couple of 2-hour windows that work
   • Your preferred court / facility
 
-I'll confirm the time within 24 hours.
+Reply to this email or request a time at ${COACH_REQUEST_URL} and I'll confirm a slot within 24 hours.
 
 Service area: ${SERVICE_AREA.shortDescription}. You arrange and pay for the court; I bring the coaching and play in.
 
