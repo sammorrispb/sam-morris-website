@@ -1,4 +1,4 @@
-import { COACH_BOOKING_URL } from "@/lib/constants";
+import { COACH_BOOKING_URL, COACH_REQUEST_URL } from "@/lib/constants";
 
 export interface QuizQuestion {
   id: string;
@@ -91,7 +91,7 @@ export const QUIZ_RESULTS: Record<string, QuizResult> = {
       {
         title: "Private Lessons",
         description: "Start with a single 1-on-1 session focused on the basics.",
-        href: "/programs/coaching",
+        href: COACH_REQUEST_URL,
       },
       {
         title: "Contact Coach Sam",
@@ -109,12 +109,12 @@ export const QUIZ_RESULTS: Record<string, QuizResult> = {
       {
         title: "Private Lessons",
         description: "1-on-1 coaching with video analysis to fix specific habits.",
-        href: "/programs/coaching",
+        href: COACH_REQUEST_URL,
       },
       {
-        title: "4-Hour Package",
-        description: "Build on skills week-to-week with our best-value package ($100/session).",
-        href: "/programs/coaching",
+        title: "4-Session Package",
+        description: "Build on skills week-to-week with our best-value package.",
+        href: COACH_REQUEST_URL,
       },
       {
         title: "Free Skill Evaluation",
@@ -131,8 +131,8 @@ export const QUIZ_RESULTS: Record<string, QuizResult> = {
     programs: [
       {
         title: "Private Lessons (4-Pack)",
-        description: "Build on skills week-to-week with our best-value package ($100/session).",
-        href: "/programs/coaching",
+        description: "Build on skills week-to-week with our best-value package.",
+        href: COACH_REQUEST_URL,
       },
       {
         title: "Free Skill Evaluation",
@@ -150,7 +150,7 @@ export const QUIZ_RESULTS: Record<string, QuizResult> = {
       {
         title: "Private Coaching",
         description: "Advanced video analysis and match strategy with Coach Sam.",
-        href: "/programs/coaching",
+        href: COACH_REQUEST_URL,
       },
       {
         title: "Free Skill Evaluation",

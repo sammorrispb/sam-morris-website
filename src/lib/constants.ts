@@ -33,6 +33,11 @@ export const WHATSAPP_GROUP = {
 
 export const COACH_BOOKING_URL = "https://coach.sammorrispb.com/book/evaluation";
 
+// Request a private lesson — no public price; Sam reviews the request, confirms
+// a time, and sends a Stripe invoice (Coach OS request flow). Distinct from the
+// free-evaluation booking link above.
+export const COACH_REQUEST_URL = "https://coach.sammorrispb.com/book/private-lesson";
+
 export const ANNOUNCEMENT: {
   id: string;
   message: string;

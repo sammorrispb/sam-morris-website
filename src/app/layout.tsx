@@ -249,13 +249,11 @@ export default function RootLayout({
                 itemListElement: [
                   {
                     "@type": "Offer",
-                    price: "130.00",
-                    priceCurrency: "USD",
                     itemOffered: {
                       "@type": "Service",
                       name: "Private Pickleball Lessons",
                       description:
-                        "Personalized 1-on-1 pickleball coaching for adults and families in Montgomery County, MD. Includes video analysis, custom practice plans, and flexible scheduling. $130 per session or $400 for a 4-session package.",
+                        "Personalized 1-on-1 pickleball coaching for adults and families in Montgomery County, MD. Includes video analysis, custom practice plans, and flexible scheduling. Request a lesson and Sam confirms a time that works.",
                       provider: {
                         "@type": "Person",
                         name: "Sam Morris",

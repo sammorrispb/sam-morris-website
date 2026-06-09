@@ -10,15 +10,7 @@ import { ScrollDepthTracker } from "@/components/ScrollDepthTracker";
 import { breadcrumbJsonLd } from "@/lib/seo";
 import { getTestimonialsByProgram } from "@/lib/testimonials";
 import { TestimonialGrid } from "@/components/TestimonialGrid";
-import {
-  SINGLE_LESSON_LINK,
-  FOUR_PACK_LINK,
-  GROUP_LESSON_LINK,
-  THREE_PLUS_ONE_LINK,
-  BOOKING_URL,
-  PRICING,
-} from "@/lib/coaching";
-import { SERVICE_AREA } from "@/lib/constants";
+import { SERVICE_AREA, COACH_REQUEST_URL } from "@/lib/constants";
 
 export const metadata: Metadata = {
   // Title ≤60 chars (audit baseline: 94 with duplicated brand suffix).
@@ -44,7 +36,7 @@ export const metadata: Metadata = {
     url: "https://www.sammorrispb.com/programs/coaching",
     images: [
       {
-        url: "/og?title=Coaching%20%26%20Clinics&subtitle=Private%20%24130%20%C2%B7%20Group%20%2450pp%20%C2%B7%203%2B1%20%24150",
+        url: "/og?title=Coaching%20%26%20Clinics&subtitle=Private%20%C2%B7%20Group%20%C2%B7%203%2B1%20Play-In",
         width: 1200,
         height: 630,
         alt: "Coaching & Clinics — Sam Morris Pickleball",
@@ -110,10 +102,10 @@ export default function CoachingPage() {
             description:
               "Private 1-on-1 lessons, small-group lessons (2+), and the 3+1 Play-In Special with PPR-certified coach Sam Morris. Sam travels to your court within roughly 35 minutes of Olney, MD.",
             offers: [
-              { "@type": "Offer", name: "Single Private Lesson", price: PRICING.singleHourly.toFixed(2), priceCurrency: "USD", description: "1 hour of 1-on-1 coaching" },
-              { "@type": "Offer", name: "4-Session Private Package", price: PRICING.fourPackTotal.toFixed(2), priceCurrency: "USD", description: `$${PRICING.fourPackHourly} per session` },
-              { "@type": "Offer", name: "Group Lesson (2+ players)", price: PRICING.groupPerPersonHourly.toFixed(2), priceCurrency: "USD", description: `$${PRICING.groupPerPersonHourly} per person per hour` },
-              { "@type": "Offer", name: "3+1 Play-In Special", price: PRICING.threePlusOneTotal.toFixed(2), priceCurrency: "USD", description: `${PRICING.threePlusOneHours}-hour play-in session — ${PRICING.threePlusOneStudents} students plus Sam in the lineup` },
+              { "@type": "Offer", name: "Single Private Lesson", description: "1 hour of 1-on-1 coaching" },
+              { "@type": "Offer", name: "4-Session Private Package", description: "Four 1-on-1 sessions of structured progression" },
+              { "@type": "Offer", name: "Group Lesson (2+ players)", description: "Small-group coaching for 2 or more players" },
+              { "@type": "Offer", name: "3+1 Play-In Special", description: "2-hour play-in session — 3 students plus Sam in the lineup" },
             ],
           }),
         }}
@@ -125,9 +117,9 @@ export default function CoachingPage() {
             "@context": "https://schema.org",
             "@type": "FAQPage",
             mainEntity: [
-              { "@type": "Question", name: "How much do private pickleball lessons cost?", acceptedAnswer: { "@type": "Answer", text: `Private 1-on-1 lessons with Sam Morris are $${PRICING.singleHourly} per hour, or $${PRICING.fourPackTotal} for a 4-session package ($${PRICING.fourPackHourly}/session).` } },
-              { "@type": "Question", name: "Do you offer group pickleball lessons?", acceptedAnswer: { "@type": "Answer", text: `Yes — group lessons are $${PRICING.groupPerPersonHourly} per person per hour with 2 or more players.` } },
-              { "@type": "Question", name: "What is the 3+1 Play-In Special?", acceptedAnswer: { "@type": "Answer", text: `The 3+1 Play-In Special is a ${PRICING.threePlusOneHours}-hour session for $${PRICING.threePlusOneTotal} — bring 3 players and Sam plays as the 4th.` } },
+              { "@type": "Question", name: "How do I book a private pickleball lesson?", acceptedAnswer: { "@type": "Answer", text: "Request a lesson at coach.sammorrispb.com and Sam will confirm a time that works. Single sessions and 4-session packages are available — Sam shares details when he confirms your request." } },
+              { "@type": "Question", name: "Do you offer group pickleball lessons?", acceptedAnswer: { "@type": "Answer", text: "Yes — group lessons are available for 2 or more players. Request a time and Sam will build the session around your group's level and goals." } },
+              { "@type": "Question", name: "What is the 3+1 Play-In Special?", acceptedAnswer: { "@type": "Answer", text: "The 3+1 Play-In Special is a 2-hour session where you bring 3 players and Sam plays as the 4th — doubles reps with a coach in the lineup." } },
               { "@type": "Question", name: "Where do lessons happen?", acceptedAnswer: { "@type": "Answer", text: `Sam travels to your court within roughly 35 minutes of Olney, MD — covering Montgomery County, Washington DC, and nearby parts of Prince George's, Howard, and northern Virginia.` } },
             ],
           }),
@@ -159,12 +151,12 @@ export default function CoachingPage() {
           </p>
           <div className="flex flex-col sm:flex-row gap-4">
             <a
-              href={SINGLE_LESSON_LINK}
+              href={COACH_REQUEST_URL}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center justify-center font-heading font-semibold px-7 py-3.5 rounded-full btn-gradient text-base"
             >
-              Book a Private Lesson →
+              Request a Lesson →
             </a>
             <Link
               href="#group-and-play-in"
@@ -230,22 +222,11 @@ export default function CoachingPage() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="card-warm p-8">
                 <h3 className="font-heading font-bold text-xl mb-3">Single Session</h3>
-                <ul className="space-y-2 text-text-muted text-sm mb-6">
+                <ul className="space-y-2 text-text-muted text-sm">
                   <li className="flex gap-2"><span className="text-accent-blue">→</span> 1 hour of personalized 1-on-1 instruction</li>
                   <li className="flex gap-2"><span className="text-accent-blue">→</span> Built around the skill you choose</li>
                   <li className="flex gap-2"><span className="text-accent-blue">→</span> Great for trying coaching or a specific focus</li>
                 </ul>
-                <p className="font-heading font-black text-4xl mb-6">
-                  ${PRICING.singleHourly}<span className="text-text-muted text-base font-normal"> / hour</span>
-                </p>
-                <TrackedExternalLink
-                  href={SINGLE_LESSON_LINK}
-                  label="Book Single Session"
-                  page="coaching"
-                  className="inline-block w-full text-center font-heading font-semibold px-6 py-3 rounded-full btn-gradient text-sm"
-                >
-                  Book Single Session
-                </TrackedExternalLink>
               </div>
 
               <div className="glass-card-amber rounded-2xl p-8">
@@ -253,33 +234,25 @@ export default function CoachingPage() {
                   <h3 className="font-heading font-bold text-xl">4-Session Package</h3>
                   <span className="brand-badge brand-badge-sm">Best value</span>
                 </div>
-                <ul className="space-y-2 text-text-muted text-sm mb-6">
+                <ul className="space-y-2 text-text-muted text-sm">
                   <li className="flex gap-2"><span className="text-accent-blue">→</span> 4 hours of structured 1-on-1 progression</li>
                   <li className="flex gap-2"><span className="text-accent-blue">→</span> Skill tracking across sessions</li>
-                  <li className="flex gap-2"><span className="text-accent-blue">→</span> Save ${(PRICING.singleHourly - PRICING.fourPackHourly) * 4} vs. singles</li>
+                  <li className="flex gap-2"><span className="text-accent-blue">→</span> Better per-session value than singles</li>
                 </ul>
-                <p className="font-heading font-black text-4xl mb-6">
-                  ${PRICING.fourPackTotal}<span className="text-text-muted text-base font-normal"> · ${PRICING.fourPackHourly}/hr</span>
-                </p>
-                <TrackedExternalLink
-                  href={FOUR_PACK_LINK}
-                  label="Book 4-Session Package"
-                  page="coaching"
-                  className="inline-block w-full text-center font-heading font-semibold px-6 py-3 rounded-full btn-gradient text-sm"
-                >
-                  Buy Package
-                </TrackedExternalLink>
               </div>
             </div>
             <div className="mt-10 text-center">
-              <p className="text-text-muted text-sm mb-3">Already purchased? Pick your time:</p>
+              <p className="text-text-muted text-sm mb-4">
+                Tell Sam what you want to work on and he&apos;ll confirm a time —
+                single session or 4-pack, your call.
+              </p>
               <TrackedExternalLink
-                href={BOOKING_URL}
-                label="Schedule Your Lesson"
+                href={COACH_REQUEST_URL}
+                label="Request a Lesson"
                 page="coaching"
-                className="inline-flex items-center btn-outline font-semibold px-7 py-3 rounded-full text-sm"
+                className="inline-flex items-center font-heading font-semibold px-7 py-3.5 rounded-full btn-gradient text-base"
               >
-                Schedule Your Lesson →
+                Request a Lesson →
               </TrackedExternalLink>
             </div>
           </div>
@@ -303,49 +276,35 @@ export default function CoachingPage() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="card-warm p-8">
                 <h3 className="font-heading font-bold text-xl mb-3">Group Lesson (2+)</h3>
-                <ul className="space-y-2 text-text-muted text-sm mb-6">
+                <ul className="space-y-2 text-text-muted text-sm">
                   <li className="flex gap-2"><span className="text-accent-blue">→</span> 2 or more players, 1 hour</li>
                   <li className="flex gap-2"><span className="text-accent-blue">→</span> Drills + game situations tailored to the group</li>
                   <li className="flex gap-2"><span className="text-accent-blue">→</span> Bring a friend, partner, or small crew</li>
                 </ul>
-                <p className="font-heading font-black text-4xl mb-6">
-                  ${PRICING.groupPerPersonHourly}
-                  <span className="text-text-muted text-base font-normal"> / pp / hr</span>
-                </p>
-                <Link
-                  href={GROUP_LESSON_LINK}
-                  className="inline-block w-full text-center font-heading font-semibold px-6 py-3 rounded-full btn-gradient text-sm"
-                >
-                  Request Group Lesson
-                </Link>
               </div>
               <div className="card-warm p-8">
                 <h3 className="font-heading font-bold text-xl mb-3">3+1 Play-In Special</h3>
-                <ul className="space-y-2 text-text-muted text-sm mb-6">
-                  <li className="flex gap-2"><span className="text-accent-blue">→</span> {PRICING.threePlusOneHours}-hour session, you bring {PRICING.threePlusOneStudents} players + Sam plays as 4th</li>
+                <ul className="space-y-2 text-text-muted text-sm">
+                  <li className="flex gap-2"><span className="text-accent-blue">→</span> 2-hour session, you bring 3 players + Sam plays as 4th</li>
                   <li className="flex gap-2"><span className="text-accent-blue">→</span> Doubles reps with a coach in the lineup</li>
                   <li className="flex gap-2"><span className="text-accent-blue">→</span> Compete and learn at the same time</li>
                 </ul>
-                <p className="font-heading font-black text-4xl mb-6">
-                  ${PRICING.threePlusOneTotal}
-                  <span className="text-text-muted text-base font-normal"> flat / {PRICING.threePlusOneHours} hrs</span>
-                </p>
-                <TrackedExternalLink
-                  href={THREE_PLUS_ONE_LINK}
-                  label="Book 3+1 Play-In Special"
-                  page="coaching"
-                  className="inline-block w-full text-center font-heading font-semibold px-6 py-3 rounded-full btn-gradient text-sm"
-                >
-                  Book 3+1 Special
-                </TrackedExternalLink>
               </div>
             </div>
-            <p className="text-text-muted text-xs mt-8 text-center max-w-2xl mx-auto">
-              Group lessons are invoiced after Sam confirms the time (price varies with
-              headcount). The 3+1 Play-In is a flat $150 — pay up front and reply with
-              your preferred court + a couple of windows that work, and Sam locks it in
-              within 24 hours.
-            </p>
+            <div className="mt-10 text-center">
+              <p className="text-text-muted text-sm mb-4 max-w-2xl mx-auto">
+                Tell Sam your group size, level, and a couple of windows that work.
+                He&apos;ll confirm the format and the time, then lock it in.
+              </p>
+              <TrackedExternalLink
+                href={COACH_REQUEST_URL}
+                label="Request Group or Play-In"
+                page="coaching"
+                className="inline-flex items-center font-heading font-semibold px-7 py-3.5 rounded-full btn-gradient text-base"
+              >
+                Request a Lesson →
+              </TrackedExternalLink>
+            </div>
           </AnimateOnScroll>
         </div>
       </section>

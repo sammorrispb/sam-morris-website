@@ -1,10 +1,9 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { SINGLE_LESSON_LINK, FOUR_PACK_LINK } from "@/lib/coaching";
 import { TrackedLink } from "@/components/TrackedLink";
 import { AnimateOnScroll } from "@/components/AnimateOnScroll";
-import { COACH_BOOKING_URL } from "@/lib/constants";
+import { COACH_BOOKING_URL, COACH_REQUEST_URL } from "@/lib/constants";
 
 export const metadata: Metadata = {
   title: "Pickleball Programs & Lessons — Youth Academy, Private Coaching, Family Sessions",
@@ -108,7 +107,7 @@ export default function ProgramsPage() {
               {
                 badge: "4-week series",
                 title: "Training Cohorts",
-                desc: "4 players, 4 weeks, ends at a tournament. $160 all-in.",
+                desc: "4 players, 4 weeks, ends at a tournament. One all-in price.",
                 href: "/programs/cohort",
                 cta: "See Cohort Details",
                 image: "/images/multi-court-outdoor.jpeg",
@@ -279,20 +278,9 @@ export default function ProgramsPage() {
                   <div className="font-heading font-bold text-lg text-text-primary mb-1">
                     Single Lesson
                   </div>
-                  <p className="text-text-muted text-sm mb-5">
+                  <p className="text-text-muted text-sm">
                     60-minute 1-on-1 with video analysis and a custom practice plan.
                   </p>
-                  <div className="font-heading font-black text-4xl text-text-primary mb-5">
-                    $130
-                  </div>
-                  <a
-                    href={SINGLE_LESSON_LINK}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-block w-full text-center font-heading font-semibold px-6 py-3 rounded-full btn-gradient text-sm"
-                  >
-                    Book a Lesson
-                  </a>
                 </div>
 
                 <div className="glass-card-amber rounded-2xl p-7">
@@ -300,26 +288,21 @@ export default function ProgramsPage() {
                     <div className="font-heading font-bold text-lg text-text-primary">
                       4-Hour Package
                     </div>
-                    <span className="brand-badge brand-badge-sm">Save $120</span>
+                    <span className="brand-badge brand-badge-sm">Best value</span>
                   </div>
-                  <p className="text-text-muted text-sm mb-1">
+                  <p className="text-text-muted text-sm">
                     Four 60-minute sessions — commit to real improvement.
                   </p>
-                  <p className="text-accent-lime text-sm font-semibold mb-4">
-                    $100 per session
-                  </p>
-                  <div className="font-heading font-black text-4xl text-text-primary mb-5">
-                    $400
-                  </div>
-                  <a
-                    href={FOUR_PACK_LINK}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-block w-full text-center font-heading font-semibold px-6 py-3 rounded-full btn-gradient text-sm"
-                  >
-                    Buy Package
-                  </a>
                 </div>
+
+                <a
+                  href={COACH_REQUEST_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-block w-full text-center font-heading font-semibold px-6 py-3.5 rounded-full btn-gradient text-base"
+                >
+                  Request a Lesson →
+                </a>
               </div>
             </div>
             <div className="text-center pt-4">

@@ -12,7 +12,6 @@ import {
   PROGRAM_NAME,
   SUPPORT_EMAIL,
 } from "@/lib/waiver/cohort-content";
-import { PRICING } from "@/lib/coaching";
 import { computeIsMinor } from "./state";
 import { submitCohortSignup } from "./actions";
 
@@ -62,8 +61,7 @@ export default function CohortSignupPage() {
           Reserve your spot
         </h1>
         <p className="text-text-muted text-lg mb-10">
-          {PROGRAM_NAME} · ${PRICING.cohortTotal} · {PRICING.cohortWeeks}{" "}
-          weeks · {PRICING.cohortPlayers} players per cohort
+          {PROGRAM_NAME} · 4 weeks · 4 players per cohort
         </p>
 
         <form onSubmit={handleSubmit} className="space-y-8">
@@ -310,13 +308,10 @@ export default function CohortSignupPage() {
               disabled={isPending}
               className="w-full font-heading font-semibold px-6 py-4 rounded-full btn-gradient text-base disabled:opacity-60 disabled:cursor-not-allowed"
             >
-              {isPending
-                ? "Saving waiver…"
-                : `Continue to Payment → $${PRICING.cohortTotal}`}
+              {isPending ? "Saving waiver…" : "Reserve My Spot →"}
             </button>
             <p className="text-text-muted text-xs mt-3 text-center">
-              You&apos;ll be redirected to Stripe to complete payment. Your spot
-              is reserved once payment clears.
+              Sam confirms your spot and sends an invoice once the cohort is set.
             </p>
           </div>
         </form>

@@ -2,7 +2,6 @@
 
 import { headers } from "next/headers";
 import { Client } from "@notionhq/client";
-import { COHORT_LINK } from "@/lib/coaching";
 import { ingestToOpenBrain } from "@/lib/open-brain-ingest";
 import { sendEmail, notifySam } from "@/lib/email";
 import { insertCohortWaiver } from "@/lib/supabase-community";
@@ -124,13 +123,6 @@ export async function submitCohortSignup(
     return { ok: false, error: "Media-release consent is required to participate.", field: "media_consent" };
   }
 
-  if (!COHORT_LINK) {
-    return {
-      ok: false,
-      error: "Signup is not yet open — Coach Sam is finalizing payment setup. Please email " + SUPPORT_EMAIL + ".",
-    };
-  }
-
   const h = await headers();
   const ip = h.get("x-forwarded-for")?.split(",")[0].trim() ?? null;
   const user_agent = h.get("user-agent") ?? null;
@@ -207,18 +199,13 @@ export async function submitCohortSignup(
   try {
     await sendEmail(
       confirmEmail,
-      "Cohort signup received — payment link inside",
+      "Cohort signup received — Coach Sam will confirm your spot",
       [
         `Hi ${confirmName.split(" ")[0] ?? "there"},`,
         ``,
         `Thanks for signing up for the Coach Sam 4-Week Training Cohort. Your waiver is on file.`,
         ``,
-        `Your spot is reserved once payment clears. Complete checkout here:`,
-        COHORT_LINK,
-        ``,
-        `Cost: $160 all-in — $120 training (4 sessions × $30) + $40 tournament entry, one charge.`,
-        ``,
-        `Coach Sam will email you within 24 hours with the cohort start date, court location, roster, and the tournament we're pointing at.`,
+        `Coach Sam confirms your spot and sends an invoice once the cohort is set. You'll hear from him within 24 hours with the cohort start date, court location, roster, and the tournament we're pointing at — plus the all-in price (training + your tournament entry, one commitment).`,
         ``,
         `Questions: ${SUPPORT_EMAIL}`,
         ``,
@@ -249,5 +236,5 @@ export async function submitCohortSignup(
     console.error("[cohort-signup] OB ingest failed", err);
   }
 
-  return { ok: true, redirectUrl: COHORT_LINK };
+  return { ok: true, redirectUrl: "/programs/cohort/signup/confirmed" };
 }
