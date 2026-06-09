@@ -4,6 +4,7 @@ import Link from "next/link";
 import { AnimateOnScroll } from "@/components/AnimateOnScroll";
 import { BackToTop } from "@/components/BackToTop";
 import { breadcrumbJsonLd, faqJsonLd } from "@/lib/seo";
+import { COHORT_POOL_URL } from "@/lib/constants";
 
 export const metadata: Metadata = {
   title: "4-Week Training Cohorts — Coach Sam | DMV Pickleball",
@@ -137,10 +138,10 @@ export default function CohortPage() {
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
                 <Link
-                  href="/programs/cohort/signup"
+                  href={COHORT_POOL_URL}
                   className="inline-flex items-center justify-center font-heading font-semibold px-8 py-4 rounded-full btn-gradient text-base"
                 >
-                  Reserve Your Spot →
+                  Join the cohort pool →
                 </Link>
                 <a
                   href="#how-it-works"
@@ -218,10 +219,10 @@ export default function CohortPage() {
                 One all-in price — training plus your tournament entry, bundled.
               </p>
               <Link
-                href="/programs/cohort/signup"
+                href={COHORT_POOL_URL}
                 className="inline-block w-full text-center font-heading font-semibold px-6 py-4 rounded-full btn-gradient text-base"
               >
-                Reserve Your Spot →
+                Join the cohort pool →
               </Link>
               <p className="text-text-muted text-xs mt-4 text-center">
                 Training plus tournament entry, one commitment. Sam confirms your
@@ -274,10 +275,10 @@ export default function CohortPage() {
             monthly through August. Reserve before the roster closes.
           </p>
           <Link
-            href="/programs/cohort/signup"
+            href={COHORT_POOL_URL}
             className="inline-flex items-center font-heading font-semibold px-8 py-4 rounded-full btn-gradient text-base"
           >
-            Reserve Your Spot →
+            Join the cohort pool →
           </Link>
         </div>
       </section>
