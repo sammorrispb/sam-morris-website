@@ -187,7 +187,7 @@ export function QuizClient() {
           </button>
         </form>
         <p className="text-text-muted text-xs mt-4">
-          We&apos;ll send you personalized tips based on your level. No spam.
+          I&apos;ll send you personalized tips based on your level. No spam.
         </p>
       </div>
     );

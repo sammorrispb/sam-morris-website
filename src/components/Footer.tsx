@@ -33,8 +33,8 @@ export function Footer() {
                 role="doc-tip"
                 className="font-heading font-black text-3xl md:text-5xl leading-tight max-w-2xl"
               >
-                Better than yesterday —{" "}
-                <span className="gradient-text-warm">together.</span>
+                Helping families grow through sport —{" "}
+                <span className="gradient-text-warm">one rally at a time.</span>
               </p>
             </div>
             <Link
