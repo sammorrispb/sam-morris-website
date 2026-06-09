@@ -44,16 +44,14 @@ export const ANNOUNCEMENT: {
   href?: string;
   linkText?: string;
 } | null = {
-  // REVERT AFTER 2026-05-28 — temporary Popup Pickleball v0 promo. Restore the
-  // "spring-2026" entry preserved below once the event ships.
-  id: "popup-pickleball-may-28-2026",
+  id: "linkanddink-moco-community",
   message:
-    "This Thursday: my first Popup Pickleball event — free, 8 spots, 3.0–4.5 DUPR.",
-  href: "https://p3.linkanddink.com/popup/pot-night-may-28-2026-05-28?utm_source=sammorrispb&utm_medium=banner&utm_campaign=popup-v0",
-  linkText: "Grab a spot",
+    "Join the Montgomery County pickleball community on Link & Dink — newsletter, pop-up tournaments, and local play.",
+  href: "https://linkanddink.com/?utm_source=sammorrispb&utm_medium=banner&utm_campaign=moco-community",
+  linkText: "Join the community",
 };
 
-// Previous announcement (restore after the Popup Pickleball promo ends):
+// Previous announcement (restore if you want to feature lessons/eval again):
 // {
 //   id: "spring-2026",
 //   message: "Spring 2026 private lessons and skill evaluations are open for booking!",
