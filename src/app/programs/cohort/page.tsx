@@ -39,7 +39,7 @@ const PILLARS = [
   },
   {
     title: "Recorded sessions",
-    body: "Audio, photo, and video captured every session. Used for between-week coaching review, social-media instructional clips, and Coach Up training. Youth footage never publicly tagged with names.",
+    body: "Audio, photo, and video captured every session. Used for between-week coaching review, social-media instructional clips, and coach development. Youth footage never publicly tagged with names.",
   },
   {
     title: "Ends at a real tournament",
@@ -82,7 +82,7 @@ const FAQS = [
   },
   {
     q: "What's recorded — and is it safe for my kid?",
-    a: "Every cohort session is recorded with audio, photos, and video. Footage is used for instructional clips, marketing on Instagram/TikTok/YouTube, and Coach Up training. For minors specifically: footage is never sold to third parties, and faces of minors are never publicly tagged or captioned with first or last names on social media. Full media-release language is on the signup form before payment.",
+    a: "Every cohort session is recorded with audio, photos, and video. Footage is used for instructional clips, marketing on Instagram/TikTok/YouTube, and coach development. For minors specifically: footage is never sold to third parties, and faces of minors are never publicly tagged or captioned with first or last names on social media. Full media-release language is on the signup form before payment.",
   },
 ];
 
@@ -166,7 +166,7 @@ export default function CohortPage() {
               <p className="eyebrow mb-3">Why it works</p>
               <h2 className="font-heading font-black text-4xl md:text-5xl mb-4 leading-tight">
                 The committed-group{" "}
-                <span className="gradient-text-warm">unlock.</span>
+                <span className="gradient-text-warm">advantage.</span>
               </h2>
               <p className="text-text-muted text-lg max-w-2xl mx-auto">
                 Drop-in lessons are great for showing up. Cohorts are great for

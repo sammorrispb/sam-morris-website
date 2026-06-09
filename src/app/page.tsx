@@ -35,10 +35,10 @@ export const metadata: Metadata = {
       "PPR-certified pickleball coach in Montgomery County, MD. Private lessons, free skill evaluations, and youth academy for adults, families, and kids.",
     images: [
       {
-        url: "/og?title=Better%20Than%20Yesterday%20%E2%80%94%20Together&subtitle=Pickleball%20Coaching%20for%20Adults%2C%20Families%20%26%20Kids",
+        url: "/og?title=Helping%20Families%20Grow%20Through%20Sport&subtitle=Pickleball%20Coaching%20for%20Adults%2C%20Families%20%26%20Kids",
         width: 1200,
         height: 630,
-        alt: "Sam Morris Pickleball — Better Than Yesterday, Together",
+        alt: "Sam Morris Pickleball — Helping Families Grow Through Sport",
       },
     ],
   },
@@ -54,7 +54,7 @@ const STATS = [
   { value: "RPO", label: "Certified" },
   { value: "PPR", label: "Pro" },
   { value: "DUPR", label: "Coach Certified" },
-  { value: "3x", label: "Founder" },
+  { value: "9 yrs", label: "MCPS Educator" },
 ];
 
 const EASE_CARDS = [
@@ -143,7 +143,7 @@ const HOME_FAQ_JSONLD = {
       name: "What age can kids start learning pickleball?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Kids can start learning pickleball as young as age 5. The Next Gen Pickleball Academy's Red Level is designed specifically for first-time players, teaching grip, stance, basic serves, and court awareness in a fun, supportive environment.",
+        text: "Kids can start as young as 5 with private lessons. The Next Gen Pickleball Academy's structured pathway runs ages 8-16, starting at the Red Level for first-time players — teaching grip, stance, basic serves, and court awareness in a fun, supportive environment.",
       },
     },
     {
@@ -185,7 +185,7 @@ export default function Home() {
         <div className="relative z-10 mx-auto max-w-6xl px-6 w-full py-24">
           <div className="max-w-3xl">
             <p className="eyebrow mb-5 animate-fade-in">
-              Coach. Builder. Dad. &middot; Better than yesterday — together.
+              Coach. Builder. Dad. &middot; Helping families grow through sport — one rally at a time.
             </p>
             <h1 className="font-heading font-black text-5xl sm:text-6xl md:text-7xl lg:text-8xl leading-[0.95] mb-8 animate-fade-up">
               Pickleball coach in{" "}
@@ -193,7 +193,7 @@ export default function Home() {
             </h1>
             <p className="text-text-primary/85 text-lg md:text-xl mb-10 max-w-xl leading-relaxed">
               PPR-certified coaching for adults, families, and kids across the
-              DMV. Real progress, every session — better than yesterday, together.
+              DMV. Real progress, every session.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
               <TrackedLink
@@ -256,7 +256,7 @@ export default function Home() {
             </h2>
             <p className="text-text-muted text-lg max-w-2xl mx-auto leading-relaxed">
               Four pillars that guide every drill, every lesson, every player.
-              From first dink in Rockville to tournament prep in North Bethesda.
+              From your first dink to tournament prep, across Montgomery County.
             </p>
           </div>
           <div className="mx-auto max-w-6xl grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">

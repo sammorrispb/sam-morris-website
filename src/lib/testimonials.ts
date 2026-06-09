@@ -3,9 +3,8 @@ export interface Testimonial {
   quote: string;
   author: string;
   role: string;
-  program: "coaching" | "youth" | "open-play" | "leagues" | "community";
+  program: "coaching" | "youth";
   rating: number;
-  location?: "rockville" | "north-bethesda";
 }
 
 export const TESTIMONIALS: Testimonial[] = [
@@ -17,7 +16,6 @@ export const TESTIMONIALS: Testimonial[] = [
     role: "Adult student, 3.5 DUPR",
     program: "coaching",
     rating: 5,
-    location: "rockville",
   },
   {
     id: "coaching-2",
@@ -26,7 +24,6 @@ export const TESTIMONIALS: Testimonial[] = [
     role: "Adult student",
     program: "coaching",
     rating: 5,
-    location: "north-bethesda",
   },
   {
     id: "coaching-3",
@@ -44,7 +41,6 @@ export const TESTIMONIALS: Testimonial[] = [
     role: "Parent of Red Level student",
     program: "youth",
     rating: 5,
-    location: "north-bethesda",
   },
   {
     id: "youth-2",
@@ -60,44 +56,6 @@ export const TESTIMONIALS: Testimonial[] = [
     author: "Angela P.",
     role: "Parent & educator",
     program: "youth",
-    rating: 5,
-    location: "rockville",
-  },
-  // 2 open play / community
-  {
-    id: "community-1",
-    quote: "I showed up knowing nothing about pickleball and left with three new friends and a weekly game. The community here is unreal.",
-    author: "New player",
-    role: "First-time visitor",
-    program: "open-play",
-    rating: 5,
-    location: "rockville",
-  },
-  {
-    id: "community-2",
-    quote: "Coached open play is the secret weapon. You get real feedback while actually playing games — it's like having a coach in your pocket.",
-    author: "Priya S.",
-    role: "Advanced beginner",
-    program: "open-play",
-    rating: 5,
-    location: "north-bethesda",
-  },
-  // 1 leagues
-  {
-    id: "leagues-1",
-    quote: "League night is the best night of my week. The DUPR brackets mean every match is competitive, and the atmosphere is always supportive.",
-    author: "Tom W.",
-    role: "League player, 3.3 DUPR",
-    program: "leagues",
-    rating: 5,
-    location: "rockville",
-  },
-  {
-    id: "community-3",
-    quote: "I never have trouble finding people to play with around here. The community is the real deal.",
-    author: "Rachel F.",
-    role: "Regular player",
-    program: "community",
     rating: 5,
   },
 ];

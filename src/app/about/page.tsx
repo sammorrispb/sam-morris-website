@@ -17,11 +17,11 @@ export const metadata: Metadata = {
   openGraph: {
     title: "About Sam Morris — Pickleball Coach in MoCo, MD",
     description:
-      "PPR-certified pickleball pro and DUPR coach in Montgomery County, MD. Former PE teacher, M.S. in Coaching, 3x founder.",
+      "PPR-certified pickleball pro and DUPR coach in Montgomery County, MD. Former PE teacher, M.S. in Coaching, NGA co-founder.",
     url: "https://www.sammorrispb.com/about",
     images: [
       {
-        url: "/og?title=About%20Sam%20Morris&subtitle=PPR-Certified%20Coach%20%C2%B7%20Director%20of%20Programming",
+        url: "/og?title=About%20Sam%20Morris&subtitle=PPR-Certified%20Coach%20%C2%B7%20M.S.%20Coaching%2C%20Ball%20State",
         width: 1200,
         height: 630,
         alt: "About Sam Morris — PPR-Certified Pickleball Coach",
@@ -194,7 +194,7 @@ export default function AboutPage() {
                   Discovered pickleball in 2019, never looked back.
                 </p>
                 <p>
-                  Today: independent coach, three-time founder, husband to
+                  Today: independent coach, program builder, husband to
                   Kelly, and dad to Kobe and Owen — building the kind of
                   programs I&apos;d want for my own kids.
                 </p>

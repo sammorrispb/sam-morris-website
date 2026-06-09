@@ -81,7 +81,7 @@ export const QUIZ_RESULTS: Record<string, QuizResult> = {
     level: "Beginner",
     dupr: "Under 2.5",
     description:
-      "You're just getting started — and that's exciting! The best way to build a strong foundation is with structured coaching and beginner-friendly play sessions. We'll get you comfortable on the court fast.",
+      "You're just getting started — and that's exciting! The best way to build a strong foundation is with structured coaching and beginner-friendly play sessions. I'll get you comfortable on the court fast.",
     programs: [
       {
         title: "Book a Free Evaluation",
@@ -95,7 +95,7 @@ export const QUIZ_RESULTS: Record<string, QuizResult> = {
       },
       {
         title: "Contact Coach Sam",
-        description: "Tell us your goals and we'll point you to the right next step.",
+        description: "Tell me your goals and I'll point you to the right next step.",
         href: "/contact",
       },
     ],
@@ -113,7 +113,7 @@ export const QUIZ_RESULTS: Record<string, QuizResult> = {
       },
       {
         title: "4-Session Package",
-        description: "Build on skills week-to-week with our best-value package.",
+        description: "Build on skills week-to-week with the best-value package.",
         href: COACH_REQUEST_URL,
       },
       {
@@ -131,7 +131,7 @@ export const QUIZ_RESULTS: Record<string, QuizResult> = {
     programs: [
       {
         title: "Private Lessons (4-Pack)",
-        description: "Build on skills week-to-week with our best-value package.",
+        description: "Build on skills week-to-week with the best-value package.",
         href: COACH_REQUEST_URL,
       },
       {
