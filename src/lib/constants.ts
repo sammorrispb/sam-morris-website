@@ -38,6 +38,11 @@ export const COACH_BOOKING_URL = "https://coach.sammorrispb.com/book/evaluation"
 // free-evaluation booking link above.
 export const COACH_REQUEST_URL = "https://coach.sammorrispb.com/book/private-lesson";
 
+// Join the cohort interest pool (Coach OS). Players join with skill + age +
+// availability; Sam forms a cohort and invoices once enough compatible players
+// accumulate. `track=adult` for this Coach Sam surface.
+export const COHORT_POOL_URL = "https://coach.sammorrispb.com/cohorts/join?track=adult";
+
 export const ANNOUNCEMENT: {
   id: string;
   message: string;
