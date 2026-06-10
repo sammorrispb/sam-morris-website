@@ -122,7 +122,6 @@ export function AdminDashboard() {
       // are unavoidable for an async data fetch; the rule flags them
       // defensively but this is the canonical client-side filtered-fetch
       // pattern. React 19 + Server Components is the proper refactor.
-      // eslint-disable-next-line react-hooks/set-state-in-effect
       fetchLeads(token);
     }
   }, [debouncedSearch, statusFilter, interestFilter, sourceFilter, authed, fetchLeads]);
