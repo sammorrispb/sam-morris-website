@@ -1,6 +1,7 @@
 import { Client } from "@notionhq/client";
 import { NextResponse } from "next/server";
 import { notifySam } from "@/lib/email";
+import { processDrip } from "@/lib/drip";
 
 export const dynamic = "force-dynamic";
 
@@ -20,8 +21,16 @@ export async function GET(request: Request) {
     return NextResponse.json({ error: "Notion not configured" }, { status: 500 });
   }
 
+  // ?dry=1 — phase 1 computes drip candidates without sending or updating.
+  const dryRun = new URL(request.url).searchParams.get("dry") === "1";
+
   try {
     const notion = new Client({ auth: apiKey });
+
+    // ── Phase 1: drip sequence (steps 1-3 to fresh New leads) ──
+    const drip = await processDrip(notion, dbId, { dryRun });
+
+    // ── Phase 2: stale-lead nag to Sam (unchanged) ──
     const twelveDaysAgo = new Date();
     twelveDaysAgo.setDate(twelveDaysAgo.getDate() - 12);
     const twoDaysAgo = new Date();
@@ -66,7 +75,7 @@ export async function GET(request: Request) {
     const staleLeads = response.results ?? [];
 
     if (staleLeads.length === 0) {
-      return NextResponse.json({ message: "No stale leads", count: 0 });
+      return NextResponse.json({ message: "No stale leads", count: 0, drip });
     }
 
     // Build reminder email
@@ -89,7 +98,7 @@ export async function GET(request: Request) {
       `The following leads haven't been contacted yet:\n\n${lines.join("\n")}\n\nReview them at: https://www.sammorrispb.com/admin`
     );
 
-    return NextResponse.json({ message: "Reminder sent", count: staleLeads.length });
+    return NextResponse.json({ message: "Reminder sent", count: staleLeads.length, drip });
   } catch (error) {
     const msg = error instanceof Error ? error.message : "Unknown error";
     console.error("Follow-up cron error:", msg);
