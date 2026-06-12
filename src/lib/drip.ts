@@ -123,7 +123,7 @@ export async function processDrip(
     const interest: string = props.Interest?.select?.name ?? "";
     const currentStep: number = props["Drip Step"]?.number ?? 0;
     const submitted: string | null = props["Date Submitted"]?.date?.start ?? null;
-    const lastDripSent: string | null = props["Last Drip Sent"]?.date?.start ?? null;
+    const lastDripSent: string | null = props["Last Drip At"]?.date?.start ?? null;
 
     const nextStep = currentStep + 1;
     const base: Omit<DripRowResult, "action" | "ageDays"> = {
@@ -181,7 +181,7 @@ export async function processDrip(
       page_id: page.id,
       properties: {
         "Drip Step": { number: nextStep },
-        "Last Drip Sent": { date: { start: todayUtc } },
+        "Last Drip At": { date: { start: todayUtc } },
       },
     });
 

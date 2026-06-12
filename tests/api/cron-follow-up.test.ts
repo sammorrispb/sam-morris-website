@@ -75,7 +75,7 @@ function dripPage(
       "Date Submitted": {
         date: { start: new Date(Date.now() - submittedDaysAgo * 86400000).toISOString() },
       },
-      "Last Drip Sent":
+      "Last Drip At":
         overrides.lastDripSent !== undefined && overrides.lastDripSent !== null
           ? { date: { start: overrides.lastDripSent } }
           : { date: null },
@@ -180,7 +180,7 @@ describe("GET /api/cron/follow-up — drip phase", () => {
     const updateArgs = notionPagesUpdate.mock.calls[0][0];
     expect(updateArgs.page_id).toBe("page-1");
     expect(updateArgs.properties["Drip Step"]).toEqual({ number: 1 });
-    expect(updateArgs.properties["Last Drip Sent"].date.start).toBe(
+    expect(updateArgs.properties["Last Drip At"].date.start).toBe(
       new Date().toISOString().slice(0, 10),
     );
     const [to, subject, body] = sendEmailMock.mock.calls[0];

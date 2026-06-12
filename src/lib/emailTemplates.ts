@@ -264,7 +264,7 @@ export function generateDripEmail(
       subject: `Quick check-in from Coach Sam`,
       body: `Hi ${name},
 
-Just checking in — I sent over some info a couple of days ago and wanted to make sure it answered your questions.
+Just checking in — did the info I sent a couple of days ago answer your questions?
 
 ${ctaBlock}
 
@@ -285,7 +285,7 @@ ${unsubscribeLine}`,
       subject: `The two things holding most players back`,
       body: `Hi ${name},
 
-One thing I see over and over in evaluations: most players are two specific habits away from their next level. Not ten — two. Usually it's serve consistency and what happens at the kitchen line.
+Here's what I see over and over in evaluations: you're probably two specific habits away from your next level. Not ten — two. Usually it's serve consistency and what happens at the kitchen line.
 
 ${ctaBlock}
 
