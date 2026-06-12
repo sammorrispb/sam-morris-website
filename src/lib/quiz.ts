@@ -1,4 +1,5 @@
-import { COACH_BOOKING_URL, COACH_REQUEST_URL } from "@/lib/constants";
+import { COACH_REQUEST_URL } from "@/lib/constants";
+import { coachBookingUrl } from "@/lib/urls";
 
 export interface QuizQuestion {
   id: string;
@@ -86,7 +87,7 @@ export const QUIZ_RESULTS: Record<string, QuizResult> = {
       {
         title: "Book a Free Evaluation",
         description: "30-minute on-court assessment to map out your personalized path.",
-        href: COACH_BOOKING_URL,
+        href: coachBookingUrl("quiz_result_beginner"),
       },
       {
         title: "Private Lessons",
@@ -119,7 +120,7 @@ export const QUIZ_RESULTS: Record<string, QuizResult> = {
       {
         title: "Free Skill Evaluation",
         description: "Lock in a clear DUPR-aligned rating and a written growth plan.",
-        href: COACH_BOOKING_URL,
+        href: coachBookingUrl("quiz_result_advanced_beginner"),
       },
     ],
   },
@@ -137,7 +138,7 @@ export const QUIZ_RESULTS: Record<string, QuizResult> = {
       {
         title: "Free Skill Evaluation",
         description: "Get a calibrated rating and a focused improvement plan.",
-        href: COACH_BOOKING_URL,
+        href: coachBookingUrl("quiz_result_intermediate"),
       },
     ],
   },
@@ -155,7 +156,7 @@ export const QUIZ_RESULTS: Record<string, QuizResult> = {
       {
         title: "Free Skill Evaluation",
         description: "Recalibrate your rating and get a focused growth plan.",
-        href: COACH_BOOKING_URL,
+        href: coachBookingUrl("quiz_result_advanced"),
       },
     ],
   },

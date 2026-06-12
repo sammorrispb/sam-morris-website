@@ -3,7 +3,8 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { NAV_LINKS, COACH_BOOKING_URL } from "@/lib/constants";
+import { NAV_LINKS } from "@/lib/constants";
+import { coachBookingUrl } from "@/lib/urls";
 import { SearchBar } from "@/components/SearchBar";
 import { trackEvent } from "@/lib/funnelClient";
 
@@ -72,14 +73,14 @@ export function Nav() {
           })}
           <SearchBar onOpenChange={(open) => { if (open) setMobileOpen(false); }} />
           <Link
-            href={COACH_BOOKING_URL}
+            href={coachBookingUrl("nav_header_cta")}
             className="px-5 py-2 rounded-full text-sm font-semibold btn-gradient"
             onClick={() =>
               trackEvent("cta_click", {
                 label: "Book a Free Evaluation",
                 page: "nav",
                 section: "header_cta",
-                destination: COACH_BOOKING_URL,
+                destination: coachBookingUrl("nav_header_cta"),
               })
             }
           >
@@ -153,14 +154,14 @@ export function Nav() {
                 );
               })}
               <Link
-                href={COACH_BOOKING_URL}
+                href={coachBookingUrl("nav_header_cta_mobile")}
                 className="px-5 py-3 rounded-full text-sm font-semibold text-center mt-2 btn-gradient"
                 onClick={() => {
                   trackEvent("cta_click", {
                     label: "Book a Free Evaluation",
                     page: "nav",
                     section: "header_cta_mobile",
-                    destination: COACH_BOOKING_URL,
+                    destination: coachBookingUrl("nav_header_cta_mobile"),
                   });
                   setMobileOpen(false);
                 }}

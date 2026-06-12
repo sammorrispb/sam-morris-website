@@ -3,7 +3,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { TrackedLink } from "@/components/TrackedLink";
 import { AnimateOnScroll } from "@/components/AnimateOnScroll";
-import { COACH_BOOKING_URL, COACH_REQUEST_URL } from "@/lib/constants";
+import { COACH_REQUEST_URL } from "@/lib/constants";
+import { coachBookingUrl } from "@/lib/urls";
 
 export const metadata: Metadata = {
   title: "Pickleball Programs & Lessons — Youth Academy, Private Coaching, Family Sessions",
@@ -100,7 +101,7 @@ export default function ProgramsPage() {
                 badge: "Free for DMV",
                 title: "Skill Evaluation",
                 desc: "30-minute on-court read on your level + a written plan.",
-                href: COACH_BOOKING_URL,
+                href: coachBookingUrl("programs_card"),
                 cta: "Book Free Eval",
                 image: "/images/sam-portrait-with-paddle.jpg",
               },
@@ -368,13 +369,13 @@ export default function ProgramsPage() {
             a rating and a plan.
           </p>
           <TrackedLink
-            href={COACH_BOOKING_URL}
+            href={coachBookingUrl("programs_footer_cta")}
             className="inline-flex items-center font-heading font-semibold px-8 py-4 rounded-full btn-gradient text-base"
             eventProps={{
               label: "Book a Free Evaluation",
               page: "programs",
               section: "footer_cta",
-              destination: COACH_BOOKING_URL,
+              destination: coachBookingUrl("programs_footer_cta"),
             }}
           >
             Book a Free Evaluation →
