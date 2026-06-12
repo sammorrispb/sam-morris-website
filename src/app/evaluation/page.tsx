@@ -4,7 +4,8 @@ import { AnimateOnScroll } from "@/components/AnimateOnScroll";
 import { BackToTop } from "@/components/BackToTop";
 import { TrackedLink } from "@/components/TrackedLink";
 import { faqJsonLd } from "@/lib/seo";
-import { CONTACT, COACH_BOOKING_URL } from "@/lib/constants";
+import { CONTACT } from "@/lib/constants";
+import { coachBookingUrl } from "@/lib/urls";
 
 export const metadata: Metadata = {
   title: "Free Pickleball Rating Evaluation — DMV | Coach Sam Morris",
@@ -115,8 +116,8 @@ export default function EvaluationPage() {
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
                 <TrackedLink
-                  eventProps={{ label: "Book My Free Evaluation", page: "evaluation", section: "hero", destination: COACH_BOOKING_URL }}
-                  href={COACH_BOOKING_URL}
+                  eventProps={{ label: "Book My Free Evaluation", page: "evaluation", section: "hero", destination: coachBookingUrl("evaluation_hero") }}
+                  href={coachBookingUrl("evaluation_hero")}
                   className="inline-flex items-center justify-center btn-ember font-heading font-semibold px-8 py-4 rounded-full text-base"
                 >
                   Book My Free Evaluation
@@ -244,8 +245,8 @@ export default function EvaluationPage() {
               right games to join.
             </p>
             <TrackedLink
-              eventProps={{ label: "Book My Free Evaluation", page: "evaluation", section: "final", destination: COACH_BOOKING_URL }}
-              href={COACH_BOOKING_URL}
+              eventProps={{ label: "Book My Free Evaluation", page: "evaluation", section: "final", destination: coachBookingUrl("evaluation_final") }}
+              href={coachBookingUrl("evaluation_final")}
               className="inline-flex items-center btn-ember font-heading font-semibold px-10 py-5 rounded-full text-lg"
             >
               Book My Free Evaluation →

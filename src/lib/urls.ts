@@ -1,3 +1,5 @@
+import { COACH_BOOKING_URL } from "@/lib/constants";
+
 const MARKETING_REF = "sammorrispb";
 const UTM_SOURCE = "sammorrispb";
 
@@ -19,6 +21,21 @@ export function familySiteUrl(dest: FamilyDest, path: string = "/"): string {
   url.searchParams.set("utm_campaign", "family_reciprocal");
   url.searchParams.set("utm_content", `footer_${dest}`);
   url.searchParams.set("ref", familyMarketingRef(dest));
+  return url.toString();
+}
+
+/**
+ * Stamp the coach.sammorrispb.com free-evaluation booking link with UTM
+ * params so eval bookings attribute back to the page/section that drove
+ * the click. `content` should be "<page>_<section>" (e.g. "home_hero"),
+ * matching the page/section strings used in TrackedLink eventProps.
+ */
+export function coachBookingUrl(content: string): string {
+  const url = new URL(COACH_BOOKING_URL);
+  url.searchParams.set("utm_source", UTM_SOURCE);
+  url.searchParams.set("utm_medium", "website");
+  url.searchParams.set("utm_campaign", "eval_cta");
+  url.searchParams.set("utm_content", content);
   return url.toString();
 }
 
