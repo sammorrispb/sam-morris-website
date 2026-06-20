@@ -1,0 +1,21 @@
+name: lint
+
+# This repo previously had no CI. Adding a minimal lint gate so the
+# no-local-date-constructor ESLint rule (and future lint) actually run on PRs
+# instead of only on local `npm run lint`.
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci
+      - run: npm run lint
