@@ -198,6 +198,60 @@ describe("POST /api/leads", () => {
     expect(notesBlock.paragraph.rich_text[0].text.content.length).toBe(1000);
   });
 
+  it("relays preferred location to Notion body, Sam notification, and OB metadata", async () => {
+    const { POST } = await import("@/app/api/leads/route");
+    await POST(
+      makeRequest({
+        name: "A",
+        email: "a@b.co",
+        interest: "Private Lesson",
+        location: "The Pickle Park — Frederick, MD",
+      }),
+    );
+    const leadCreate = notionPagesCreate.mock.calls[0][0];
+    const headings = leadCreate.children
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      .filter((b: any) => b.type === "heading_3")
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      .map((b: any) => b.heading_3.rich_text[0].text.content);
+    expect(headings).toContain("Preferred Location");
+    const locationBlock = leadCreate.children.find(
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      (b: any) =>
+        b.type === "paragraph" &&
+        b.paragraph.rich_text[0].text.content === "The Pickle Park — Frederick, MD",
+    );
+    expect(locationBlock).toBeTruthy();
+    expect(notifySamMock).toHaveBeenCalledWith(
+      expect.any(String),
+      expect.stringContaining("Preferred Location: The Pickle Park — Frederick, MD"),
+    );
+    expect(ingestToOpenBrainMock).toHaveBeenCalledWith(
+      expect.objectContaining({
+        metadata: expect.objectContaining({
+          location: "The Pickle Park — Frederick, MD",
+        }),
+      }),
+    );
+  });
+
+  it("omits location everywhere when not provided", async () => {
+    const { POST } = await import("@/app/api/leads/route");
+    await POST(
+      makeRequest({ name: "A", email: "a@b.co", interest: "Private Lesson" }),
+    );
+    const leadCreate = notionPagesCreate.mock.calls[0][0];
+    const headings = (leadCreate.children ?? [])
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      .filter((b: any) => b.type === "heading_3")
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      .map((b: any) => b.heading_3.rich_text[0].text.content);
+    expect(headings).not.toContain("Preferred Location");
+    expect(notifySamMock.mock.calls[0][1]).not.toContain("Preferred Location");
+    const obMetadata = ingestToOpenBrainMock.mock.calls[0][0].metadata;
+    expect(obMetadata).not.toHaveProperty("location");
+  });
+
   it("Business Partnerships interest auto-opts-out of drip", async () => {
     const { POST } = await import("@/app/api/leads/route");
     await POST(

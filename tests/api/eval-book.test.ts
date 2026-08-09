@@ -90,6 +90,37 @@ describe("POST /api/eval-book", () => {
     );
   });
 
+  it("relays preferred location to Sam notification and OB metadata", async () => {
+    const { POST } = await import("@/app/api/eval-book/route");
+    const res = await POST(
+      makeRequest({
+        name: "C",
+        email: "c@b.co",
+        location: "The Pickle Park — Frederick, MD",
+      }),
+    );
+    expect(res.status).toBe(200);
+    expect(notifySamMock).toHaveBeenCalledWith(
+      expect.any(String),
+      expect.stringContaining("Preferred Location: The Pickle Park — Frederick, MD"),
+    );
+    expect(ingestToOpenBrainMock).toHaveBeenCalledWith(
+      expect.objectContaining({
+        metadata: expect.objectContaining({
+          location: "The Pickle Park — Frederick, MD",
+        }),
+      }),
+    );
+  });
+
+  it("omits location from notification and OB metadata when not provided", async () => {
+    const { POST } = await import("@/app/api/eval-book/route");
+    await POST(makeRequest({ name: "D", email: "d@b.co" }));
+    expect(notifySamMock.mock.calls[0][1]).not.toContain("Preferred Location");
+    const obMetadata = ingestToOpenBrainMock.mock.calls[0][0].metadata;
+    expect(obMetadata).not.toHaveProperty("location");
+  });
+
   it("downstream email failures do not block the 200 response", async () => {
     sendEmailMock.mockRejectedValueOnce(new Error("smtp down"));
     notifySamMock.mockRejectedValueOnce(new Error("smtp down"));

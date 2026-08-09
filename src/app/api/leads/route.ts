@@ -82,6 +82,10 @@ export async function POST(request: Request) {
     const body = await request.json();
     const { name, email, interest } = body;
     const notes = sanitizeNotes(body?.notes);
+    const location: string =
+      typeof body?.location === "string"
+        ? body.location.replace(/\s+/g, " ").trim().slice(0, 100)
+        : "";
     const eventType: string | undefined =
       typeof body?.event_type === "string" && body.event_type.trim()
         ? body.event_type.trim()
@@ -126,6 +130,24 @@ export async function POST(request: Request) {
     const notion = new Client({ auth: apiKey });
 
     const bodyBlocks = [
+      ...(location
+        ? [
+            {
+              object: "block" as const,
+              type: "heading_3" as const,
+              heading_3: {
+                rich_text: [{ type: "text" as const, text: { content: "Preferred Location" } }],
+              },
+            },
+            {
+              object: "block" as const,
+              type: "paragraph" as const,
+              paragraph: {
+                rich_text: [{ type: "text" as const, text: { content: location } }],
+              },
+            },
+          ]
+        : []),
       ...(eventType
         ? [
             {
@@ -228,7 +250,7 @@ export async function POST(request: Request) {
       const subjectInterest = eventType ? `${interest} — ${eventType}` : interest;
       const result = await notifySam(
         `New Lead: ${name} — ${subjectInterest}`,
-        `Name: ${name}\nEmail: ${email}\nInterest: ${interest}${eventType ? `\nEvent Type: ${eventType}` : ""}\nSubmitted: ${new Date().toLocaleString("en-US", { timeZone: "America/New_York" })}${notes ? `\n\nNotes from lead:\n${notes}` : ""}`
+        `Name: ${name}\nEmail: ${email}\nInterest: ${interest}${eventType ? `\nEvent Type: ${eventType}` : ""}${location ? `\nPreferred Location: ${location}` : ""}\nSubmitted: ${new Date().toLocaleString("en-US", { timeZone: "America/New_York" })}${notes ? `\n\nNotes from lead:\n${notes}` : ""}`
       );
       samNotified = result.success;
     } catch (notifyError) {
@@ -294,6 +316,7 @@ export async function POST(request: Request) {
         ref: utm.ref,
         utm_content: utm.utm_content,
         ...(eventType ? { event_type: eventType } : {}),
+        ...(location ? { location } : {}),
         // Durable delivery record (see eval-book route) — flags leads that
         // generated no email so they can be followed up manually.
         confirmation_email_sent: confirmationSent,

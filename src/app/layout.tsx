@@ -236,6 +236,7 @@ export default function RootLayout({
                 { "@type": "City", name: "Kensington, MD" },
                 { "@type": "City", name: "Aspen Hill, MD" },
                 { "@type": "City", name: "Derwood, MD" },
+                { "@type": "City", name: "Frederick, MD" },
                 { "@type": "City", name: "Washington, DC" },
                 { "@type": "City", name: "Arlington, VA" },
                 { "@type": "City", name: "Fairfax, VA" },
@@ -253,12 +254,12 @@ export default function RootLayout({
                       "@type": "Service",
                       name: "Private Pickleball Lessons",
                       description:
-                        "Personalized 1-on-1 pickleball coaching for adults and families in Montgomery County, MD. Includes video analysis, custom practice plans, and flexible scheduling. Request a lesson and Sam confirms a time that works.",
+                        "Personalized 1-on-1 pickleball coaching for adults and families in Montgomery County, MD, and at The Pickle Park in Frederick, MD. Includes video analysis, custom practice plans, and flexible scheduling. Request a lesson and Sam confirms a time that works.",
                       provider: {
                         "@type": "Person",
                         name: "Sam Morris",
                       },
-                      areaServed: "Montgomery County, MD",
+                      areaServed: ["Montgomery County, MD", "Frederick, MD"],
                       audience: {
                         "@type": "Audience",
                         audienceType: "Adults, Families, Beginners to Advanced",

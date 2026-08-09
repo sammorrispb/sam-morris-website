@@ -85,11 +85,21 @@ export const EVENT_TYPES = [
   "Other",
 ] as const;
 
+// Sanctioned host venue for private lessons outside the 35-min radius
+// (Sam-approved 2026-08-09). Partner/host venue, not a competitor.
+export const FREDERICK_VENUE = {
+  name: "The Pickle Park",
+  label: "The Pickle Park — Frederick, MD",
+  city: "Frederick, MD",
+} as const;
+
 export const SERVICE_AREA = {
   homeBase: "Olney, MD",
   radiusMinutes: 35,
   description:
-    "Sam travels to your court within roughly 35 minutes of Olney, MD — covering Montgomery County, Washington DC, and nearby parts of Prince George's, Howard, and northern Virginia. You arrange and pay for the court; Sam brings the coaching.",
+    "Sam travels to your court within roughly 35 minutes of Olney, MD — covering Montgomery County, Washington DC, and nearby parts of Prince George's, Howard, and northern Virginia. Private lessons are also available at The Pickle Park in Frederick, MD. You arrange and pay for the court; Sam brings the coaching.",
+  // Frederick is deliberately absent here: shortDescription feeds the
+  // group/3+1/event templates and the events page, which stay MoCo-only.
   shortDescription:
     "Within ~35 min of Olney, MD (MoCo + DC + nearby PG/Howard/NoVA)",
 } as const;
