@@ -25,11 +25,11 @@ Sam Morris's personal coaching site at **sammorrispb.com** — Next.js 16 (App R
 
 ## Repo-specific gotchas
 
-### Pricing is single-sourced in `src/lib/coaching.ts`
-The `PRICING` constant (`singleHourly: 130`, `fourPackTotal: 400`, `fourPackHourly: 100`, `groupPerPersonHourly: 50`, `threePlusOneTotal: 150`) **is the only source of truth** for coaching prices across the site, email templates, and JSON-LD. Never hard-code dollar amounts in `/programs/coaching`, emails, structured data, or blog copy. Stripe Payment Link constants (`SINGLE_LESSON_LINK`, `FOUR_PACK_LINK`, `THREE_PLUS_ONE_LINK`) and the Google Calendar `BOOKING_URL` also live here — edit there, not inline.
+### Pricing lives in Coach OS, not on this site
+`src/lib/coaching.ts` no longer exists — pricing and booking moved to Coach OS (`COACH_BOOKING_URL` / `COACH_REQUEST_URL` in `src/lib/constants.ts`; Coach OS handles quoting and invoicing). There are **zero dollar amounts anywhere in `src/`** and `tests/brand/brand-copy.test.ts` enforces the `$` ban. Never hard-code prices in pages, emails, structured data, or blog copy.
 
-### Service area is locked at 35-min radius from Olney, MD
-`SERVICE_AREA` in `src/lib/constants.ts` is the canonical description. Don't introduce new copy about Sam traveling to facilities outside that radius or list specific competitor venues by name.
+### Service area is locked at 35-min radius from Olney, MD (one sanctioned exception)
+`SERVICE_AREA` in `src/lib/constants.ts` is the canonical description. The travel radius is locked at ~35 min from Olney, MD, with one sanctioned exception (Sam-approved 2026-08-09): **private lessons at The Pickle Park in Frederick, MD** — a partner/host venue (`FREDERICK_VENUE` in constants.ts), not a competitor. Frederick applies to private lessons (and evals) only — don't extend it to group/3+1/events copy or to `SERVICE_AREA.shortDescription`, don't add other out-of-radius venues, and don't list competitor venues by name.
 
 ### Partner-link rules (blog, programs, anywhere user-facing)
 - **JOOLA** is the default paddle/gear link (Pike & Rose flagship + joola.com). It is the only paddle brand allowed in copy.

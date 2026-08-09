@@ -8,6 +8,7 @@ export const maxDuration = 30;
 type EvalBookRequest = {
   name?: string;
   email?: string;
+  location?: string;
   utm_campaign?: string;
   utm_content?: string;
   visitor_id?: string;
@@ -22,8 +23,12 @@ type EvalBookRequest = {
 
 export async function POST(request: Request) {
   try {
-    const { name, email, utm_campaign, utm_content, utm, page } =
-      (await request.json()) as EvalBookRequest;
+    const body = (await request.json()) as EvalBookRequest;
+    const { name, email, utm_campaign, utm_content, utm, page } = body;
+    const location: string =
+      typeof body.location === "string"
+        ? body.location.replace(/\s+/g, " ").trim().slice(0, 100)
+        : "";
 
     if (!name || !email) {
       return NextResponse.json(
@@ -74,7 +79,7 @@ export async function POST(request: Request) {
     try {
       const result = await notifySam(
         `New Eval Booking: ${name}`,
-        `Name: ${name}\nEmail: ${normalizedEmail}\nSource: meta_ad\nCampaign: ${utm_campaign ?? utm?.utm_campaign ?? "n/a"}\nVariant: ${utm_content ?? "n/a"}\nSubmitted: ${new Date().toLocaleString("en-US", { timeZone: "America/New_York" })}`
+        `Name: ${name}\nEmail: ${normalizedEmail}${location ? `\nPreferred Location: ${location}` : ""}\nSource: meta_ad\nCampaign: ${utm_campaign ?? utm?.utm_campaign ?? "n/a"}\nVariant: ${utm_content ?? "n/a"}\nSubmitted: ${new Date().toLocaleString("en-US", { timeZone: "America/New_York" })}`
       );
       samNotified = result.success;
     } catch (err) {
@@ -103,6 +108,7 @@ export async function POST(request: Request) {
         page,
         ref: utm?.ref,
         utm_content,
+        ...(location ? { location } : {}),
         // Durable delivery record. Open Brain is the one channel that survives
         // a Gmail outage, so flag here when the booking generated no email —
         // these are the leads that need manual follow-up.

@@ -2,8 +2,13 @@
 
 import { useState, useRef } from "react";
 import Link from "next/link";
-import { CONTACT, INTEREST_OPTIONS, EVENT_TYPES } from "@/lib/constants";
+import { CONTACT, INTEREST_OPTIONS, EVENT_TYPES, FREDERICK_VENUE } from "@/lib/constants";
 import { trackEvent, getVisitorIdForForm, getUtm } from "@/lib/funnelClient";
+
+// Frederick is sanctioned for private lessons + evals only, so the location
+// select stays hidden for every other interest.
+const LOCATION_INTERESTS = new Set(["Free Evaluation", "Private Lesson"]);
+const MOCO_LOCATION = "Montgomery County / DC area — Sam comes to your court";
 
 function matchInterestFromParam(param: string | null): string {
   if (!param) return "";
@@ -40,6 +45,7 @@ export function LeadForm({
       name: "",
       email: "",
       interest: lockedInterest ?? urlInterest,
+      location: "",
       notes: "",
       event_type: "",
     };
@@ -90,6 +96,7 @@ export function LeadForm({
         name: "",
         email: "",
         interest: lockedInterest ?? "",
+        location: "",
         notes: "",
         event_type: "",
       });
@@ -170,6 +177,19 @@ export function LeadForm({
           {INTEREST_OPTIONS.map((opt) => (
             <option key={opt} value={opt}>{opt}</option>
           ))}
+        </select>
+      )}
+
+      {LOCATION_INTERESTS.has(form.interest) && (
+        <select
+          aria-label="Where would you like to train?"
+          value={form.location}
+          onChange={(e) => updateField("location", e.target.value)}
+          className="w-full bg-navy/60 border border-white/10 rounded-xl px-4 py-3 text-text-primary focus:border-accent-blue focus:outline-none transition-colors"
+        >
+          <option value="">Where would you like to train? (optional)</option>
+          <option value={MOCO_LOCATION}>{MOCO_LOCATION}</option>
+          <option value={FREDERICK_VENUE.label}>{FREDERICK_VENUE.label}</option>
         </select>
       )}
 
