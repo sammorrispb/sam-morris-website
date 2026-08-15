@@ -49,14 +49,21 @@ export const ANNOUNCEMENT: {
   href?: string;
   linkText?: string;
 } | null = {
-  id: "linkanddink-moco-community",
+  id: "nga-fall-2026",
   message:
-    "Join the Montgomery County pickleball community on Link & Dink — newsletter, pop-up tournaments, and local play.",
-  href: "https://linkanddink.com/?utm_source=sammorrispb&utm_medium=banner&utm_campaign=moco-community",
-  linkText: "Join the community",
+    "Next Gen Academy Fall Season — six Sundays, Sept 20 – Oct 25 in Rockville. Green & Yellow Ball groups, eight spots each.",
+  href: "https://nextgenpbacademy.com/fall?utm_source=sammorrispb&utm_medium=banner&utm_campaign=nga_fall_2026",
+  linkText: "Register",
 };
 
-// Previous announcement (restore if you want to feature lessons/eval again):
+// Previous announcements (restore if you want to feature one again):
+// {
+//   id: "linkanddink-moco-community",
+//   message:
+//     "Join the Montgomery County pickleball community on Link & Dink — newsletter, pop-up tournaments, and local play.",
+//   href: "https://linkanddink.com/?utm_source=sammorrispb&utm_medium=banner&utm_campaign=moco-community",
+//   linkText: "Join the community",
+// }
 // {
 //   id: "spring-2026",
 //   message: "Spring 2026 private lessons and skill evaluations are open for booking!",

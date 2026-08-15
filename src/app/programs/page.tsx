@@ -3,8 +3,10 @@ import Image from "next/image";
 import Link from "next/link";
 import { TrackedLink } from "@/components/TrackedLink";
 import { AnimateOnScroll } from "@/components/AnimateOnScroll";
+import { TrackedExternalLink } from "@/components/TrackedExternalLink";
 import { COACH_REQUEST_URL } from "@/lib/constants";
-import { coachBookingUrl } from "@/lib/urls";
+import { NGA_FALL_2026 } from "@/lib/nga-fall";
+import { coachBookingUrl, familySiteUrl } from "@/lib/urls";
 
 export const metadata: Metadata = {
   title: "Pickleball Programs & Lessons — Youth Academy, Private Coaching, Family Sessions",
@@ -222,6 +224,37 @@ export default function ProgramsPage() {
               ))}
             </div>
 
+            <div className="glass-card p-8 text-center max-w-3xl mx-auto mb-8">
+              <p className="eyebrow mb-3">Fall 2026 season · Now enrolling</p>
+              <h3 className="font-heading font-black text-2xl md:text-3xl mb-4">
+                Six Sundays in {NGA_FALL_2026.area} —{" "}
+                <time dateTime={NGA_FALL_2026.startDate}>September 20</time> –{" "}
+                <time dateTime={NGA_FALL_2026.endDate}>October 25</time>
+              </h3>
+              <p className="text-text-primary font-semibold mb-2">
+                {NGA_FALL_2026.blocks
+                  .map((block) => `${block.level} ${block.time}`)
+                  .join(" · ")}
+              </p>
+              <p className="text-text-muted text-sm mb-6">
+                Weekly rotating-partner round robins with just{" "}
+                {NGA_FALL_2026.spotsPerGroup} spots per group — full-season
+                commitment, first come first serve. Pricing and registration are
+                on the Next Gen Academy site.
+              </p>
+              <TrackedExternalLink
+                label="nga_fall_register"
+                page="programs"
+                href={familySiteUrl("nga", NGA_FALL_2026.signupPath, {
+                  campaign: "nga_fall_2026",
+                  content: "programs_academy",
+                })}
+                className="inline-flex items-center font-heading font-semibold px-7 py-3 rounded-full btn-gradient text-sm"
+              >
+                Register for the Fall Season →
+              </TrackedExternalLink>
+            </div>
+
             <div className="glass-card-amber rounded-2xl p-8 text-center max-w-3xl mx-auto">
               <p className="text-text-primary font-heading font-bold text-xl mb-2">
                 Free 30-minute evaluation before placement.
@@ -229,14 +262,17 @@ export default function ProgramsPage() {
               <p className="text-text-muted text-sm mb-6">
                 We&apos;ll find the perfect fit for your child.
               </p>
-              <a
-                href="https://www.nextgenpbacademy.com"
-                target="_blank"
-                rel="noopener noreferrer"
+              <TrackedExternalLink
+                label="nga_visit"
+                page="programs"
+                href={familySiteUrl("nga", "/", {
+                  campaign: "nga_fall_2026",
+                  content: "programs_academy_visit",
+                })}
                 className="inline-flex items-center font-heading font-semibold px-7 py-3 rounded-full btn-gradient text-sm"
               >
                 Visit Next Gen Academy →
-              </a>
+              </TrackedExternalLink>
             </div>
           </div>
         </AnimateOnScroll>
