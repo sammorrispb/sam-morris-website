@@ -1,6 +1,38 @@
 import { describe, it, expect } from "vitest";
-import { coachBookingUrl } from "@/lib/urls";
+import { coachBookingUrl, familySiteUrl } from "@/lib/urls";
 import { COACH_BOOKING_URL } from "@/lib/constants";
+
+describe("familySiteUrl", () => {
+  it("defaults to footer attribution (existing call sites unchanged)", () => {
+    const url = new URL(familySiteUrl("nga"));
+    expect(url.origin).toBe("https://nextgenpbacademy.com");
+    expect(url.pathname).toBe("/");
+    expect(url.searchParams.get("utm_source")).toBe("sammorrispb");
+    expect(url.searchParams.get("utm_medium")).toBe("cross_family_nav");
+    expect(url.searchParams.get("utm_campaign")).toBe("family_reciprocal");
+    expect(url.searchParams.get("utm_content")).toBe("footer_nga");
+    expect(url.searchParams.get("ref")).toBe("sammorrispb_footer_nga");
+  });
+
+  it("deep-links to a path on the destination site", () => {
+    const url = new URL(familySiteUrl("nga", "/fall"));
+    expect(url.origin).toBe("https://nextgenpbacademy.com");
+    expect(url.pathname).toBe("/fall");
+  });
+
+  it("honors campaign/content overrides without touching source or ref", () => {
+    const url = new URL(
+      familySiteUrl("nga", "/fall", {
+        campaign: "nga_fall_2026",
+        content: "programs_academy",
+      }),
+    );
+    expect(url.searchParams.get("utm_campaign")).toBe("nga_fall_2026");
+    expect(url.searchParams.get("utm_content")).toBe("programs_academy");
+    expect(url.searchParams.get("utm_source")).toBe("sammorrispb");
+    expect(url.searchParams.get("ref")).toBe("sammorrispb_footer_nga");
+  });
+});
 
 describe("coachBookingUrl", () => {
   it("preserves the base booking URL origin and path", () => {

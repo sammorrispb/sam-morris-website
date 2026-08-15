@@ -107,11 +107,11 @@ const PROGRAMS = [
   {
     title: "Next Gen Academy",
     description:
-      "Structured youth pathway for ages 8-16. Four levels — Red, Orange, Green, Yellow.",
+      "Structured youth pathway for ages 8-16. Fall season now enrolling — six Sundays in Rockville, Sept 20 – Oct 25.",
     cta: "Explore the Academy",
     href: "/programs#academy",
     image: "/images/youth-indoor-player.jpeg",
-    badge: "Ages 8-16",
+    badge: "Fall season enrolling",
   },
 ];
 
