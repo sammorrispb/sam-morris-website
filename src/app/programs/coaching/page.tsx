@@ -340,9 +340,9 @@ export default function CoachingPage() {
               <p className="text-text-muted leading-relaxed text-sm">
                 Common courts include indoor + outdoor facilities across Olney,
                 Rockville, Bethesda, Silver Spring, North Bethesda, Gaithersburg,
-                Potomac, DC, and Arlington — plus private lessons at The Pickle
-                Park in Frederick. If you have a regular court you already play
-                at, that&apos;s usually the easiest spot.
+                Potomac, DC, and Arlington — plus private lessons at
+                The Pickl Park in Frederick. If you have a regular court you
+                already play at, that&apos;s usually the easiest spot.
               </p>
             </div>
           </div>
