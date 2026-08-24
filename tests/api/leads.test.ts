@@ -205,7 +205,7 @@ describe("POST /api/leads", () => {
         name: "A",
         email: "a@b.co",
         interest: "Private Lesson",
-        location: "The Pickle Park — Frederick, MD",
+        location: "The Pickl Park — Frederick, MD",
       }),
     );
     const leadCreate = notionPagesCreate.mock.calls[0][0];
@@ -219,17 +219,17 @@ describe("POST /api/leads", () => {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       (b: any) =>
         b.type === "paragraph" &&
-        b.paragraph.rich_text[0].text.content === "The Pickle Park — Frederick, MD",
+        b.paragraph.rich_text[0].text.content === "The Pickl Park — Frederick, MD",
     );
     expect(locationBlock).toBeTruthy();
     expect(notifySamMock).toHaveBeenCalledWith(
       expect.any(String),
-      expect.stringContaining("Preferred Location: The Pickle Park — Frederick, MD"),
+      expect.stringContaining("Preferred Location: The Pickl Park — Frederick, MD"),
     );
     expect(ingestToOpenBrainMock).toHaveBeenCalledWith(
       expect.objectContaining({
         metadata: expect.objectContaining({
-          location: "The Pickle Park — Frederick, MD",
+          location: "The Pickl Park — Frederick, MD",
         }),
       }),
     );

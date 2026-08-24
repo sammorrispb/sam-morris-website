@@ -132,6 +132,14 @@ export default function ProgramsPage() {
                 image: "/images/sam-group-selfie.jpg",
               },
               {
+                badge: "Frederick, MD",
+                title: "Classes at The Pickl Park",
+                desc: "Weekly group clinics and skills assessments Sam leads in Frederick.",
+                href: "/programs/pickl-park",
+                cta: "See Classes",
+                image: "/images/indoor-play-action.jpeg",
+              },
+              {
                 badge: "Ages 8-16",
                 title: "Youth Academy",
                 desc: "Red → Yellow pathway with structured progression.",

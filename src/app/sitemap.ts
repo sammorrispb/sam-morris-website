@@ -41,6 +41,7 @@ const ROUTES: RouteSpec[] = [
   { path: "/programs/coaching", changeFrequency: "weekly", priority: 0.8 },
   { path: "/programs/cohort", changeFrequency: "monthly", priority: 0.7 },
   { path: "/programs/events", changeFrequency: "monthly", priority: 0.8 },
+  { path: "/programs/pickl-park", changeFrequency: "weekly", priority: 0.8 },
   { path: "/evaluation", changeFrequency: "monthly", priority: 0.8 },
   { path: "/contact", changeFrequency: "monthly", priority: 0.9 },
   { path: "/about", changeFrequency: "monthly", priority: 0.8 },

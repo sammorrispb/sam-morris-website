@@ -96,18 +96,18 @@ describe("POST /api/eval-book", () => {
       makeRequest({
         name: "C",
         email: "c@b.co",
-        location: "The Pickle Park — Frederick, MD",
+        location: "The Pickl Park — Frederick, MD",
       }),
     );
     expect(res.status).toBe(200);
     expect(notifySamMock).toHaveBeenCalledWith(
       expect.any(String),
-      expect.stringContaining("Preferred Location: The Pickle Park — Frederick, MD"),
+      expect.stringContaining("Preferred Location: The Pickl Park — Frederick, MD"),
     );
     expect(ingestToOpenBrainMock).toHaveBeenCalledWith(
       expect.objectContaining({
         metadata: expect.objectContaining({
-          location: "The Pickle Park — Frederick, MD",
+          location: "The Pickl Park — Frederick, MD",
         }),
       }),
     );

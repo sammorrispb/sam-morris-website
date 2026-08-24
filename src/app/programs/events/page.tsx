@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Image from "next/image";
+import Link from "next/link";
 import { AnimateOnScroll } from "@/components/AnimateOnScroll";
 import { BackToTop } from "@/components/BackToTop";
 import { LeadForm } from "@/components/LeadForm";
@@ -70,6 +71,10 @@ const FAQS = [
   {
     q: "How is pricing structured?",
     a: "Quote-by-headcount — there's a base coaching fee plus a per-player rate that scales with group size. Reply to the form below with rough numbers and you'll get a quote within a day.",
+  },
+  {
+    q: "Do you run any open-enrollment classes I can just sign up for?",
+    a: "Yes — separate from hired events, Sam leads weekly group clinics and skills assessments at The Pickl Park in Frederick, MD. Those are open to anyone and booked through the venue; see the Pickl Park classes page for the lineup.",
   },
   {
     q: "What about beginners?",
@@ -270,6 +275,21 @@ export default function EventsPage() {
               </AnimateOnScroll>
             ))}
           </div>
+
+          <AnimateOnScroll>
+            <div className="glass-card p-6 mt-10 text-center">
+              <p className="text-text-muted leading-relaxed">
+                Looking for a class to join rather than an event to book?{" "}
+                <Link
+                  href="/programs/pickl-park"
+                  className="text-accent-blue font-semibold hover:underline"
+                >
+                  Sam&apos;s weekly clinics at The Pickl Park
+                </Link>{" "}
+                in Frederick, MD are open to anyone.
+              </p>
+            </div>
+          </AnimateOnScroll>
         </div>
       </section>
     </>
