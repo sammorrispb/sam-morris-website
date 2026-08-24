@@ -151,7 +151,7 @@ export default function AboutPage() {
       />
 
       {/* ─── Full-Bleed Hero ─── */}
-      <section className="relative min-h-[80vh] flex items-end hero-full-bleed -mt-16 pt-16 overflow-hidden">
+      <section className="relative min-h-[80vh] flex items-end hero-full-bleed hero-nav-offset overflow-hidden">
         <Image
           src="/images/sam-action.jpeg"
           alt="Sam Morris on the pickleball court"
@@ -163,7 +163,7 @@ export default function AboutPage() {
         <div className="relative z-10 mx-auto max-w-6xl px-6 w-full pb-20 pt-32">
           <p className="eyebrow mb-4">About Sam</p>
           <h1 className="font-heading font-black text-5xl md:text-7xl lg:text-8xl mb-6 leading-[0.95] max-w-4xl">
-            Coach. Builder. <span className="gradient-text-warm">Dad.</span>
+            Coach. <span className="gradient-text-warm">Dad.</span>
           </h1>
           <p className="text-text-primary/85 text-lg md:text-xl max-w-2xl leading-relaxed">
             A Chinese-born, US-adopted former Physical Educator turned

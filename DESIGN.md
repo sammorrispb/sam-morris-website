@@ -1,6 +1,6 @@
 ---
 name: Sam Morris — Coach Sam
-description: Personal coaching brand for sammorrispb.com. Coach. Builder. Dad. Warm premium charcoal + amber/sienna/sage — distinct from NGA's cool navy/teal and L&D's spruce/lime.
+description: Personal coaching brand for sammorrispb.com. Coach. Dad. Warm premium charcoal + amber/sienna/sage — distinct from NGA's cool navy/teal and L&D's spruce/lime.
 version: alpha
 colors:
   background: "#0F0E0C"
@@ -175,7 +175,8 @@ components:
 ## Overview
 
 This is the visual identity for **sammorrispb.com** — Sam Morris's personal
-coaching practice in Montgomery County, MD. Sam is a coach, builder, and dad:
+coaching practice in Montgomery County, MD. Sam is a coach, community builder,
+and dad:
 9 years as a PE teacher (M.S. Coaching from Ball State), 5.0+ player,
 RPO/PPR/DUPR certified, co-founder of Next Gen Academy.
 

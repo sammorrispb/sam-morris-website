@@ -27,7 +27,12 @@ Unique intersection:
 ### One-Liner Options
 - *"Helping families grow through sport — one rally at a time."*
 - *"I build programs that turn curious kids into confident athletes."*
-- *"Coach. Builder. Dad. Sport is my vehicle — growth mindset is the destination."*
+- *"Coach. Dad. Sport is my vehicle — growth mindset is the destination."*
+
+> **Note (2026-08-24):** "Builder" was dropped from the three-word brand line — it
+> read as confusing to visitors. The site now uses **"Coach. Dad."** in the home
+> hero eyebrow, the footer eyebrow, the About H1, and the default OG subtitle.
+> Prose descriptions ("community builder", "program builder") are unaffected.
 
 ---
 
@@ -153,7 +158,7 @@ Signature methodology. Front-and-center on the website.
 > *"Level up one skill each week. Collect your EASE badge."*
 
 **Social media bio:**
-> *Coach. Dad. Builder. Professional pickleball coach in Montgomery County, MD. Co-founder of Next Gen Academy. Real talk about coaching, parenting, and sport.*
+> *Coach. Dad. Professional pickleball coach in Montgomery County, MD. Co-founder of Next Gen Academy. Real talk about coaching, parenting, and sport.*
 
 ---
 

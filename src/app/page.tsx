@@ -174,7 +174,7 @@ export default function Home() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(HOME_FAQ_JSONLD) }}
       />
       {/* ─── Full-Bleed Hero ─── */}
-      <section className="relative min-h-[92vh] flex items-center hero-full-bleed -mt-16 pt-16 overflow-hidden">
+      <section className="relative min-h-[92vh] flex items-center hero-full-bleed hero-nav-offset overflow-hidden">
         <Image
           src="/images/coach-sam.jpeg"
           alt="Coach Sam Morris on the court"
@@ -186,7 +186,7 @@ export default function Home() {
         <div className="relative z-10 mx-auto max-w-6xl px-6 w-full py-24">
           <div className="max-w-3xl">
             <p className="eyebrow mb-5 animate-fade-in">
-              Coach. Builder. Dad. &middot; Helping families grow through sport — one rally at a time.
+              Coach. Dad. &middot; Helping families grow through sport — one rally at a time.
             </p>
             <h1 className="font-heading font-black text-5xl sm:text-6xl md:text-7xl lg:text-8xl leading-[0.95] mb-8 animate-fade-up">
               Pickleball coach in{" "}

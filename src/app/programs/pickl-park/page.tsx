@@ -143,7 +143,7 @@ export default function PicklParkPage() {
       />
 
       {/* ─── Hero ─── */}
-      <section className="relative min-h-[80vh] flex items-end hero-full-bleed -mt-16 pt-16 overflow-hidden">
+      <section className="relative min-h-[80vh] flex items-end hero-full-bleed hero-nav-offset overflow-hidden">
         <Image
           src="/images/indoor-play-action.jpeg"
           alt="Indoor pickleball play at a coached clinic"

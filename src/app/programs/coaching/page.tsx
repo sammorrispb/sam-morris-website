@@ -131,7 +131,7 @@ export default function CoachingPage() {
       <BackToTop />
 
       {/* ─── Full-Bleed Hero ─── */}
-      <section className="relative min-h-[80vh] flex items-end hero-full-bleed -mt-16 pt-16 overflow-hidden">
+      <section className="relative min-h-[80vh] flex items-end hero-full-bleed hero-nav-offset overflow-hidden">
         <Image
           src="/images/coach-sam.jpeg"
           alt="Coach Sam Morris coaching"

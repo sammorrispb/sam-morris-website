@@ -73,7 +73,7 @@ export default function ProgramsPage() {
   return (
     <>
       {/* ─── Full-Bleed Hero ─── */}
-      <section className="relative min-h-[70vh] flex items-end hero-full-bleed -mt-16 pt-16 overflow-hidden">
+      <section className="relative min-h-[70vh] flex items-end hero-full-bleed hero-nav-offset overflow-hidden">
         <Image
           src="/images/outdoor-action-shot.jpeg"
           alt="Pickleball in action"
