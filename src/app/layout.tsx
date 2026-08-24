@@ -6,6 +6,7 @@ import { TESTIMONIALS, getAggregateRating } from "@/lib/testimonials";
 import { Nav } from "@/components/Nav";
 import { Footer } from "@/components/Footer";
 import { AnnouncementBanner } from "@/components/AnnouncementBanner";
+import { ANNOUNCEMENT } from "@/lib/constants";
 import { PageViewTracker } from "@/components/PageViewTracker";
 import { UtmCapture } from "@/components/UtmCapture";
 import "./globals.css";
@@ -128,8 +129,20 @@ export default function RootLayout({
     <html
       lang="en"
       className={`${montserrat.variable} ${inter.variable} ${robotoMono.variable}`}
+      /* Drives .hero-nav-offset + .announcement-banner in globals.css. Cleared
+         before paint by the script below when the visitor already dismissed
+         this announcement, so the hero reclaims its bleed-under-nav layout. */
+      data-announcement={ANNOUNCEMENT ? ANNOUNCEMENT.id : undefined}
+      suppressHydrationWarning
     >
       <body className="antialiased">
+        {ANNOUNCEMENT && (
+          <script
+            dangerouslySetInnerHTML={{
+              __html: `try{if(localStorage.getItem('dismissed-announcement-${ANNOUNCEMENT.id}'))document.documentElement.removeAttribute('data-announcement')}catch(e){}`,
+            }}
+          />
+        )}
         {/* Person + Coach Schema */}
         <script
           type="application/ld+json"

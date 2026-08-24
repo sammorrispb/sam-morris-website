@@ -50,7 +50,7 @@ export const ANNOUNCEMENT: {
 } | null = {
   id: "nga-fall-2026",
   message:
-    "Next Gen Academy Fall Season — six Sundays, Sept 20 – Oct 25 in Rockville. Green & Yellow Ball groups, eight spots each.",
+    "Next Gen Academy Fall Season — six Sundays, Sept 20 – Oct 25 in Rockville.",
   href: "https://nextgenpbacademy.com/fall?utm_source=sammorrispb&utm_medium=banner&utm_campaign=nga_fall_2026",
   linkText: "Register",
 };

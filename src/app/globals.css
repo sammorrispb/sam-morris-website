@@ -200,6 +200,35 @@ body::before {
    PHOTO-FORWARD HERO PATTERNS
    ═══════════════════════════════════════════════════════════════ */
 
+/* Hero pulls up under the fixed nav so the photo bleeds to the top — but only
+   when no announcement banner is showing. With a banner in flow, the negative
+   margin would drag the hero over it and clip the copy (mobile bug, 2026-08-24).
+   The data attribute is stamped on <html> in layout.tsx and cleared before paint
+   for anyone who has dismissed the current announcement. */
+.hero-nav-offset {
+  margin-top: -4rem;
+  padding-top: 4rem;
+}
+
+.hero-nav-offset-roomy {
+  margin-top: -4rem;
+  padding-top: 8rem;
+}
+
+html[data-announcement] .hero-nav-offset {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+html[data-announcement] .hero-nav-offset-roomy {
+  margin-top: 0;
+  padding-top: 4rem;
+}
+
+html:not([data-announcement]) .announcement-banner {
+  display: none;
+}
+
 /* Full-bleed hero — photo with gradient overlay for legibility */
 .hero-full-bleed {
   position: relative;

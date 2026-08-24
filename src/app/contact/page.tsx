@@ -47,7 +47,7 @@ export default function ContactPage() {
         }}
       />
       {/* ─── Hero with photo backdrop ─── */}
-      <section className="relative section-photo-backdrop py-24 md:py-32 px-6 -mt-16 pt-32">
+      <section className="relative section-photo-backdrop py-24 md:py-32 px-6 hero-nav-offset-roomy">
         <div className="photo-bg">
           <Image
             src="/images/multi-court-outdoor.jpeg"

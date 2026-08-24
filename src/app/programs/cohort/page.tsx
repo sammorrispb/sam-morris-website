@@ -113,7 +113,7 @@ export default function CohortPage() {
       />
 
       {/* ─── Hero ─── */}
-      <section className="relative min-h-[75vh] flex items-end hero-full-bleed -mt-16 pt-16 overflow-hidden">
+      <section className="relative min-h-[75vh] flex items-end hero-full-bleed hero-nav-offset overflow-hidden">
         <Image
           src="/images/sam-group-selfie.jpg"
           alt="Coach Sam coaching a small group"

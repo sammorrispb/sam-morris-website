@@ -25,7 +25,7 @@ export function Footer() {
         <div className="mb-14 pb-12 border-b border-white/8">
           <div className="grid grid-cols-1 md:grid-cols-[1fr_auto] items-end gap-8">
             <div>
-              <p className="eyebrow mb-3">Coach. Builder. Dad.</p>
+              <p className="eyebrow mb-3">Coach. Dad.</p>
               {/* Tagline is brand decor in the footer — rendered as a styled
                   paragraph (not a heading) so per-page H2s remain
                   section-specific and unique. SEO audit 2026-05-24. */}
