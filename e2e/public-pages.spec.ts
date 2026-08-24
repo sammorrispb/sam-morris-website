@@ -3,7 +3,7 @@ import { test, expect, type Page } from "@playwright/test";
 /**
  * Public-page brand + smoke e2e. For every public marketing route, assert the
  * page renders, the reclaimed Coach Sam tagline anchors the footer, the
- * primary Free-Evaluation CTA is reachable, and NO banned brand phrase shows
+ * primary Request-a-Lesson CTA is reachable, and NO banned brand phrase shows
  * up in the rendered DOM. This is the in-browser counterpart to the
  * source-level guardrails in tests/brand/.
  */
@@ -15,13 +15,17 @@ const PUBLIC_ROUTES = [
   "/programs/coaching",
   "/programs/cohort",
   "/programs/events",
-  "/evaluation",
   "/quiz",
   "/contact",
 ];
 
 // Phrases that must never appear in visible rendered copy.
-const BANNED_VISIBLE = [/better than yesterday/i, /director of programming/i];
+const BANNED_VISIBLE = [
+  /better than yesterday/i,
+  /director of programming/i,
+  // Retired 2026-08-24 — the offer is gone, so it must not render anywhere.
+  /free[\s-]*(30[\s-]*minute\s+)?(skill\s+|pickleball\s+)?eval/i,
+];
 
 async function visibleText(page: Page): Promise<string> {
   return (await page.locator("body").innerText()).toLowerCase();
@@ -29,7 +33,7 @@ async function visibleText(page: Page): Promise<string> {
 
 for (const route of PUBLIC_ROUTES) {
   test.describe(`public page ${route}`, () => {
-    test("renders, anchors the tagline, exposes the eval CTA, no banned copy", async ({
+    test("renders, anchors the tagline, exposes the lesson CTA, no banned copy", async ({
       page,
     }) => {
       const res = await page.goto(route, { waitUntil: "domcontentloaded" });
@@ -45,7 +49,7 @@ for (const route of PUBLIC_ROUTES) {
 
       // Primary funnel CTA is always reachable from the nav.
       await expect(
-        page.getByRole("link", { name: /free evaluation/i }).first(),
+        page.getByRole("link", { name: /request a lesson/i }).first(),
       ).toBeVisible();
 
       // No banned brand phrase in the rendered DOM.

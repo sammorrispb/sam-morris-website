@@ -1,4 +1,4 @@
-import { CONTACT, SERVICE_AREA, COACH_REQUEST_URL, COACH_BOOKING_URL } from "./constants";
+import { CONTACT, SERVICE_AREA, COACH_REQUEST_URL } from "./constants";
 
 export function interestSlug(interest: string): string {
   return interest.toLowerCase().replace(/[^a-z0-9]+/g, "_").replace(/^_|_$/g, "");
@@ -72,7 +72,7 @@ function youthTemplate(name: string, interest: string): string {
 
 Thanks for your interest in youth programs! I run the Next Gen Pickleball Academy, designed to get kids ages 6-17 excited about the sport while building real skills.
 
-We focus on fundamentals, sportsmanship, and having fun — whether your child is picking up a paddle for the first time or already competing. I'd be happy to offer a free evaluation session so we can find the right fit.
+We focus on fundamentals, sportsmanship, and having fun — whether your child is picking up a paddle for the first time or already competing. Tell me a bit about your child's age and experience and I'll point you to the right level.
 
 Learn more about the academy:
 → https://nextgenpbacademy.com
@@ -154,26 +154,10 @@ I'll come back within a day with a recommended format and pricing.
 ${SIGN_OFF}`;
 }
 
-function evaluationTemplate(name: string): string {
-  return `Hi ${name},
-
-Thanks for booking a free pickleball evaluation — looking forward to getting you on court.
-
-Here's what to expect:
-• 30 minutes on court in Montgomery County, MD (I'll confirm the exact location based on your availability)
-• We'll rally, dink, and play a few points so I can see where your game is
-• You leave with your rating, the two things to work on next, and the right games to jump into
-
-I'll reach out within 24 hours to lock in a time that works for you. If you want to speed it up, reply with a couple of windows that work this week or next.
-
-${SIGN_OFF}`;
-}
-
 const TEMPLATE_MAP: Record<
   string,
   (name: string, interest: string, eventType?: string) => string
 > = {
-  "Free Evaluation": (name) => evaluationTemplate(name),
   "Private Lesson": (name) => privateLessonTemplate(name),
   "Group Lesson (2+)": (name) => groupLessonTemplate(name),
   "3+1 Play-In Special": (name) => threePlusOneTemplate(name),
@@ -208,20 +192,18 @@ export function generateEmailDraft(
 // Drip sequence (steps 1-3, sent by src/lib/drip.ts via the follow-up cron)
 // ─────────────────────────────────────────────────────────────────────────────
 
-// Mirrors coachBookingUrl() from src/lib/urls.ts on the feat/utm-eval-cta
-// branch (PR A1). Duplicated here so this branch has no merge dependency on
-// A1 — swap to the shared helper once A1 lands on main.
-function dripBookingUrl(step: number): string {
-  const url = new URL(COACH_BOOKING_URL);
+// Mirrors coachRequestUrl() from src/lib/urls.ts. Duplicated here so the drip
+// copy has no import cycle back through the client-side URL helpers.
+function dripRequestUrl(step: number): string {
+  const url = new URL(COACH_REQUEST_URL);
   url.searchParams.set("utm_source", "sammorrispb");
   url.searchParams.set("utm_medium", "website");
-  url.searchParams.set("utm_campaign", "eval_cta");
+  url.searchParams.set("utm_campaign", "lesson_cta");
   url.searchParams.set("utm_content", `drip_step${step}`);
   return url.toString();
 }
 
 const COACHING_INTERESTS = new Set([
-  "Free Evaluation",
   "Private Lesson",
   "Group Lesson (2+)",
   "3+1 Play-In Special",
@@ -229,11 +211,11 @@ const COACHING_INTERESTS = new Set([
   "Competitive Play",
 ]);
 
-type DripCta = { kind: "booking"; url: string } | { kind: "youth"; url: string } | { kind: "reply" };
+type DripCta = { kind: "request"; url: string } | { kind: "youth"; url: string } | { kind: "reply" };
 
 function dripCta(interest: string, step: number): DripCta {
   if (COACHING_INTERESTS.has(interest)) {
-    return { kind: "booking", url: dripBookingUrl(step) };
+    return { kind: "request", url: dripRequestUrl(step) };
   }
   if (interest === "Youth Programs") {
     return { kind: "youth", url: "https://nextgenpbacademy.com" };
@@ -257,10 +239,10 @@ export function generateDripEmail(
 
   if (step === 1) {
     const ctaBlock =
-      cta.kind === "booking"
-        ? `If you're still deciding, the easiest next step is the free 30-minute evaluation. We get on court, I see where your game is, and you leave with a rating and a clear plan.\n\nBook a time here: ${cta.url}\n\nOr just reply — happy to answer anything.`
+      cta.kind === "request"
+        ? `If you're still deciding, the easiest next step is a single 1-on-1 session. We get on court, I see where your game is, and you leave with a clear plan.\n\nRequest a time here: ${cta.url}\n\nOr just reply — happy to answer anything.`
         : cta.kind === "youth"
-          ? `If you're still deciding, take a look at the Next Gen Academy pathway — four levels, free evaluation before placement, and a clear picture of where your child fits:\n→ ${cta.url}\n\nOr just reply — happy to answer anything.`
+          ? `If you're still deciding, take a look at the Next Gen Academy pathway — four levels and a clear picture of where your child fits:\n→ ${cta.url}\n\nOr just reply — happy to answer anything.`
           : `If anything was unclear — or you just want to talk it through — reply to this email and I'll point you to the right next step.`;
     return {
       subject: `Quick check-in from Coach Sam`,
@@ -278,16 +260,16 @@ ${unsubscribeLine}`,
 
   if (step === 2) {
     const ctaBlock =
-      cta.kind === "booking"
-        ? `That's exactly what the free evaluation finds. 30 minutes on court, a DUPR-aligned rating, and the two things to work on next. Players from brand-new to 5.0 have used it to stop guessing and start improving.\n\nGrab a slot here: ${cta.url}`
+      cta.kind === "request"
+        ? `That's exactly what a first session finds. One hour on court and you leave knowing the two things to work on next. Players from brand-new to 5.0 have used it to stop guessing and start improving.\n\nRequest a slot here: ${cta.url}`
         : cta.kind === "youth"
-          ? `That's exactly why the Next Gen Academy starts every player with a free evaluation — so your child works on the right two things from day one, at the right level:\n→ ${cta.url}`
+          ? `That's exactly why the Next Gen Academy places every player by level — so your child works on the right two things from day one:\n→ ${cta.url}`
           : `If you want help figuring out your two, reply to this email — I'll get you pointed at the right next step.`;
     return {
       subject: `The two things holding most players back`,
       body: `Hi ${name},
 
-Here's what I see over and over in evaluations: you're probably two specific habits away from your next level. Not ten — two. Usually it's serve consistency and what happens at the kitchen line.
+Here's what I see over and over on court: you're probably two specific habits away from your next level. Not ten — two. Usually it's serve consistency and what happens at the kitchen line.
 
 ${ctaBlock}
 
@@ -299,10 +281,10 @@ ${unsubscribeLine}`,
 
   // Step 3 — warm last touch; the door stays open.
   const ctaBlock =
-    cta.kind === "booking"
-      ? `Whenever you're ready to work on your game, the free evaluation will be here, and so will I. No pressure, no expiration.\n\nBook anytime: ${cta.url}`
+    cta.kind === "request"
+      ? `Whenever you're ready to work on your game, the court will be here, and so will I. No pressure, no expiration.\n\nRequest a session anytime: ${cta.url}`
       : cta.kind === "youth"
-        ? `Whenever the timing works for your family, the Next Gen Academy door is open — and the free evaluation will be here:\n→ ${cta.url}`
+        ? `Whenever the timing works for your family, the Next Gen Academy door is open:\n→ ${cta.url}`
         : `Whenever the timing is right, just reply to this email — I'll pick it up from there.`;
   return {
     subject: `Door's open whenever you're ready`,

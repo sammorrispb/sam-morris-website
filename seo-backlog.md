@@ -26,7 +26,7 @@ moves the item to the **Done log** below.
 ## P0 — Foundation Sweep
 
 - [ ] (schema, S) Verify `src/lib/seo.ts` exists with `breadcrumbJsonLd` and `faqJsonLd`. If missing helpers, add them. Reference: schema.org/BreadcrumbList, schema.org/FAQPage.
-- [ ] (schema, S) Add BreadcrumbList JSON-LD to `/`, `/about`, `/programs`, `/evaluation`, `/contact`, `/blog`. (Already on `/programs/coaching` and `/quiz`.)
+- [ ] (schema, S) Add BreadcrumbList JSON-LD to `/`, `/about`, `/programs`, `/contact`, `/blog`. (Already on `/programs/coaching` and `/quiz`.)
 - [ ] (schema, S) Add FAQPage JSON-LD with 4 Qs to `/` (home): pricing, programs offered, scheduling, service area.
 - [ ] (schema, S) Add FAQPage JSON-LD with 3 Qs to `/programs`: which program is right for me, age range, refund policy.
 - [ ] (schema, M) Add `LocalBusiness` JSON-LD to `src/app/layout.tsx` with NAP (name, address, telephone), `priceRange: "$130-$400"`, and `sameAs: [https://www.nextgenpbacademy.com, https://www.linkanddink.com]`. Why: cross-site entity graph + map-pack candidacy.

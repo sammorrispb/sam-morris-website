@@ -77,6 +77,18 @@ const BANNED: { label: string; pattern: RegExp }[] = [
     label: "banned competitor paddle brand (JOOLA is exclusive)",
     pattern: /selkirk|paddletek/i,
   },
+  {
+    // The free 30-minute skill evaluation was discontinued 2026-08-24 — the
+    // /evaluation page, its API route, and every CTA came out with it. Copy
+    // must never re-advertise it; the primary CTA is the private-lesson
+    // request flow (COACH_REQUEST_URL).
+    label: "retired free-evaluation offer",
+    pattern: /free[\s-]*(30[\s-]*minute\s+)?(skill\s+|pickleball\s+)?eval/i,
+  },
+  {
+    label: "link to the retired /evaluation route",
+    pattern: /href=(?:"|'|\{")\/evaluation/i,
+  },
 ];
 
 describe("brand guardrails — banned phrases", () => {

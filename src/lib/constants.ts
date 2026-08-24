@@ -31,11 +31,10 @@ export const WHATSAPP_GROUP = {
   href: "https://chat.whatsapp.com/LaRjBQT8O5p5aJS5vSAk0i?s=cl&p=i&mlu=2",
 } as const;
 
-export const COACH_BOOKING_URL = "https://coach.sammorrispb.com/book/evaluation";
-
 // Request a private lesson — no public price; Sam reviews the request, confirms
-// a time, and sends a Stripe invoice (Coach OS request flow). Distinct from the
-// free-evaluation booking link above.
+// a time, and sends a Stripe invoice (Coach OS request flow). This is the
+// site-wide primary CTA destination: the skill-evaluation funnel it replaced
+// was retired on 2026-08-24 (offer discontinued — see lib/urls.ts).
 export const COACH_REQUEST_URL = "https://coach.sammorrispb.com/book/private-lesson";
 
 // Join the cohort interest pool (Coach OS). Players join with skill + age +
@@ -66,13 +65,12 @@ export const ANNOUNCEMENT: {
 // }
 // {
 //   id: "spring-2026",
-//   message: "Spring 2026 private lessons and skill evaluations are open for booking!",
+//   message: "Spring 2026 private lessons and group clinics are open for booking!",
 //   href: "/contact",
 //   linkText: "Book a Session",
 // }
 
 export const INTEREST_OPTIONS = [
-  "Free Evaluation",
   "Private Lesson",
   "Group Lesson (2+)",
   "3+1 Play-In Special",

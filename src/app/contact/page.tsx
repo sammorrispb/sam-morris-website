@@ -9,21 +9,21 @@ import { breadcrumbJsonLd } from "@/lib/seo";
 export const metadata: Metadata = {
   title: "Contact — Book Pickleball Lessons in MoCo, MD",
   description:
-    "Book a free pickleball evaluation with Coach Sam Morris in Montgomery County, MD. Private lessons, youth academy, family coaching. Call 301-325-4731.",
+    "Book pickleball coaching with Coach Sam Morris in Montgomery County, MD. Private lessons, youth academy, family coaching. Call 301-325-4731.",
   alternates: {
     canonical: "https://www.sammorrispb.com/contact",
   },
   openGraph: {
     title: "Contact — Book Pickleball Lessons in MoCo, MD",
     description:
-      "Free evaluation, private lessons, youth academy, and family coaching in Montgomery County, MD. Call 301-325-4731.",
+      "Private lessons, group clinics, youth academy, and family coaching in Montgomery County, MD. Call 301-325-4731.",
     url: "https://www.sammorrispb.com/contact",
     images: [
       {
-        url: "/og?title=Let's%20Connect&subtitle=Book%20a%20Free%20Evaluation%20%C2%B7%20Start%20Your%20Pickleball%20Journey",
+        url: "/og?title=Let's%20Connect&subtitle=Request%20a%20Lesson%20%C2%B7%20Start%20Your%20Pickleball%20Journey",
         width: 1200,
         height: 630,
-        alt: "Contact Sam Morris — Book a Free Pickleball Evaluation",
+        alt: "Contact Sam Morris — Request a Pickleball Lesson",
       },
     ],
   },
@@ -172,39 +172,35 @@ export default function ContactPage() {
               </TrackedExternalLink>
             </div>
 
-            {/* Skill Evaluation Card */}
+            {/* Private Lesson Card */}
             <div className="glass-card rounded-2xl p-7">
               <h2 className="font-heading font-bold text-xl mb-3">
-                Skill evaluation
+                Private lessons
               </h2>
               <p className="text-text-muted leading-relaxed mb-4 text-sm">
-                A 30-minute on-court evaluation gives you an honest read on
-                your level and a personalized growth plan.
+                Every session is 1-on-1 and built around the part of your game
+                you most want to fix — with video review when it helps.
               </p>
               <ul className="space-y-3 text-text-muted text-sm">
                 <li className="flex items-start gap-3">
                   <span className="text-accent-lime font-bold mt-0.5">✓</span>
                   <span>
-                    <strong className="text-text-primary">Required</strong> for new Next
-                    Gen Pickleball Academy players
+                    <strong className="text-text-primary">Single sessions</strong> or
+                    4-session packages
                   </span>
                 </li>
                 <li className="flex items-start gap-3">
                   <span className="text-accent-blue font-bold mt-0.5">○</span>
                   <span>
-                    <strong className="text-text-primary">Optional</strong> for adult
-                    private-lesson clients
+                    <strong className="text-text-primary">Junior lessons</strong> for
+                    kids who want focused 1-on-1 time
                   </span>
                 </li>
               </ul>
               <div className="mt-5 pt-4 border-t border-white/10 space-y-2 text-sm text-text-muted">
                 <p>
-                  <strong className="text-text-primary">Free</strong> — 30-minute
-                  initial evaluation for every DMV player
-                </p>
-                <p>
-                  <strong className="text-text-primary">Re-evaluation:</strong> priced
-                  as a private lesson
+                  Request a time and Sam confirms the slot and sends an invoice —
+                  no public price list, every quote fits the session.
                 </p>
               </div>
             </div>
