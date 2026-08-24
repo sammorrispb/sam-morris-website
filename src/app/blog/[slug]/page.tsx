@@ -58,11 +58,16 @@ type NotionRichText = {
 /**
  * Returns true when an href points at the /programs/coaching page (relative or
  * absolute). We append blog-attribution UTMs to these links at render time so
- * the Notion source content stays clean. Legacy /evaluation links still count:
- * the retired evaluation funnel 301s to /programs/coaching (vercel.json),
- * so posts written against the old URL keep their attribution.
+ * the Notion source content stays clean.
+ *
+ * /evaluation used to be listed here so posts written against the retired
+ * evaluation funnel kept their attribution through its 301. Every published
+ * post was repointed at /programs/coaching on 2026-08-24, so the entry was
+ * dropped. If a post ever links to /evaluation again it will still resolve
+ * (vercel.json redirects it) but will lose its blog UTMs — point new CTAs at
+ * /programs/coaching directly.
  */
-const COACHING_PATHS = ["/programs/coaching", "/evaluation"];
+const COACHING_PATHS = ["/programs/coaching"];
 
 function isCoachingHref(href: string): boolean {
   if (!href) return false;
