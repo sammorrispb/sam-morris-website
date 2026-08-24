@@ -89,12 +89,31 @@ const BANNED: { label: string; pattern: RegExp }[] = [
     label: "link to the retired /evaluation route",
     pattern: /href=(?:"|'|\{")\/evaluation/i,
   },
+  {
+    // The venue is "The Pickl Park" (no e) — matches thepicklpark.com and its
+    // booking subdomain. The original FREDERICK_VENUE constant had it wrong and
+    // the typo spread into page copy, Service structured data, and the
+    // lead-response email before it was caught.
+    label: "misspelled venue name ('Pickle Park' — it is 'Pickl Park')",
+    pattern: /pickle\s+park/i,
+  },
 ];
+
+/**
+ * JSX wraps prose across lines, so a banned phrase can be split by a newline
+ * plus indentation ("The Pickle\n  Park") and slip past a raw-text regex.
+ * Collapsing whitespace first is what makes these patterns actually reliable —
+ * a wrapped "Pickle Park" is exactly how the venue typo survived a repo-wide
+ * sweep in PR #72.
+ */
+const normalizeWhitespace = (text: string): string => text.replace(/\s+/g, " ");
 
 describe("brand guardrails — banned phrases", () => {
   for (const { label, pattern } of BANNED) {
     it(`no source file contains: ${label}`, () => {
-      const offenders = ALL_FILES.filter((f) => pattern.test(readFileSync(f, "utf8")));
+      const offenders = ALL_FILES.filter((f) =>
+        pattern.test(normalizeWhitespace(readFileSync(f, "utf8"))),
+      );
       expect(
         offenders.map((f) => path.relative(SRC, f)),
         `Found banned phrase /${pattern.source}/ in: ${offenders.join(", ")}`,
