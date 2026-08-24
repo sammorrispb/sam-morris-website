@@ -4,7 +4,8 @@ import { AnimateOnScroll } from "@/components/AnimateOnScroll";
 import { BackToTop } from "@/components/BackToTop";
 import { TrackedExternalLink } from "@/components/TrackedExternalLink";
 import { breadcrumbJsonLd, faqJsonLd } from "@/lib/seo";
-import { CONTACT, COACH_REQUEST_URL, FREDERICK_VENUE } from "@/lib/constants";
+import { CONTACT, FREDERICK_VENUE } from "@/lib/constants";
+import { coachRequestUrl } from "@/lib/urls";
 
 const PAGE = "programs_pickl_park";
 const VENUE_ADDRESS = `${FREDERICK_VENUE.street}, ${FREDERICK_VENUE.city} ${FREDERICK_VENUE.zip}`;
@@ -311,7 +312,7 @@ export default function PicklParkPage() {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <a
-                href={COACH_REQUEST_URL}
+                href={coachRequestUrl("pickl_park_private")}
                 className="inline-flex items-center justify-center font-heading font-semibold px-8 py-4 rounded-full btn-gradient text-base"
               >
                 Request a private lesson

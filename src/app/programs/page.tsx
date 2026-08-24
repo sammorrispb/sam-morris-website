@@ -6,7 +6,7 @@ import { AnimateOnScroll } from "@/components/AnimateOnScroll";
 import { TrackedExternalLink } from "@/components/TrackedExternalLink";
 import { COACH_REQUEST_URL } from "@/lib/constants";
 import { NGA_FALL_2026 } from "@/lib/nga-fall";
-import { coachBookingUrl, familySiteUrl } from "@/lib/urls";
+import { coachRequestUrl, familySiteUrl } from "@/lib/urls";
 
 export const metadata: Metadata = {
   title: "Pickleball Programs & Lessons — Youth Academy, Private Coaching, Family Sessions",
@@ -22,7 +22,7 @@ export const metadata: Metadata = {
     url: "https://www.sammorrispb.com/programs",
     images: [
       {
-        url: "/og?title=Programs%20%26%20Services&subtitle=Coaching%20%C2%B7%20Youth%20Academy%20%C2%B7%20Skill%20Evaluation",
+        url: "/og?title=Programs%20%26%20Services&subtitle=Coaching%20%C2%B7%20Youth%20Academy%20%C2%B7%20Training%20Cohorts",
         width: 1200,
         height: 630,
         alt: "Pickleball Programs & Services — Sam Morris",
@@ -100,11 +100,11 @@ export default function ProgramsPage() {
           <div className="mx-auto max-w-7xl grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-5">
             {[
               {
-                badge: "Free for DMV",
-                title: "Skill Evaluation",
-                desc: "30-minute on-court read on your level + a written plan.",
-                href: coachBookingUrl("programs_card"),
-                cta: "Book Free Eval",
+                badge: "2+ players",
+                title: "Group Lessons",
+                desc: "Bring a partner or a small crew — one session, shared court.",
+                href: "/programs/coaching",
+                cta: "See Group Options",
                 image: "/images/sam-portrait-with-paddle.jpg",
               },
               {
@@ -205,7 +205,7 @@ export default function ProgramsPage() {
               </h2>
               <p className="text-text-muted text-lg max-w-2xl mx-auto">
                 Four levels with a clear progression from beginner to advanced.
-                Free evaluation before placement.
+                Every player is placed by level before the season starts.
               </p>
             </div>
 
@@ -265,10 +265,10 @@ export default function ProgramsPage() {
 
             <div className="glass-card-amber rounded-2xl p-8 text-center max-w-3xl mx-auto">
               <p className="text-text-primary font-heading font-bold text-xl mb-2">
-                Free 30-minute evaluation before placement.
+                Not sure which level fits your child?
               </p>
               <p className="text-text-muted text-sm mb-6">
-                We&apos;ll find the perfect fit for your child.
+                Head to the Academy site and we&apos;ll find the right group.
               </p>
               <TrackedExternalLink
                 label="nga_visit"
@@ -409,20 +409,20 @@ export default function ProgramsPage() {
             Not sure which program is right? Let&apos;s <span className="gradient-text-warm">figure it out.</span>
           </h2>
           <p className="text-text-muted text-lg mb-8 max-w-xl mx-auto">
-            30-minute evaluation, free for every DMV player. You&apos;ll leave with
-            a rating and a plan.
+            Tell me where your game is and what you want to fix. I&apos;ll point
+            you at the right format and confirm a time.
           </p>
           <TrackedLink
-            href={coachBookingUrl("programs_footer_cta")}
+            href={coachRequestUrl("programs_footer_cta")}
             className="inline-flex items-center font-heading font-semibold px-8 py-4 rounded-full btn-gradient text-base"
             eventProps={{
-              label: "Book a Free Evaluation",
+              label: "Request a Lesson",
               page: "programs",
               section: "footer_cta",
-              destination: coachBookingUrl("programs_footer_cta"),
+              destination: coachRequestUrl("programs_footer_cta"),
             }}
           >
-            Book a Free Evaluation →
+            Request a Lesson →
           </TrackedLink>
         </div>
       </section>

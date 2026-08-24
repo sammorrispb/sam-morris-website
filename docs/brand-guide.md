@@ -85,17 +85,11 @@ Signature methodology. Front-and-center on the website.
 - Green (Intermediate)
 - Yellow (Coach-curated advanced)
 - Season packages available with sibling discounts
-- Free 30-minute evaluation before placement
 - Website: www.nexgenpbacademy.com
 
 ### Private Lessons
 - Personalized 1-on-1 coaching
 - Tailored to individual goals and skill level (new to 5.0)
-
-### Skill Evaluation
-- Free 30-minute on-court evaluation for every DMV player
-- DUPR-aligned skill rating + a personalized improvement plan
-- Required for new Next Gen Academy placements; optional for adult coaching clients
 
 **Note:** No pricing on the site yet — will be added separately.
 
@@ -195,7 +189,7 @@ sage as the singular cool note reserved for EASE.
 - **Burnt Sienna** (`#B85C2F`) — amber's gradient partner; second stop in
   `gradient-text` and `gradient-text-warm`.
 - **Terracotta** (`#D9523E`) — the **ember** tone for higher-urgency CTAs
-  ("Book Evaluation," "Schedule a Lesson"). Distinct visual heat from the
+  ("Request a Lesson," "Schedule a Session"). Distinct visual heat from the
   soft amber.
 - **Sage** (`#A5C49C`) — the **only cool note** in the palette. Scoped
   strictly to EASE moments — EASE badges, success states, milestone
@@ -212,7 +206,7 @@ sage as the singular cool note reserved for EASE.
   milestone language, it doesn't use sage. The brand's warmth is the rule;
   sage is the exception that makes the rule readable.
 - **Two CTA ladders, not three.** Amber = soft action ("Read the Post,"
-  "View the Pathway"). Ember (terracotta) = hot action ("Book Evaluation,"
+  "View the Pathway"). Ember (terracotta) = hot action ("Request a Lesson,"
   "Schedule a Lesson"). Outline = tertiary nav.
 - **Glassmorphism is on-brand here** (unlike NGA and L&D). The
   `backdrop-filter: blur(14px)` over low-alpha cream tint matches the

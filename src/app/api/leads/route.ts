@@ -317,8 +317,8 @@ export async function POST(request: Request) {
         utm_content: utm.utm_content,
         ...(eventType ? { event_type: eventType } : {}),
         ...(location ? { location } : {}),
-        // Durable delivery record (see eval-book route) — flags leads that
-        // generated no email so they can be followed up manually.
+        // Durable delivery record — flags leads that generated no email so
+        // they can be followed up manually.
         confirmation_email_sent: confirmationSent,
         sam_notified: samNotified,
         ...(confirmationError ? { email_error: confirmationError } : {}),

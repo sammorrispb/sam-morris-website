@@ -1,4 +1,4 @@
-import { COACH_BOOKING_URL } from "@/lib/constants";
+import { COACH_REQUEST_URL } from "@/lib/constants";
 
 const MARKETING_REF = "sammorrispb";
 const UTM_SOURCE = "sammorrispb";
@@ -29,16 +29,19 @@ export function familySiteUrl(
 }
 
 /**
- * Stamp the coach.sammorrispb.com free-evaluation booking link with UTM
- * params so eval bookings attribute back to the page/section that drove
- * the click. `content` should be "<page>_<section>" (e.g. "home_hero"),
- * matching the page/section strings used in TrackedLink eventProps.
+ * Stamp the coach.sammorrispb.com private-lesson request link with UTM params
+ * so lesson requests attribute back to the page/section that drove the click.
+ * `content` should be "<page>_<section>" (e.g. "home_hero"), matching the
+ * page/section strings used in TrackedLink eventProps.
+ *
+ * Replaced coachBookingUrl()/the `eval_cta` campaign when the no-cost skill
+ * evaluation offer was discontinued and its funnel retired (2026-08-24).
  */
-export function coachBookingUrl(content: string): string {
-  const url = new URL(COACH_BOOKING_URL);
+export function coachRequestUrl(content: string): string {
+  const url = new URL(COACH_REQUEST_URL);
   url.searchParams.set("utm_source", UTM_SOURCE);
   url.searchParams.set("utm_medium", "website");
-  url.searchParams.set("utm_campaign", "eval_cta");
+  url.searchParams.set("utm_campaign", "lesson_cta");
   url.searchParams.set("utm_content", content);
   return url.toString();
 }

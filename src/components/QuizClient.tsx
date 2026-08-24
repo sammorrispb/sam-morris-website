@@ -5,7 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { QUIZ_QUESTIONS, QUIZ_RESULTS, calculateResult } from "@/lib/quiz";
 import { trackEvent, getVisitorIdForForm, getUtm } from "@/lib/funnelClient";
-import { coachBookingUrl } from "@/lib/urls";
+import { coachRequestUrl } from "@/lib/urls";
 
 export function QuizClient() {
   const [step, setStep] = useState(0);
@@ -136,11 +136,11 @@ export function QuizClient() {
 
         <div className="text-center">
           <Link
-            href={coachBookingUrl("quiz_result")}
-            onClick={() => trackEvent("cta_click", { label: "Book a Free Evaluation", page: "/quiz", section: "result", destination: coachBookingUrl("quiz_result") })}
+            href={coachRequestUrl("quiz_result")}
+            onClick={() => trackEvent("cta_click", { label: "Request a Lesson", page: "/quiz", section: "result", destination: coachRequestUrl("quiz_result") })}
             className="btn-gradient px-8 py-3.5 rounded-full font-semibold inline-block"
           >
-            Book a Free Evaluation →
+            Request a Lesson →
           </Link>
           <p className="text-text-muted text-xs mt-3">
             Get a personalized assessment from Coach Sam

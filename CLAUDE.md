@@ -3,7 +3,7 @@
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
 ## What this is
-Sam Morris's personal coaching site at **sammorrispb.com** — Next.js 16 (App Router) + TypeScript + Tailwind v4. Hosts coaching offers, blog, evaluation funnel, contact form, and admin dashboard. Independent coaching launched 2026-05-04; this is the public face for that practice.
+Sam Morris's personal coaching site at **sammorrispb.com** — Next.js 16 (App Router) + TypeScript + Tailwind v4. Hosts coaching offers, blog, contact form, and admin dashboard. Independent coaching launched 2026-05-04; this is the public face for that practice.
 
 ## Commands
 - `npm run dev` — Next dev server on :3000.
@@ -13,11 +13,11 @@ Sam Morris's personal coaching site at **sammorrispb.com** — Next.js 16 (App R
 - No `test` or `typecheck` script — type errors only surface during `next build` (strict mode).
 
 ## Architecture
-**App Router layout** in `src/app/`: public marketing pages (`/`, `/about`, `/programs`, `/programs/coaching`, `/programs/events`, `/evaluation`, `/quiz`, `/blog`, `/blog/[slug]`, `/contact`), plus an `/admin` dashboard. `/tournament/*` is rewritten through to `tournamentwebsite.vercel.app` (see `vercel.json`). Many legacy `/locations/*`, `/playdate/*`, and old program slugs are 301'd to current pages — check `vercel.json` before adding new routes that might collide.
+**App Router layout** in `src/app/`: public marketing pages (`/`, `/about`, `/programs`, `/programs/coaching`, `/programs/cohort`, `/programs/events`, `/quiz`, `/blog`, `/blog/[slug]`, `/contact`), plus an `/admin` dashboard. `/tournament/*` is rewritten through to `tournamentwebsite.vercel.app` (see `vercel.json`). Many legacy `/locations/*`, `/playdate/*`, and old program slugs are 301'd to current pages — check `vercel.json` before adding new routes that might collide.
 
 **Blog/MDX system** is Notion-backed via `@notionhq/client`. `src/lib/blog.ts` pulls Published rows from `NOTION_BLOG_DB_ID`, renders blocks server-side, and `next-mdx-remote` handles inline MDX. Posts gracefully degrade to empty list if env is missing — don't add throws there.
 
-**Lead / booking flow**: `/contact` and `/evaluation` submit to `src/app/api/leads/route.ts` and `src/app/api/eval-book/route.ts`, which write to Supabase (`@supabase/supabase-js`, admin features only) and send email via Nodemailer (`src/lib/email.ts`, `src/lib/emailTemplates.ts`). Paid lessons use **Stripe Payment Links** (external checkout) — there is no Stripe SDK flow on this site. The Stripe webhook at `src/app/api/stripe/webhook` exists for receipt logging only. A daily Vercel cron at `/api/cron/follow-up` (12:00 UTC, see `vercel.json`) drives lead follow-up email sequences.
+**Lead / booking flow**: `/contact` submits to `src/app/api/leads/route.ts`, which writes to Supabase (`@supabase/supabase-js`, admin features only) and send email via Nodemailer (`src/lib/email.ts`, `src/lib/emailTemplates.ts`). Paid lessons use **Stripe Payment Links** (external checkout) — there is no Stripe SDK flow on this site. The Stripe webhook at `src/app/api/stripe/webhook` exists for receipt logging only. A daily Vercel cron at `/api/cron/follow-up` (12:00 UTC, see `vercel.json`) drives lead follow-up email sequences.
 
 **Analytics**: outbound CTA clicks, lead submits, scroll depth, and quiz events are forwarded to the Open Brain analytics-ingest edge function via the same-origin `/api/analytics` proxy. See `src/lib/funnelClient.ts` (browser → `/api/analytics`) and `src/app/api/analytics/route.ts` (server → OB, token-authed with `LEAD_INGEST_TOKEN` + `OPEN_BRAIN_ANALYTICS_URL`). `src/lib/urls.ts` stamps `?ref=sammorrispb` / `utm_source=sammorrispb` on cross-site family links. Fire-and-forget; analytics failures never block the page. Don't re-add Hub funnel calls.
 
@@ -33,9 +33,22 @@ Sam Morris's personal coaching site at **sammorrispb.com** — Next.js 16 (App R
 
 Note the spelling: **"Pickl", not "Pickle"** — matches thepicklpark.com and the venue's booking subdomain. The original constant had it wrong; don't reintroduce the typo.
 
-The Frederick exception now covers private lessons, evals, **and the open-enrollment group clinics / skills assessments Sam personally leads at that venue** (`/programs/pickl-park`). It does NOT extend to hired-event copy (birthdays, corporate, 3+1) — the events page still sells MoCo-only travel — and it must not touch `SERVICE_AREA.shortDescription`, which feeds those group/3+1/event templates. Don't add other out-of-radius venues, and don't list competitor venues by name.
+The Frederick exception now covers private lessons **and the open-enrollment group clinics / skills assessments Sam personally leads at that venue** (`/programs/pickl-park`). It does NOT extend to hired-event copy (birthdays, corporate, 3+1) — the events page still sells MoCo-only travel — and it must not touch `SERVICE_AREA.shortDescription`, which feeds those group/3+1/event templates. Don't add other out-of-radius venues, and don't list competitor venues by name.
 
 **Pickl Park class schedule is deliberately not hard-coded.** Individual sessions get added, moved, and cancelled for low turnout on short notice, and per-session registration URLs (`thepicklpark.podplay.app/events/<uuid>`) die once the session passes. `/programs/pickl-park` therefore lists recurring cadence ("Mondays, 10:00–11:00am") and sends every CTA to `FREDERICK_VENUE.clinicsUrl`, the venue's live public clinics listing. Don't replace this with dated entries. If the weekly pattern itself changes, edit the `CLASSES` array in `src/app/programs/pickl-park/page.tsx`.
+
+Note: the Pickl Park **"Skills Assessment"** classes are the venue's own paid clinics, booked and paid through The Pickl Park. They are unrelated to the retired free 30-minute skill evaluation below — don't collapse the two.
+
+### The free evaluation is retired (2026-08-24)
+The free 30-minute skill evaluation was discontinued. The `/evaluation` page, its
+`/api/eval-book` route, the `Free Evaluation` interest option, and every eval CTA
+are gone; `/evaluation` 301s to `/programs/coaching` (`vercel.json`). The
+site-wide primary CTA is now the private-lesson request flow —
+`coachRequestUrl()` in `src/lib/urls.ts` (built on `COACH_REQUEST_URL`, UTM
+campaign `lesson_cta`, which replaced `coachBookingUrl()`/`eval_cta`). Do **not**
+re-introduce free-evaluation copy, a rating-evaluation landing page, or an
+evaluation `Offer` in the JSON-LD graph — `tests/brand/brand-copy.test.ts` and
+`e2e/public-pages.spec.ts` both fail on it.
 
 ### Partner-link rules (blog, programs, anywhere user-facing)
 - **JOOLA** is the default paddle/gear link (Pike & Rose flagship + joola.com). It is the only paddle brand allowed in copy.

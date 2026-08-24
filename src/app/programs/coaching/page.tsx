@@ -361,7 +361,7 @@ export default function CoachingPage() {
               <ol className="space-y-3 text-text-muted text-base list-none max-w-md mx-auto text-left mb-8">
                 <li className="flex gap-3">
                   <span className="font-mono text-accent-blue font-bold">01</span>
-                  <span><strong className="text-text-primary">Book a free skill evaluation</strong> if you&apos;re new to coaching.</span>
+                  <span><strong className="text-text-primary">Request a first session</strong> if you&apos;re new to coaching.</span>
                 </li>
                 <li className="flex gap-3">
                   <span className="font-mono text-accent-blue font-bold">02</span>
@@ -372,12 +372,14 @@ export default function CoachingPage() {
                   <span><strong className="text-text-primary">Bring a crew</strong> for the group or 3+1 play-in rate.</span>
                 </li>
               </ol>
-              <Link
-                href="/evaluation"
+              <a
+                href={COACH_REQUEST_URL}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="inline-flex items-center font-heading font-semibold px-8 py-4 rounded-full btn-gradient text-base"
               >
-                Book a Free Evaluation →
-              </Link>
+                Request a Lesson →
+              </a>
             </div>
           </AnimateOnScroll>
         </div>
