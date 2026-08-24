@@ -5,7 +5,13 @@ import { BackToTop } from "@/components/BackToTop";
 import { TrackedExternalLink } from "@/components/TrackedExternalLink";
 import { breadcrumbJsonLd, faqJsonLd } from "@/lib/seo";
 import { CONTACT, FREDERICK_VENUE } from "@/lib/constants";
-import { coachRequestUrl } from "@/lib/urls";
+import { coachRequestUrl, picklParkEventUrl } from "@/lib/urls";
+import {
+  PICKL_PARK_SESSIONS,
+  sessionChipLabel,
+  sessionFullLabel,
+  upcomingSessions,
+} from "@/lib/picklParkSessions";
 
 const PAGE = "programs_pickl_park";
 const VENUE_ADDRESS = `${FREDERICK_VENUE.street}, ${FREDERICK_VENUE.city} ${FREDERICK_VENUE.zip}`;
@@ -41,51 +47,78 @@ export const metadata: Metadata = {
   },
 };
 
+// Re-render hourly so sessions that have already happened drop off their card
+// without waiting for the next deploy.
+export const revalidate = 3600;
+
 /**
  * The classes Sam personally leads at The Pickl Park.
  *
- * Cadence, not dates: the venue's booking platform owns the calendar, and
- * individual sessions get added, moved, and cancelled for low turnout on
- * short notice. Listing the recurring pattern keeps this page true without
- * a maintenance burden, and every CTA sends players to the live listing for
- * the actual dates.
+ * `cadence` is the durable claim — the recurring pattern Sam teaches. The
+ * dated registration links live in lib/picklParkSessions.ts, keyed by `id`;
+ * see that file for why they are hand-maintained and how to refresh them.
+ *
+ * A class with no upcoming dated sessions falls back to the full clinics
+ * listing, so letting the tail run short is untidy rather than broken.
  */
-const CLASSES: { title: string; level: string; cadence: string; body: string }[] = [
+const CLASSES: {
+  id: string;
+  title: string;
+  level: string;
+  cadence: string;
+  body: string;
+}[] = [
   {
+    id: "101",
     title: "101 — Intro to Pickleball",
     level: "Beginner",
     cadence: "Mondays, 10:00–11:00am",
     body: "Never held a paddle? Start here. Grip, ready position, the serve and return, and the two rules that trip up every new player. You leave having played real points.",
   },
   {
+    id: "201",
     title: "201 — Net Play & Dinking Under Pressure",
     level: "Intermediate",
     cadence: "Mondays, 11:00am–12:00pm",
     body: "The kitchen line is where games are won. Dink patterns, resets off a fast ball, when to speed up, and how to hold your position when the pace climbs.",
   },
   {
+    id: "skills-beginner",
     title: "Skills Assessment — Beginner/Intermediate",
     level: "Beginner to 3.0",
     cadence: "Tuesdays, 10:00–11:00am",
     body: "A structured hour that measures where your game actually is across serve, return, dinks, drops, and movement — and tells you the two things to work on next.",
   },
   {
+    id: "skills-advanced",
     title: "Skills Assessment — Intermediate/Advanced",
     level: "3.0 and up",
     cadence: "Tuesdays, 11:00am–12:00pm",
     body: "Same format, higher ceiling. Pressure-tested reads, transition-zone decisions, and shot selection under fatigue, with a clear picture of what's capping your rating.",
   },
   {
+    id: "101a",
     title: "101A — Repetition & Foundations",
     level: "Beginner",
     cadence: "Runs periodically, midday",
     body: "The follow-up to 101. High-volume reps on the shots you just learned, so the mechanics hold up once someone is hitting back.",
   },
   {
+    id: "104",
     title: "104 — Third Shot Drops",
     level: "Advanced beginner",
     cadence: "Runs periodically, midday",
     body: "The shot that gets you off the baseline and up to the net. Contact point, arc, and target — plus what to do when the drop comes back high.",
+  },
+  {
+    // DRAFT COPY — pending Sam's sign-off. Currently a one-off (Tue Aug 25);
+    // if it does not return to the schedule, drop this entry rather than
+    // leaving a card with no dates.
+    id: "204",
+    title: "204 — Defense to Offense: Mid-Court Play",
+    level: "Intermediate",
+    cadence: "Next session listed below",
+    body: "The awkward middle of the court, handled. Reading which balls to take out of the air, resetting when you're stretched, and turning a defensive dig into the point you wanted.",
   },
 ];
 
@@ -96,7 +129,7 @@ const FAQS = [
   },
   {
     q: "How do I register?",
-    a: "Registration is handled by The Pickl Park's own booking platform. Use the register link on this page to see the live schedule, pick a session, and reserve your spot — that listing is always current, including any sessions that get added or cancelled.",
+    a: "Registration is handled by The Pickl Park's own booking platform. Pick a date on any class above and you'll land directly on that session's page to reserve your spot. The venue's full listing is always current — check there if the date you want isn't shown.",
   },
   {
     q: "Do I need my own paddle?",
@@ -123,6 +156,9 @@ const BREADCRUMBS = [
 ];
 
 export default function PicklParkPage() {
+  // One render-time clock, so every card filters against the same instant.
+  const now = new Date();
+
   return (
     <>
       <BackToTop />
@@ -197,19 +233,24 @@ export default function PicklParkPage() {
             <div className="text-center mb-14">
               <p className="eyebrow mb-3">What Sam teaches here</p>
               <h2 className="font-heading font-black text-4xl md:text-5xl mb-4 leading-tight">
-                Six classes,{" "}
+                Seven classes,{" "}
                 <span className="gradient-text-warm">one ladder.</span>
               </h2>
               <p className="text-text-muted text-lg max-w-2xl mx-auto">
                 They stack on purpose — start where your game is, and each one
-                feeds the next. Times below are the regular pattern; the live
-                listing has the exact dates.
+                feeds the next. Each class lists its upcoming dates; pick one and
+                you go straight to that session&apos;s registration page.
               </p>
             </div>
           </AnimateOnScroll>
           <div className="grid md:grid-cols-2 gap-5 max-w-5xl mx-auto">
-            {CLASSES.map((klass) => (
-              <AnimateOnScroll key={klass.title}>
+            {CLASSES.map((klass) => {
+              const sessions = upcomingSessions(
+                PICKL_PARK_SESSIONS[klass.id],
+                now
+              );
+              return (
+              <AnimateOnScroll key={klass.id}>
                 <div className="glass-card p-8 h-full flex flex-col">
                   <div className="flex items-baseline justify-between gap-4 mb-3">
                     <h3 className="font-heading font-bold text-xl">
@@ -225,17 +266,39 @@ export default function PicklParkPage() {
                   <p className="text-text-muted leading-relaxed flex-1">
                     {klass.body}
                   </p>
-                  <TrackedExternalLink
-                    label="picklpark_register_class"
-                    page={PAGE}
-                    href={FREDERICK_VENUE.clinicsUrl}
-                    className="inline-flex items-center gap-1 mt-5 font-heading font-semibold text-sm text-accent-blue hover:underline"
-                  >
-                    See dates &amp; register &rarr;
-                  </TrackedExternalLink>
+                  {sessions.length > 0 ? (
+                    <div className="mt-6">
+                      <p className="eyebrow text-xs mb-3">Register for a date</p>
+                      <ul className="flex flex-wrap gap-2">
+                        {sessions.map((session) => (
+                          <li key={session.eventId}>
+                            <TrackedExternalLink
+                              label="picklpark_register_session"
+                              page={PAGE}
+                              href={picklParkEventUrl(session.eventId)}
+                              title={`${klass.title} — ${sessionFullLabel(session.startsAt)}`}
+                              className="inline-flex items-center rounded-full border border-white/15 bg-white/5 px-3 py-1.5 font-heading font-semibold text-sm text-text-primary transition hover:border-accent-blue hover:text-accent-blue"
+                            >
+                              {sessionChipLabel(session.startsAt)}
+                            </TrackedExternalLink>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  ) : (
+                    <TrackedExternalLink
+                      label="picklpark_register_class"
+                      page={PAGE}
+                      href={FREDERICK_VENUE.clinicsUrl}
+                      className="inline-flex items-center gap-1 mt-6 font-heading font-semibold text-sm text-accent-blue hover:underline"
+                    >
+                      See upcoming dates &amp; register &rarr;
+                    </TrackedExternalLink>
+                  )}
                 </div>
               </AnimateOnScroll>
-            ))}
+              );
+            })}
           </div>
         </div>
       </section>

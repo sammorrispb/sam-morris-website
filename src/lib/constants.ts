@@ -103,8 +103,11 @@ export const FREDERICK_VENUE = {
   zip: "21703",
   // Public listing of upcoming clinics — the venue's own booking platform is
   // the source of truth for dates, capacity, and cancellations, so the site
-  // links here rather than hard-coding a dated schedule.
+  // links here rather than hard-coding a dated schedule. This stays the
+  // durable fallback for every class whose per-session link has gone stale.
   clinicsUrl: "https://thepicklpark.podplay.app/community/events?type=Clinics",
+  // Base for a single dated session on that platform. See picklParkEventUrl().
+  eventUrlBase: "https://thepicklpark.podplay.app/community/events",
 } as const;
 
 export const SERVICE_AREA = {
