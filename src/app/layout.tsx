@@ -254,7 +254,7 @@ export default function RootLayout({
                       "@type": "Service",
                       name: "Private Pickleball Lessons",
                       description:
-                        "Personalized 1-on-1 pickleball coaching for adults and families in Montgomery County, MD, and at The Pickle Park in Frederick, MD. Includes video analysis, custom practice plans, and flexible scheduling. Request a lesson and Sam confirms a time that works.",
+                        "Personalized 1-on-1 pickleball coaching for adults and families in Montgomery County, MD, and at The Pickl Park in Frederick, MD. Includes video analysis, custom practice plans, and flexible scheduling. Request a lesson and Sam confirms a time that works.",
                       provider: {
                         "@type": "Person",
                         name: "Sam Morris",

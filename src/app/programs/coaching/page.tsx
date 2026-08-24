@@ -101,7 +101,7 @@ export default function CoachingPage() {
               { "@type": "City", name: "Frederick, MD" },
             ],
             description:
-              "Private 1-on-1 lessons, small-group lessons (2+), and the 3+1 Play-In Special with PPR-certified coach Sam Morris. Sam travels to your court within roughly 35 minutes of Olney, MD. Private lessons are also available at The Pickle Park in Frederick, MD.",
+              "Private 1-on-1 lessons, small-group lessons (2+), and the 3+1 Play-In Special with PPR-certified coach Sam Morris. Sam travels to your court within roughly 35 minutes of Olney, MD. Private lessons are also available at The Pickl Park in Frederick, MD.",
             offers: [
               { "@type": "Offer", name: "Single Private Lesson", description: "1 hour of 1-on-1 coaching" },
               { "@type": "Offer", name: "4-Session Private Package", description: "Four 1-on-1 sessions of structured progression" },
@@ -121,7 +121,7 @@ export default function CoachingPage() {
               { "@type": "Question", name: "How do I book a private pickleball lesson?", acceptedAnswer: { "@type": "Answer", text: "Request a lesson at coach.sammorrispb.com and Sam will confirm a time that works. Single sessions and 4-session packages are available — Sam shares details when he confirms your request." } },
               { "@type": "Question", name: "Do you offer group pickleball lessons?", acceptedAnswer: { "@type": "Answer", text: "Yes — group lessons are available for 2 or more players. Request a time and Sam will build the session around your group's level and goals." } },
               { "@type": "Question", name: "What is the 3+1 Play-In Special?", acceptedAnswer: { "@type": "Answer", text: "The 3+1 Play-In Special is a 2-hour session where you bring 3 players and Sam plays as the 4th — doubles reps with a coach in the lineup." } },
-              { "@type": "Question", name: "Where do lessons happen?", acceptedAnswer: { "@type": "Answer", text: `Sam travels to your court within roughly 35 minutes of Olney, MD — covering Montgomery County, Washington DC, and nearby parts of Prince George's, Howard, and northern Virginia. Private lessons are also available at The Pickle Park in Frederick, MD.` } },
+              { "@type": "Question", name: "Where do lessons happen?", acceptedAnswer: { "@type": "Answer", text: `Sam travels to your court within roughly 35 minutes of Olney, MD — covering Montgomery County, Washington DC, and nearby parts of Prince George's, Howard, and northern Virginia. Private lessons are also available at The Pickl Park in Frederick, MD.` } },
             ],
           }),
         }}

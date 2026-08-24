@@ -28,8 +28,16 @@ Sam Morris's personal coaching site at **sammorrispb.com** — Next.js 16 (App R
 ### Pricing lives in Coach OS, not on this site
 `src/lib/coaching.ts` no longer exists — pricing and booking moved to Coach OS (`COACH_BOOKING_URL` / `COACH_REQUEST_URL` in `src/lib/constants.ts`; Coach OS handles quoting and invoicing). There are **zero dollar amounts anywhere in `src/`** and `tests/brand/brand-copy.test.ts` enforces the `$` ban. Never hard-code prices in pages, emails, structured data, or blog copy.
 
-### Service area is locked at 35-min radius from Olney, MD (one sanctioned exception)
-`SERVICE_AREA` in `src/lib/constants.ts` is the canonical description. The travel radius is locked at ~35 min from Olney, MD, with one sanctioned exception (Sam-approved 2026-08-09): **private lessons at The Pickle Park in Frederick, MD** — a partner/host venue (`FREDERICK_VENUE` in constants.ts), not a competitor. Frederick applies to private lessons only — don't extend it to group/3+1/events copy or to `SERVICE_AREA.shortDescription`, don't add other out-of-radius venues, and don't list competitor venues by name.
+### Service area is locked at 35-min radius from Olney, MD (one sanctioned venue exception)
+`SERVICE_AREA` in `src/lib/constants.ts` is the canonical description. The travel radius is locked at ~35 min from Olney, MD, with one sanctioned exception (Sam-approved 2026-08-09, widened 2026-08-24): **The Pickl Park in Frederick, MD** — a partner/host venue (`FREDERICK_VENUE` in constants.ts), not a competitor.
+
+Note the spelling: **"Pickl", not "Pickle"** — matches thepicklpark.com and the venue's booking subdomain. The original constant had it wrong; don't reintroduce the typo.
+
+The Frederick exception now covers private lessons **and the open-enrollment group clinics / skills assessments Sam personally leads at that venue** (`/programs/pickl-park`). It does NOT extend to hired-event copy (birthdays, corporate, 3+1) — the events page still sells MoCo-only travel — and it must not touch `SERVICE_AREA.shortDescription`, which feeds those group/3+1/event templates. Don't add other out-of-radius venues, and don't list competitor venues by name.
+
+**Pickl Park class schedule is deliberately not hard-coded.** Individual sessions get added, moved, and cancelled for low turnout on short notice, and per-session registration URLs (`thepicklpark.podplay.app/events/<uuid>`) die once the session passes. `/programs/pickl-park` therefore lists recurring cadence ("Mondays, 10:00–11:00am") and sends every CTA to `FREDERICK_VENUE.clinicsUrl`, the venue's live public clinics listing. Don't replace this with dated entries. If the weekly pattern itself changes, edit the `CLASSES` array in `src/app/programs/pickl-park/page.tsx`.
+
+Note: the Pickl Park **"Skills Assessment"** classes are the venue's own paid clinics, booked and paid through The Pickl Park. They are unrelated to the retired free 30-minute skill evaluation below — don't collapse the two.
 
 ### The free evaluation is retired (2026-08-24)
 The free 30-minute skill evaluation was discontinued. The `/evaluation` page, its

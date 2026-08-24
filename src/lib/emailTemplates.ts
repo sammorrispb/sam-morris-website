@@ -20,7 +20,7 @@ Every session is 1-on-1 and built around what you most want to work on: third sh
 
 Service area: ${SERVICE_AREA.shortDescription}. You arrange and pay for the court; I bring the coaching.
 
-Prefer Frederick? I also coach private lessons at The Pickle Park in Frederick, MD — just say so and we'll book there.
+Prefer Frederick? I also coach private lessons at The Pickl Park in Frederick, MD — just say so and we'll book there.
 
 Single sessions and 4-session packages are both available — whatever fits your goals.
 
