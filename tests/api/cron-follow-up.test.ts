@@ -69,7 +69,7 @@ function dripPage(
     properties: {
       Name: { title: [{ plain_text: overrides.name ?? "Dana" }] },
       Email: { email: overrides.email ?? "dana@example.com" },
-      Interest: { select: { name: overrides.interest ?? "Free Evaluation" } },
+      Interest: { select: { name: overrides.interest ?? "Private Lesson" } },
       Status: { select: { name: "New" } },
       "Drip Step": { number: overrides.dripStep ?? 0 },
       "Date Submitted": {

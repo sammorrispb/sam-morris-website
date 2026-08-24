@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import Link from "next/link";
 import { ScrollDepthTracker } from "@/components/ScrollDepthTracker";
 import { AnimateOnScroll } from "@/components/AnimateOnScroll";
 import { breadcrumbJsonLd } from "@/lib/seo";
+import { COACH_REQUEST_URL } from "@/lib/constants";
 
 export const metadata: Metadata = {
   // Title ≤60 chars (audit baseline: 96 with template suffix).
@@ -399,14 +399,16 @@ export default function AboutPage() {
             Want to <span className="gradient-text-warm">work with Sam?</span>
           </h2>
           <p className="text-text-muted text-lg mb-8 max-w-xl mx-auto">
-            Free 30-minute evaluation gets you a rating and a plan. No pressure, no pitch.
+            Tell me what you want to work on and I&apos;ll build the session around it. No pressure, no pitch.
           </p>
-          <Link
-            href="/evaluation"
+          <a
+            href={COACH_REQUEST_URL}
+            target="_blank"
+            rel="noopener noreferrer"
             className="inline-flex items-center font-heading font-semibold px-8 py-4 rounded-full btn-gradient text-base"
           >
-            Book a Free Evaluation →
-          </Link>
+            Request a Lesson →
+          </a>
         </div>
       </section>
     </>

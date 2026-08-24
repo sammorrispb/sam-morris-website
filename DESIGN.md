@@ -210,7 +210,7 @@ urgency rather than hierarchy.
 - **`secondary` (#B85C2F):** Burnt sienna. The amber's natural gradient
   partner. Use for `gradient-text` and `gradient-text-warm` second stops.
 - **`tertiary` (#D9523E):** Terracotta. The **ember** tone — higher-urgency
-  action ("Book Evaluation," "Request a Lesson"). Distinct from primary
+  action ("Request a Lesson," "Schedule a Session"). Distinct from primary
   amber so the visual hierarchy reads as "soft action vs. hot action."
 - **`accent-sage` (#A5C49C):** The only cool note in the palette. Scoped
   strictly to **EASE moments** — EASE badges, success states, milestone
@@ -225,7 +225,7 @@ urgency rather than hierarchy.
   language, it doesn't use sage. The brand's warmth is the rule; sage is the
   exception that makes the rule readable.
 - **Two CTA ladders, not three.** Amber = soft action ("Read the Post,"
-  "View the Pathway"). Ember (terracotta) = hot action ("Book Evaluation,"
+  "View the Pathway"). Ember (terracotta) = hot action ("Request a Lesson,"
   "Schedule a Lesson"). Outline = tertiary nav.
 - **Sanctioned gradients:** `primary → primary-deep` (`E8A03A → C77327`) for
   amber buttons, `primary → secondary` (`E8A03A → B85C2F`) for text /
@@ -321,7 +321,7 @@ match the warm aesthetic.
 
 - `button-primary` is the soft amber action ("Read the Post," "View the
   Pathway"). Amber ground, cocoa text. Hover deepens to `primary-deep`.
-- `button-ember` is the hot terracotta action ("Book Evaluation," "Schedule
+- `button-ember` is the hot terracotta action ("Request a Lesson," "Schedule
   a Lesson," "Request a Pricing Estimate"). Terracotta ground, cocoa text.
   Use sparingly — every ember button is a moment that earns the visual heat.
 - `button-outline` is the lowest hierarchy (secondary nav, "back to all
@@ -368,7 +368,7 @@ broader set of brands than the two above.
 - Don't use pure white (`#fff`) or pure black (`#000`) — always cream
   (`#F4ECE0`) and warm charcoal (`#0F0E0C`).
 - Don't use generic SaaS CTAs ("Get Started," "Learn More," "Submit").
-  Coach voice is specific: "Book a Lesson," "Request an Evaluation,"
+  Coach voice is specific: "Book a Lesson," "Request a Session,"
   "Read the Post."
 - Don't use multi-color or rainbow gradients. The four sanctioned gradient
   pairings (above) are the entire vocabulary.

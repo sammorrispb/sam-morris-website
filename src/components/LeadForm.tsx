@@ -5,9 +5,9 @@ import Link from "next/link";
 import { CONTACT, INTEREST_OPTIONS, EVENT_TYPES, FREDERICK_VENUE } from "@/lib/constants";
 import { trackEvent, getVisitorIdForForm, getUtm } from "@/lib/funnelClient";
 
-// Frederick is sanctioned for private lessons + evals only, so the location
-// select stays hidden for every other interest.
-const LOCATION_INTERESTS = new Set(["Free Evaluation", "Private Lesson"]);
+// Frederick is sanctioned for private lessons only, so the location select
+// stays hidden for every other interest.
+const LOCATION_INTERESTS = new Set(["Private Lesson"]);
 const MOCO_LOCATION = "Montgomery County / DC area — Sam comes to your court";
 
 function matchInterestFromParam(param: string | null): string {
@@ -71,12 +71,10 @@ export function LeadForm({
     const timeout = setTimeout(() => controller.abort(), 15000);
 
     try {
-      const endpoint =
-        form.interest === "Free Evaluation" ? "/api/eval-book" : "/api/leads";
       const utm = getUtm();
       const pageUrl =
         typeof window !== "undefined" ? window.location.pathname : page;
-      const res = await fetch(endpoint, {
+      const res = await fetch("/api/leads", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

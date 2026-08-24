@@ -43,7 +43,7 @@ export const metadata: Metadata = {
     template: "%s",
   },
   description:
-    "PPR-certified pickleball coach in Montgomery County, MD. Private lessons, youth academy, and free skill evaluations for adults, families, and kids.",
+    "PPR-certified pickleball coach in Montgomery County, MD. Private lessons, group clinics, and youth academy for adults, families, and kids.",
   keywords: [
     "pickleball coaching Montgomery County MD",
     "pickleball lessons Rockville",
@@ -85,7 +85,7 @@ export const metadata: Metadata = {
     title:
       "Sam Morris — Pickleball Coach in Montgomery County, MD | Adults, Families & Kids",
     description:
-      "Professional pickleball coaching for adults, families, and kids in Montgomery County, MD. Private lessons, youth academy, and skill evaluations.",
+      "Professional pickleball coaching for adults, families, and kids in Montgomery County, MD. Private lessons, group clinics, and youth academy.",
     images: [
       {
         url: "/images/sam-portrait-with-paddle.jpg",
@@ -100,7 +100,7 @@ export const metadata: Metadata = {
     title:
       "Sam Morris — Pickleball Coach in Montgomery County, MD",
     description:
-      "Professional pickleball coaching for adults, families, and kids. Private lessons, youth academy, and skill evaluations in Montgomery County, MD.",
+      "Professional pickleball coaching for adults, families, and kids. Private lessons, group clinics, and youth academy in Montgomery County, MD.",
     images: ["/images/sam-portrait-with-paddle.jpg"],
   },
   robots: {
@@ -205,7 +205,7 @@ export default function RootLayout({
               "@id": "https://www.sammorrispb.com/#location",
               name: "Sam Morris Pickleball Coaching",
               description:
-                "Professional pickleball coaching for adults, families, and kids in Montgomery County, MD. Private lessons, group clinics, youth academy programs, and skill evaluations.",
+                "Professional pickleball coaching for adults, families, and kids in Montgomery County, MD. Private lessons, group clinics, and youth academy programs.",
               url: "https://www.sammorrispb.com",
               telephone: "301-325-4731",
               email: "sam.morris2131@gmail.com",
@@ -282,20 +282,6 @@ export default function RootLayout({
                         "@type": "Audience",
                         audienceType: "Children and Youth ages 8-16",
                       },
-                    },
-                  },
-                  {
-                    "@type": "Offer",
-                    itemOffered: {
-                      "@type": "Service",
-                      name: "Pickleball Skill Evaluation",
-                      description:
-                        "30-minute pickleball skill evaluation with DUPR-certified coach. Includes a personalized improvement plan.",
-                      provider: {
-                        "@type": "Person",
-                        name: "Sam Morris",
-                      },
-                      areaServed: "Montgomery County, MD",
                     },
                   },
                   {

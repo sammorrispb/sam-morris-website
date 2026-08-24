@@ -56,18 +56,22 @@ type NotionRichText = {
 };
 
 /**
- * Returns true when an href points at the /evaluation page (relative or
- * absolute). We append blog-attribution UTMs to these links at render time
- * so the Notion source content stays clean.
+ * Returns true when an href points at the /programs/coaching page (relative or
+ * absolute). We append blog-attribution UTMs to these links at render time so
+ * the Notion source content stays clean. Legacy /evaluation links still count:
+ * the retired evaluation funnel 301s to /programs/coaching (vercel.json),
+ * so posts written against the old URL keep their attribution.
  */
-function isEvaluationHref(href: string): boolean {
+const COACHING_PATHS = ["/programs/coaching", "/evaluation"];
+
+function isCoachingHref(href: string): boolean {
   if (!href) return false;
-  if (href.startsWith("/evaluation")) return true;
+  if (COACHING_PATHS.some((p) => href.startsWith(p))) return true;
   try {
     const u = new URL(href);
     return (
       (u.hostname === "www.sammorrispb.com" || u.hostname === "sammorrispb.com") &&
-      (u.pathname === "/evaluation" || u.pathname.startsWith("/evaluation/"))
+      COACHING_PATHS.some((p) => u.pathname === p || u.pathname.startsWith(`${p}/`))
     );
   } catch {
     return false;
@@ -180,7 +184,7 @@ function renderRichText(richText: NotionRichText[] | undefined, slug: string) {
         </code>
       );
     if (text.href) {
-      const finalHref = isEvaluationHref(text.href)
+      const finalHref = isCoachingHref(text.href)
         ? appendBlogUtm(text.href, slug)
         : text.href;
       content = (
@@ -291,13 +295,13 @@ export default async function BlogPostPage({ params }: Props) {
 
           <div className="mt-16 pt-10 border-t border-white/8 text-center">
             <p className="text-text-muted text-sm mb-5">
-              Want a free 30-minute pickleball evaluation with Coach Sam?
+              Want to work on your game with Coach Sam?
             </p>
             <Link
-              href="/evaluation"
+              href="/programs/coaching"
               className="inline-flex items-center btn-gradient font-heading font-semibold px-7 py-3.5 rounded-full text-sm"
             >
-              Book a Free Evaluation →
+              See Coaching Options →
             </Link>
           </div>
         </div>

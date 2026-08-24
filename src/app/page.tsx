@@ -7,14 +7,14 @@ import { TestimonialGrid } from "@/components/TestimonialGrid";
 import { AnimateOnScroll } from "@/components/AnimateOnScroll";
 import { TrackedLink } from "@/components/TrackedLink";
 import { COACH_REQUEST_URL } from "@/lib/constants";
-import { coachBookingUrl } from "@/lib/urls";
+import { coachRequestUrl } from "@/lib/urls";
 
 export const metadata: Metadata = {
   // Title kept ≤60 chars (audit baseline: 84 with old template).
   title: "Pickleball Coach in Montgomery County, MD — Sam Morris",
   // Description kept ≤160 chars (audit baseline: 178).
   description:
-    "PPR-certified pickleball coach in Montgomery County, MD. Private lessons, free skill evaluations, and youth academy for adults, families, and kids.",
+    "PPR-certified pickleball coach in Montgomery County, MD. Private lessons, group clinics, and youth academy for adults, families, and kids.",
   keywords: [
     "pickleball coach Montgomery County",
     "indoor pickleball facility near me",
@@ -33,7 +33,7 @@ export const metadata: Metadata = {
     url: "https://www.sammorrispb.com/",
     title: "Pickleball Coach in Montgomery County, MD — Sam Morris",
     description:
-      "PPR-certified pickleball coach in Montgomery County, MD. Private lessons, free skill evaluations, and youth academy for adults, families, and kids.",
+      "PPR-certified pickleball coach in Montgomery County, MD. Private lessons, group clinics, and youth academy for adults, families, and kids.",
     images: [
       {
         url: "/og?title=Helping%20Families%20Grow%20Through%20Sport&subtitle=Pickleball%20Coaching%20for%20Adults%2C%20Families%20%26%20Kids",
@@ -96,13 +96,13 @@ const PROGRAMS = [
     badge: "1-on-1",
   },
   {
-    title: "Free Skill Evaluation",
+    title: "Training Cohorts",
     description:
-      "30 minutes on the court. Walk away with a DUPR-aligned rating and a personalized plan.",
-    cta: "Book a Free Evaluation",
-    href: coachBookingUrl("home_program_card"),
+      "4 players, 4 weeks, finishing at a tournament. Structured group progression with one all-in price.",
+    cta: "See Cohort Details",
+    href: "/programs/cohort",
     image: "/images/sam-portrait-with-paddle.jpg",
-    badge: "Free for DMV",
+    badge: "4-week series",
   },
   {
     title: "Next Gen Academy",
@@ -128,7 +128,7 @@ const HOME_FAQ_JSONLD = {
       name: "Where can I take pickleball lessons in Montgomery County, MD?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Sam Morris offers professional pickleball coaching across Montgomery County, MD. Private lessons, group clinics, and youth academy programs are available for all skill levels — from complete beginners to 5.0+ players. Visit sammorrispb.com/contact to book a free evaluation.",
+        text: "Sam Morris offers professional pickleball coaching across Montgomery County, MD. Private lessons, group clinics, and youth academy programs are available for all skill levels — from complete beginners to 5.0+ players. Visit sammorrispb.com/contact to get started.",
       },
     },
     {
@@ -152,7 +152,7 @@ const HOME_FAQ_JSONLD = {
       name: "How do I book a private pickleball lesson in Montgomery County?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Sam Morris offers private 1-on-1 pickleball lessons with video analysis and custom practice plans. Request a lesson at coach.sammorrispb.com and Sam will confirm a time that works. The first 30-minute skill evaluation is free for every DMV player. Visit sammorrispb.com/programs to get started or contact Sam at 301-325-4731.",
+        text: "Sam Morris offers private 1-on-1 pickleball lessons with video analysis and custom practice plans. Request a lesson at coach.sammorrispb.com and Sam will confirm a time that works. Visit sammorrispb.com/programs to get started or contact Sam at 301-325-4731.",
       },
     },
     {
@@ -160,7 +160,7 @@ const HOME_FAQ_JSONLD = {
       name: "What is DUPR and why does it matter for pickleball?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "DUPR (Dynamic Universal Pickleball Rating) is the global pickleball rating system used to match players of similar skill levels. Sam Morris is a DUPR Certified Coach who provides skill evaluations and helps players track their improvement over time.",
+        text: "DUPR (Dynamic Universal Pickleball Rating) is the global pickleball rating system used to match players of similar skill levels. Sam Morris is a DUPR Certified Coach who helps players understand their rating and track their improvement over time.",
       },
     },
   ],
@@ -198,11 +198,11 @@ export default function Home() {
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
               <TrackedLink
-                href={coachBookingUrl("home_hero")}
+                href={coachRequestUrl("home_hero")}
                 className="inline-flex items-center justify-center font-heading font-semibold px-8 py-4 rounded-full btn-gradient text-base"
-                eventProps={{ label: "Book a Free Evaluation", page: "home", section: "hero", destination: coachBookingUrl("home_hero") }}
+                eventProps={{ label: "Request a Lesson", page: "home", section: "hero", destination: coachRequestUrl("home_hero") }}
               >
-                Book a Free Evaluation
+                Request a Lesson
               </TrackedLink>
               <TrackedLink
                 href="/programs"
@@ -443,8 +443,7 @@ export default function Home() {
               </h2>
               <p className="text-text-muted text-lg leading-relaxed mb-6">
                 Tell me what you&apos;re working on. Whether you&apos;re brand new
-                or chasing 4.5, we&apos;ll find the right starting point — usually
-                a free 30-minute evaluation.
+                or chasing 4.5, we&apos;ll find the right starting point.
               </p>
               <ul className="space-y-3 text-text-muted">
                 <li className="flex gap-3">

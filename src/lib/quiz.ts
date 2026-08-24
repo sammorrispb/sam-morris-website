@@ -1,5 +1,4 @@
 import { COACH_REQUEST_URL } from "@/lib/constants";
-import { coachBookingUrl } from "@/lib/urls";
 
 export interface QuizQuestion {
   id: string;
@@ -85,14 +84,14 @@ export const QUIZ_RESULTS: Record<string, QuizResult> = {
       "You're just getting started — and that's exciting! The best way to build a strong foundation is with structured coaching and beginner-friendly play sessions. I'll get you comfortable on the court fast.",
     programs: [
       {
-        title: "Book a Free Evaluation",
-        description: "30-minute on-court assessment to map out your personalized path.",
-        href: coachBookingUrl("quiz_result_beginner"),
-      },
-      {
         title: "Private Lessons",
         description: "Start with a single 1-on-1 session focused on the basics.",
         href: COACH_REQUEST_URL,
+      },
+      {
+        title: "Coaching & Clinics",
+        description: "See how private, group, and 3+1 play-in sessions fit together.",
+        href: "/programs/coaching",
       },
       {
         title: "Contact Coach Sam",
@@ -118,9 +117,9 @@ export const QUIZ_RESULTS: Record<string, QuizResult> = {
         href: COACH_REQUEST_URL,
       },
       {
-        title: "Free Skill Evaluation",
-        description: "Lock in a clear DUPR-aligned rating and a written growth plan.",
-        href: coachBookingUrl("quiz_result_advanced_beginner"),
+        title: "Training Cohorts",
+        description: "4 players, 4 weeks, ending at a tournament. One all-in price.",
+        href: "/programs/cohort",
       },
     ],
   },
@@ -136,9 +135,9 @@ export const QUIZ_RESULTS: Record<string, QuizResult> = {
         href: COACH_REQUEST_URL,
       },
       {
-        title: "Free Skill Evaluation",
-        description: "Get a calibrated rating and a focused improvement plan.",
-        href: coachBookingUrl("quiz_result_intermediate"),
+        title: "Training Cohorts",
+        description: "Four weeks of structured play that finishes at a tournament.",
+        href: "/programs/cohort",
       },
     ],
   },
@@ -154,9 +153,9 @@ export const QUIZ_RESULTS: Record<string, QuizResult> = {
         href: COACH_REQUEST_URL,
       },
       {
-        title: "Free Skill Evaluation",
-        description: "Recalibrate your rating and get a focused growth plan.",
-        href: coachBookingUrl("quiz_result_advanced"),
+        title: "Contact Coach Sam",
+        description: "Tell me your tournament goals and I'll build the plan around them.",
+        href: "/contact",
       },
     ],
   },

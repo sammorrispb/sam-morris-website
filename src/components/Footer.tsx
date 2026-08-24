@@ -4,7 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { NAV_LINKS, SOCIAL_LINKS, CONTACT, FAMILY_LINKS } from "@/lib/constants";
 import { trackEvent } from "@/lib/funnelClient";
-import { familySiteUrl, familyMarketingRef, coachBookingUrl } from "@/lib/urls";
+import { familySiteUrl, familyMarketingRef, coachRequestUrl } from "@/lib/urls";
 
 export function Footer() {
   return (
@@ -38,18 +38,18 @@ export function Footer() {
               </p>
             </div>
             <Link
-              href={coachBookingUrl("footer_tagline_strip")}
+              href={coachRequestUrl("footer_tagline_strip")}
               className="inline-flex items-center justify-center px-6 py-3 rounded-full btn-gradient text-sm whitespace-nowrap"
               onClick={() =>
                 trackEvent("cta_click", {
-                  label: "Book a Free Evaluation",
+                  label: "Request a Lesson",
                   page: "footer",
                   section: "tagline_strip",
-                  destination: coachBookingUrl("footer_tagline_strip"),
+                  destination: coachRequestUrl("footer_tagline_strip"),
                 })
               }
             >
-              Book a Free Evaluation &rarr;
+              Request a Lesson &rarr;
             </Link>
           </div>
         </div>

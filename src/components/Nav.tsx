@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { NAV_LINKS } from "@/lib/constants";
-import { coachBookingUrl } from "@/lib/urls";
+import { coachRequestUrl } from "@/lib/urls";
 import { SearchBar } from "@/components/SearchBar";
 import { trackEvent } from "@/lib/funnelClient";
 
@@ -73,18 +73,18 @@ export function Nav() {
           })}
           <SearchBar onOpenChange={(open) => { if (open) setMobileOpen(false); }} />
           <Link
-            href={coachBookingUrl("nav_header_cta")}
+            href={coachRequestUrl("nav_header_cta")}
             className="px-5 py-2 rounded-full text-sm font-semibold btn-gradient"
             onClick={() =>
               trackEvent("cta_click", {
-                label: "Book a Free Evaluation",
+                label: "Request a Lesson",
                 page: "nav",
                 section: "header_cta",
-                destination: coachBookingUrl("nav_header_cta"),
+                destination: coachRequestUrl("nav_header_cta"),
               })
             }
           >
-            Free Evaluation
+            Request a Lesson
           </Link>
         </div>
 
@@ -154,19 +154,19 @@ export function Nav() {
                 );
               })}
               <Link
-                href={coachBookingUrl("nav_header_cta_mobile")}
+                href={coachRequestUrl("nav_header_cta_mobile")}
                 className="px-5 py-3 rounded-full text-sm font-semibold text-center mt-2 btn-gradient"
                 onClick={() => {
                   trackEvent("cta_click", {
-                    label: "Book a Free Evaluation",
+                    label: "Request a Lesson",
                     page: "nav",
                     section: "header_cta_mobile",
-                    destination: coachBookingUrl("nav_header_cta_mobile"),
+                    destination: coachRequestUrl("nav_header_cta_mobile"),
                   });
                   setMobileOpen(false);
                 }}
               >
-                Free Evaluation
+                Request a Lesson
               </Link>
             </div>
           </div>
