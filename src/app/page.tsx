@@ -6,7 +6,12 @@ import { TESTIMONIALS } from "@/lib/testimonials";
 import { TestimonialGrid } from "@/components/TestimonialGrid";
 import { AnimateOnScroll } from "@/components/AnimateOnScroll";
 import { TrackedLink } from "@/components/TrackedLink";
-import { COACH_REQUEST_URL } from "@/lib/constants";
+import { TrackedExternalLink } from "@/components/TrackedExternalLink";
+import {
+  COACH_REQUEST_URL,
+  NGA_WHATSAPP_GROUP,
+  WHATSAPP_GROUP,
+} from "@/lib/constants";
 import { coachRequestUrl } from "@/lib/urls";
 
 export const metadata: Metadata = {
@@ -459,6 +464,38 @@ export default function Home() {
                   <span>No pressure, no sales pitch</span>
                 </li>
               </ul>
+
+              {/* The group chat is where games actually get organized — it was
+                  reachable only from /contact until 2026-08-25. */}
+              <div className="glass-card rounded-2xl p-6 mt-8">
+                <p className="font-heading font-bold text-base mb-2">
+                  Play with us between lessons
+                </p>
+                <p className="text-text-muted text-sm leading-relaxed mb-4">
+                  The {WHATSAPP_GROUP.name} WhatsApp group is where local players
+                  post games, courts, and who&apos;s out this week.
+                </p>
+                <TrackedExternalLink
+                  href={WHATSAPP_GROUP.href}
+                  label="WhatsApp Group"
+                  page="home"
+                  className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium border border-white/12 text-text-muted hover:text-accent-lime hover:border-accent-lime/45 transition-colors"
+                >
+                  Join on WhatsApp
+                </TrackedExternalLink>
+                <p className="text-text-muted text-sm leading-relaxed mt-4">
+                  Got a kid who plays?{" "}
+                  <TrackedExternalLink
+                    href={NGA_WHATSAPP_GROUP.href}
+                    label="WhatsApp Group — Next Gen parents"
+                    page="home"
+                    className="text-accent-lime hover:underline underline-offset-4"
+                  >
+                    {NGA_WHATSAPP_GROUP.name} on WhatsApp
+                  </TrackedExternalLink>{" "}
+                  is the youth academy group.
+                </p>
+              </div>
             </div>
             <div>
               <LeadForm page="home" />

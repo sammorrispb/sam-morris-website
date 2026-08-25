@@ -26,9 +26,20 @@ export const CONTACT = {
   phone: "301-325-4731",
 } as const;
 
+// The two community group chats, single-sourced. This one is the adult group —
+// the same Link & Dink MoCo room linkanddink.com invites into, under the name
+// players here know it by.
 export const WHATSAPP_GROUP = {
   name: "Sam Morris Pickleball",
   href: "https://chat.whatsapp.com/LaRjBQT8O5p5aJS5vSAk0i?s=cl&p=i&mlu=2",
+} as const;
+
+// The youth cross-invite. Sam coaches both sides; a parent who finds him here
+// should not have to discover the Next Gen room from a different site. Kept at
+// secondary weight everywhere — this is an adult-facing site.
+export const NGA_WHATSAPP_GROUP = {
+  name: "Next Gen parents",
+  href: "https://chat.whatsapp.com/D298cbHYUZo53zdBkbafq8?s=cl&p=i&mlu=2",
 } as const;
 
 // Request a private lesson — no public price; Sam reviews the request, confirms

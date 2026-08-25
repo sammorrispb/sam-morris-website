@@ -2,7 +2,13 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { NAV_LINKS, SOCIAL_LINKS, CONTACT, FAMILY_LINKS } from "@/lib/constants";
+import {
+  NAV_LINKS,
+  SOCIAL_LINKS,
+  CONTACT,
+  FAMILY_LINKS,
+  WHATSAPP_GROUP,
+} from "@/lib/constants";
 import { trackEvent } from "@/lib/funnelClient";
 import { familySiteUrl, familyMarketingRef, coachRequestUrl } from "@/lib/urls";
 
@@ -138,6 +144,23 @@ export function Footer() {
                   onClick={() => trackEvent("cta_click", { label: "phone", page: "footer", section: "contact_phone" })}
                 >
                   {CONTACT.phone}
+                </a>
+              </li>
+              <li>
+                <a
+                  href={WHATSAPP_GROUP.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-text-muted hover:text-accent-lime transition-colors text-sm"
+                  onClick={() =>
+                    trackEvent("external_link", {
+                      label: "WhatsApp Group",
+                      url: WHATSAPP_GROUP.href,
+                      page: "footer",
+                    })
+                  }
+                >
+                  {WHATSAPP_GROUP.name} on WhatsApp
                 </a>
               </li>
             </ul>
