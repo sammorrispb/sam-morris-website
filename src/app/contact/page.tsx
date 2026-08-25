@@ -3,7 +3,12 @@ import Image from "next/image";
 import { LeadForm } from "@/components/LeadForm";
 import { TrackedExternalLink } from "@/components/TrackedExternalLink";
 import { ContactLink } from "@/components/ContactLink";
-import { CONTACT, SOCIAL_LINKS, WHATSAPP_GROUP } from "@/lib/constants";
+import {
+  CONTACT,
+  NGA_WHATSAPP_GROUP,
+  SOCIAL_LINKS,
+  WHATSAPP_GROUP,
+} from "@/lib/constants";
 import { breadcrumbJsonLd } from "@/lib/seo";
 
 export const metadata: Metadata = {
@@ -170,6 +175,18 @@ export default function ContactPage() {
                 </svg>
                 Join on WhatsApp
               </TrackedExternalLink>
+              <p className="text-text-muted text-sm leading-relaxed mt-5">
+                Got a kid who plays?{" "}
+                <TrackedExternalLink
+                  href={NGA_WHATSAPP_GROUP.href}
+                  label="WhatsApp Group — Next Gen parents"
+                  page="contact"
+                  className="text-accent-lime hover:underline underline-offset-4"
+                >
+                  {NGA_WHATSAPP_GROUP.name} on WhatsApp
+                </TrackedExternalLink>{" "}
+                is the youth academy group.
+              </p>
             </div>
 
             {/* Private Lesson Card */}

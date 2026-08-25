@@ -149,3 +149,41 @@ describe("brand guardrails — pricing is single-sourced (no hard-coded $ in cop
     expect(offenders, `Hard-coded prices found in: ${offenders.join(", ")}`).toEqual([]);
   });
 });
+
+describe("brand guardrails — WhatsApp group invites are single-sourced", () => {
+  // Both community groups live only in src/lib/constants.ts (WHATSAPP_GROUP =
+  // the adult Link & Dink MoCo room, NGA_WHATSAPP_GROUP = the youth
+  // cross-invite). A page that pastes an invite URL inline is how one of them
+  // ends up pointing at a dead or rotated link while the other still works.
+  const INVITE_URL = /chat\.whatsapp\.com/;
+  const ALLOW = new Set(["lib/constants.ts"]);
+
+  it("only constants.ts contains a chat.whatsapp.com URL", () => {
+    const offenders = ALL_FILES.filter((f) => {
+      const rel = path.relative(SRC, f);
+      if (ALLOW.has(rel)) return false;
+      return INVITE_URL.test(readFileSync(f, "utf8"));
+    }).map((f) => path.relative(SRC, f));
+    expect(
+      offenders,
+      `Inline WhatsApp invite URLs found in: ${offenders.join(", ")}`,
+    ).toEqual([]);
+  });
+
+  it("the adult group is reachable from the homepage, not just /contact", () => {
+    // It lived only on /contact until 2026-08-25.
+    expect(readFileSync(path.join(SRC, "app/page.tsx"), "utf8")).toMatch(
+      /WHATSAPP_GROUP/,
+    );
+  });
+
+  it("the youth cross-invite rides along wherever the adult group is offered", () => {
+    for (const rel of ["app/page.tsx", "app/contact/page.tsx"]) {
+      const src = readFileSync(path.join(SRC, rel), "utf8");
+      expect(src, `${rel} offers the adult group`).toMatch(/WHATSAPP_GROUP/);
+      expect(src, `${rel} cross-links the youth group`).toMatch(
+        /NGA_WHATSAPP_GROUP/,
+      );
+    }
+  });
+});
