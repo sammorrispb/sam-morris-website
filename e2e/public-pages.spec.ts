@@ -15,6 +15,7 @@ const PUBLIC_ROUTES = [
   "/programs/coaching",
   "/programs/cohort",
   "/programs/events",
+  "/programs/pickl-park",
   "/quiz",
   "/contact",
 ];

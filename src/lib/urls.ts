@@ -1,4 +1,4 @@
-import { COACH_REQUEST_URL } from "@/lib/constants";
+import { COACH_REQUEST_URL, FREDERICK_VENUE } from "@/lib/constants";
 
 const MARKETING_REF = "sammorrispb";
 const UTM_SOURCE = "sammorrispb";
@@ -47,3 +47,16 @@ export function coachRequestUrl(content: string): string {
 }
 
 export { MARKETING_REF, UTM_SOURCE };
+
+/**
+ * Deep link to a single dated session on The Pickl Park's booking platform.
+ *
+ * Podplay mints a NEW uuid for every occurrence — there is no stable per-class
+ * or per-series URL, and the public listing only exposes a rolling ~2-week
+ * window — so these ids are dated data, not permanent constants. See the
+ * PICKL_PARK_SESSIONS note in programs/pickl-park/page.tsx for the refresh
+ * routine and the fallback behaviour when one goes stale.
+ */
+export function picklParkEventUrl(eventId: string): string {
+  return `${FREDERICK_VENUE.eventUrlBase}/${eventId}`;
+}
