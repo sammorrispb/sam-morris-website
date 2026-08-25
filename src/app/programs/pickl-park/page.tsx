@@ -65,7 +65,8 @@ const CLASSES: {
   id: string;
   title: string;
   level: string;
-  cadence: string;
+  /** Recurring pattern. Omit for a class with no proven cadence. */
+  cadence?: string;
   body: string;
 }[] = [
   {
@@ -86,14 +87,14 @@ const CLASSES: {
     id: "skills-beginner",
     title: "Skills Assessment — Beginner/Intermediate",
     level: "Beginner to 3.0",
-    cadence: "Tuesdays, 10:00–11:00am",
+    cadence: "Mondays 12:00–1:00pm · Tuesdays 10:00–11:00am",
     body: "A structured hour that measures where your game actually is across serve, return, dinks, drops, and movement — and tells you the two things to work on next.",
   },
   {
     id: "skills-advanced",
     title: "Skills Assessment — Intermediate/Advanced",
     level: "3.0 and up",
-    cadence: "Tuesdays, 11:00am–12:00pm",
+    cadence: "Mondays 1:00–2:00pm · Tuesdays 11:00am–12:00pm",
     body: "Same format, higher ceiling. Pressure-tested reads, transition-zone decisions, and shot selection under fatigue, with a clear picture of what's capping your rating.",
   },
   {
@@ -117,7 +118,8 @@ const CLASSES: {
     id: "204",
     title: "204 — Defense to Offense: Mid-Court Play",
     level: "Intermediate",
-    cadence: "Next session listed below",
+    // No cadence: this one has never been observed to recur, and a label that
+    // points at the date chips reads as broken once they have all passed.
     body: "The awkward middle of the court, handled. Reading which balls to take out of the air, resetting when you're stretched, and turning a defensive dig into the point you wanted.",
   },
 ];
@@ -260,9 +262,11 @@ export default function PicklParkPage() {
                       {klass.level}
                     </span>
                   </div>
-                  <p className="text-accent-pink font-semibold text-sm mb-3">
-                    {klass.cadence}
-                  </p>
+                  {klass.cadence && (
+                    <p className="text-accent-pink font-semibold text-sm mb-3">
+                      {klass.cadence}
+                    </p>
+                  )}
                   <p className="text-text-muted leading-relaxed flex-1">
                     {klass.body}
                   </p>
