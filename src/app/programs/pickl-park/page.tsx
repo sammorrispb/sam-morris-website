@@ -6,6 +6,7 @@ import { TrackedExternalLink } from "@/components/TrackedExternalLink";
 import { breadcrumbJsonLd, faqJsonLd } from "@/lib/seo";
 import { CONTACT, FREDERICK_VENUE } from "@/lib/constants";
 import { coachRequestUrl, picklParkEventUrl } from "@/lib/urls";
+import { PICKL_PARK_CLASSES } from "@/lib/picklParkClasses";
 import {
   PICKL_PARK_SESSIONS,
   sessionChipLabel,
@@ -61,92 +62,9 @@ export const revalidate = 3600;
  * A class with no upcoming dated sessions falls back to the full clinics
  * listing, so letting the tail run short is untidy rather than broken.
  */
-const CLASSES: {
-  id: string;
-  title: string;
-  level: string;
-  /** Recurring pattern. Omit for a class with no proven cadence. */
-  cadence?: string;
-  /** Who should pick this one — the self-selection cue. */
-  forYouIf: string;
-  /** What the hour actually covers. */
-  body: string;
-  /** What a player walks away holding. */
-  outcome: string;
-}[] = [
-  {
-    id: "101",
-    title: "101 — Intro to Pickleball",
-    level: "Beginner",
-    cadence: "Mondays, 10:00–11:00am",
-    forYouIf:
-      "You've never held a paddle — or you've played twice at a friend's place and want to actually know what you're doing.",
-    body: "Grip and ready position, the serve and the return, and the two rules that trip up every new player: the kitchen, and the double bounce.",
-    outcome: "Real points played, not drills in a line.",
-  },
-  {
-    id: "201",
-    title: "201 — Net Play & Dinking Under Pressure",
-    level: "Intermediate",
-    cadence: "Mondays, 11:00am–12:00pm",
-    forYouIf:
-      "You can rally fine, but the point falls apart once everybody gets to the net.",
-    body: "Dink patterns, resetting a ball that's coming at you fast, when to speed it up, and how to hold your position when the pace climbs.",
-    outcome: "A plan for the kitchen line instead of a reaction.",
-  },
-  {
-    id: "skills-beginner",
-    title: "Skills Assessment — Beginner/Intermediate",
-    level: "Beginner to 3.0",
-    cadence: "Mondays 12:00–1:00pm · Tuesdays 10:00–11:00am",
-    forYouIf:
-      "You've never had your game measured against anything but the scoreboard — rated or not.",
-    body: "A structured hour across serve, return, dinks, drops, and movement — scored the same way every time, so it's a baseline you can train against.",
-    outcome: "A rating you can train against, and the two things capping it.",
-  },
-  {
-    id: "skills-advanced",
-    title: "Skills Assessment — Intermediate/Advanced",
-    level: "3.0 and up",
-    cadence: "Mondays 1:00–2:00pm · Tuesdays 11:00am–12:00pm",
-    forYouIf:
-      "You've plateaued, and the reason isn't obvious from inside the match.",
-    body: "Same format, higher ceiling: pressure-tested reads, what to do in the mid-court, and shot selection once you're tired.",
-    outcome: "A clear picture of what's capping your rating.",
-  },
-  {
-    id: "101a",
-    title: "101A — Repetition & Foundations",
-    level: "Beginner",
-    cadence: "Runs periodically, midday",
-    forYouIf:
-      "You've done 101, and the mechanics fall apart the moment someone hits back.",
-    body: "High-volume reps on the shots you just learned. The same swing, over and over, until it holds up against a live ball.",
-    outcome: "Mechanics that survive contact.",
-  },
-  {
-    id: "104",
-    title: "104 — Third Shot Drops",
-    level: "Advanced beginner",
-    cadence: "Runs periodically, midday",
-    forYouIf:
-      "You're stuck at the baseline because every third shot comes back at your feet.",
-    body: "Contact point, arc, and target on the shot that gets you to the net — plus what to do when the drop comes back high.",
-    outcome: "A way off the baseline.",
-  },
-  {
-    // DRAFT COPY — pending Sam's sign-off, like the rest of this block.
-    id: "204",
-    title: "204 — Defense to Offense: Mid-Court Play",
-    level: "Intermediate",
-    // No cadence: this one has never been observed to recur, and a label that
-    // points at the date chips reads as broken once they have all passed.
-    forYouIf:
-      "You're comfortable at the net and comfortable at the baseline, and lost in between.",
-    body: "Reading which balls to take out of the air, resetting when you're stretched, and turning a defensive dig into the point you wanted.",
-    outcome: "The awkward middle of the court, handled.",
-  },
-];
+// Copy lives in lib/picklParkClasses.ts — the canonical source shared with
+// the venue listing, calendar descriptions, flyers, and the newsletter.
+const CLASSES = PICKL_PARK_CLASSES;
 
 const FAQS = [
   {
@@ -171,7 +89,7 @@ const FAQS = [
   },
   {
     q: "Do you also teach privately in Frederick?",
-    a: "Yes. Private lessons at The Pickl Park are available alongside the group classes — those are booked directly with Sam rather than through the venue.",
+    a: "Yes. Private lessons at The Pickl Park run alongside the group classes — send a request and Sam will confirm a time.",
   },
 ];
 
@@ -305,7 +223,7 @@ export default function PicklParkPage() {
                         What you&apos;ll work on
                       </dt>
                       <dd className="text-text-muted leading-relaxed">
-                        {klass.body}
+                        {klass.workOn}
                       </dd>
                     </div>
                     <div>
@@ -421,8 +339,7 @@ export default function PicklParkPage() {
               Group classes move at the group&apos;s pace. If you want the hour
               built entirely around your game — or you&apos;d rather work through
               something specific without an audience — Sam takes private lessons
-              at The Pickl Park too. Those are booked directly, not through the
-              venue.
+              at The Pickl Park too.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <a
