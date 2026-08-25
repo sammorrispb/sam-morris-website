@@ -22,7 +22,12 @@
  * REFRESHING (roughly monthly, or whenever the tail runs short):
  *   1. Open FREDERICK_VENUE.clinicsUrl; walk forward with `&date=YYYY-MM-DD`.
  *   2. Collect occurrences in Sam's slots.
- *   3. Open each one; keep only those whose COACH reads "Sam Morris".
+ *   3. Open each one; keep only those whose COACH reads "Sam Morris" AND
+ *      whose CTA still reads "Sign up" — a session can close registration
+ *      ("Admission is no longer available") while its date is still in the
+ *      future, and it is NOT a predictable cutoff: on 2026-08-25 an 11am
+ *      session was already closed while a 10am one was still open. Date
+ *      alone cannot tell you; you have to look.
  *   4. Replace the arrays below and bump `verified`.
  *
  * Past sessions are filtered out at render time, so a stale tail degrades to
@@ -66,7 +71,6 @@ export const PICKL_PARK_SESSIONS: Record<string, PicklParkSession[]> = {
   ],
   // Sep 29 (019ffd77-910d-788f-862e-e6cf2ddb8f1b) likewise unassigned.
   "skills-advanced": [
-    { startsAt: "2026-08-25T11:00:00-04:00", eventId: "019ffd77-8d2d-788f-862c-677392912c43" },
     { startsAt: "2026-09-01T11:00:00-04:00", eventId: "019ffd77-8d75-788f-862c-e407c6d5a9b5" },
     { startsAt: "2026-09-08T11:00:00-04:00", eventId: "019ffd77-8db4-788f-862d-6301831ee3f1" },
     { startsAt: "2026-09-15T11:00:00-04:00", eventId: "019ffd77-906a-788f-862d-e267739f4152" },
