@@ -67,60 +67,84 @@ const CLASSES: {
   level: string;
   /** Recurring pattern. Omit for a class with no proven cadence. */
   cadence?: string;
+  /** Who should pick this one — the self-selection cue. */
+  forYouIf: string;
+  /** What the hour actually covers. */
   body: string;
+  /** What a player walks away holding. */
+  outcome: string;
 }[] = [
   {
     id: "101",
     title: "101 — Intro to Pickleball",
     level: "Beginner",
     cadence: "Mondays, 10:00–11:00am",
-    body: "Never held a paddle? Start here. Grip, ready position, the serve and return, and the two rules that trip up every new player. You leave having played real points.",
+    forYouIf:
+      "You've never held a paddle — or you've played twice at a friend's place and want to actually know what you're doing.",
+    body: "Grip and ready position, the serve and the return, and the two rules that trip up every new player: the kitchen, and the double bounce.",
+    outcome: "Real points played, not drills in a line.",
   },
   {
     id: "201",
     title: "201 — Net Play & Dinking Under Pressure",
     level: "Intermediate",
     cadence: "Mondays, 11:00am–12:00pm",
-    body: "The kitchen line is where games are won. Dink patterns, resets off a fast ball, when to speed up, and how to hold your position when the pace climbs.",
+    forYouIf:
+      "You can rally fine, but the point falls apart once everybody gets to the net.",
+    body: "Dink patterns, resetting a ball that's coming at you fast, when to speed it up, and how to hold your position when the pace climbs.",
+    outcome: "A plan for the kitchen line instead of a reaction.",
   },
   {
     id: "skills-beginner",
     title: "Skills Assessment — Beginner/Intermediate",
     level: "Beginner to 3.0",
     cadence: "Mondays 12:00–1:00pm · Tuesdays 10:00–11:00am",
-    body: "A structured hour that measures where your game actually is across serve, return, dinks, drops, and movement — and tells you the two things to work on next.",
+    forYouIf:
+      "You've never had your game measured against anything but the scoreboard — rated or not.",
+    body: "A structured hour across serve, return, dinks, drops, and movement — scored the same way every time, so it's a baseline you can train against.",
+    outcome: "A rating you can train against, and the two things capping it.",
   },
   {
     id: "skills-advanced",
     title: "Skills Assessment — Intermediate/Advanced",
     level: "3.0 and up",
     cadence: "Mondays 1:00–2:00pm · Tuesdays 11:00am–12:00pm",
-    body: "Same format, higher ceiling. Pressure-tested reads, transition-zone decisions, and shot selection under fatigue, with a clear picture of what's capping your rating.",
+    forYouIf:
+      "You've plateaued, and the reason isn't obvious from inside the match.",
+    body: "Same format, higher ceiling: pressure-tested reads, what to do in the mid-court, and shot selection once you're tired.",
+    outcome: "A clear picture of what's capping your rating.",
   },
   {
     id: "101a",
     title: "101A — Repetition & Foundations",
     level: "Beginner",
     cadence: "Runs periodically, midday",
-    body: "The follow-up to 101. High-volume reps on the shots you just learned, so the mechanics hold up once someone is hitting back.",
+    forYouIf:
+      "You've done 101, and the mechanics fall apart the moment someone hits back.",
+    body: "High-volume reps on the shots you just learned. The same swing, over and over, until it holds up against a live ball.",
+    outcome: "Mechanics that survive contact.",
   },
   {
     id: "104",
     title: "104 — Third Shot Drops",
     level: "Advanced beginner",
     cadence: "Runs periodically, midday",
-    body: "The shot that gets you off the baseline and up to the net. Contact point, arc, and target — plus what to do when the drop comes back high.",
+    forYouIf:
+      "You're stuck at the baseline because every third shot comes back at your feet.",
+    body: "Contact point, arc, and target on the shot that gets you to the net — plus what to do when the drop comes back high.",
+    outcome: "A way off the baseline.",
   },
   {
-    // DRAFT COPY — pending Sam's sign-off. Currently a one-off (Tue Aug 25);
-    // if it does not return to the schedule, drop this entry rather than
-    // leaving a card with no dates.
+    // DRAFT COPY — pending Sam's sign-off, like the rest of this block.
     id: "204",
     title: "204 — Defense to Offense: Mid-Court Play",
     level: "Intermediate",
     // No cadence: this one has never been observed to recur, and a label that
     // points at the date chips reads as broken once they have all passed.
-    body: "The awkward middle of the court, handled. Reading which balls to take out of the air, resetting when you're stretched, and turning a defensive dig into the point you wanted.",
+    forYouIf:
+      "You're comfortable at the net and comfortable at the baseline, and lost in between.",
+    body: "Reading which balls to take out of the air, resetting when you're stretched, and turning a defensive dig into the point you wanted.",
+    outcome: "The awkward middle of the court, handled.",
   },
 ];
 
@@ -267,9 +291,32 @@ export default function PicklParkPage() {
                       {klass.cadence}
                     </p>
                   )}
-                  <p className="text-text-muted leading-relaxed flex-1">
-                    {klass.body}
-                  </p>
+                  <dl className="flex-1 space-y-4">
+                    <div>
+                      <dt className="eyebrow text-[0.6875rem] mb-1">
+                        For you if
+                      </dt>
+                      <dd className="text-text-muted leading-relaxed">
+                        {klass.forYouIf}
+                      </dd>
+                    </div>
+                    <div>
+                      <dt className="eyebrow text-[0.6875rem] mb-1">
+                        What you&apos;ll work on
+                      </dt>
+                      <dd className="text-text-muted leading-relaxed">
+                        {klass.body}
+                      </dd>
+                    </div>
+                    <div>
+                      <dt className="eyebrow text-[0.6875rem] mb-1">
+                        You leave with
+                      </dt>
+                      <dd className="text-text-primary/90 leading-relaxed font-medium">
+                        {klass.outcome}
+                      </dd>
+                    </div>
+                  </dl>
                   {sessions.length > 0 ? (
                     <div className="mt-6">
                       <p className="eyebrow text-xs mb-3">Register for a date</p>
