@@ -78,7 +78,6 @@ const PATHS = [
       "Custom lesson for improving any aspect of your game. Great for more reps, a new perspective, and getting better.",
     detail: [
       "Solo or bring a small group (up to 4)",
-      "I travel within ~1 hour of Olney, MD",
     ],
     cta: "Ask about Lessons",
     image: "/images/coach-sam.jpeg",
