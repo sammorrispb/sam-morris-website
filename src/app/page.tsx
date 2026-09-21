@@ -5,6 +5,7 @@ import { TrackedLink } from "@/components/TrackedLink";
 import { TrackedExternalLink } from "@/components/TrackedExternalLink";
 import { ContactLink } from "@/components/ContactLink";
 import { StickyContactBar } from "@/components/StickyContactBar";
+import { LeadForm } from "@/components/LeadForm";
 import { CONTACT } from "@/lib/constants";
 import { familySiteUrl } from "@/lib/urls";
 
@@ -312,6 +313,12 @@ export default function Home() {
                 </svg>
                 Email me
               </ContactLink>
+            </div>
+
+            {/* Fast channels above; the form is the durable one — it is what
+                feeds /api/leads and the day-2/5/9 follow-up drip. */}
+            <div className="mt-12 text-left">
+              <LeadForm page="home" />
             </div>
 
             <p className="text-text-muted text-sm mt-10 pt-8 border-t border-white/10">

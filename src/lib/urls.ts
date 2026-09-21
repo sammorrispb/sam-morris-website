@@ -7,7 +7,9 @@ export type FamilyDest = "nga" | "ld";
 
 const FAMILY_BASES: Record<FamilyDest, string> = {
   nga: "https://nextgenpbacademy.com",
-  ld: "https://linkanddink.com",
+  // www, not the apex: the apex 301s to http://www.linkanddink.com (an extra,
+  // briefly-insecure hop) and serves the agent frontend, not the main site.
+  ld: "https://www.linkanddink.com",
 };
 
 export function familyMarketingRef(dest: FamilyDest): string {
