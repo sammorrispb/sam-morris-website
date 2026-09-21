@@ -170,15 +170,18 @@ describe("brand guardrails — WhatsApp group invites are single-sourced", () =>
     ).toEqual([]);
   });
 
-  it("the adult group is reachable from the homepage, not just /contact", () => {
-    // It lived only on /contact until 2026-08-25.
+  // Relaxed 2026-09-21. #77 put the invite on the homepage because it lived
+  // only on /contact until 2026-08-25. The simplified landing instead hands
+  // players off to www.linkanddink.com, so the invite requirement moves back to
+  // /contact and the homepage only has to keep *a* route into the community.
+  it("the homepage still routes players into the community", () => {
     expect(readFileSync(path.join(SRC, "app/page.tsx"), "utf8")).toMatch(
-      /WHATSAPP_GROUP/,
+      /familySiteUrl\("ld"\)/,
     );
   });
 
   it("the youth cross-invite rides along wherever the adult group is offered", () => {
-    for (const rel of ["app/page.tsx", "app/contact/page.tsx"]) {
+    for (const rel of ["app/contact/page.tsx"]) {
       const src = readFileSync(path.join(SRC, rel), "utf8");
       expect(src, `${rel} offers the adult group`).toMatch(/WHATSAPP_GROUP/);
       expect(src, `${rel} cross-links the youth group`).toMatch(
