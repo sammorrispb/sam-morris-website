@@ -101,7 +101,7 @@ export const EVENT_TYPES = [
   "Other",
 ] as const;
 
-// Sanctioned host venue outside the 35-min radius (Sam-approved 2026-08-09,
+// Sanctioned host venue outside the core service area (Sam-approved 2026-08-09,
 // widened 2026-08-24 to cover the group clinics and skills assessments Sam
 // personally leads here). Partner/host venue, not a competitor.
 // Spelling is "Pickl", not "Pickle" — matches thepicklpark.com.
@@ -123,11 +123,13 @@ export const FREDERICK_VENUE = {
 
 export const SERVICE_AREA = {
   homeBase: "Olney, MD",
-  radiusMinutes: 35,
+  // No travel-time or distance claim lives here on purpose: it was stated as
+  // "~35 min" in four places and "~1 hour" in a fifth, and nothing asserted it.
+  // Service area is expressed as geography only.
   description:
-    "Sam travels to your court within roughly 35 minutes of Olney, MD — covering Montgomery County, Washington DC, and nearby parts of Prince George's, Howard, and northern Virginia. Private lessons and group clinics are also available at The Pickl Park in Frederick, MD. You arrange and pay for the court; Sam brings the coaching.",
+    "Sam travels to your court across Montgomery County, Washington DC, and nearby parts of Prince George's, Howard, and northern Virginia. Private lessons and group clinics are also available at The Pickl Park in Frederick, MD. You arrange and pay for the court; Sam brings the coaching.",
   // Frederick is deliberately absent here: shortDescription feeds the
   // group/3+1/event templates and the events page, which stay MoCo-only.
   shortDescription:
-    "Within ~35 min of Olney, MD (MoCo + DC + nearby PG/Howard/NoVA)",
+    "Montgomery County, DC, and nearby PG/Howard/NoVA",
 } as const;

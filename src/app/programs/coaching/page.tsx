@@ -17,7 +17,7 @@ export const metadata: Metadata = {
   title: "Pickleball Coaching & Clinics in MoCo — Sam Morris",
   // Description ≤160 chars (audit baseline: 202).
   description:
-    "Private lessons, group clinics, and the 3+1 Play-In with PPR-certified Coach Sam Morris. Travels to your court within ~35 min of Olney, MD.",
+    "Private lessons, group clinics, and the 3+1 Play-In with PPR-certified Coach Sam Morris in Montgomery County, MD. Sam travels to your court.",
   keywords: [
     "private pickleball lessons Montgomery County",
     "pickleball coach Montgomery County",
@@ -101,7 +101,7 @@ export default function CoachingPage() {
               { "@type": "City", name: "Frederick, MD" },
             ],
             description:
-              "Private 1-on-1 lessons, small-group lessons (2+), and the 3+1 Play-In Special with PPR-certified coach Sam Morris. Sam travels to your court within roughly 35 minutes of Olney, MD. Private lessons are also available at The Pickl Park in Frederick, MD.",
+              "Private 1-on-1 lessons, small-group lessons (2+), and the 3+1 Play-In Special with PPR-certified coach Sam Morris. Sam travels to your court. Private lessons are also available at The Pickl Park in Frederick, MD.",
             offers: [
               { "@type": "Offer", name: "Single Private Lesson", description: "1 hour of 1-on-1 coaching" },
               { "@type": "Offer", name: "4-Session Private Package", description: "Four 1-on-1 sessions of structured progression" },
@@ -121,7 +121,7 @@ export default function CoachingPage() {
               { "@type": "Question", name: "How do I book a private pickleball lesson?", acceptedAnswer: { "@type": "Answer", text: "Request a lesson at coach.sammorrispb.com and Sam will confirm a time that works. Single sessions and 4-session packages are available — Sam shares details when he confirms your request." } },
               { "@type": "Question", name: "Do you offer group pickleball lessons?", acceptedAnswer: { "@type": "Answer", text: "Yes — group lessons are available for 2 or more players. Request a time and Sam will build the session around your group's level and goals." } },
               { "@type": "Question", name: "What is the 3+1 Play-In Special?", acceptedAnswer: { "@type": "Answer", text: "The 3+1 Play-In Special is a 2-hour session where you bring 3 players and Sam plays as the 4th — doubles reps with a coach in the lineup." } },
-              { "@type": "Question", name: "Where do lessons happen?", acceptedAnswer: { "@type": "Answer", text: `Sam travels to your court within roughly 35 minutes of Olney, MD — covering Montgomery County, Washington DC, and nearby parts of Prince George's, Howard, and northern Virginia. Private lessons are also available at The Pickl Park in Frederick, MD.` } },
+              { "@type": "Question", name: "Where do lessons happen?", acceptedAnswer: { "@type": "Answer", text: `Sam travels to your court across Montgomery County, Washington DC, and nearby parts of Prince George's, Howard, and northern Virginia. Private lessons are also available at The Pickl Park in Frederick, MD.` } },
             ],
           }),
         }}
@@ -148,7 +148,7 @@ export default function CoachingPage() {
           <p className="text-text-primary/85 text-lg md:text-xl max-w-2xl leading-relaxed mb-8">
             Private 1-on-1 lessons, group lessons (2+), and the 3+1 Play-In
             Special — built around the part of your game you most want to level
-            up. Sam travels to your court within ~35 minutes of Olney, MD.
+            up. Sam travels to your court.
           </p>
           <div className="flex flex-col sm:flex-row gap-4">
             <a
