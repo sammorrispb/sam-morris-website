@@ -1,18 +1,12 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import Image from "next/image";
-import { LeadForm } from "@/components/LeadForm";
-import { TESTIMONIALS } from "@/lib/testimonials";
-import { TestimonialGrid } from "@/components/TestimonialGrid";
 import { AnimateOnScroll } from "@/components/AnimateOnScroll";
 import { TrackedLink } from "@/components/TrackedLink";
 import { TrackedExternalLink } from "@/components/TrackedExternalLink";
-import {
-  COACH_REQUEST_URL,
-  NGA_WHATSAPP_GROUP,
-  WHATSAPP_GROUP,
-} from "@/lib/constants";
-import { coachRequestUrl } from "@/lib/urls";
+import { ContactLink } from "@/components/ContactLink";
+import { StickyContactBar } from "@/components/StickyContactBar";
+import { CONTACT } from "@/lib/constants";
+import { familySiteUrl } from "@/lib/urls";
 
 export const metadata: Metadata = {
   // Title kept ≤60 chars (audit baseline: 84 with old template).
@@ -54,130 +48,58 @@ export const metadata: Metadata = {
   },
 };
 
-const STATS = [
-  { value: "M.S.", label: "in Coaching" },
-  { value: "5.0+", label: "Player" },
-  { value: "RPO", label: "Certified" },
-  { value: "PPR", label: "Pro" },
-  { value: "DUPR", label: "Coach Certified" },
-  { value: "9 yrs", label: "MCPS Educator" },
-];
+const TEL = CONTACT.phone.replace(/[^0-9+]/g, "");
 
-const EASE_CARDS = [
+/**
+ * The three ways into the sport. Every card funnels to the same #contact
+ * block — the landing page deliberately has no outbound exit before the
+ * visitor has a way to reach Sam.
+ */
+const PATHS = [
   {
-    letter: "E",
-    title: "Ethics",
+    title: "Intro to the Game",
+    badge: "New players",
     description:
-      "Doing what's right, always. Fair play, integrity, respect on and off the court.",
+      "Never held a paddle, or played twice at a friend's place? We cover the rules, the serve, the kitchen line, and a real rally — so you can walk onto any court and play.",
+    detail: [
+      "Learn the FUNdamentals and why this game is easy to start and fun for all",
+    ],
+    cta: "Ask about Intro",
+    image: "/images/kids-outdoor-play.jpeg",
+    imageAlt:
+      "Beginner pickleball players rallying on an outdoor court in Montgomery County, MD",
+    primary: true,
   },
-  {
-    letter: "A",
-    title: "Attitude",
-    description:
-      "Positive, welcoming, motivating. Growth mindset, resilience, encouraging environment.",
-  },
-  {
-    letter: "S",
-    title: "Skills",
-    description:
-      "Technical excellence and strategic thinking. Clear pathway from beginner to advanced.",
-  },
-  {
-    letter: "E",
-    title: "Excellence",
-    description:
-      "Continuous improvement. Preparedness, consistency, pride in the details.",
-  },
-];
-
-const PROGRAMS = [
   {
     title: "Private Lessons",
+    badge: null,
     description:
-      "1-on-1 coaching tailored to your goals — video review, custom drills, and a clear path forward.",
-    cta: "Request a Lesson",
-    href: COACH_REQUEST_URL,
+      "Custom lesson for improving any aspect of your game. Great for more reps, a new perspective, and getting better.",
+    detail: [
+      "Solo or bring a small group (up to 4)",
+      "I travel within ~1 hour of Olney, MD",
+    ],
+    cta: "Ask about Lessons",
     image: "/images/coach-sam.jpeg",
-    badge: "1-on-1",
+    imageAlt: "Coach Sam Morris running a private pickleball lesson",
+    primary: false,
   },
   {
-    title: "Training Cohorts",
+    title: "Youth Programs",
+    badge: null,
     description:
-      "4 players, 4 weeks, finishing at a tournament. Structured group progression with one all-in price.",
-    cta: "See Cohort Details",
-    href: "/programs/cohort",
-    image: "/images/sam-portrait-with-paddle.jpg",
-    badge: "4-week series",
-  },
-  {
-    title: "Next Gen Academy",
-    description:
-      "Structured youth pathway for ages 8-16. Fall season now enrolling — six Sundays in Rockville, Sept 20 – Oct 25.",
-    cta: "Explore the Academy",
-    href: "/programs#academy",
+      "Next Gen Academy — a structured pathway for kids to play and grow together.",
+    detail: ["Seasonal academy + after-school clubs"],
+    cta: "Ask about Youth",
     image: "/images/youth-indoor-player.jpeg",
-    badge: "Fall season enrolling",
+    imageAlt: "Young player at a Next Gen Academy pickleball session",
+    primary: false,
   },
-];
-
-// FAQ JSON-LD — previously emitted sitewide via layout.tsx. Moved here per
-// Google's FAQPage policy: only emit on pages with visible FAQ-equivalent
-// content. Home renders the same answers across the lead form, programs preview,
-// and CTAs, so it's the canonical spot. SEO audit 2026-05-24.
-const HOME_FAQ_JSONLD = {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  mainEntity: [
-    {
-      "@type": "Question",
-      name: "Where can I take pickleball lessons in Montgomery County, MD?",
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: "Sam Morris offers professional pickleball coaching across Montgomery County, MD. Private lessons, group clinics, and youth academy programs are available for all skill levels — from complete beginners to 5.0+ players. Visit sammorrispb.com/contact to get started.",
-      },
-    },
-    {
-      "@type": "Question",
-      name: "Is pickleball good for kids and families?",
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: "Pickleball is one of the best family sports — it's easy for beginners of all ages to learn, requires minimal equipment, and provides great exercise. The Next Gen Pickleball Academy in Montgomery County offers structured programs for kids ages 8-16 with four skill levels. Many families play together and it's a wonderful way to bond through sport.",
-      },
-    },
-    {
-      "@type": "Question",
-      name: "What age can kids start learning pickleball?",
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: "Kids can start as young as 5 with private lessons. The Next Gen Pickleball Academy's structured pathway runs ages 8-16, starting at the Red Level for first-time players — teaching grip, stance, basic serves, and court awareness in a fun, supportive environment.",
-      },
-    },
-    {
-      "@type": "Question",
-      name: "How do I book a private pickleball lesson in Montgomery County?",
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: "Sam Morris offers private 1-on-1 pickleball lessons with video analysis and custom practice plans. Request a lesson at coach.sammorrispb.com and Sam will confirm a time that works. Visit sammorrispb.com/programs to get started or contact Sam at 301-325-4731.",
-      },
-    },
-    {
-      "@type": "Question",
-      name: "What is DUPR and why does it matter for pickleball?",
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: "DUPR (Dynamic Universal Pickleball Rating) is the global pickleball rating system used to match players of similar skill levels. Sam Morris is a DUPR Certified Coach who helps players understand their rating and track their improvement over time.",
-      },
-    },
-  ],
-};
+] as const;
 
 export default function Home() {
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(HOME_FAQ_JSONLD) }}
-      />
       {/* ─── Full-Bleed Hero ─── */}
       <section className="relative min-h-[92vh] flex items-center hero-full-bleed hero-nav-offset overflow-hidden">
         <Image
@@ -190,319 +112,224 @@ export default function Home() {
         />
         <div className="relative z-10 mx-auto max-w-6xl px-6 w-full py-24">
           <div className="max-w-3xl">
-            <p className="eyebrow mb-5 animate-fade-in">
-              Coach. Dad. &middot; Helping families grow through sport — one rally at a time.
-            </p>
-            <h1 className="font-heading font-black text-5xl sm:text-6xl md:text-7xl lg:text-8xl leading-[0.95] mb-8 animate-fade-up">
+            <h1 className="font-heading font-black text-5xl sm:text-6xl md:text-7xl lg:text-8xl leading-[0.95] mb-10 animate-fade-up">
               Pickleball coach in{" "}
-              <span className="gradient-text-warm">Montgomery County.</span>
+              <span className="gradient-text-warm">
+                Montgomery &amp; Frederick County.
+              </span>
             </h1>
-            <p className="text-text-primary/85 text-lg md:text-xl mb-10 max-w-xl leading-relaxed">
-              PPR-certified coaching for adults, families, and kids across the
-              DMV. Real progress, every session.
-            </p>
             <div className="flex flex-col sm:flex-row gap-4">
               <TrackedLink
-                href={coachRequestUrl("home_hero")}
+                href="#paths"
                 className="inline-flex items-center justify-center font-heading font-semibold px-8 py-4 rounded-full btn-gradient text-base"
-                eventProps={{ label: "Request a Lesson", page: "home", section: "hero", destination: coachRequestUrl("home_hero") }}
+                eventProps={{
+                  label: "See the three ways to start",
+                  page: "home",
+                  section: "hero",
+                  destination: "#paths",
+                }}
               >
-                Request a Lesson
+                See the three ways to start
               </TrackedLink>
-              <TrackedLink
-                href="/programs"
+              <ContactLink
+                method="phone"
+                page="home"
+                section="hero"
+                href={`tel:${TEL}`}
                 className="inline-flex items-center justify-center btn-outline font-heading font-semibold px-8 py-4 rounded-full text-base"
-                eventProps={{ label: "Explore Programs", page: "home", section: "hero" }}
               >
-                Explore Programs
-              </TrackedLink>
+                Call {CONTACT.phone}
+              </ContactLink>
             </div>
           </div>
         </div>
 
         {/* Subtle scroll indicator */}
         <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 hidden md:flex flex-col items-center gap-2 animate-fade-in">
-          <span className="text-text-muted text-xs uppercase tracking-[0.2em]">Scroll</span>
+          <span className="text-text-muted text-xs uppercase tracking-[0.2em]">
+            Scroll
+          </span>
           <div className="h-10 w-px bg-gradient-to-b from-accent-blue to-transparent" />
         </div>
       </section>
 
-      {/* ─── Credentials Bar ─── */}
-      <section className="relative bg-navy-light border-y border-white/8 py-8">
-        <div className="mx-auto max-w-6xl px-6 flex flex-wrap justify-center gap-x-10 gap-y-6 md:gap-x-14">
-          {STATS.map((stat) => (
-            <div key={stat.label} className="text-center">
-              <div className="font-mono text-accent-blue text-2xl md:text-3xl font-bold tracking-tight">
-                {stat.value}
-              </div>
-              <div className="text-text-muted text-[0.7rem] md:text-xs uppercase tracking-[0.18em] mt-1">
-                {stat.label}
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* ─── EASE Framework — photo backdrop ─── */}
-      <section className="relative section-photo-backdrop py-24 px-6">
-        <div className="photo-bg">
-          <Image
-            src="/images/indoor-play-action.jpeg"
-            alt="Indoor pickleball drill led by Coach Sam Morris in Montgomery County, MD"
-            fill
-            sizes="100vw"
-            className="object-cover"
-          />
-        </div>
-        <AnimateOnScroll>
-          <div className="mx-auto max-w-6xl text-center mb-14">
-            <p className="eyebrow mb-3">Coaching framework</p>
-            <h2 className="font-heading font-black text-4xl md:text-5xl mb-5 leading-tight">
-              The <span className="gradient-text-warm">EASE</span> Framework
-            </h2>
-            <p className="text-text-muted text-lg max-w-2xl mx-auto leading-relaxed">
-              Four pillars that guide every drill, every lesson, every player.
-              From your first dink to tournament prep, across Montgomery County.
-            </p>
-          </div>
-          <div className="mx-auto max-w-6xl grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-            {EASE_CARDS.map((card) => (
-              <div
-                key={card.title}
-                className="glass-card p-7 group"
-              >
-                <div className="text-accent-blue font-heading font-black text-5xl mb-3 group-hover:scale-110 origin-left transition-transform">
-                  {card.letter}
-                </div>
-                <h3 className="font-heading font-bold text-lg mb-2 text-text-primary">
-                  {card.title}
-                </h3>
-                <p className="text-text-muted text-sm leading-relaxed">{card.description}</p>
-              </div>
-            ))}
-          </div>
-        </AnimateOnScroll>
-      </section>
-
-      {/* ─── Quiz CTA ─── */}
-      <section className="px-6 py-16 bg-navy-light">
-        <div className="mx-auto max-w-4xl">
-          <Link
-            href="/quiz"
-            className="glass-card-amber rounded-2xl p-8 md:p-10 flex flex-col md:flex-row items-center gap-6 group transition-all"
-          >
-            <Image
-              src="/images/pickleball-single.webp"
-              alt=""
-              width={72}
-              height={72}
-              className="shrink-0 w-14 h-14 md:w-16 md:h-16 object-contain"
-              aria-hidden="true"
-            />
-            <div className="text-center md:text-left flex-1">
-              <p className="eyebrow mb-2">1-minute quiz</p>
-              <h2 className="text-xl md:text-2xl font-heading font-bold text-text-primary group-hover:text-accent-blue transition-colors">
-                What&apos;s Your Pickleball Level?
-              </h2>
-              <p className="text-text-muted text-sm mt-1.5 max-w-lg">
-                Six questions. Get a skill estimate and program recommendations tailored to your game.
-              </p>
-            </div>
-            <span className="text-accent-blue font-semibold text-sm whitespace-nowrap group-hover:translate-x-1 transition-transform">
-              Take the Quiz &rarr;
-            </span>
-          </Link>
-        </div>
-      </section>
-
-      {/* ─── Programs Preview — photo cards ─── */}
-      <section className="py-24 px-6">
+      {/* ─── Three ways to start ─── */}
+      <section id="paths" className="scroll-mt-20 py-24 px-6">
         <AnimateOnScroll>
           <div className="mx-auto max-w-6xl">
             <div className="text-center mb-14">
-              <p className="eyebrow mb-3">Programs &amp; Services</p>
-              <h2 className="font-heading font-black text-4xl md:text-5xl mb-4 leading-tight">
-                Find your <span className="gradient-text-warm">starting line.</span>
+              <h2 className="font-heading font-black text-4xl md:text-5xl leading-tight">
+                Find your{" "}
+                <span className="gradient-text-warm">starting line.</span>
               </h2>
-              <p className="text-text-muted text-lg max-w-2xl mx-auto">
-                Three clear paths into the sport. Start where you are.
-              </p>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {PROGRAMS.map((program) => (
-                <TrackedLink
-                  key={program.title}
-                  href={program.href}
-                  eventProps={{ label: program.title, page: "home", section: "program_card", destination: program.href }}
-                  className="group relative overflow-hidden rounded-2xl border border-white/10 hover:border-accent-blue/45 transition-all card-hover bg-navy-light min-h-[420px] flex flex-col"
+              {PATHS.map((path) => (
+                <div
+                  key={path.title}
+                  className="group relative overflow-hidden rounded-2xl border border-white/10 transition-all card-hover bg-navy-light flex flex-col"
                 >
-                  <div className="relative h-64 w-full overflow-hidden">
+                  <div className="relative h-56 w-full overflow-hidden">
                     <Image
-                      src={program.image}
-                      alt={program.title}
+                      src={path.image}
+                      alt={path.imageAlt}
                       fill
                       sizes="(max-width: 768px) 100vw, 33vw"
                       className="object-cover transition-transform duration-500 group-hover:scale-105"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-navy-light via-navy-light/40 to-transparent" />
-                    <span className="absolute top-4 left-4 brand-badge brand-badge-sm">
-                      {program.badge}
-                    </span>
+                    {path.badge && (
+                      <span className="absolute top-4 left-4 brand-badge brand-badge-sm">
+                        {path.badge}
+                      </span>
+                    )}
                   </div>
                   <div className="p-7 flex flex-col flex-1">
-                    <h3 className="font-heading font-bold text-2xl mb-3 text-text-primary group-hover:text-accent-blue transition-colors">
-                      {program.title}
+                    <h3 className="font-heading font-bold text-2xl mb-3 text-text-primary">
+                      {path.title}
                     </h3>
-                    <p className="text-text-muted text-sm mb-6 flex-1 leading-relaxed">
-                      {program.description}
+                    <p className="text-text-muted text-sm leading-relaxed mb-5">
+                      {path.description}
                     </p>
-                    <span className="text-accent-blue font-semibold text-sm group-hover:translate-x-1 transition-transform inline-flex items-center gap-1.5">
-                      {program.cta} &rarr;
-                    </span>
+                    <div className="text-text-muted/80 text-sm leading-relaxed pt-5 border-t border-white/10 mb-6">
+                      {path.detail.map((line) => (
+                        <p key={line}>{line}</p>
+                      ))}
+                    </div>
+                    <div className="mt-auto">
+                      <TrackedLink
+                        href="#contact"
+                        eventProps={{
+                          label: path.cta,
+                          page: "home",
+                          section: "path_card",
+                          destination: "#contact",
+                        }}
+                        className={`inline-flex w-full items-center justify-center font-heading font-semibold px-6 py-3.5 rounded-full text-sm ${
+                          path.primary ? "btn-gradient" : "btn-outline"
+                        }`}
+                      >
+                        {path.cta}
+                      </TrackedLink>
+                    </div>
                   </div>
-                </TrackedLink>
+                </div>
               ))}
-            </div>
-            <div className="text-center mt-12">
-              <Link
-                href="/programs"
-                className="inline-flex items-center btn-outline font-semibold px-8 py-3 rounded-full text-sm"
-              >
-                See All Programs &rarr;
-              </Link>
             </div>
           </div>
         </AnimateOnScroll>
       </section>
 
-      {/* ─── Coach intro / pull-quote with photo ─── */}
-      <section className="py-24 px-6 bg-navy-light">
-        <div className="mx-auto max-w-6xl grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-          <div className="relative aspect-[4/5] rounded-2xl overflow-hidden glow-border">
-            <Image
-              src="/images/sam-action.jpeg"
-              alt="Coach Sam Morris"
-              fill
-              sizes="(max-width: 768px) 100vw, 50vw"
-              className="object-cover"
-            />
-            <div className="absolute inset-0 bg-gradient-to-tr from-navy/55 via-transparent to-transparent" />
-          </div>
-          <div>
-            <p className="eyebrow mb-3">Why I coach</p>
-            <h2 className="font-heading font-black text-3xl md:text-4xl mb-6 leading-tight">
-              Sport is more than a game. It&apos;s how families <span className="gradient-text-warm">grow stronger together.</span>
-            </h2>
-            <p className="text-text-muted text-lg leading-relaxed mb-5">
-              Nine years as a PE teacher. M.S. in Coaching from Ball State.
-              Co-founder of Next Gen Academy. I bring the same structure that
-              made gym class work for every kid — and apply it to pickleball.
-            </p>
-            <p className="text-text-muted text-lg leading-relaxed mb-8">
-              Every drill has a purpose. Every milestone gets celebrated.
-              Every lesson builds confidence on the court and resilience off it.
-            </p>
-            <Link
-              href="/about"
-              className="inline-flex items-center text-accent-blue font-semibold hover:translate-x-1 transition-transform"
-            >
-              Read the full story &rarr;
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* ─── Testimonials ─── */}
-      <section className="px-6 py-24">
-        <div className="mx-auto max-w-6xl">
-          <div className="text-center mb-14">
-            <p className="eyebrow mb-3">Real feedback</p>
-            <h2 className="text-4xl md:text-5xl font-heading font-black text-text-primary mb-4 leading-tight">
-              What players are saying
-            </h2>
-            <p className="text-text-muted text-lg max-w-2xl mx-auto">
-              From first-time beginners to 4.5+ competitors — real words from people I&apos;ve coached.
-            </p>
-          </div>
-          <TestimonialGrid testimonials={TESTIMONIALS} limit={3} />
-        </div>
-      </section>
-
-      {/* ─── Lead Form — full-width section with photo ─── */}
-      <section className="relative section-photo-backdrop py-24 px-6">
+      {/* ─── Contact — the only exit ─── */}
+      <section
+        id="contact"
+        className="scroll-mt-20 relative section-photo-backdrop py-24 px-6"
+      >
         <div className="photo-bg">
           <Image
             src="/images/multi-court-outdoor.jpeg"
-            alt="Outdoor pickleball courts in Montgomery County, MD where Coach Sam Morris teaches"
+            alt="Outdoor pickleball courts in Montgomery County, MD"
             fill
             sizes="100vw"
             className="object-cover"
           />
         </div>
         <AnimateOnScroll>
-          <div className="relative mx-auto max-w-6xl grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div>
-              <p className="eyebrow mb-3">Get in touch</p>
-              <h2 className="font-heading font-black text-4xl md:text-5xl mb-5 leading-tight">
-                Ready to get <span className="gradient-text-warm">on the court?</span>
-              </h2>
-              <p className="text-text-muted text-lg leading-relaxed mb-6">
-                Tell me what you&apos;re working on. Whether you&apos;re brand new
-                or chasing 4.5, we&apos;ll find the right starting point.
-              </p>
-              <ul className="space-y-3 text-text-muted">
-                <li className="flex gap-3">
-                  <span className="text-accent-blue font-bold mt-0.5">→</span>
-                  <span>Replies within 24 hours</span>
-                </li>
-                <li className="flex gap-3">
-                  <span className="text-accent-blue font-bold mt-0.5">→</span>
-                  <span>I travel within ~35 min of Olney, MD</span>
-                </li>
-                <li className="flex gap-3">
-                  <span className="text-accent-blue font-bold mt-0.5">→</span>
-                  <span>No pressure, no sales pitch</span>
-                </li>
-              </ul>
+          <div className="relative mx-auto max-w-3xl text-center">
+            <p className="eyebrow mb-3">Get in touch</p>
+            <h2 className="font-heading font-black text-4xl md:text-5xl mb-10 leading-tight">
+              Tell me what{" "}
+              <span className="gradient-text-warm">you&apos;re after.</span>
+            </h2>
 
-              {/* The group chat is where games actually get organized — it was
-                  reachable only from /contact until 2026-08-25. */}
-              <div className="glass-card rounded-2xl p-6 mt-8">
-                <p className="font-heading font-bold text-base mb-2">
-                  Play with us between lessons
-                </p>
-                <p className="text-text-muted text-sm leading-relaxed mb-4">
-                  The {WHATSAPP_GROUP.name} WhatsApp group is where local players
-                  post games, courts, and who&apos;s out this week.
-                </p>
-                <TrackedExternalLink
-                  href={WHATSAPP_GROUP.href}
-                  label="WhatsApp Group"
-                  page="home"
-                  className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium border border-white/12 text-text-muted hover:text-accent-lime hover:border-accent-lime/45 transition-colors"
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <ContactLink
+                method="sms"
+                page="home"
+                section="contact_block"
+                href={`sms:${TEL}`}
+                className="inline-flex items-center justify-center gap-2.5 font-heading font-semibold px-8 py-4 rounded-full btn-gradient text-base"
+              >
+                <svg
+                  className="h-5 w-5"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={2}
+                  stroke="currentColor"
+                  aria-hidden="true"
                 >
-                  Join on WhatsApp
-                </TrackedExternalLink>
-                <p className="text-text-muted text-sm leading-relaxed mt-4">
-                  Got a kid who plays?{" "}
-                  <TrackedExternalLink
-                    href={NGA_WHATSAPP_GROUP.href}
-                    label="WhatsApp Group — Next Gen parents"
-                    page="home"
-                    className="text-accent-lime hover:underline underline-offset-4"
-                  >
-                    {NGA_WHATSAPP_GROUP.name} on WhatsApp
-                  </TrackedExternalLink>{" "}
-                  is the youth academy group.
-                </p>
-              </div>
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M21 11.5a8.4 8.4 0 0 1-9 8.4 8.5 8.5 0 0 1-3.9-.9L3 21l1.9-4.1A8.4 8.4 0 0 1 12 3.1a8.4 8.4 0 0 1 9 8.4z"
+                  />
+                </svg>
+                Text me
+              </ContactLink>
+              <ContactLink
+                method="phone"
+                page="home"
+                section="contact_block"
+                href={`tel:${TEL}`}
+                className="inline-flex items-center justify-center gap-2.5 btn-outline font-heading font-semibold px-8 py-4 rounded-full text-base"
+              >
+                <svg
+                  className="h-5 w-5"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={2}
+                  stroke="currentColor"
+                  aria-hidden="true"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z"
+                  />
+                </svg>
+                Call me
+              </ContactLink>
+              <ContactLink
+                method="email"
+                page="home"
+                section="contact_block"
+                href={`mailto:${CONTACT.email}`}
+                className="inline-flex items-center justify-center gap-2.5 btn-outline font-heading font-semibold px-8 py-4 rounded-full text-base"
+              >
+                <svg
+                  className="h-5 w-5"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={2}
+                  stroke="currentColor"
+                  aria-hidden="true"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M2.25 6.75h19.5v10.5a1.5 1.5 0 01-1.5 1.5H3.75a1.5 1.5 0 01-1.5-1.5V6.75zm0 0L12 13.5l9.75-6.75"
+                  />
+                </svg>
+                Email me
+              </ContactLink>
             </div>
-            <div>
-              <LeadForm page="home" />
-            </div>
+
+            <p className="text-text-muted text-sm mt-10 pt-8 border-t border-white/10">
+              Already playing?{" "}
+              <TrackedExternalLink
+                href={familySiteUrl("ld")}
+                label="Join a local group"
+                page="home"
+                className="text-accent-blue font-semibold hover:underline underline-offset-4"
+              >
+                Join a local group &rarr;
+              </TrackedExternalLink>
+            </p>
           </div>
         </AnimateOnScroll>
       </section>
+
+      <StickyContactBar page="home" />
     </>
   );
 }
