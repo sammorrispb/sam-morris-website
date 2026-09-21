@@ -53,20 +53,29 @@ export const COACH_REQUEST_URL = "https://coach.sammorrispb.com/book/private-les
 // accumulate. `track=adult` for this Coach Sam surface.
 export const COHORT_POOL_URL = "https://coach.sammorrispb.com/cohorts/join?track=adult";
 
+// No announcement is running. The banner mechanism is kept for the next one.
+//
+// BEFORE re-enabling: AnnouncementBanner returns null on "/" (the landing page
+// funnels to one contact step), but layout.tsx stamps `data-announcement` on
+// <html> route-blind. globals.css keys `.hero-nav-offset` off that attribute,
+// so on "/" the hero loses its bleed-under-nav with no banner to fill the gap —
+// a ~64px dead band under the nav. Gate the attribute on the same condition as
+// the banner (or clear it for "/" in the pre-paint script) at the same time.
 export const ANNOUNCEMENT: {
   id: string;
   message: string;
   href?: string;
   linkText?: string;
-} | null = {
-  id: "nga-fall-2026",
-  message:
-    "Next Gen Academy Fall Season — six Sundays, Sept 20 – Oct 25 in Rockville.",
-  href: "https://nextgenpbacademy.com/fall?utm_source=sammorrispb&utm_medium=banner&utm_campaign=nga_fall_2026",
-  linkText: "Register",
-};
+} | null = null;
 
 // Previous announcements (restore if you want to feature one again):
+// {
+//   id: "nga-fall-2026",
+//   message:
+//     "Next Gen Academy Fall Season — six Sundays, Sept 20 – Oct 25 in Rockville.",
+//   href: "https://nextgenpbacademy.com/fall?utm_source=sammorrispb&utm_medium=banner&utm_campaign=nga_fall_2026",
+//   linkText: "Register",
+// }
 // {
 //   id: "linkanddink-moco-community",
 //   message:
