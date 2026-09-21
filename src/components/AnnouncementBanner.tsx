@@ -2,6 +2,7 @@
 
 import { useState, useSyncExternalStore } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { ANNOUNCEMENT } from "@/lib/constants";
 
 // Read localStorage safely across SSR + CSR with useSyncExternalStore.
@@ -25,9 +26,14 @@ function useDismissedFromStorage(id: string | undefined): boolean {
 }
 
 export function AnnouncementBanner() {
+  const pathname = usePathname();
   const persistedDismissed = useDismissedFromStorage(ANNOUNCEMENT?.id);
   const [locallyDismissed, setLocallyDismissed] = useState(false);
   const dismissed = persistedDismissed || locallyDismissed;
+
+  // The landing page funnels to a single contact step — the banner is a
+  // competing exit above the fold, so it is suppressed on "/" only.
+  if (pathname === "/") return null;
 
   if (!ANNOUNCEMENT || dismissed) return null;
 

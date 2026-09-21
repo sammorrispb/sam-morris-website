@@ -3,20 +3,37 @@
 import type { AnchorHTMLAttributes } from "react";
 import { trackEvent } from "@/lib/funnelClient";
 
+type ContactMethod = "email" | "phone" | "sms";
+
 type ContactLinkProps = AnchorHTMLAttributes<HTMLAnchorElement> & {
-  method: "email" | "phone";
+  method: ContactMethod;
   page: string;
+  /** Overrides the default `contact_<method>` section label in analytics. */
+  section?: string;
 };
 
-export function ContactLink({ method, page, onClick, children, ...props }: ContactLinkProps) {
+const METHOD_LABEL: Record<ContactMethod, string> = {
+  email: "email",
+  phone: "phone",
+  sms: "text",
+};
+
+export function ContactLink({
+  method,
+  page,
+  section,
+  onClick,
+  children,
+  ...props
+}: ContactLinkProps) {
   return (
     <a
       {...props}
       onClick={(e) => {
         trackEvent("cta_click", {
-          label: method === "email" ? "email" : "phone",
+          label: METHOD_LABEL[method],
           page,
-          section: `contact_${method}`,
+          section: section ?? `contact_${method}`,
         });
         onClick?.(e);
       }}

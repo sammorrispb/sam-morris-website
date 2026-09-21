@@ -41,7 +41,11 @@ const ROUTES: {
     url: "/",
     canonical: `${CANONICAL_HOST}/`,
     acceptableCanonicals: [`${CANONICAL_HOST}/`, CANONICAL_HOST],
-    expectedJsonLdTypes: ["Person", "SportsActivityLocation", "Organization", "FAQPage"],
+    // FAQPage intentionally NOT expected on "/": the simplified landing no longer
+    // renders FAQ-equivalent visible content, and Google's FAQPage policy only
+    // permits the markup where the answers are visible. It lives on
+    // /programs/coaching, which still shows them.
+    expectedJsonLdTypes: ["Person", "SportsActivityLocation", "Organization"],
   },
   {
     url: "/about",
