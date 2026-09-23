@@ -1,4 +1,6 @@
 import { Client } from "@notionhq/client";
+import { formatLessonDateTime } from "./lessons";
+import { getDataSourceId } from "./notion";
 
 const DEFAULT_SKILLS = [
   { skill: "Serve placement", category: "Serves" },
@@ -50,20 +52,126 @@ interface SkippedResult {
 }
 
 /**
- * Check if a coaching client already exists for the given email.
+ * Find a coaching client page id by email. Returns null when none exists.
  */
-async function hasExistingClient(
+export async function findClientByEmail(
   notion: Client,
   clientsDbId: string,
   email: string
-): Promise<boolean> {
+): Promise<string | null> {
+  const dataSourceId = await getDataSourceId(notion, clientsDbId);
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const response: any = await notion.dataSources.query({
-    data_source_id: clientsDbId,
+    data_source_id: dataSourceId,
     filter: { property: "Email", email: { equals: email } },
     page_size: 1,
   });
-  return (response.results?.length ?? 0) > 0;
+  return response.results?.[0]?.id ?? null;
+}
+
+interface UpsertCoachingClientOptions {
+  name: string;
+  email: string;
+  source: string;
+  skillLevel?: string;
+}
+
+/**
+ * Get-or-create a coaching client by email. Lesson-source clients are
+ * created lean (no skill progression rows — those belong to the legacy
+ * package flow). Never throws for a duplicate; returns the existing id.
+ */
+export async function upsertCoachingClient(
+  notion: Client,
+  clientsDbId: string,
+  options: UpsertCoachingClientOptions
+): Promise<{ clientPageId: string; created: boolean }> {
+  const existing = await findClientByEmail(
+    notion,
+    clientsDbId,
+    options.email.trim().toLowerCase()
+  );
+  if (existing) {
+    return { clientPageId: existing, created: false };
+  }
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const properties: Record<string, any> = {
+    Name: { title: [{ text: { content: options.name } }] },
+    Email: { email: options.email.trim().toLowerCase() },
+    "Hours Purchased": { number: 0 },
+    "Hours Used": { number: 0 },
+    Status: { select: { name: "Active" } },
+    Source: { select: { name: options.source } },
+  };
+  if (options.skillLevel) {
+    properties["Skill Level"] = { select: { name: options.skillLevel } };
+  }
+
+  const dataSourceId = await getDataSourceId(notion, clientsDbId);
+  const clientPage = await notion.pages.create({
+    parent: { data_source_id: dataSourceId },
+    properties,
+  });
+  return { clientPageId: clientPage.id, created: true };
+}
+
+interface CreateLessonRowOptions {
+  clientPageId: string;
+  playerName: string;
+  dateIso: string;
+  location: string;
+  durationMin: number;
+  amountCents: number;
+}
+
+/**
+ * Map minutes to the Lesson Log "Duration" select options
+ * (30min / 1hr / 1.5hr / 2hr). Rounds up to the nearest bucket.
+ */
+export function minutesToDurationLabel(min: number): string {
+  if (min <= 30) return "30min";
+  if (min <= 60) return "1hr";
+  if (min <= 90) return "1.5hr";
+  return "2hr";
+}
+
+/**
+ * Append one row to the Lesson Log database for a confirmed lesson.
+ * Lesson history is append-only: re-proposing never overwrites a row.
+ * The Lesson Log DB is optional — callers check NOTION_LESSONS_DB_ID first.
+ */
+export async function createLessonRow(
+  notion: Client,
+  lessonsDbId: string,
+  options: CreateLessonRowOptions
+): Promise<string> {
+  const dataSourceId = await getDataSourceId(notion, lessonsDbId);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const properties: Record<string, any> = {
+    Session: {
+      title: [
+        {
+          text: {
+            content: `Lesson — ${options.playerName} — ${formatLessonDateTime(options.dateIso)}`,
+          },
+        },
+      ],
+    },
+    Client: { relation: [{ id: options.clientPageId }] },
+    Date: { date: { start: options.dateIso } },
+    Duration: { select: { name: minutesToDurationLabel(options.durationMin) } },
+    "Amount (cents)": { number: options.amountCents },
+  };
+  if (options.location.trim()) {
+    // Location is a select — new locations become new options automatically.
+    properties.Location = { select: { name: options.location.trim() } };
+  }
+  const page = await notion.pages.create({
+    parent: { data_source_id: dataSourceId },
+    properties,
+  });
+  return page.id;
 }
 
 /**
@@ -79,8 +187,8 @@ export async function createCoachingClient(
   const { name, email, hoursPurchased, source, skillLevel } = options;
 
   // Dedup check
-  const exists = await hasExistingClient(notion, clientsDbId, email);
-  if (exists) {
+  const existingId = await findClientByEmail(notion, clientsDbId, email);
+  if (existingId) {
     return { skipped: true, reason: `Client already exists for ${email}` };
   }
 
@@ -93,27 +201,28 @@ export async function createCoachingClient(
     "Hours Used": { number: 0 },
     Status: { select: { name: hoursPurchased > 0 ? "Active" : "Trial" } },
     Source: { select: { name: source } },
-    Created: { date: { start: new Date().toISOString().split("T")[0] } },
   };
 
   if (skillLevel) {
     properties["Skill Level"] = { select: { name: skillLevel } };
   }
 
+  const clientsDsId = await getDataSourceId(notion, clientsDbId);
   const clientPage = await notion.pages.create({
-    parent: { data_source_id: clientsDbId },
+    parent: { data_source_id: clientsDsId },
     properties,
   });
 
   // Create skill progression rows (batch in groups of 5 to respect rate limits)
   let skillCount = 0;
   const batchSize = 5;
+  const skillsDsId = await getDataSourceId(notion, skillsDbId);
   for (let i = 0; i < DEFAULT_SKILLS.length; i += batchSize) {
     const batch = DEFAULT_SKILLS.slice(i, i + batchSize);
     await Promise.all(
       batch.map((s) =>
         notion.pages.create({
-          parent: { data_source_id: skillsDbId },
+          parent: { data_source_id: skillsDsId },
           properties: {
             Skill: { title: [{ text: { content: s.skill } }] },
             Client: { relation: [{ id: clientPage.id }] },

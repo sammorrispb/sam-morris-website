@@ -1,14 +1,14 @@
 import { Client } from "@notionhq/client";
 
 /**
- * Resolve the Website Leads database's DATA SOURCE id.
+ * Resolve a Notion database's DATA SOURCE id.
  *
  * The @notionhq/client v5 `dataSources` API requires the data source id —
  * passing the database id returns 404 "Could not find data_source".
  * The database id is the stable value we store in env; the data source
  * id is derived at runtime.
  */
-export async function getLeadsDataSourceId(
+export async function getDataSourceId(
   notion: Client,
   databaseId: string
 ): Promise<string> {
@@ -18,9 +18,19 @@ export async function getLeadsDataSourceId(
   })) as any;
   const dataSourceId: string | undefined = db?.data_sources?.[0]?.id;
   if (!dataSourceId) {
-    throw new Error("Leads database has no data source");
+    throw new Error("Database has no data source");
   }
   return dataSourceId;
+}
+
+/**
+ * Resolve the Website Leads database's DATA SOURCE id.
+ */
+export async function getLeadsDataSourceId(
+  notion: Client,
+  databaseId: string
+): Promise<string> {
+  return getDataSourceId(notion, databaseId);
 }
 
 /**
