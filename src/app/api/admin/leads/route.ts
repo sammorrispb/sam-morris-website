@@ -1,7 +1,14 @@
 import { Client } from "@notionhq/client";
 import { NextResponse } from "next/server";
 
-const VALID_STATUSES = ["New", "Contacted", "Converted", "Paid"] as const;
+const VALID_STATUSES = [
+  "New",
+  "Contacted",
+  "Awaiting player",
+  "Confirmed",
+  "Converted",
+  "Paid",
+] as const;
 
 function validateAuth(request: Request): string | null {
   const authHeader = request.headers.get("Authorization");

@@ -13,6 +13,13 @@ interface Lead {
   emailSent: boolean;
 }
 
+// Must stay in sync with LESSON_INTERESTS in src/lib/lessons.ts
+const LESSON_INTERESTS = [
+  "Private Lesson",
+  "Group Lesson (2+)",
+  "3+1 Play-In Special",
+];
+
 interface LeadsData {
   total: number;
   recentCount: number;
@@ -24,7 +31,14 @@ interface LeadsData {
   nextCursor: string | null;
 }
 
-const STATUS_OPTIONS = ["New", "Contacted", "Converted", "Paid"] as const;
+const STATUS_OPTIONS = [
+  "New",
+  "Contacted",
+  "Awaiting player",
+  "Confirmed",
+  "Converted",
+  "Paid",
+] as const;
 const SOURCE_OPTIONS = ["Website", "Stripe"] as const;
 
 function statusClasses(status: string) {
@@ -33,6 +47,10 @@ function statusClasses(status: string) {
       return "bg-accent-lime/10 text-accent-lime";
     case "Contacted":
       return "bg-accent-blue/10 text-accent-blue";
+    case "Awaiting player":
+      return "bg-accent-yellow/10 text-accent-yellow";
+    case "Confirmed":
+      return "bg-accent-orange/10 text-accent-orange";
     case "Converted":
       return "bg-accent-purple/10 text-accent-purple";
     case "Paid":
@@ -80,6 +98,21 @@ export function AdminDashboard() {
   const [openDropdownId, setOpenDropdownId] = useState<string | null>(null);
   const [updatingLeadId, setUpdatingLeadId] = useState<string | null>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
+
+  // Lesson proposal modal state
+  const [confirmingLead, setConfirmingLead] = useState<Lead | null>(null);
+  const [proposeDate, setProposeDate] = useState("");
+  const [proposeTime, setProposeTime] = useState("");
+  const [proposeLocation, setProposeLocation] = useState("");
+  const [proposeDuration, setProposeDuration] = useState("60");
+  const [proposePlayers, setProposePlayers] = useState("");
+  const [proposeLoading, setProposeLoading] = useState(false);
+  const [proposeError, setProposeError] = useState("");
+  const [proposeResult, setProposeResult] = useState<{
+    confirmUrl: string;
+    title: string;
+    dateLabel: string;
+  } | null>(null);
 
   // Debounce search input
   useEffect(() => {
@@ -177,6 +210,62 @@ export function AdminDashboard() {
       fetchLeads(token, { cursor: currentCursor });
     } finally {
       setUpdatingLeadId(null);
+    }
+  }
+
+  function openConfirmModal(lead: Lead) {
+    setConfirmingLead(lead);
+    setProposeDate("");
+    setProposeTime("");
+    setProposeLocation("");
+    setProposeDuration("60");
+    setProposePlayers("");
+    setProposeError("");
+    setProposeResult(null);
+  }
+
+  function closeConfirmModal() {
+    setConfirmingLead(null);
+    setProposeResult(null);
+    setProposeError("");
+  }
+
+  async function handlePropose(e: React.FormEvent) {
+    e.preventDefault();
+    if (!confirmingLead) return;
+    setProposeLoading(true);
+    setProposeError("");
+    const token = sessionStorage.getItem("admin_token") ?? "";
+
+    try {
+      const res = await fetch("/api/admin/lessons/propose", {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          pageId: confirmingLead.id,
+          date: proposeDate,
+          time: proposeTime,
+          location: proposeLocation,
+          durationMin: Number(proposeDuration),
+          additionalPlayers: proposePlayers,
+        }),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error ?? "Failed to send proposal");
+      setProposeResult({
+        confirmUrl: data.confirmUrl,
+        title: data.title,
+        dateLabel: data.dateLabel,
+      });
+      // Refresh the lead list so the new status shows
+      fetchLeads(token, { cursor: currentCursor });
+    } catch (err) {
+      setProposeError(err instanceof Error ? err.message : "Something went wrong");
+    } finally {
+      setProposeLoading(false);
     }
   }
 
@@ -486,6 +575,9 @@ export function AdminDashboard() {
                 <th className="pb-3 text-text-muted font-mono text-xs uppercase tracking-wider">
                   Sent
                 </th>
+                <th className="pb-3 text-text-muted font-mono text-xs uppercase tracking-wider">
+                  Lesson
+                </th>
               </tr>
             </thead>
             <tbody>
@@ -590,12 +682,22 @@ export function AdminDashboard() {
                         <span className="text-text-muted">—</span>
                       )}
                     </td>
+                    <td className="py-3 whitespace-nowrap">
+                      {LESSON_INTERESTS.includes(lead.interest) && (
+                        <button
+                          onClick={() => openConfirmModal(lead)}
+                          className="text-xs font-medium px-2.5 py-1 rounded-full bg-accent-yellow/10 text-accent-yellow hover:bg-accent-yellow/20 transition-colors"
+                        >
+                          Confirm
+                        </button>
+                      )}
+                    </td>
                   </tr>
                 );
               })}
               {data.leads.length === 0 && (
                 <tr>
-                  <td colSpan={8} className="py-8 text-center text-text-muted">
+                  <td colSpan={9} className="py-8 text-center text-text-muted">
                     No leads found
                   </td>
                 </tr>
@@ -630,6 +732,149 @@ export function AdminDashboard() {
           </div>
         </div>
       </div>
+
+      {/* Lesson proposal modal */}
+      {confirmingLead && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center px-4 bg-black/60">
+          <div className="bg-navy-light glow-border rounded-xl p-8 w-full max-w-md space-y-4 max-h-[90vh] overflow-y-auto">
+            {proposeResult ? (
+              <>
+                <h2 className="font-heading font-bold text-xl text-center">
+                  Proposal sent
+                </h2>
+                <p className="text-text-primary text-sm text-center">
+                  {proposeResult.title}
+                  <br />
+                  <span className="text-text-muted">{proposeResult.dateLabel}</span>
+                </p>
+                <p className="text-text-muted text-sm text-center">
+                  The player got a confirm link by email. Once they confirm,
+                  the invoice and calendar invite go out automatically.
+                </p>
+                <div className="bg-navy rounded-lg p-3 break-all">
+                  <p className="text-text-muted text-xs font-mono mb-1">
+                    Confirm link (also emailed to player):
+                  </p>
+                  <a
+                    href={proposeResult.confirmUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-accent-blue text-xs hover:underline"
+                  >
+                    {proposeResult.confirmUrl}
+                  </a>
+                </div>
+                <button
+                  onClick={closeConfirmModal}
+                  className="w-full text-white font-heading font-semibold py-3 rounded-lg btn-gradient"
+                >
+                  Done
+                </button>
+              </>
+            ) : (
+              <>
+                <h2 className="font-heading font-bold text-xl text-center">
+                  Propose a lesson time
+                </h2>
+                <p className="text-text-muted text-sm text-center">
+                  {confirmingLead.name} — {confirmingLead.interest}
+                  <br />
+                  {confirmingLead.email}
+                </p>
+                <form onSubmit={handlePropose} className="space-y-4">
+                  <div className="grid grid-cols-2 gap-3">
+                    <div>
+                      <label className="block text-text-muted text-xs font-mono uppercase tracking-wider mb-1">
+                        Date
+                      </label>
+                      <input
+                        type="date"
+                        required
+                        value={proposeDate}
+                        onChange={(e) => setProposeDate(e.target.value)}
+                        className="w-full bg-navy border border-white/10 rounded-lg px-4 py-3 text-text-primary focus:border-accent-blue focus:outline-none transition-colors"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-text-muted text-xs font-mono uppercase tracking-wider mb-1">
+                        Time (ET)
+                      </label>
+                      <input
+                        type="time"
+                        required
+                        value={proposeTime}
+                        onChange={(e) => setProposeTime(e.target.value)}
+                        className="w-full bg-navy border border-white/10 rounded-lg px-4 py-3 text-text-primary focus:border-accent-blue focus:outline-none transition-colors"
+                      />
+                    </div>
+                  </div>
+                  <div>
+                    <label className="block text-text-muted text-xs font-mono uppercase tracking-wider mb-1">
+                      Location
+                    </label>
+                    <input
+                      type="text"
+                      required
+                      placeholder="e.g. Walter Johnson HS Tennis Courts"
+                      value={proposeLocation}
+                      onChange={(e) => setProposeLocation(e.target.value)}
+                      className="w-full bg-navy border border-white/10 rounded-lg px-4 py-3 text-text-primary placeholder:text-text-muted/50 focus:border-accent-blue focus:outline-none transition-colors"
+                    />
+                  </div>
+                  <div className="grid grid-cols-2 gap-3">
+                    <div>
+                      <label className="block text-text-muted text-xs font-mono uppercase tracking-wider mb-1">
+                        Duration
+                      </label>
+                      <select
+                        value={proposeDuration}
+                        onChange={(e) => setProposeDuration(e.target.value)}
+                        className="w-full bg-navy border border-white/10 rounded-lg px-4 py-3 text-text-primary focus:border-accent-blue focus:outline-none transition-colors"
+                      >
+                        <option value="30">30 min</option>
+                        <option value="60">60 min</option>
+                        <option value="90">90 min</option>
+                        <option value="120">120 min</option>
+                      </select>
+                    </div>
+                    <div>
+                      <label className="block text-text-muted text-xs font-mono uppercase tracking-wider mb-1">
+                        Extra players
+                      </label>
+                      <input
+                        type="text"
+                        placeholder="Names, comma-separated"
+                        value={proposePlayers}
+                        onChange={(e) => setProposePlayers(e.target.value)}
+                        className="w-full bg-navy border border-white/10 rounded-lg px-4 py-3 text-text-primary placeholder:text-text-muted/50 focus:border-accent-blue focus:outline-none transition-colors"
+                      />
+                    </div>
+                  </div>
+                  {proposeError && (
+                    <p role="alert" className="text-accent-pink text-sm text-center">
+                      {proposeError}
+                    </p>
+                  )}
+                  <button
+                    type="submit"
+                    disabled={proposeLoading}
+                    className="w-full text-white font-heading font-semibold py-3 rounded-lg btn-gradient disabled:opacity-50"
+                  >
+                    {proposeLoading ? "Sending..." : "Send confirm link"}
+                  </button>
+                  <button
+                    type="button"
+                    onClick={closeConfirmModal}
+                    className="w-full text-text-muted hover:text-text-primary text-sm font-mono transition-colors py-2"
+                  >
+                    Cancel
+                  </button>
+                </form>
+              </>
+            )}
+          </div>
+        </div>
+      )}
 
       {/* Error toast */}
       {error && (
