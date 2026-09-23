@@ -1,0 +1,1 @@
+{"nodes": [{"id": "$graphify-root$_claude_commands_coaching_log_md", "label": "coaching-log.md", "file_type": "document", "node_kind": "page", "source_file": ".claude/commands/coaching-log.md", "source_location": "L1", "frontmatter": {"description": "Log a coaching lesson session"}}], "edges": [], "raw_calls": [], "input_tokens": 0, "output_tokens": 0}

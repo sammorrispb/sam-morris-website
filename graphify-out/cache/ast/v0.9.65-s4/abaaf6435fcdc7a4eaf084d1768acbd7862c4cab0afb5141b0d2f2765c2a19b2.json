@@ -1,0 +1,1 @@
+{"nodes": [{"id": "$graphify-root$_claude_commands_funnel_md", "label": "funnel.md", "file_type": "document", "node_kind": "page", "source_file": ".claude/commands/funnel.md", "source_location": "L1", "frontmatter": {"description": "Show the website lead \u2192 Hub conversion funnel report"}}], "edges": [], "raw_calls": [], "input_tokens": 0, "output_tokens": 0}

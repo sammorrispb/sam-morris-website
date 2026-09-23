@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Montserrat, Inter, Roboto_Mono } from "next/font/google";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Analytics } from "@vercel/analytics/next";
-import { TESTIMONIALS, getAggregateRating } from "@/lib/testimonials";
 import { Nav } from "@/components/Nav";
 import { Footer } from "@/components/Footer";
 import { AnnouncementBanner } from "@/components/AnnouncementBanner";
@@ -317,20 +316,6 @@ export default function RootLayout({
                   },
                 ],
               },
-              aggregateRating: {
-                "@type": "AggregateRating",
-                ...getAggregateRating(),
-              },
-              review: TESTIMONIALS.slice(0, 3).map((t) => ({
-                "@type": "Review",
-                author: { "@type": "Person", name: t.author },
-                reviewRating: {
-                  "@type": "Rating",
-                  ratingValue: t.rating,
-                  bestRating: 5,
-                },
-                reviewBody: t.quote,
-              })),
               paymentAccepted: "Cash, Credit Card, Debit Card",
               currenciesAccepted: "USD",
               sameAs: [
