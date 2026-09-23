@@ -1,5 +1,6 @@
 import { Client } from "@notionhq/client";
 import { formatLessonDateTime } from "./lessons";
+import { getDataSourceId } from "./notion";
 
 const DEFAULT_SKILLS = [
   { skill: "Serve placement", category: "Serves" },
@@ -58,9 +59,10 @@ export async function findClientByEmail(
   clientsDbId: string,
   email: string
 ): Promise<string | null> {
+  const dataSourceId = await getDataSourceId(notion, clientsDbId);
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const response: any = await notion.dataSources.query({
-    data_source_id: clientsDbId,
+    data_source_id: dataSourceId,
     filter: { property: "Email", email: { equals: email } },
     page_size: 1,
   });
@@ -101,14 +103,14 @@ export async function upsertCoachingClient(
     "Hours Used": { number: 0 },
     Status: { select: { name: "Active" } },
     Source: { select: { name: options.source } },
-    Created: { date: { start: new Date().toISOString().split("T")[0] } },
   };
   if (options.skillLevel) {
     properties["Skill Level"] = { select: { name: options.skillLevel } };
   }
 
+  const dataSourceId = await getDataSourceId(notion, clientsDbId);
   const clientPage = await notion.pages.create({
-    parent: { data_source_id: clientsDbId },
+    parent: { data_source_id: dataSourceId },
     properties,
   });
   return { clientPageId: clientPage.id, created: true };
@@ -124,34 +126,50 @@ interface CreateLessonRowOptions {
 }
 
 /**
- * Append one row to the Lessons database for a confirmed lesson.
+ * Map minutes to the Lesson Log "Duration" select options
+ * (30min / 1hr / 1.5hr / 2hr). Rounds up to the nearest bucket.
+ */
+export function minutesToDurationLabel(min: number): string {
+  if (min <= 30) return "30min";
+  if (min <= 60) return "1hr";
+  if (min <= 90) return "1.5hr";
+  return "2hr";
+}
+
+/**
+ * Append one row to the Lesson Log database for a confirmed lesson.
  * Lesson history is append-only: re-proposing never overwrites a row.
- * The Lessons DB is optional — callers check NOTION_LESSONS_DB_ID first.
+ * The Lesson Log DB is optional — callers check NOTION_LESSONS_DB_ID first.
  */
 export async function createLessonRow(
   notion: Client,
   lessonsDbId: string,
   options: CreateLessonRowOptions
 ): Promise<string> {
-  const page = await notion.pages.create({
-    parent: { data_source_id: lessonsDbId },
-    properties: {
-      Name: {
-        title: [
-          {
-            text: {
-              content: `Lesson — ${options.playerName} — ${formatLessonDateTime(options.dateIso)}`,
-            },
+  const dataSourceId = await getDataSourceId(notion, lessonsDbId);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const properties: Record<string, any> = {
+    Session: {
+      title: [
+        {
+          text: {
+            content: `Lesson — ${options.playerName} — ${formatLessonDateTime(options.dateIso)}`,
           },
-        ],
-      },
-      Player: { relation: [{ id: options.clientPageId }] },
-      Date: { date: { start: options.dateIso } },
-      Location: { rich_text: [{ text: { content: options.location } }] },
-      "Duration (min)": { number: options.durationMin },
-      "Amount (cents)": { number: options.amountCents },
-      Status: { select: { name: "Confirmed" } },
+        },
+      ],
     },
+    Client: { relation: [{ id: options.clientPageId }] },
+    Date: { date: { start: options.dateIso } },
+    Duration: { select: { name: minutesToDurationLabel(options.durationMin) } },
+    "Amount (cents)": { number: options.amountCents },
+  };
+  if (options.location.trim()) {
+    // Location is a select — new locations become new options automatically.
+    properties.Location = { select: { name: options.location.trim() } };
+  }
+  const page = await notion.pages.create({
+    parent: { data_source_id: dataSourceId },
+    properties,
   });
   return page.id;
 }
@@ -183,27 +201,28 @@ export async function createCoachingClient(
     "Hours Used": { number: 0 },
     Status: { select: { name: hoursPurchased > 0 ? "Active" : "Trial" } },
     Source: { select: { name: source } },
-    Created: { date: { start: new Date().toISOString().split("T")[0] } },
   };
 
   if (skillLevel) {
     properties["Skill Level"] = { select: { name: skillLevel } };
   }
 
+  const clientsDsId = await getDataSourceId(notion, clientsDbId);
   const clientPage = await notion.pages.create({
-    parent: { data_source_id: clientsDbId },
+    parent: { data_source_id: clientsDsId },
     properties,
   });
 
   // Create skill progression rows (batch in groups of 5 to respect rate limits)
   let skillCount = 0;
   const batchSize = 5;
+  const skillsDsId = await getDataSourceId(notion, skillsDbId);
   for (let i = 0; i < DEFAULT_SKILLS.length; i += batchSize) {
     const batch = DEFAULT_SKILLS.slice(i, i + batchSize);
     await Promise.all(
       batch.map((s) =>
         notion.pages.create({
-          parent: { data_source_id: skillsDbId },
+          parent: { data_source_id: skillsDsId },
           properties: {
             Skill: { title: [{ text: { content: s.skill } }] },
             Client: { relation: [{ id: clientPage.id }] },

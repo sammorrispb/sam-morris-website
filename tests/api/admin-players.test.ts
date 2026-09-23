@@ -48,7 +48,7 @@ function clientPage(id: string, overrides: Record<string, unknown> = {}) {
       Notes: { type: "rich_text", rich_text: [] },
       "Hours Purchased": { number: 0 },
       "Hours Used": { number: 0 },
-      Created: { date: { start: "2026-09-01" } },
+      Created: { created_time: "2026-09-01T12:00:00.000Z" },
       ...overrides,
     },
   };
@@ -257,5 +257,59 @@ describe("lib/players helpers", () => {
     expect(isValidEmail("sam@example.com")).toBe(true);
     expect(isValidEmail("nope")).toBe(false);
     expect(isValidEmail("a@b")).toBe(false);
+  });
+
+  it("reads Created from created_time", async () => {
+    const { mapClientPage } = await import("@/lib/players");
+    const p = mapClientPage(
+      clientPage("c1", { Created: { created_time: "2026-09-15T09:30:00.000Z" } })
+    );
+    expect(p.created).toBe("2026-09-15");
+  });
+
+  it("maps a Lesson Log page to a LessonRow", async () => {
+    const { mapLessonPage } = await import("@/lib/players");
+    const row = mapLessonPage({
+      id: "lesson-1",
+      properties: {
+        Session: { type: "title", title: [{ plain_text: "Lesson — Test Player — Tue" }] },
+        Client: { relation: [{ id: "client-1" }] },
+        Date: { date: { start: "2026-09-30T17:00:00.000-04:00" } },
+        Location: { select: { name: "Olney Mill" } },
+        Duration: { select: { name: "1hr" } },
+        "Amount (cents)": { number: 5000 },
+      },
+    });
+    expect(row).toMatchObject({
+      id: "lesson-1",
+      playerId: "client-1",
+      title: "Lesson — Test Player — Tue",
+      date: "2026-09-30T17:00:00.000-04:00",
+      location: "Olney Mill",
+      durationMin: 60,
+      amountCents: 5000,
+    });
+  });
+
+  it("maps duration labels to minutes and unknown labels to 0", async () => {
+    const { durationLabelToMinutes } = await import("@/lib/players");
+    expect(durationLabelToMinutes("30min")).toBe(30);
+    expect(durationLabelToMinutes("1hr")).toBe(60);
+    expect(durationLabelToMinutes("1.5hr")).toBe(90);
+    expect(durationLabelToMinutes("2hr")).toBe(120);
+    expect(durationLabelToMinutes("")).toBe(0);
+    expect(durationLabelToMinutes("3hr")).toBe(0);
+  });
+});
+
+describe("lib/coaching-crm helpers", () => {
+  it("maps minutes to Duration select labels", async () => {
+    const { minutesToDurationLabel } = await import("@/lib/coaching-crm");
+    expect(minutesToDurationLabel(30)).toBe("30min");
+    expect(minutesToDurationLabel(45)).toBe("1hr");
+    expect(minutesToDurationLabel(60)).toBe("1hr");
+    expect(minutesToDurationLabel(90)).toBe("1.5hr");
+    expect(minutesToDurationLabel(120)).toBe("2hr");
+    expect(minutesToDurationLabel(180)).toBe("2hr");
   });
 });

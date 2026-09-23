@@ -2,7 +2,7 @@
 
 The admin dashboard has a **Players** tab next to **Leads**. It reads the
 existing Coaching Clients Notion database as the player roster, appends one
-row per confirmed lesson to a Lessons database, and reads payments live
+row per confirmed lesson to the existing Lesson Log database, and reads payments live
 from Stripe so there is nothing to keep in sync.
 
 ## Components
@@ -36,8 +36,9 @@ from Stripe so there is nothing to keep in sync.
 
 | Var | Required | Purpose |
 | --- | --- | --- |
-| `NOTION_COACHING_CLIENTS_DB_ID` | yes | Existing Coaching Clients database id (already used by the Stripe webhook) |
-| `NOTION_LESSONS_DB_ID` | for history | Lessons database id (new, see below) |
+| `NOTION_COACHING_CLIENTS_DB_ID` | yes | Coaching Clients database id (`677e2804-a7a6-4b35-9c81-89c490b0318d`) |
+| `NOTION_COACHING_SKILLS_DB_ID` | for webhook | Skill Progression database id (`1bb74376-6359-4cca-b9e5-6b0c8e233e9c`) — the Stripe webhook creates 27 skill rows per new client |
+| `NOTION_LESSONS_DB_ID` | for history | Points at the **existing Lesson Log** database (`f3f31ff4-84fa-44b5-9b59-3938a9a94130`), not a new DB |
 | `STRIPE_SECRET_KEY` | for payments | Already configured; used for live invoice lookup by email |
 
 When `NOTION_LESSONS_DB_ID` is unset, the Players tab still lists players,
@@ -45,30 +46,39 @@ levels, and notes; the drawer shows a "not configured" hint for lesson
 history. When `STRIPE_SECRET_KEY` is unset, the drawer notes Stripe is not
 configured.
 
-## Lessons database schema (create once in Notion)
+## Lesson Log database (existing — reused, not created)
 
-Parent: the same workspace area as the Coaching Clients database.
+The Players CRM reuses the existing **Lesson Log** database
+(`f3f31ff4-84fa-44b5-9b59-3938a9a94130`), which already has a `Client`
+relation → Coaching Clients. No new database is needed.
 
 | Property | Type | Notes |
 | --- | --- | --- |
-| Name | Title | e.g. `Lesson — Jane Doe — Tue, Sep 23 at 5:00 PM ET` |
-| Player | Relation | → Coaching Clients database |
+| Session | Title | e.g. `Lesson — Jane Doe — Tue, Sep 23 at 5:00 PM ET` |
+| Client | Relation | → Coaching Clients database (already wired) |
 | Date | Date | Lesson start |
-| Location | Rich text | Full address |
-| Duration (min) | Number | 60 |
-| Amount (cents) | Number | 5000 for a 60-min lesson |
-| Status | Select | `Confirmed` (later: `Paid`, `Cancelled`) |
-| Stripe Invoice URL | URL | Filled when the invoice goes out |
-| Calendar Event ID | Rich text | Fulfillment writes this |
+| Location | Select | New locations become new options automatically |
+| Duration | Select | `30min` / `1hr` / `1.5hr` / `2hr` (code maps minutes to the nearest bucket) |
+| Hours Charged | Number | Legacy billing unit |
+| Amount (cents) | Number | Added 2026-09-23 for the CRM (`5000` for a 60-min lesson) |
+| Focus Areas | Multi-select | Existing |
+| Session Notes | Rich text | Existing |
 
-Setup:
+Schema changes made 2026-09-23 (all additive, existing data untouched):
 
-1. Create the database with the schema above (Notion UI, or API with the
-   `Player` relation pointing at the Coaching Clients database id).
-2. Share it with the same integration that owns the leads/clients databases.
-3. Set `NOTION_LESSONS_DB_ID` to the new database id in Vercel
-   (production) and in `.env.local` for development.
-4. Redeploy.
+- Coaching Clients `Skill Level` select: added `Beginner`, `Intermediate`,
+  `Advanced` alongside the existing DUPR-number options.
+- Coaching Clients `Source` select: added `Lesson`, `Manual`.
+- Lesson Log: added `Amount (cents)` number property.
 
-Until step 3 is done, lesson confirmations still upsert players — only the
+Vercel env (production, preview, development):
+
+- `NOTION_COACHING_CLIENTS_DB_ID=677e2804-a7a6-4b35-9c81-89c490b0318d`
+- `NOTION_COACHING_SKILLS_DB_ID=1bb74376-6359-4cca-b9e5-6b0c8e233e9c`
+- `NOTION_LESSONS_DB_ID=f3f31ff4-84fa-44b5-9b59-3938a9a94130`
+
+Setting the clients/skills ids activates the Stripe webhook's CRM path
+(previously dormant — the vars were never set): new purchases create a
+client plus 27 skill-progression rows, which then appear in the Players tab.
+Until the vars are set, lesson confirmations still upsert players — only the
 history rows are skipped.

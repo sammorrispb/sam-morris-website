@@ -3,9 +3,10 @@
  *
  * Players live in the Coaching Clients Notion database (created by the
  * Stripe webhook on purchase, and upserted on lesson confirmation).
- * Lesson history lives in a separate Lessons database (one row per
- * confirmed lesson, relation -> client); payments are read live from Stripe
- * by customer email so there is nothing to keep in sync.
+ * Lesson history lives in the existing Lesson Log database (one row per
+ * confirmed lesson, Client relation -> Coaching Clients); payments are
+ * read live from Stripe by customer email so there is nothing to keep
+ * in sync.
  *
  * Client-safe: no Node-only imports.
  */
@@ -94,6 +95,26 @@ function emailOf(props: any, key: string): string {
   return p?.type === "email" ? (p.email ?? "") : "";
 }
 
+// The Coaching Clients "Created" property is a created_time, not a date.
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function createdOf(props: any): string {
+  const p = props?.["Created"];
+  if (typeof p?.created_time === "string") return p.created_time.slice(0, 10);
+  return p?.date?.start ?? "";
+}
+
+/** Lesson Log "Duration" select options (30min / 1hr / 1.5hr / 2hr). */
+const DURATION_LABEL_MINUTES: Record<string, number> = {
+  "30min": 30,
+  "1hr": 60,
+  "1.5hr": 90,
+  "2hr": 120,
+};
+
+export function durationLabelToMinutes(label: string): number {
+  return DURATION_LABEL_MINUTES[label] ?? 0;
+}
+
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function mapClientPage(page: any): Player {
   const props = page.properties ?? {};
@@ -109,25 +130,27 @@ export function mapClientPage(page: any): Player {
     notes: richTextOf(props, "Notes"),
     hoursPurchased: numberOf(props, "Hours Purchased"),
     hoursUsed: numberOf(props, "Hours Used"),
-    created: dateOf(props, "Created"),
+    created: createdOf(props),
   };
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function mapLessonPage(page: any): LessonRow {
   const props = page.properties ?? {};
-  const rel = props?.["Player"]?.relation ?? [];
+  const rel = props?.["Client"]?.relation ?? [];
   return {
     id: page.id as string,
     playerId: rel[0]?.id ?? "",
-    title: titleOf(props, "Name"),
+    title: titleOf(props, "Session"),
     date: dateOf(props, "Date"),
-    location: richTextOf(props, "Location"),
-    durationMin: numberOf(props, "Duration (min)"),
+    location: selectOf(props, "Location"),
+    durationMin: durationLabelToMinutes(selectOf(props, "Duration")),
     amountCents: numberOf(props, "Amount (cents)"),
-    status: selectOf(props, "Status"),
-    invoiceUrl: props?.["Stripe Invoice URL"]?.url ?? "",
-    calendarEventId: richTextOf(props, "Calendar Event ID"),
+    // The Lesson Log has no per-row status, invoice URL, or calendar id —
+    // payment state comes from the live Stripe invoice list instead.
+    status: "",
+    invoiceUrl: "",
+    calendarEventId: "",
   };
 }
 
