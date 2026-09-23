@@ -6,9 +6,13 @@ import { CONTACT, INTEREST_OPTIONS, EVENT_TYPES, FREDERICK_VENUE } from "@/lib/c
 import { trackEvent, getVisitorIdForForm, getUtm } from "@/lib/funnelClient";
 
 // Frederick is sanctioned for private lessons only, so the location select
-// stays hidden for every other interest.
+// stays hidden for every other interest. Same gate for the time picker —
+// only lesson requests need a when + where.
 const LOCATION_INTERESTS = new Set(["Private Lesson"]);
 const MOCO_LOCATION = "Montgomery County / DC area — Sam comes to your court";
+
+const PREFERRED_DAYS = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+const PREFERRED_TIMES = ["Morning", "Midday", "Afternoon", "Evening"];
 
 function matchInterestFromParam(param: string | null): string {
   if (!param) return "";
@@ -46,6 +50,8 @@ export function LeadForm({
       email: "",
       interest: lockedInterest ?? urlInterest,
       location: "",
+      preferred_days: [] as string[],
+      preferred_times: [] as string[],
       notes: "",
       event_type: "",
     };
@@ -53,14 +59,36 @@ export function LeadForm({
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
   const formStarted = useRef(false);
 
-  function updateField(field: string, value: string) {
-    setForm((prev) => ({ ...prev, [field]: value }));
-    if (status === "error") setStatus("idle");
+  function markStarted() {
     if (!formStarted.current) {
       formStarted.current = true;
       trackEvent("lead_form", { action: "started", page });
       trackEvent("lead_form_started", { interest: form.interest || undefined, page });
     }
+  }
+
+  function updateField(field: string, value: string) {
+    setForm((prev) => ({ ...prev, [field]: value }));
+    if (status === "error") setStatus("idle");
+    markStarted();
+  }
+
+  function toggleChip(field: "preferred_days" | "preferred_times", value: string) {
+    setForm((prev) => ({
+      ...prev,
+      [field]: prev[field].includes(value)
+        ? prev[field].filter((x) => x !== value)
+        : [...prev[field], value],
+    }));
+    if (status === "error") setStatus("idle");
+    markStarted();
+  }
+
+  /** "Tue, Thu · Morning, Evening" — what Sam confirms or counters against. */
+  function serializePreferredTime(): string {
+    const days = form.preferred_days.length ? form.preferred_days.join(", ") : "";
+    const times = form.preferred_times.length ? form.preferred_times.join(", ") : "";
+    return [days, times].filter(Boolean).join(" · ");
   }
 
   async function handleSubmit(e: React.FormEvent) {
@@ -79,6 +107,7 @@ export function LeadForm({
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           ...form,
+          preferred_time: serializePreferredTime(),
           visitor_id: getVisitorIdForForm(),
           utm,
           page: pageUrl,
@@ -95,6 +124,8 @@ export function LeadForm({
         email: "",
         interest: lockedInterest ?? "",
         location: "",
+        preferred_days: [],
+        preferred_times: [],
         notes: "",
         event_type: "",
       });
@@ -191,6 +222,60 @@ export function LeadForm({
         </select>
       )}
 
+      {LOCATION_INTERESTS.has(form.interest) && (
+        <div>
+          <p className="text-text-muted text-sm mb-2">When works best for you?</p>
+          <div
+            role="group"
+            aria-label="Preferred days"
+            className="flex flex-wrap gap-2"
+          >
+            {PREFERRED_DAYS.map((d) => {
+              const on = form.preferred_days.includes(d);
+              return (
+                <button
+                  key={d}
+                  type="button"
+                  aria-pressed={on}
+                  onClick={() => toggleChip("preferred_days", d)}
+                  className={`rounded-full border px-3.5 py-1.5 text-sm font-semibold transition-colors ${
+                    on
+                      ? "border-accent-blue bg-accent-blue/20 text-text-primary"
+                      : "border-white/10 text-text-muted hover:border-white/25"
+                  }`}
+                >
+                  {d}
+                </button>
+              );
+            })}
+          </div>
+          <div
+            role="group"
+            aria-label="Preferred times of day"
+            className="flex flex-wrap gap-2 mt-2"
+          >
+            {PREFERRED_TIMES.map((t) => {
+              const on = form.preferred_times.includes(t);
+              return (
+                <button
+                  key={t}
+                  type="button"
+                  aria-pressed={on}
+                  onClick={() => toggleChip("preferred_times", t)}
+                  className={`rounded-full border px-3.5 py-1.5 text-sm font-semibold transition-colors ${
+                    on
+                      ? "border-accent-blue bg-accent-blue/20 text-text-primary"
+                      : "border-white/10 text-text-muted hover:border-white/25"
+                  }`}
+                >
+                  {t}
+                </button>
+              );
+            })}
+          </div>
+        </div>
+      )}
+
       {eventTypeRequired && (
         <select
           required
@@ -207,8 +292,8 @@ export function LeadForm({
       )}
 
       <textarea
-        placeholder="Anything else? Skill level, preferred court, group size, days/times that work…"
-        aria-label="Notes — skill, court, availability, group size"
+        placeholder="Anything else? Skill level, group size…"
+        aria-label="Notes — skill, group size"
         value={form.notes}
         onChange={(e) => updateField("notes", e.target.value)}
         rows={4}
