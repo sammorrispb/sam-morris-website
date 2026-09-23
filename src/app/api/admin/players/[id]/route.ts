@@ -74,7 +74,7 @@ export async function GET(
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const res: any = await notion.dataSources.query({
           data_source_id: lessonsDsId,
-          filter: { property: "Player", relation: { contains: id } },
+          filter: { property: "Client", relation: { contains: id } },
           sorts: [{ property: "Date", direction: "descending" }],
           page_size: 100,
         });
