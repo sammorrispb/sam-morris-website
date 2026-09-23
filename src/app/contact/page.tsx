@@ -202,8 +202,8 @@ export default function ContactPage() {
                 <li className="flex items-start gap-3">
                   <span className="text-accent-lime font-bold mt-0.5">✓</span>
                   <span>
-                    <strong className="text-text-primary">Single sessions</strong> or
-                    4-session packages
+                    <strong className="text-text-primary">Single sessions</strong>,
+                    1-on-1 or small group
                   </span>
                 </li>
                 <li className="flex items-start gap-3">
@@ -216,8 +216,11 @@ export default function ContactPage() {
               </ul>
               <div className="mt-5 pt-4 border-t border-white/10 space-y-2 text-sm text-text-muted">
                 <p>
-                  Request a time and Sam confirms the slot and sends an invoice —
-                  no public price list, every quote fits the session.
+                  <strong className="text-text-primary">$50/hour</strong> — private
+                  or group lessons (up to 4 players), plus court fee.
+                </p>
+                <p>
+                  Request a time and Sam confirms the slot and sends an invoice.
                 </p>
               </div>
             </div>

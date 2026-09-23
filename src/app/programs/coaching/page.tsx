@@ -103,9 +103,8 @@ export default function CoachingPage() {
             description:
               "Private 1-on-1 lessons, small-group lessons (2+), and the 3+1 Play-In Special with PPR-certified coach Sam Morris. Sam travels to your court. Private lessons are also available at The Pickl Park in Frederick, MD.",
             offers: [
-              { "@type": "Offer", name: "Single Private Lesson", description: "1 hour of 1-on-1 coaching" },
-              { "@type": "Offer", name: "4-Session Private Package", description: "Four 1-on-1 sessions of structured progression" },
-              { "@type": "Offer", name: "Group Lesson (2+ players)", description: "Small-group coaching for 2 or more players" },
+              { "@type": "Offer", name: "Single Private Lesson", description: "1 hour of 1-on-1 coaching", price: "50", priceCurrency: "USD" },
+              { "@type": "Offer", name: "Group Lesson (2+ players)", description: "Small-group coaching for 2 to 4 players", price: "50", priceCurrency: "USD" },
               { "@type": "Offer", name: "3+1 Play-In Special", description: "2-hour play-in session — 3 students plus Sam in the lineup" },
             ],
           }),
@@ -118,7 +117,7 @@ export default function CoachingPage() {
             "@context": "https://schema.org",
             "@type": "FAQPage",
             mainEntity: [
-              { "@type": "Question", name: "How do I book a private pickleball lesson?", acceptedAnswer: { "@type": "Answer", text: "Request a lesson at coach.sammorrispb.com and Sam will confirm a time that works. Single sessions and 4-session packages are available — Sam shares details when he confirms your request." } },
+              { "@type": "Question", name: "How do I book a private pickleball lesson?", acceptedAnswer: { "@type": "Answer", text: "Request a lesson at coach.sammorrispb.com and Sam will confirm a time that works. Lessons are $50/hour for privates or groups up to 4 players, plus court fee." } },
               { "@type": "Question", name: "Do you offer group pickleball lessons?", acceptedAnswer: { "@type": "Answer", text: "Yes — group lessons are available for 2 or more players. Request a time and Sam will build the session around your group's level and goals." } },
               { "@type": "Question", name: "What is the 3+1 Play-In Special?", acceptedAnswer: { "@type": "Answer", text: "The 3+1 Play-In Special is a 2-hour session where you bring 3 players and Sam plays as the 4th — doubles reps with a coach in the lineup." } },
               { "@type": "Question", name: "Where do lessons happen?", acceptedAnswer: { "@type": "Answer", text: `Sam travels to your court across Montgomery County, Washington DC, and nearby parts of Prince George's, Howard, and northern Virginia. Private lessons are also available at The Pickl Park in Frederick, MD.` } },
@@ -220,32 +219,24 @@ export default function CoachingPage() {
                 Private <span className="gradient-text-warm">lessons.</span>
               </h2>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="max-w-xl mx-auto">
               <div className="card-warm p-8">
                 <h3 className="font-heading font-bold text-xl mb-3">Single Session</h3>
+                <p className="font-heading font-black text-3xl mb-4">
+                  $50<span className="text-base font-semibold text-text-muted">/hour</span>
+                </p>
                 <ul className="space-y-2 text-text-muted text-sm">
                   <li className="flex gap-2"><span className="text-accent-blue">→</span> 1 hour of personalized 1-on-1 instruction</li>
                   <li className="flex gap-2"><span className="text-accent-blue">→</span> Built around the skill you choose</li>
                   <li className="flex gap-2"><span className="text-accent-blue">→</span> Great for trying coaching or a specific focus</li>
                 </ul>
               </div>
-
-              <div className="glass-card-amber rounded-2xl p-8">
-                <div className="flex items-center gap-3 mb-3">
-                  <h3 className="font-heading font-bold text-xl">4-Session Package</h3>
-                  <span className="brand-badge brand-badge-sm">Best value</span>
-                </div>
-                <ul className="space-y-2 text-text-muted text-sm">
-                  <li className="flex gap-2"><span className="text-accent-blue">→</span> 4 hours of structured 1-on-1 progression</li>
-                  <li className="flex gap-2"><span className="text-accent-blue">→</span> Skill tracking across sessions</li>
-                  <li className="flex gap-2"><span className="text-accent-blue">→</span> Better per-session value than singles</li>
-                </ul>
-              </div>
             </div>
             <div className="mt-10 text-center">
               <p className="text-text-muted text-sm mb-4">
-                Tell Sam what you want to work on and he&apos;ll confirm a time —
-                single session or 4-pack, your call.
+                Tell Sam what you want to work on and he&apos;ll confirm a time.
+                Lessons are $50/hour for privates or groups up to 4 players,
+                plus court fee.
               </p>
               <TrackedExternalLink
                 href={COACH_REQUEST_URL}
@@ -277,8 +268,11 @@ export default function CoachingPage() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="card-warm p-8">
                 <h3 className="font-heading font-bold text-xl mb-3">Group Lesson (2+)</h3>
+                <p className="font-heading font-black text-3xl mb-4">
+                  $50<span className="text-base font-semibold text-text-muted">/hour</span>
+                </p>
                 <ul className="space-y-2 text-text-muted text-sm">
-                  <li className="flex gap-2"><span className="text-accent-blue">→</span> 2 or more players, 1 hour</li>
+                  <li className="flex gap-2"><span className="text-accent-blue">→</span> 2 to 4 players, 1 hour</li>
                   <li className="flex gap-2"><span className="text-accent-blue">→</span> Drills + game situations tailored to the group</li>
                   <li className="flex gap-2"><span className="text-accent-blue">→</span> Bring a friend, partner, or small crew</li>
                 </ul>
@@ -365,7 +359,7 @@ export default function CoachingPage() {
                 </li>
                 <li className="flex gap-3">
                   <span className="font-mono text-accent-blue font-bold">02</span>
-                  <span><strong className="text-text-primary">Pick a single session or 4-pack</strong> for focused 1-on-1 progression.</span>
+                  <span><strong className="text-text-primary">Book a single session</strong> for focused 1-on-1 progression.</span>
                 </li>
                 <li className="flex gap-3">
                   <span className="font-mono text-accent-blue font-bold">03</span>

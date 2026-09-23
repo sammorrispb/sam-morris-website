@@ -112,11 +112,6 @@ export const QUIZ_RESULTS: Record<string, QuizResult> = {
         href: COACH_REQUEST_URL,
       },
       {
-        title: "4-Session Package",
-        description: "Build on skills week-to-week with the best-value package.",
-        href: COACH_REQUEST_URL,
-      },
-      {
         title: "Training Cohorts",
         description: "4 players, 4 weeks, ending at a tournament. One all-in price.",
         href: "/programs/cohort",
@@ -130,8 +125,8 @@ export const QUIZ_RESULTS: Record<string, QuizResult> = {
       "You've got solid fundamentals and a competitive edge. Focused coaching on shot selection, third-shot drops, and match strategy will push you to the next level.",
     programs: [
       {
-        title: "Private Lessons (4-Pack)",
-        description: "Build on skills week-to-week with the best-value package.",
+        title: "Private Lessons",
+        description: "1-on-1 coaching to sharpen shot selection and match strategy.",
         href: COACH_REQUEST_URL,
       },
       {
