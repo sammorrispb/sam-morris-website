@@ -10,6 +10,7 @@ import {
   WHATSAPP_GROUP,
 } from "@/lib/constants";
 import { breadcrumbJsonLd } from "@/lib/seo";
+import { PRICING } from "@/lib/coaching";
 
 export const metadata: Metadata = {
   title: "Contact — Book Pickleball Lessons in MoCo, MD",
@@ -216,7 +217,7 @@ export default function ContactPage() {
               </ul>
               <div className="mt-5 pt-4 border-t border-white/10 space-y-2 text-sm text-text-muted">
                 <p>
-                  <strong className="text-text-primary">$50/hour</strong> — private
+                  <strong className="text-text-primary">{`$${PRICING.lessonPerHourUsd}/hour`}</strong> — private
                   or group lessons (up to 4 players), plus court fee.
                 </p>
                 <p>

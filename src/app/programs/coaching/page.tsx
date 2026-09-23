@@ -8,9 +8,8 @@ import { LeadForm } from "@/components/LeadForm";
 import { TrackedExternalLink } from "@/components/TrackedExternalLink";
 import { ScrollDepthTracker } from "@/components/ScrollDepthTracker";
 import { breadcrumbJsonLd } from "@/lib/seo";
-import { getTestimonialsByProgram } from "@/lib/testimonials";
-import { TestimonialGrid } from "@/components/TestimonialGrid";
 import { SERVICE_AREA, COACH_REQUEST_URL } from "@/lib/constants";
+import { PRICING } from "@/lib/coaching";
 
 export const metadata: Metadata = {
   // Title ≤60 chars (audit baseline: 94 with duplicated brand suffix).
@@ -103,8 +102,8 @@ export default function CoachingPage() {
             description:
               "Private 1-on-1 lessons, small-group lessons (2+), and the 3+1 Play-In Special with PPR-certified coach Sam Morris. Sam travels to your court. Private lessons are also available at The Pickl Park in Frederick, MD.",
             offers: [
-              { "@type": "Offer", name: "Single Private Lesson", description: "1 hour of 1-on-1 coaching", price: "50", priceCurrency: "USD" },
-              { "@type": "Offer", name: "Group Lesson (2+ players)", description: "Small-group coaching for 2 to 4 players", price: "50", priceCurrency: "USD" },
+              { "@type": "Offer", name: "Single Private Lesson", description: "1 hour of 1-on-1 coaching", price: String(PRICING.lessonPerHourUsd), priceCurrency: "USD" },
+              { "@type": "Offer", name: "Group Lesson (2+ players)", description: "Small-group coaching for 2 to 4 players", price: String(PRICING.lessonPerHourUsd), priceCurrency: "USD" },
               { "@type": "Offer", name: "3+1 Play-In Special", description: "2-hour play-in session — 3 students plus Sam in the lineup" },
             ],
           }),
@@ -117,7 +116,7 @@ export default function CoachingPage() {
             "@context": "https://schema.org",
             "@type": "FAQPage",
             mainEntity: [
-              { "@type": "Question", name: "How do I book a private pickleball lesson?", acceptedAnswer: { "@type": "Answer", text: "Request a lesson at coach.sammorrispb.com and Sam will confirm a time that works. Lessons are $50/hour for privates or groups up to 4 players, plus court fee." } },
+              { "@type": "Question", name: "How do I book a private pickleball lesson?", acceptedAnswer: { "@type": "Answer", text: `Request a lesson at coach.sammorrispb.com and Sam will confirm a time that works. Lessons are $${PRICING.lessonPerHourUsd}/hour for privates or groups up to 4 players, plus court fee.` } },
               { "@type": "Question", name: "Do you offer group pickleball lessons?", acceptedAnswer: { "@type": "Answer", text: "Yes — group lessons are available for 2 or more players. Request a time and Sam will build the session around your group's level and goals." } },
               { "@type": "Question", name: "What is the 3+1 Play-In Special?", acceptedAnswer: { "@type": "Answer", text: "The 3+1 Play-In Special is a 2-hour session where you bring 3 players and Sam plays as the 4th — doubles reps with a coach in the lineup." } },
               { "@type": "Question", name: "Where do lessons happen?", acceptedAnswer: { "@type": "Answer", text: `Sam travels to your court across Montgomery County, Washington DC, and nearby parts of Prince George's, Howard, and northern Virginia. Private lessons are also available at The Pickl Park in Frederick, MD.` } },
@@ -223,7 +222,7 @@ export default function CoachingPage() {
               <div className="card-warm p-8">
                 <h3 className="font-heading font-bold text-xl mb-3">Single Session</h3>
                 <p className="font-heading font-black text-3xl mb-4">
-                  $50<span className="text-base font-semibold text-text-muted">/hour</span>
+                  {`$${PRICING.lessonPerHourUsd}`}<span className="text-base font-semibold text-text-muted">/hour</span>
                 </p>
                 <ul className="space-y-2 text-text-muted text-sm">
                   <li className="flex gap-2"><span className="text-accent-blue">→</span> 1 hour of personalized 1-on-1 instruction</li>
@@ -235,7 +234,7 @@ export default function CoachingPage() {
             <div className="mt-10 text-center">
               <p className="text-text-muted text-sm mb-4">
                 Tell Sam what you want to work on and he&apos;ll confirm a time.
-                Lessons are $50/hour for privates or groups up to 4 players,
+                Lessons are {`$${PRICING.lessonPerHourUsd}/hour`} for privates or groups up to 4 players,
                 plus court fee.
               </p>
               <TrackedExternalLink
@@ -269,7 +268,7 @@ export default function CoachingPage() {
               <div className="card-warm p-8">
                 <h3 className="font-heading font-bold text-xl mb-3">Group Lesson (2+)</h3>
                 <p className="font-heading font-black text-3xl mb-4">
-                  $50<span className="text-base font-semibold text-text-muted">/hour</span>
+                  {`$${PRICING.lessonPerHourUsd}`}<span className="text-base font-semibold text-text-muted">/hour</span>
                 </p>
                 <ul className="space-y-2 text-text-muted text-sm">
                   <li className="flex gap-2"><span className="text-accent-blue">→</span> 2 to 4 players, 1 hour</li>
@@ -376,19 +375,6 @@ export default function CoachingPage() {
               </a>
             </div>
           </AnimateOnScroll>
-        </div>
-      </section>
-
-      {/* ─── Testimonials ─── */}
-      <section className="px-6 py-20 bg-navy-light">
-        <div className="mx-auto max-w-6xl">
-          <div className="text-center mb-12">
-            <p className="eyebrow mb-3">Student feedback</p>
-            <h2 className="text-4xl md:text-5xl font-heading font-black text-text-primary leading-tight">
-              What students say.
-            </h2>
-          </div>
-          <TestimonialGrid testimonials={getTestimonialsByProgram("coaching")} limit={3} />
         </div>
       </section>
 
