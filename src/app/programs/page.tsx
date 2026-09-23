@@ -118,7 +118,7 @@ export default function ProgramsPage() {
               {
                 badge: "Adults · 1-on-1",
                 title: "Private Coaching",
-                desc: "Video review, custom drills, single sessions or 4-packs.",
+                desc: "Video review, custom drills, single sessions.",
                 href: "/programs/coaching",
                 cta: "Coaching Details",
                 image: "/images/coach-sam.jpeg",

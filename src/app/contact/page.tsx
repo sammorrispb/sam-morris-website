@@ -202,8 +202,8 @@ export default function ContactPage() {
                 <li className="flex items-start gap-3">
                   <span className="text-accent-lime font-bold mt-0.5">✓</span>
                   <span>
-                    <strong className="text-text-primary">Single sessions</strong> or
-                    4-session packages
+                    <strong className="text-text-primary">Single sessions</strong>,
+                    1-on-1 or small group
                   </span>
                 </li>
                 <li className="flex items-start gap-3">
