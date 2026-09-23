@@ -1,4 +1,5 @@
 import { Client } from "@notionhq/client";
+import { formatLessonDateTime } from "./lessons";
 
 const DEFAULT_SKILLS = [
   { skill: "Serve placement", category: "Serves" },
@@ -50,20 +51,109 @@ interface SkippedResult {
 }
 
 /**
- * Check if a coaching client already exists for the given email.
+ * Find a coaching client page id by email. Returns null when none exists.
  */
-async function hasExistingClient(
+export async function findClientByEmail(
   notion: Client,
   clientsDbId: string,
   email: string
-): Promise<boolean> {
+): Promise<string | null> {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const response: any = await notion.dataSources.query({
     data_source_id: clientsDbId,
     filter: { property: "Email", email: { equals: email } },
     page_size: 1,
   });
-  return (response.results?.length ?? 0) > 0;
+  return response.results?.[0]?.id ?? null;
+}
+
+interface UpsertCoachingClientOptions {
+  name: string;
+  email: string;
+  source: string;
+  skillLevel?: string;
+}
+
+/**
+ * Get-or-create a coaching client by email. Lesson-source clients are
+ * created lean (no skill progression rows — those belong to the legacy
+ * package flow). Never throws for a duplicate; returns the existing id.
+ */
+export async function upsertCoachingClient(
+  notion: Client,
+  clientsDbId: string,
+  options: UpsertCoachingClientOptions
+): Promise<{ clientPageId: string; created: boolean }> {
+  const existing = await findClientByEmail(
+    notion,
+    clientsDbId,
+    options.email.trim().toLowerCase()
+  );
+  if (existing) {
+    return { clientPageId: existing, created: false };
+  }
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const properties: Record<string, any> = {
+    Name: { title: [{ text: { content: options.name } }] },
+    Email: { email: options.email.trim().toLowerCase() },
+    "Hours Purchased": { number: 0 },
+    "Hours Used": { number: 0 },
+    Status: { select: { name: "Active" } },
+    Source: { select: { name: options.source } },
+    Created: { date: { start: new Date().toISOString().split("T")[0] } },
+  };
+  if (options.skillLevel) {
+    properties["Skill Level"] = { select: { name: options.skillLevel } };
+  }
+
+  const clientPage = await notion.pages.create({
+    parent: { data_source_id: clientsDbId },
+    properties,
+  });
+  return { clientPageId: clientPage.id, created: true };
+}
+
+interface CreateLessonRowOptions {
+  clientPageId: string;
+  playerName: string;
+  dateIso: string;
+  location: string;
+  durationMin: number;
+  amountCents: number;
+}
+
+/**
+ * Append one row to the Lessons database for a confirmed lesson.
+ * Lesson history is append-only: re-proposing never overwrites a row.
+ * The Lessons DB is optional — callers check NOTION_LESSONS_DB_ID first.
+ */
+export async function createLessonRow(
+  notion: Client,
+  lessonsDbId: string,
+  options: CreateLessonRowOptions
+): Promise<string> {
+  const page = await notion.pages.create({
+    parent: { data_source_id: lessonsDbId },
+    properties: {
+      Name: {
+        title: [
+          {
+            text: {
+              content: `Lesson — ${options.playerName} — ${formatLessonDateTime(options.dateIso)}`,
+            },
+          },
+        ],
+      },
+      Player: { relation: [{ id: options.clientPageId }] },
+      Date: { date: { start: options.dateIso } },
+      Location: { rich_text: [{ text: { content: options.location } }] },
+      "Duration (min)": { number: options.durationMin },
+      "Amount (cents)": { number: options.amountCents },
+      Status: { select: { name: "Confirmed" } },
+    },
+  });
+  return page.id;
 }
 
 /**
@@ -79,8 +169,8 @@ export async function createCoachingClient(
   const { name, email, hoursPurchased, source, skillLevel } = options;
 
   // Dedup check
-  const exists = await hasExistingClient(notion, clientsDbId, email);
-  if (exists) {
+  const existingId = await findClientByEmail(notion, clientsDbId, email);
+  if (existingId) {
     return { skipped: true, reason: `Client already exists for ${email}` };
   }
 

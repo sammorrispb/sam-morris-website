@@ -1,7 +1,11 @@
 import { Client } from "@notionhq/client";
 import { NextResponse } from "next/server";
-import { LESSON_STATUS } from "@/lib/lessons";
+import {
+  LESSON_STATUS,
+  lessonAmountCents,
+} from "@/lib/lessons";
 import { queryLeads } from "@/lib/notion";
+import { createLessonRow, upsertCoachingClient } from "@/lib/coaching-crm";
 
 export const dynamic = "force-dynamic";
 
@@ -30,6 +34,11 @@ export async function POST(request: Request) {
   const notion = new Client({ auth: apiKey });
 
   let pageId: string | null = null;
+  let leadName = "";
+  let leadEmail = "";
+  let lessonDateIso = "";
+  let lessonLocation = "";
+  let lessonDurationMin = 60;
   try {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const res: any = await queryLeads(notion, dbId, {
@@ -70,8 +79,27 @@ export async function POST(request: Request) {
         { status: 410 }
       );
     }
+    lessonDateIso = startIso;
 
     pageId = page.id;
+
+    const titleProp = props["Name"] as
+      | { type?: string; title?: { plain_text?: string }[] }
+      | undefined;
+    leadName =
+      titleProp?.title?.map((t) => t.plain_text ?? "").join("") ?? "";
+    leadEmail =
+      (props["Email"] as { email?: string } | undefined)?.email ?? "";
+    lessonLocation = (
+      (props["Lesson Location"] as
+        | { rich_text?: { plain_text?: string }[] }
+        | undefined)?.rich_text ?? []
+    )
+      .map((t) => t.plain_text ?? "")
+      .join("");
+    lessonDurationMin =
+      (props["Lesson Duration (min)"] as { number?: number } | undefined)
+        ?.number ?? 60;
   } catch (err) {
     console.error("confirm: lookup failed", err);
     return NextResponse.json(
@@ -101,6 +129,32 @@ export async function POST(request: Request) {
       { error: "Confirmation failed, please try again" },
       { status: 500 }
     );
+  }
+
+  // Player CRM: upsert the coaching client and append a lesson history row.
+  // Fail-open — a CRM write must never break the player's confirmation.
+  try {
+    const clientsDbId = process.env.NOTION_COACHING_CLIENTS_DB_ID?.trim();
+    if (clientsDbId && leadEmail) {
+      const { clientPageId } = await upsertCoachingClient(
+        notion,
+        clientsDbId,
+        { name: leadName || leadEmail, email: leadEmail, source: "Lesson" }
+      );
+      const lessonsDbId = process.env.NOTION_LESSONS_DB_ID?.trim();
+      if (lessonsDbId && lessonDateIso) {
+        await createLessonRow(notion, lessonsDbId, {
+          clientPageId,
+          playerName: leadName || leadEmail,
+          dateIso: lessonDateIso,
+          location: lessonLocation,
+          durationMin: lessonDurationMin,
+          amountCents: lessonAmountCents(lessonDurationMin),
+        });
+      }
+    }
+  } catch (crmErr) {
+    console.error("confirm: player CRM write failed (non-fatal)", crmErr);
   }
 
   return NextResponse.json({ ok: true });

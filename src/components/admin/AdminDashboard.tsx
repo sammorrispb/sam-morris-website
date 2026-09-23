@@ -4,6 +4,7 @@ import { useState, useEffect, useCallback, useRef } from "react";
 
 import { TIME_SLOT_OPTIONS, formatLessonDateTime } from "@/lib/lessons";
 import { PlaceAutocompleteInput } from "./PlaceAutocompleteInput";
+import { PlayersPanel } from "./PlayersPanel";
 
 interface Lead {
   id: string;
@@ -109,8 +110,7 @@ export function AdminDashboard() {
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   // Lesson proposal modal state
-  const [confirmingLead, setConfirmingLead] = useState<Lead | null>(null);
-  const [proposeDate, setProposeDate] = useState("");
+  const [confirmingLead, setConfirmingLead] = useState<Lead | null>(null);  const [proposeDate, setProposeDate] = useState("");
   const [proposeTime, setProposeTime] = useState("");
   const [proposeLocation, setProposeLocation] = useState("");
   const [proposeDuration, setProposeDuration] = useState("60");
@@ -122,6 +122,9 @@ export function AdminDashboard() {
     title: string;
     dateLabel: string;
   } | null>(null);
+
+  // Dashboard tabs
+  const [tab, setTab] = useState<"leads" | "players">("leads");
 
   // Debounce search input
   useEffect(() => {
@@ -414,10 +417,10 @@ export function AdminDashboard() {
   return (
     <div className="max-w-6xl mx-auto px-6 py-12">
       {/* Header */}
-      <div className="flex items-center justify-between mb-10">
+      <div className="flex items-center justify-between mb-6">
         <div className="flex items-center gap-3">
           <h1 className="font-heading font-bold text-3xl">Lead Dashboard</h1>
-          {data.attentionCount > 0 && (
+          {tab === "leads" && data.attentionCount > 0 && (
             <span className="text-xs font-medium px-2.5 py-1 rounded-full bg-accent-pink/10 text-accent-pink">
               {data.attentionCount} need attention
             </span>
@@ -431,6 +434,29 @@ export function AdminDashboard() {
         </button>
       </div>
 
+      {/* Tabs */}
+      <div className="flex gap-2 mb-10">
+        {(["leads", "players"] as const).map((t) => (
+          <button
+            key={t}
+            onClick={() => setTab(t)}
+            className={`px-4 py-2 text-sm font-heading font-semibold rounded-lg transition-colors ${
+              tab === t
+                ? "text-white btn-gradient"
+                : "text-text-muted hover:text-text-primary bg-white/5"
+            }`}
+          >
+            {t === "leads" ? "Leads" : "Players"}
+          </button>
+        ))}
+      </div>
+
+      {tab === "players" ? (
+        <PlayersPanel
+          getToken={() => sessionStorage.getItem("admin_token") ?? ""}
+        />
+      ) : (
+        <>
       {/* Stat Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-10">
         <div className="bg-navy-light glow-border rounded-xl p-6">
@@ -747,6 +773,8 @@ export function AdminDashboard() {
           </div>
         </div>
       </div>
+        </>
+      )}
 
       {/* Lesson proposal modal */}
       {confirmingLead && (
