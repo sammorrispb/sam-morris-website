@@ -86,6 +86,10 @@ export async function POST(request: Request) {
       typeof body?.location === "string"
         ? body.location.replace(/\s+/g, " ").trim().slice(0, 100)
         : "";
+    const preferredTime: string =
+      typeof body?.preferred_time === "string"
+        ? body.preferred_time.replace(/\s+/g, " ").trim().slice(0, 200)
+        : "";
     const eventType: string | undefined =
       typeof body?.event_type === "string" && body.event_type.trim()
         ? body.event_type.trim()
@@ -162,6 +166,24 @@ export async function POST(request: Request) {
               type: "paragraph" as const,
               paragraph: {
                 rich_text: [{ type: "text" as const, text: { content: eventType } }],
+              },
+            },
+          ]
+        : []),
+      ...(preferredTime
+        ? [
+            {
+              object: "block" as const,
+              type: "heading_3" as const,
+              heading_3: {
+                rich_text: [{ type: "text" as const, text: { content: "Preferred Times" } }],
+              },
+            },
+            {
+              object: "block" as const,
+              type: "paragraph" as const,
+              paragraph: {
+                rich_text: [{ type: "text" as const, text: { content: preferredTime } }],
               },
             },
           ]
@@ -250,7 +272,7 @@ export async function POST(request: Request) {
       const subjectInterest = eventType ? `${interest} — ${eventType}` : interest;
       const result = await notifySam(
         `New Lead: ${name} — ${subjectInterest}`,
-        `Name: ${name}\nEmail: ${email}\nInterest: ${interest}${eventType ? `\nEvent Type: ${eventType}` : ""}${location ? `\nPreferred Location: ${location}` : ""}\nSubmitted: ${new Date().toLocaleString("en-US", { timeZone: "America/New_York" })}${notes ? `\n\nNotes from lead:\n${notes}` : ""}`
+        `Name: ${name}\nEmail: ${email}\nInterest: ${interest}${eventType ? `\nEvent Type: ${eventType}` : ""}${location ? `\nPreferred Location: ${location}` : ""}${preferredTime ? `\nPreferred Times: ${preferredTime}` : ""}\nSubmitted: ${new Date().toLocaleString("en-US", { timeZone: "America/New_York" })}${notes ? `\n\nNotes from lead:\n${notes}` : ""}`
       );
       samNotified = result.success;
     } catch (notifyError) {
@@ -317,6 +339,7 @@ export async function POST(request: Request) {
         utm_content: utm.utm_content,
         ...(eventType ? { event_type: eventType } : {}),
         ...(location ? { location } : {}),
+        ...(preferredTime ? { preferred_time: preferredTime } : {}),
         // Durable delivery record — flags leads that generated no email so
         // they can be followed up manually.
         confirmation_email_sent: confirmationSent,

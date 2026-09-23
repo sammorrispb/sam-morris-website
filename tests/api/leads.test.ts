@@ -252,6 +252,60 @@ describe("POST /api/leads", () => {
     expect(obMetadata).not.toHaveProperty("location");
   });
 
+  it("relays preferred times to Notion body, Sam notification, and OB metadata", async () => {
+    const { POST } = await import("@/app/api/leads/route");
+    await POST(
+      makeRequest({
+        name: "A",
+        email: "a@b.co",
+        interest: "Private Lesson",
+        preferred_time: "Tue, Thu · Morning, Evening",
+      }),
+    );
+    const leadCreate = notionPagesCreate.mock.calls[0][0];
+    const headings = leadCreate.children
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      .filter((b: any) => b.type === "heading_3")
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      .map((b: any) => b.heading_3.rich_text[0].text.content);
+    expect(headings).toContain("Preferred Times");
+    const timeBlock = leadCreate.children.find(
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      (b: any) =>
+        b.type === "paragraph" &&
+        b.paragraph.rich_text[0].text.content === "Tue, Thu · Morning, Evening",
+    );
+    expect(timeBlock).toBeTruthy();
+    expect(notifySamMock).toHaveBeenCalledWith(
+      expect.any(String),
+      expect.stringContaining("Preferred Times: Tue, Thu · Morning, Evening"),
+    );
+    expect(ingestToOpenBrainMock).toHaveBeenCalledWith(
+      expect.objectContaining({
+        metadata: expect.objectContaining({
+          preferred_time: "Tue, Thu · Morning, Evening",
+        }),
+      }),
+    );
+  });
+
+  it("omits preferred times everywhere when not provided", async () => {
+    const { POST } = await import("@/app/api/leads/route");
+    await POST(
+      makeRequest({ name: "A", email: "a@b.co", interest: "Private Lesson" }),
+    );
+    const leadCreate = notionPagesCreate.mock.calls[0][0];
+    const headings = (leadCreate.children ?? [])
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      .filter((b: any) => b.type === "heading_3")
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      .map((b: any) => b.heading_3.rich_text[0].text.content);
+    expect(headings).not.toContain("Preferred Times");
+    expect(notifySamMock.mock.calls[0][1]).not.toContain("Preferred Times");
+    const obMetadata = ingestToOpenBrainMock.mock.calls[0][0].metadata;
+    expect(obMetadata).not.toHaveProperty("preferred_time");
+  });
+
   it("Business Partnerships interest auto-opts-out of drip", async () => {
     const { POST } = await import("@/app/api/leads/route");
     await POST(
