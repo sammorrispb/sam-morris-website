@@ -1,5 +1,7 @@
 import { Client } from "@notionhq/client";
 import { ConfirmButton } from "./ConfirmButton";
+import { CounterForm } from "./CounterForm";
+import { queryLeads } from "@/lib/notion";
 import {
   LESSON_STATUS,
   formatAmountDollars,
@@ -49,8 +51,7 @@ async function getProposal(token: string): Promise<Proposal> {
 
   const notion = new Client({ auth: apiKey });
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const res: any = await notion.dataSources.query({
-    data_source_id: dbId,
+  const res: any = await queryLeads(notion, dbId, {
     filter: {
       and: [
         { property: "Confirm Token", rich_text: { equals: token } },
@@ -170,6 +171,7 @@ export default async function ConfirmLessonPage({
         right after.
       </p>
       <ConfirmButton token={proposal.token} />
+      <CounterForm token={proposal.token} />
     </Card>
   );
 }

@@ -1,10 +1,12 @@
 import { Client } from "@notionhq/client";
 import { NextResponse } from "next/server";
+import { getLeadsDataSourceId } from "@/lib/notion";
 
 const VALID_STATUSES = [
   "New",
   "Contacted",
   "Awaiting player",
+  "Countered",
   "Confirmed",
   "Converted",
   "Paid",
@@ -44,6 +46,7 @@ export async function GET(request: Request) {
 
   try {
     const notion = new Client({ auth: config.apiKey });
+    const dataSourceId = await getLeadsDataSourceId(notion, config.dbId);
 
     // --- Stats query: iterate all pages (unfiltered) for global counts ---
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -53,7 +56,7 @@ export async function GET(request: Request) {
     do {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const response: any = await notion.dataSources.query({
-        data_source_id: config.dbId,
+        data_source_id: dataSourceId,
         sorts: [{ property: "Date Submitted", direction: "descending" }],
         start_cursor: statsCursor,
         page_size: 100,
@@ -99,8 +102,11 @@ export async function GET(request: Request) {
         const submittedDate = new Date(dateSubmitted);
         const daysOld = (Date.now() - submittedDate.getTime()) / 86400000;
         if (status === "Paid" && !emailSent) attentionCount++;
+        else if (status === "Countered") attentionCount++;
         else if (status === "New" && daysOld > 2) attentionCount++;
         else if (!emailSent && daysOld > 1) attentionCount++;
+      } else if (status === "Countered") {
+        attentionCount++;
       }
     }
 
@@ -139,7 +145,7 @@ export async function GET(request: Request) {
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const leadsResponse: any = await notion.dataSources.query({
-      data_source_id: config.dbId,
+      data_source_id: dataSourceId,
       sorts: [{ property: "Date Submitted", direction: "descending" }],
       ...(filter && { filter }),
       ...(cursorParam && { start_cursor: cursorParam }),
@@ -158,6 +164,11 @@ export async function GET(request: Request) {
         dateSubmitted: props["Date Submitted"]?.date?.start ?? "",
         source: props.Source?.select?.name ?? "Website",
         emailSent: props["Email Sent"]?.checkbox ?? false,
+        counterDate: props["Counter Date"]?.date?.start ?? "",
+        counterNote:
+          (props["Counter Note"]?.rich_text ?? [])
+            .map((t: { plain_text?: string }) => t.plain_text ?? "")
+            .join("") || "",
       };
     });
 

@@ -2,12 +2,14 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 const notionPagesRetrieve = vi.fn();
 const notionPagesUpdate = vi.fn();
+const notionDatabasesRetrieve = vi.fn();
 const notionDataSourcesQuery = vi.fn();
 const sendEmailMock = vi.fn();
 
 vi.mock("@notionhq/client", () => ({
   Client: class {
     pages = { retrieve: notionPagesRetrieve, update: notionPagesUpdate };
+    databases = { retrieve: notionDatabasesRetrieve };
     dataSources = { query: notionDataSourcesQuery };
   },
 }));
@@ -71,6 +73,7 @@ beforeEach(() => {
   vi.resetAllMocks();
   notionPagesRetrieve.mockResolvedValue(leadPage());
   notionPagesUpdate.mockResolvedValue({});
+  notionDatabasesRetrieve.mockResolvedValue({ data_sources: [{ id: "ds_test" }] });
   notionDataSourcesQuery.mockResolvedValue({ results: [] });
   sendEmailMock.mockResolvedValue({ success: true });
 });
@@ -80,11 +83,11 @@ afterEach(() => {
 });
 
 describe("lib/lessons", () => {
-  it("generates unique 64-char hex tokens", async () => {
+  it("generates unique 32-char hex tokens", async () => {
     const { generateConfirmToken } = await import("@/lib/lessons");
     const a = generateConfirmToken();
     const b = generateConfirmToken();
-    expect(a).toMatch(/^[0-9a-f]{64}$/);
+    expect(a).toMatch(/^[0-9a-f]{32}$/);
     expect(a).not.toBe(b);
   });
 
@@ -169,6 +172,17 @@ describe("POST /api/admin/lessons/propose", () => {
     expect(res.status).toBe(400);
   });
 
+  it("rejects times not on a 15-minute increment", async () => {
+    const { POST } = await import("@/app/api/admin/lessons/propose/route");
+    const res = await POST(
+      makeProposeRequest("test-admin-password", {
+        ...validBody(),
+        time: "18:07",
+      })
+    );
+    expect(res.status).toBe(400);
+  });
+
   it("rejects lessons in the past", async () => {
     const { POST } = await import("@/app/api/admin/lessons/propose/route");
     const res = await POST(
@@ -215,7 +229,7 @@ describe("POST /api/admin/lessons/propose", () => {
     const data = await res.json();
     expect(data.ok).toBe(true);
     expect(data.confirmUrl).toMatch(
-      /^https:\/\/www\.sammorrispb\.com\/lessons\/confirm\?token=[0-9a-f]{64}$/
+      /^https:\/\/www\.sammorrispb\.com\/lessons\/confirm\?token=[0-9a-f]{32}$/
     );
 
     expect(notionPagesUpdate).toHaveBeenCalledTimes(1);
@@ -233,7 +247,7 @@ describe("POST /api/admin/lessons/propose", () => {
     ).toBe("Jordan Lee");
     expect(
       updateArg.properties["Confirm Token"].rich_text[0].text.content
-    ).toMatch(/^[0-9a-f]{64}$/);
+    ).toMatch(/^[0-9a-f]{32}$/);
     expect(updateArg.properties["Invoice Sent"].checkbox).toBe(false);
 
     expect(sendEmailMock).toHaveBeenCalledTimes(1);
@@ -317,5 +331,76 @@ describe("POST /api/lessons/confirm", () => {
       select: { name: "Confirmed" },
     });
     expect(updateArg.properties["Confirm Token"]).toEqual({ rich_text: [] });
+  });
+});
+
+describe("POST /api/lessons/counter", () => {
+  function makeCounterRequest(body: unknown) {
+    return new Request("https://www.sammorrispb.com/api/lessons/counter", {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify(body),
+    });
+  }
+
+  const validCounter = () => ({
+    token: "tok123",
+    date: futureDate(31),
+    time: "18:15",
+    note: "anytime after 6 works",
+  });
+
+  it("returns 400 without a token", async () => {
+    const { POST } = await import("@/app/api/lessons/counter/route");
+    const res = await POST(makeCounterRequest({}));
+    expect(res.status).toBe(400);
+  });
+
+  it("rejects times not on a 15-minute increment", async () => {
+    const { POST } = await import("@/app/api/lessons/counter/route");
+    const res = await POST(
+      makeCounterRequest({ ...validCounter(), time: "18:07" })
+    );
+    expect(res.status).toBe(400);
+    expect(notionPagesUpdate).not.toHaveBeenCalled();
+  });
+
+  it("rejects counter times in the past", async () => {
+    const { POST } = await import("@/app/api/lessons/counter/route");
+    const res = await POST(
+      makeCounterRequest({ ...validCounter(), date: "2020-01-01", time: "10:00" })
+    );
+    expect(res.status).toBe(400);
+    expect(notionPagesUpdate).not.toHaveBeenCalled();
+  });
+
+  it("returns 404 for an unknown or used token", async () => {
+    const { POST } = await import("@/app/api/lessons/counter/route");
+    const res = await POST(makeCounterRequest(validCounter()));
+    expect(res.status).toBe(404);
+    expect(notionPagesUpdate).not.toHaveBeenCalled();
+  });
+
+  it("saves the counter and flips status to Countered", async () => {
+    notionDataSourcesQuery.mockResolvedValue({ results: [leadPage()] });
+    const { POST } = await import("@/app/api/lessons/counter/route");
+    const res = await POST(makeCounterRequest(validCounter()));
+    expect(res.status).toBe(200);
+    const body = await res.json();
+    expect(body.ok).toBe(true);
+    expect(body.dateLabel).toContain("ET");
+
+    expect(notionPagesUpdate).toHaveBeenCalledTimes(1);
+    const updateArg = notionPagesUpdate.mock.calls[0][0];
+    expect(updateArg.page_id).toBe("page_1");
+    expect(updateArg.properties.Status).toEqual({
+      select: { name: "Countered" },
+    });
+    expect(updateArg.properties["Counter Date"].date.start).toContain(
+      validCounter().date
+    );
+    expect(updateArg.properties["Counter Note"].rich_text[0].text.content).toBe(
+      "anytime after 6 works"
+    );
   });
 });

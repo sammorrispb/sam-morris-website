@@ -2,6 +2,9 @@
 
 import { useState, useEffect, useCallback, useRef } from "react";
 
+import { TIME_SLOT_OPTIONS, formatLessonDateTime } from "@/lib/lessons";
+import { PlaceAutocompleteInput } from "./PlaceAutocompleteInput";
+
 interface Lead {
   id: string;
   name: string;
@@ -11,6 +14,8 @@ interface Lead {
   dateSubmitted: string;
   source: string;
   emailSent: boolean;
+  counterDate: string;
+  counterNote: string;
 }
 
 // Must stay in sync with LESSON_INTERESTS in src/lib/lessons.ts
@@ -35,6 +40,7 @@ const STATUS_OPTIONS = [
   "New",
   "Contacted",
   "Awaiting player",
+  "Countered",
   "Confirmed",
   "Converted",
   "Paid",
@@ -49,6 +55,8 @@ function statusClasses(status: string) {
       return "bg-accent-blue/10 text-accent-blue";
     case "Awaiting player":
       return "bg-accent-yellow/10 text-accent-yellow";
+    case "Countered":
+      return "bg-accent-orange/10 text-accent-orange";
     case "Confirmed":
       return "bg-accent-orange/10 text-accent-orange";
     case "Converted":
@@ -65,6 +73,7 @@ function needsAttention(lead: Lead): string | null {
   const daysOld = (Date.now() - new Date(lead.dateSubmitted).getTime()) / 86400000;
 
   if (lead.status === "Paid" && !lead.emailSent) return "Paid — no email sent";
+  if (lead.status === "Countered") return "Player suggested a different time";
   if (lead.status === "New" && daysOld > 2) return "New — over 2 days";
   if (!lead.emailSent && daysOld > 1) return "No email sent — over 1 day";
   return null;
@@ -215,8 +224,14 @@ export function AdminDashboard() {
 
   function openConfirmModal(lead: Lead) {
     setConfirmingLead(lead);
-    setProposeDate("");
-    setProposeTime("");
+    // Pre-fill with the player's counter-proposal when there is one.
+    if (lead.status === "Countered" && lead.counterDate) {
+      setProposeDate(lead.counterDate.slice(0, 10));
+      setProposeTime(lead.counterDate.slice(11, 16));
+    } else {
+      setProposeDate("");
+      setProposeTime("");
+    }
     setProposeLocation("");
     setProposeDuration("60");
     setProposePlayers("");
@@ -781,6 +796,20 @@ export function AdminDashboard() {
                   <br />
                   {confirmingLead.email}
                 </p>
+                {confirmingLead.status === "Countered" &&
+                  confirmingLead.counterDate && (
+                    <div className="bg-accent-orange/10 border border-accent-orange/30 rounded-lg px-4 py-3 text-sm">
+                      <p className="font-semibold text-accent-orange">
+                        Player suggested{" "}
+                        {formatLessonDateTime(confirmingLead.counterDate)}
+                      </p>
+                      {confirmingLead.counterNote && (
+                        <p className="text-text-muted mt-1">
+                          “{confirmingLead.counterNote}”
+                        </p>
+                      )}
+                    </div>
+                  )}
                 <form onSubmit={handlePropose} className="space-y-4">
                   <div className="grid grid-cols-2 gap-3">
                     <div>
@@ -799,25 +828,32 @@ export function AdminDashboard() {
                       <label className="block text-text-muted text-xs font-mono uppercase tracking-wider mb-1">
                         Time (ET)
                       </label>
-                      <input
-                        type="time"
+                      <select
                         required
                         value={proposeTime}
                         onChange={(e) => setProposeTime(e.target.value)}
                         className="w-full bg-navy border border-white/10 rounded-lg px-4 py-3 text-text-primary focus:border-accent-blue focus:outline-none transition-colors"
-                      />
+                      >
+                        <option value="" disabled>
+                          Select a time
+                        </option>
+                        {TIME_SLOT_OPTIONS.map((slot) => (
+                          <option key={slot.value} value={slot.value}>
+                            {slot.label}
+                          </option>
+                        ))}
+                      </select>
                     </div>
                   </div>
                   <div>
                     <label className="block text-text-muted text-xs font-mono uppercase tracking-wider mb-1">
                       Location
                     </label>
-                    <input
-                      type="text"
+                    <PlaceAutocompleteInput
                       required
                       placeholder="e.g. Walter Johnson HS Tennis Courts"
                       value={proposeLocation}
-                      onChange={(e) => setProposeLocation(e.target.value)}
+                      onChange={setProposeLocation}
                       className="w-full bg-navy border border-white/10 rounded-lg px-4 py-3 text-text-primary placeholder:text-text-muted/50 focus:border-accent-blue focus:outline-none transition-colors"
                     />
                   </div>

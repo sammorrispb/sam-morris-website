@@ -1,6 +1,7 @@
 import { Client } from "@notionhq/client";
 import { NextResponse } from "next/server";
 import { LESSON_STATUS } from "@/lib/lessons";
+import { queryLeads } from "@/lib/notion";
 
 export const dynamic = "force-dynamic";
 
@@ -31,8 +32,7 @@ export async function POST(request: Request) {
   let pageId: string | null = null;
   try {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const res: any = await notion.dataSources.query({
-      data_source_id: dbId,
+    const res: any = await queryLeads(notion, dbId, {
       filter: {
         and: [
           { property: "Confirm Token", rich_text: { equals: token } },

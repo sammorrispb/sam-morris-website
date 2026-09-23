@@ -1,11 +1,13 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 const notionDataSourcesQuery = vi.fn();
+const notionDatabasesRetrieve = vi.fn();
 const notionPagesUpdate = vi.fn();
 
 vi.mock("@notionhq/client", () => ({
   Client: class {
     dataSources = { query: notionDataSourcesQuery };
+    databases = { retrieve: notionDatabasesRetrieve };
     pages = { update: notionPagesUpdate };
   },
 }));
@@ -36,6 +38,9 @@ beforeEach(() => {
     results: [],
     has_more: false,
     next_cursor: null,
+  });
+  notionDatabasesRetrieve.mockResolvedValue({
+    data_sources: [{ id: "ds_test" }],
   });
   notionPagesUpdate.mockResolvedValue({});
 });

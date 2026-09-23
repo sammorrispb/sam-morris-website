@@ -5,8 +5,9 @@
  *
  * Pricing stays single-sourced: amounts derive from PRICING in coaching.ts
  * (the only file allowed to contain literal dollar amounts).
+ *
+ * Client-safe: no Node-only imports (uses Web Crypto for tokens).
  */
-import { randomBytes } from "crypto";
 import { PRICING } from "./coaching";
 
 export const SITE_URL = "https://www.sammorrispb.com";
@@ -22,14 +23,33 @@ export const LESSON_INTERESTS = [
 /** How long a player's confirm link stays valid. */
 export const CONFIRM_WINDOW_DAYS = 7;
 
+/**
+ * 15-minute lesson start slots, 6:00 AM – 10:00 PM ET.
+ * Shared by the admin propose modal and the player counter form.
+ */
+export const TIME_SLOT_OPTIONS: { value: string; label: string }[] = (() => {
+  const slots: { value: string; label: string }[] = [];
+  for (let mins = 6 * 60; mins <= 22 * 60; mins += 15) {
+    const h24 = Math.floor(mins / 60);
+    const m = mins % 60;
+    const value = `${String(h24).padStart(2, "0")}:${String(m).padStart(2, "0")}`;
+    const h12 = h24 % 12 === 0 ? 12 : h24 % 12;
+    const label = `${h12}:${String(m).padStart(2, "0")} ${h24 < 12 ? "AM" : "PM"}`;
+    slots.push({ value, label });
+  }
+  return slots;
+})();
+
 /** Statuses used by the lesson flow (subset of the Notion Status select). */
 export const LESSON_STATUS = {
   AWAITING_PLAYER: "Awaiting player",
   CONFIRMED: "Confirmed",
+  COUNTERED: "Countered",
 } as const;
 
 export function generateConfirmToken(): string {
-  return randomBytes(32).toString("hex");
+  // Web Crypto UUID (32 hex chars) — works on server, edge, and client.
+  return crypto.randomUUID().replace(/-/g, "");
 }
 
 export function buildConfirmUrl(token: string): string {
