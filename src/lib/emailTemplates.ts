@@ -11,6 +11,40 @@ ${CONTACT.phone}
 ${CONTACT.email}
 sammorrispb.com`;
 
+/**
+ * Email asking the player to confirm the time/location Sam proposed.
+ * Confirming triggers the Stripe invoice + calendar invite.
+ */
+export function lessonConfirmRequestEmail(opts: {
+  name: string;
+  title: string;
+  dateLabel: string;
+  location: string;
+  durationMin: number;
+  amountLabel: string;
+  confirmUrl: string;
+  confirmWindowDays: number;
+}): { subject: string; body: string } {
+  const subject = `Confirm your lesson — ${opts.dateLabel}`;
+  const body = `Hi ${opts.name},
+
+Good news — I've got a time for your lesson:
+
+${opts.title}
+${opts.dateLabel} (${opts.durationMin} min)
+${opts.location}
+
+Tap to confirm and lock it in:
+${opts.confirmUrl}
+
+This link is good for ${opts.confirmWindowDays} days. Once you confirm, I'll send the ${opts.amountLabel} invoice and a calendar invite with all the details.
+
+Need a different time? Just reply to this email and we'll find one.
+
+${SIGN_OFF}`;
+  return { subject, body };
+}
+
 function privateLessonTemplate(name: string): string {
   return `Hi ${name},
 
