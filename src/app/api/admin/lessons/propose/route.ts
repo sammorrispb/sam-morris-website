@@ -84,6 +84,12 @@ export async function POST(request: Request) {
       { status: 400 }
     );
   }
+  if (Number(time.slice(3)) % 15 !== 0) {
+    return NextResponse.json(
+      { error: "time must be on a 15-minute increment (:00, :15, :30, :45)" },
+      { status: 400 }
+    );
+  }
   if (!location || !location.trim()) {
     return NextResponse.json({ error: "location is required" }, { status: 400 });
   }
@@ -159,6 +165,8 @@ export async function POST(request: Request) {
         "Invoice Sent": { checkbox: false },
         "Stripe Invoice URL": { url: null },
         "Calendar Event ID": { rich_text: [] },
+        "Counter Date": { date: null },
+        "Counter Note": { rich_text: [] },
         Status: { select: { name: LESSON_STATUS.AWAITING_PLAYER } },
       },
     });
