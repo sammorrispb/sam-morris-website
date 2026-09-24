@@ -100,6 +100,9 @@ export function PlaceAutocompleteInput({
   const [suggestions, setSuggestions] = useState<Suggestion[]>([]);
   const [open, setOpen] = useState(false);
   const [activeIndex, setActiveIndex] = useState(-1);
+  // Diagnostic: last places-library error, exposed as data-places-error on
+  // the wrapper for automated checks. Not rendered visibly.
+  const [placesError, setPlacesError] = useState<string | null>(null);
   const placesRef = useRef<{ lib: PlacesLibrary; token: object } | null>(null);
   const requestRef = useRef(0);
   const wrapperRef = useRef<HTMLDivElement>(null);
@@ -110,14 +113,24 @@ export function PlaceAutocompleteInput({
     loadPlacesLibrary()
       .then((lib) => {
         if (cancelled) return;
-        placesRef.current = {
-          lib,
-          token: new lib.AutocompleteSessionToken(),
-        };
+        try {
+          placesRef.current = {
+            lib,
+            token: new lib.AutocompleteSessionToken(),
+          };
+        } catch (err) {
+          const msg = `token: ${err instanceof Error ? err.message : String(err)}`;
+          console.error("[place-autocomplete]", msg);
+          setPlacesError(msg);
+          return;
+        }
         setLibReady(true);
       })
-      .catch(() => {
+      .catch((err) => {
+        const msg = `load: ${err instanceof Error ? err.message : String(err)}`;
+        console.error("[place-autocomplete]", msg);
         // Autocomplete unavailable — the plain input keeps working.
+        setPlacesError(msg);
       });
     return () => {
       cancelled = true;
@@ -150,8 +163,11 @@ export function PlaceAutocompleteInput({
           setSuggestions(mapped);
           setActiveIndex(mapped.length > 0 ? 0 : -1);
         })
-        .catch(() => {
+        .catch((err) => {
           if (requestRef.current !== requestId) return;
+          const msg = `suggest: ${err instanceof Error ? err.message : String(err)}`;
+          console.error("[place-autocomplete]", msg);
+          setPlacesError(msg);
           setSuggestions([]);
           setActiveIndex(-1);
         });
@@ -216,7 +232,11 @@ export function PlaceAutocompleteInput({
   const showDropdown = open && suggestions.length > 0;
 
   return (
-    <div ref={wrapperRef} className="relative">
+    <div
+      ref={wrapperRef}
+      className="relative"
+      data-places-error={placesError ?? undefined}
+    >
       <input
         type="text"
         required={required}
