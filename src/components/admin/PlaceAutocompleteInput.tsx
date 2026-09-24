@@ -29,41 +29,99 @@ interface PlacesLibrary {
   };
 }
 
+/** Typings for the Google Maps async bootstrap namespace (`window.google.maps`). */
+interface GoogleMapsBootstrap {
+  importLibrary?: (name: string) => Promise<unknown>;
+  /** Bootstrap handshake callback invoked by the Maps script once loaded. */
+  __ib__?: () => void;
+}
+
 declare global {
   interface Window {
     google?: {
-      maps?: {
-        importLibrary: (name: "places") => Promise<PlacesLibrary>;
-      };
+      maps?: GoogleMapsBootstrap;
     };
   }
 }
 
 let placesLibraryPromise: Promise<PlacesLibrary> | null = null;
+let mapsBootstrapPromise: Promise<void> | null = null;
+
+/**
+ * Install the official Google Maps async bootstrap loader. This defines
+ * `google.maps.importLibrary` synchronously (unlike waiting for a plain
+ * `<script src="...&loading=async">` onload, which does not guarantee the API
+ * is ready), then `importLibrary("places")` loads the Places library (New).
+ */
+function ensureMapsBootstrap(): void {
+  if (window.google?.maps?.importLibrary) return;
+  const google = window.google ?? {};
+  window.google = google;
+  const maps: GoogleMapsBootstrap = google.maps ?? {};
+  google.maps = maps;
+  if (maps.importLibrary) {
+    console.warn("The Google Maps JavaScript API only loads once.");
+    return;
+  }
+  const requestedLibraries = new Set<string>();
+  const loadApi = (): Promise<void> => {
+    if (!mapsBootstrapPromise) {
+      mapsBootstrapPromise = new Promise<void>((resolve, reject) => {
+        const params = new URLSearchParams({
+          key: MAPS_API_KEY,
+          v: "weekly",
+          libraries: [...requestedLibraries].join(","),
+          // Handshake: tell the API which callback to invoke once it is
+          // ready. Without this the injected script loads but never signals
+          // back, so the bootstrap promise (and importLibrary) hangs forever.
+          callback: "google.maps.__ib__",
+        });
+        const script = document.createElement("script");
+        script.src = `https://maps.googleapis.com/maps/api/js?${params}`;
+        maps.__ib__ = resolve;
+        script.onerror = () => {
+          mapsBootstrapPromise = null;
+          reject(new Error("The Google Maps JavaScript API could not load."));
+        };
+        const nonceScript = document.querySelector("script[nonce]");
+        if (nonceScript) {
+          script.nonce = (nonceScript as HTMLScriptElement).nonce || "";
+        }
+        document.head.append(script);
+      });
+    }
+    return mapsBootstrapPromise;
+  };
+  // Stub `importLibrary` until the real API replaces it on script load; the
+  // deferred call below then reaches the real implementation.
+  const stubImportLibrary = (name: string): Promise<unknown> => {
+    requestedLibraries.add(name);
+    return loadApi().then(() => {
+      const current = window.google?.maps?.importLibrary;
+      if (!current || current === stubImportLibrary) {
+        throw new Error(
+          "The Google Maps JavaScript API did not initialize importLibrary."
+        );
+      }
+      return current(name);
+    });
+  };
+  maps.importLibrary = stubImportLibrary;
+}
 
 function loadPlacesLibrary(): Promise<PlacesLibrary> {
   if (placesLibraryPromise) return placesLibraryPromise;
-  placesLibraryPromise = new Promise((resolve, reject) => {
-    const importLibrary = window.google?.maps?.importLibrary;
-    if (importLibrary) {
-      importLibrary("places").then(resolve, reject);
-      return;
+  placesLibraryPromise = (async () => {
+    ensureMapsBootstrap();
+    const importLibrary = window.google?.maps?.importLibrary as
+      | ((name: "places") => Promise<PlacesLibrary>)
+      | undefined;
+    if (!importLibrary) {
+      throw new Error("Google Maps bootstrap did not define importLibrary");
     }
-    const script = document.createElement("script");
-    script.src = `https://maps.googleapis.com/maps/api/js?key=${encodeURIComponent(
-      MAPS_API_KEY
-    )}&libraries=places&loading=async`;
-    script.async = true;
-    script.defer = true;
-    script.onload = () => {
-      const ready = window.google?.maps?.importLibrary;
-      if (ready) ready("places").then(resolve, reject);
-      else reject(new Error("Google Maps Places library failed to initialize"));
-    };
-    script.onerror = () =>
-      reject(new Error("Google Maps script failed to load"));
-    document.head.appendChild(script);
-  });
+    // Rejections here carry the real API error (e.g. key/referrer issues).
+    return importLibrary("places");
+  })();
   return placesLibraryPromise;
 }
 
