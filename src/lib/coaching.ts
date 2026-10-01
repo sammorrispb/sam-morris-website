@@ -7,5 +7,5 @@
  */
 export const PRICING = {
   /** USD per hour for private or group lessons (up to 4 players), plus court fee. */
-  lessonPerHourUsd: 50,
+  lessonPerHourUsd: 75,
 } as const;
