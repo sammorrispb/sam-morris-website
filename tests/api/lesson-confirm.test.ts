@@ -118,10 +118,10 @@ describe("lib/lessons", () => {
     const { lessonAmountCents, formatAmountDollars } = await import(
       "@/lib/lessons"
     );
-    expect(lessonAmountCents(60)).toBe(5000);
-    expect(lessonAmountCents(120)).toBe(10000);
-    expect(lessonAmountCents(30)).toBe(2500);
-    expect(formatAmountDollars(5000)).toBe("$50");
+    expect(lessonAmountCents(60)).toBe(7500);
+    expect(lessonAmountCents(120)).toBe(15000);
+    expect(lessonAmountCents(30)).toBe(3750);
+    expect(formatAmountDollars(7500)).toBe("$75");
     expect(formatAmountDollars(2550)).toBe("$25.50");
   });
 
