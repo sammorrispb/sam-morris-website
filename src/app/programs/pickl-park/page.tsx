@@ -18,9 +18,9 @@ const PAGE = "programs_pickl_park";
 const VENUE_ADDRESS = `${FREDERICK_VENUE.street}, ${FREDERICK_VENUE.city} ${FREDERICK_VENUE.zip}`;
 
 export const metadata: Metadata = {
-  title: "Pickleball Classes in Frederick, MD — Coach Sam at The Pickl Park",
+  title: "Frederick Pickleball Lessons & Clinics | Coach Sam",
   description:
-    "Group pickleball clinics and skills assessments led by Coach Sam Morris at The Pickl Park in Frederick, MD. Intro fundamentals, net play, third shot drops, and DUPR-style skills assessments.",
+    "Private pickleball lessons, group clinics and skills assessments with Coach Sam at The Pickl Park in Frederick, MD. Choose a class or request a lesson.",
   keywords: [
     "pickleball classes Frederick MD",
     "pickleball clinic Frederick Maryland",
@@ -33,9 +33,9 @@ export const metadata: Metadata = {
     canonical: "https://www.sammorrispb.com/programs/pickl-park",
   },
   openGraph: {
-    title: "Pickleball Classes at The Pickl Park — Coach Sam",
+    title: "Frederick Pickleball Lessons & Clinics | Coach Sam",
     description:
-      "Weekly group clinics and skills assessments in Frederick, MD. Beginner fundamentals through net play under pressure.",
+      "Private pickleball lessons, group clinics and skills assessments with Coach Sam at The Pickl Park in Frederick, MD. Choose a class or request a lesson.",
     url: "https://www.sammorrispb.com/programs/pickl-park",
     images: [
       {
@@ -45,6 +45,12 @@ export const metadata: Metadata = {
         alt: "Pickleball classes with Coach Sam at The Pickl Park in Frederick, MD",
       },
     ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Frederick Pickleball Lessons & Clinics | Coach Sam",
+    description:
+      "Private pickleball lessons, group clinics and skills assessments with Coach Sam at The Pickl Park in Frederick, MD. Choose a class or request a lesson.",
   },
 };
 
@@ -139,7 +145,7 @@ export default function PicklParkPage() {
                 Coach Sam · {FREDERICK_VENUE.city}
               </p>
               <h1 className="font-heading font-black text-5xl md:text-7xl lg:text-8xl leading-[0.95] mb-6">
-                Classes at{" "}
+                Pickleball classes at{" "}
                 <span className="gradient-text-warm">The Pickl Park.</span>
               </h1>
               <p className="text-text-primary/85 text-lg md:text-xl mb-10 max-w-2xl leading-relaxed">
@@ -187,7 +193,7 @@ export default function PicklParkPage() {
               </p>
             </div>
           </AnimateOnScroll>
-          <div className="grid md:grid-cols-2 gap-5 max-w-5xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5 max-w-5xl mx-auto">
             {CLASSES.map((klass) => {
               const sessions = upcomingSessions(
                 PICKL_PARK_SESSIONS[klass.id],
@@ -196,8 +202,8 @@ export default function PicklParkPage() {
               return (
               <AnimateOnScroll key={klass.id}>
                 <div className="glass-card p-8 h-full flex flex-col">
-                  <div className="flex items-baseline justify-between gap-4 mb-3">
-                    <h3 className="font-heading font-bold text-xl">
+                  <div className="flex flex-col items-start gap-2 mb-3 sm:flex-row sm:items-baseline sm:justify-between sm:gap-4">
+                    <h3 className="min-w-0 break-words font-heading font-bold text-xl sm:flex-1">
                       {klass.title}
                     </h3>
                     <span className="shrink-0 text-text-muted text-xs uppercase tracking-wide">
