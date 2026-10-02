@@ -6,34 +6,31 @@ import { TrackedExternalLink } from "@/components/TrackedExternalLink";
 import { ContactLink } from "@/components/ContactLink";
 import { StickyContactBar } from "@/components/StickyContactBar";
 import { LeadForm } from "@/components/LeadForm";
-import { CONTACT } from "@/lib/constants";
+import { CONTACT, FREDERICK_VENUE } from "@/lib/constants";
 import { familySiteUrl } from "@/lib/urls";
 
 export const metadata: Metadata = {
   // Title kept ≤60 chars (audit baseline: 84 with old template).
-  title: "Pickleball Coach in Montgomery County, MD — Sam Morris",
+  title: "Pickleball Lessons in Montgomery & Frederick | Sam Morris",
   // Description kept ≤160 chars (audit baseline: 178).
   description:
-    "PPR-certified pickleball coach in Montgomery County, MD. Private lessons, group clinics, and youth academy for adults, families, and kids.",
+    "Private pickleball lessons in Montgomery County, MD, plus lessons and adult clinics at The Pickl Park in Frederick. Request a lesson with Coach Sam.",
   keywords: [
-    "pickleball coach Montgomery County",
-    "indoor pickleball facility near me",
-    "pickleball lessons DC area",
-    "pickleball coaching Northern Virginia",
-    "youth pickleball academy Maryland",
+    "pickleball lessons Montgomery County MD",
+    "private pickleball coaching Montgomery County",
+    "pickleball lessons Frederick MD",
+    "adult pickleball clinics Frederick",
+    "The Pickl Park clinics",
     "private pickleball lessons Bethesda",
-    "beginner pickleball DMV",
+    "beginner pickleball lessons Olney",
     "PPR certified coach Maryland",
-    "Next Gen Pickleball Academy",
-    "indoor pickleball courts Maryland",
-    "pickleball near Washington DC",
   ],
   alternates: { canonical: "https://www.sammorrispb.com/" },
   openGraph: {
     url: "https://www.sammorrispb.com/",
-    title: "Pickleball Coach in Montgomery County, MD — Sam Morris",
+    title: "Pickleball Lessons in Montgomery & Frederick | Sam Morris",
     description:
-      "PPR-certified pickleball coach in Montgomery County, MD. Private lessons, group clinics, and youth academy for adults, families, and kids.",
+      "Private pickleball lessons in Montgomery County, MD, plus lessons and adult clinics at The Pickl Park in Frederick. Request a lesson with Coach Sam.",
     images: [
       {
         url: "/og?title=Helping%20Families%20Grow%20Through%20Sport&subtitle=Pickleball%20Coaching%20for%20Adults%2C%20Families%20%26%20Kids",
@@ -45,7 +42,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     // Mirror og:title so social cards don't share the sitewide fallback.
-    title: "Pickleball Coach in Montgomery County, MD — Sam Morris",
+    title: "Pickleball Lessons in Montgomery & Frederick | Sam Morris",
+    description:
+      "Private pickleball lessons in Montgomery County, MD, plus lessons and adult clinics at The Pickl Park in Frederick. Request a lesson with Coach Sam.",
   },
 };
 
@@ -112,12 +111,28 @@ export default function Home() {
         />
         <div className="relative z-10 mx-auto max-w-6xl px-6 w-full py-24">
           <div className="max-w-3xl">
-            <h1 className="font-heading font-black text-5xl sm:text-6xl md:text-7xl lg:text-8xl leading-[0.95] mb-10 animate-fade-up">
+            <h1 className="font-heading font-black text-5xl sm:text-6xl md:text-7xl lg:text-8xl leading-[0.95] mb-6 animate-fade-up">
               Pickleball coach in{" "}
               <span className="gradient-text-warm">
-                Montgomery &amp; Frederick County.
+                Montgomery County &amp; Frederick, MD.
               </span>
             </h1>
+            <p className="text-text-primary/85 text-lg md:text-xl mb-8 max-w-2xl leading-relaxed">
+              Private lessons and small-group coaching in Montgomery County.
+              In Frederick, I teach private lessons and adult clinics at{" "}
+              <TrackedLink
+                href="/programs/pickl-park"
+                className="text-accent-blue font-semibold underline underline-offset-4"
+                eventProps={{
+                  label: "Frederick lessons and clinics",
+                  page: "home",
+                  section: "hero",
+                  destination: "/programs/pickl-park",
+                }}
+              >
+                {FREDERICK_VENUE.name}
+              </TrackedLink>.
+            </p>
             <div className="flex flex-col sm:flex-row gap-4">
               <TrackedLink
                 href="#paths"

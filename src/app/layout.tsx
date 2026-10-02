@@ -36,42 +36,30 @@ export const metadata: Metadata = {
   title: {
     // Used on routes that don't override metadata.title (rare — most pages set their own).
     // Keep ≤60 chars to satisfy SERP truncation budget.
-    default: "Sam Morris — Pickleball Coach in Montgomery County, MD",
+    default: "Pickleball Lessons in Montgomery & Frederick | Sam Morris",
     // Per-page titles already include brand context, so use a no-op template
     // (otherwise page titles get a duplicate "| Sam Morris Pickleball" suffix
     // that blows past 60 chars).
     template: "%s",
   },
   description:
-    "PPR-certified pickleball coach in Montgomery County, MD. Private lessons, group clinics, and youth academy for adults, families, and kids.",
+    "Private pickleball lessons in Montgomery County, MD, plus lessons and adult clinics at The Pickl Park in Frederick. Request a lesson with Coach Sam.",
   keywords: [
-    "pickleball coaching Montgomery County MD",
+    "pickleball lessons Montgomery County MD",
+    "private pickleball coaching Montgomery County",
+    "pickleball lessons Frederick MD",
+    "adult pickleball clinics Frederick",
+    "The Pickl Park clinics",
     "pickleball lessons Rockville",
     "pickleball lessons North Bethesda",
-    "youth pickleball Montgomery County",
-    "kids pickleball lessons Maryland",
-    "family pickleball Montgomery County",
     "adult pickleball coaching MD",
     "private pickleball lessons near me",
-    "pickleball academy kids Maryland",
     "beginner pickleball Montgomery County",
     "pickleball coach near Bethesda",
     "pickleball clinics Olney MD",
     "DUPR certified pickleball coach",
     "PPR pickleball professional Maryland",
-    "Next Gen Pickleball Academy",
-    "pickleball community Montgomery County",
     "learn pickleball Montgomery County",
-    "pickleball programs families MD",
-    "indoor pickleball near me",
-    "indoor pickleball courts Montgomery County",
-    "pickleball DC",
-    "pickleball Northern Virginia",
-    "pickleball DMV area",
-    "pickleball Arlington VA",
-    "pickleball Fairfax VA",
-    "DUPR leagues near me",
-    "new to pickleball DC Maryland Virginia",
     "beginner pickleball class near me",
   ],
   alternates: {
@@ -83,24 +71,24 @@ export const metadata: Metadata = {
     url: SITE_URL,
     siteName: "Sam Morris Pickleball",
     title:
-      "Sam Morris — Pickleball Coach in Montgomery County, MD | Adults, Families & Kids",
+      "Pickleball Lessons in Montgomery & Frederick | Sam Morris",
     description:
-      "Professional pickleball coaching for adults, families, and kids in Montgomery County, MD. Private lessons, group clinics, and youth academy.",
+      "Private pickleball lessons in Montgomery County, MD, plus lessons and adult clinics at The Pickl Park in Frederick. Request a lesson with Coach Sam.",
     images: [
       {
         url: "/images/sam-portrait-with-paddle.jpg",
         width: 1200,
         height: 630,
-        alt: "Sam Morris — Pickleball Coach in Montgomery County, MD",
+        alt: "Sam Morris — Pickleball Lessons in Montgomery & Frederick",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
     title:
-      "Sam Morris — Pickleball Coach in Montgomery County, MD",
+      "Pickleball Lessons in Montgomery & Frederick | Sam Morris",
     description:
-      "Professional pickleball coaching for adults, families, and kids. Private lessons, group clinics, and youth academy in Montgomery County, MD.",
+      "Private pickleball lessons in Montgomery County, MD, plus lessons and adult clinics at The Pickl Park in Frederick. Request a lesson with Coach Sam.",
     images: ["/images/sam-portrait-with-paddle.jpg"],
   },
   robots: {

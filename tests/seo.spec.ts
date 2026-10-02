@@ -62,6 +62,11 @@ const ROUTES: {
     canonical: `${CANONICAL_HOST}/programs/coaching`,
     expectedJsonLdTypes: ["BreadcrumbList", "Service", "FAQPage", "Person", "SportsActivityLocation", "Organization"],
   },
+  {
+    url: "/programs/pickl-park",
+    canonical: `${CANONICAL_HOST}/programs/pickl-park`,
+    expectedJsonLdTypes: ["BreadcrumbList", "FAQPage", "Person", "SportsActivityLocation", "Organization"],
+  },
 ];
 
 let server: ChildProcess | null = null;
@@ -227,6 +232,46 @@ describe("sitewide JSON-LD hygiene", () => {
     expect(found!.latitude).toBeCloseTo(39.1532, 3);
     expect(found!.longitude).toBeCloseTo(-77.0697, 3);
   });
+});
+
+describe("Frederick coaching discovery", () => {
+  it("home metadata names both areas and qualifies Frederick with The Pickl Park", async () => {
+    const $ = cheerio.load(await (await fetch(`${BASE}/`)).text());
+    expect($("title").text()).toMatch(/Montgomery.*Frederick/i);
+    expect($("title").text()).toMatch(/pickleball lessons/i);
+    const description = $('meta[name="description"]').attr("content") ?? "";
+    expect(description).toMatch(/Montgomery County, MD/);
+    expect(description).toMatch(/The Pickl Park in Frederick/);
+    expect(description).toMatch(/adult clinics/);
+    expect($("h1").text()).toMatch(/Montgomery County.*Frederick, MD/);
+    expect($('a[href="/programs/pickl-park"]').length).toBeGreaterThan(0);
+  });
+
+  it("the Frederick page describes lessons and clinics without claiming a DUPR assessment", async () => {
+    const $ = cheerio.load(await (await fetch(`${BASE}/programs/pickl-park`)).text());
+    expect($("title").text()).toMatch(/Frederick.*Pickleball Lessons.*Clinics/i);
+    const description = $('meta[name="description"]').attr("content") ?? "";
+    expect(description).toMatch(/private pickleball lessons/i);
+    expect(description).toMatch(/group clinics/i);
+    expect(description).toMatch(/skills assessments/i);
+    expect(description).toMatch(/The Pickl Park in Frederick, MD/);
+    expect(description).not.toMatch(/DUPR/i);
+  });
+
+  for (const route of ["/", "/programs/pickl-park"]) {
+    it(`${route} social cards match its own title and description`, async () => {
+      const $ = cheerio.load(await (await fetch(`${BASE}${route}`)).text());
+      const title = $("title").text();
+      const description = $('meta[name="description"]').attr("content");
+      expect($('meta[property="og:title"]').attr("content")).toBe(title);
+      expect($('meta[name="twitter:title"]').attr("content")).toBe(title);
+      expect($('meta[property="og:description"]').attr("content")).toBe(description);
+      expect($('meta[name="twitter:description"]').attr("content")).toBe(description);
+      expect($('meta[name="twitter:image"]').attr("content")).toBe(
+        $('meta[property="og:image"]').attr("content"),
+      );
+    });
+  }
 });
 
 /**

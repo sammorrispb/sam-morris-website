@@ -76,6 +76,33 @@ test.describe("home hero", () => {
   });
 });
 
+test.describe("Frederick coaching discovery", () => {
+  for (const width of [375, 1280]) {
+    test(`the homepage leads to Frederick classes at ${width}px`, async ({ page }) => {
+      await page.setViewportSize({ width, height: 812 });
+      await page.goto("/");
+      const hero = page.locator("section").first();
+      await expect(hero.getByRole("heading", { level: 1 })).toContainText("Frederick, MD");
+      await expect(hero).toContainText("adult clinics at");
+      const link = hero.getByRole("link", { name: "The Pickl Park", exact: true });
+      await expect(link).toBeVisible();
+      await expect(link).toHaveAttribute("href", "/programs/pickl-park");
+      expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+      await link.click();
+      await expect(page).toHaveURL(/\/programs\/pickl-park$/);
+      await expect(page.getByRole("heading", { level: 1 })).toContainText("Pickleball classes");
+      await expect(page.getByText("Coach Sam · Frederick, MD")).toBeVisible();
+      await expect(page.getByRole("link", { name: "See dates & register", exact: true }).first()).toHaveAttribute(
+        "href", "https://thepicklpark.podplay.app/community/events?type=Clinics",
+      );
+      await expect(page.getByRole("link", { name: "Request a private lesson", exact: true })).toHaveAttribute(
+        "href", /^https:\/\/coach\.sammorrispb\.com\/book\/private-lesson\?/,
+      );
+      expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+    });
+  }
+});
+
 test.describe("about page", () => {
   test("shows verifiable credentials, not the DD title or unverified founder count", async ({
     page,
