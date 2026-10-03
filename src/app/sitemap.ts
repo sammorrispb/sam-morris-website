@@ -1,33 +1,6 @@
 import type { MetadataRoute } from "next";
-import fs from "node:fs";
-import path from "node:path";
 
 const BASE_URL = "https://www.sammorrispb.com";
-
-/**
- * Resolve the on-disk file mtime for the given app-router page so each
- * sitemap entry gets a real per-page lastmod instead of one shared
- * build-time stamp. Falls back to the current date if the file is missing
- * (e.g. dynamic route stubs) so the sitemap never breaks the build.
- *
- * `routePath` is the URL path ('' for root, '/about', '/programs/coaching').
- * The matching source file is `src/app/<routePath>/page.tsx`.
- */
-function pageMtime(routePath: string): Date {
-  const rel = routePath === "" ? "" : routePath.replace(/^\//, "");
-  const sourceFile = path.join(
-    process.cwd(),
-    "src",
-    "app",
-    rel,
-    "page.tsx",
-  );
-  try {
-    return fs.statSync(sourceFile).mtime;
-  } catch {
-    return new Date();
-  }
-}
 
 interface RouteSpec {
   path: string;
@@ -49,9 +22,10 @@ const ROUTES: RouteSpec[] = [
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {
+  // Checkout timestamps do not establish when page content changed.
+  // Omit lastModified until these pages have verified content-update dates.
   return ROUTES.map((r) => ({
     url: `${BASE_URL}${r.path}`,
-    lastModified: pageMtime(r.path),
     changeFrequency: r.changeFrequency,
     priority: r.priority,
   }));
