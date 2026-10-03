@@ -85,11 +85,12 @@ export default function CoachingPage() {
           __html: JSON.stringify({
             "@context": "https://schema.org",
             "@type": "Service",
+            "@id": "https://www.sammorrispb.com/programs/coaching#service",
             name: "Pickleball Coaching — Private, Group & Play-In",
             provider: {
               "@type": "Person",
+              "@id": "https://www.sammorrispb.com/#person",
               name: "Sam Morris",
-              jobTitle: "PPR-Certified Pickleball Coach",
             },
             areaServed: [
               { "@type": "AdministrativeArea", name: "Montgomery County, Maryland" },

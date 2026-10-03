@@ -77,7 +77,7 @@ const TIMELINE = [
     year: "Fall 2025",
     title: "Co-founded Next Gen Pickleball Academy",
     description:
-      "Co-founded NGA with Amine Lahlou — youth pickleball pathway for ages 8–16 across Montgomery County, MD. Current focus.",
+      "Co-founded NGA with Amine Lahlou to build a structured youth pickleball pathway in Montgomery County, MD.",
   },
 ];
 
@@ -115,41 +115,12 @@ export default function AboutPage() {
             "@type": "ProfilePage",
             mainEntity: {
               "@type": "Person",
+              "@id": "https://www.sammorrispb.com/#person",
               name: "Sam Morris",
-              jobTitle: "Pickleball Coach",
-              url: "https://www.sammorrispb.com/about",
-              sameAs: [
-                "https://instagram.com/sammorris.pb",
-                "https://www.linkedin.com/in/sam-morris2131/",
-                "https://facebook.com/sam.km.18",
-                "https://tiktok.com/@sammorris.pb",
-                "https://youtube.com/@sammorris.pb8",
-              ],
             },
           }),
         }}
       />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "VideoObject",
-            name: "Sam Morris — Pickleball Coach & Community Builder",
-            description: "Follow Sam Morris's pickleball journey — coaching highlights, tournament footage, and community events in Montgomery County, MD.",
-            thumbnailUrl: "https://www.sammorrispb.com/images/sam-action.jpeg",
-            uploadDate: "2025-01-01",
-            contentUrl: "https://youtube.com/@sammorris.pb8",
-            embedUrl: "https://www.youtube.com/embed?listType=user_uploads&list=sammorris.pb8",
-            publisher: {
-              "@type": "Person",
-              name: "Sam Morris",
-              url: "https://www.sammorrispb.com",
-            },
-          }),
-        }}
-      />
-
       {/* ─── Full-Bleed Hero ─── */}
       <section className="relative min-h-[80vh] flex items-end hero-full-bleed hero-nav-offset overflow-hidden">
         <Image
@@ -367,10 +338,11 @@ export default function AboutPage() {
                     Next Gen Pickleball Academy
                   </h3>
                   <p className="text-text-muted leading-relaxed mb-6">
-                    Co-founded with Amine Lahlou. A structured youth pathway —
-                    Red (private bridge), Orange, Green, Yellow — building
-                    confidence and competitive skill in players ages 8–16 who
-                    can rally, across Montgomery County.
+                    I co-founded NGA with Amine Lahlou. The academy coaches
+                    kids ages 6–16 through Red, Orange, Green and Yellow, from
+                    first-time players to competitive juniors. Visit the academy
+                    site for current programs, locations and each program’s ages
+                    and levels.
                   </p>
                   <span className="inline-flex items-center text-accent-blue font-semibold text-sm group-hover:translate-x-1 transition-transform">
                     Visit nextgenpbacademy.com ↗

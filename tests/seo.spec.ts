@@ -18,6 +18,8 @@
 import { afterAll, beforeAll, describe, expect, it } from "vitest";
 import { spawn, type ChildProcess } from "node:child_process";
 import * as cheerio from "cheerio";
+import { PRICING } from "../src/lib/coaching";
+import { COACH_REQUEST_URL, FREDERICK_VENUE } from "../src/lib/constants";
 
 const PORT = process.env.SEO_TEST_PORT
   ? Number(process.env.SEO_TEST_PORT)
@@ -45,27 +47,27 @@ const ROUTES: {
     // renders FAQ-equivalent visible content, and Google's FAQPage policy only
     // permits the markup where the answers are visible. It lives on
     // /programs/coaching, which still shows them.
-    expectedJsonLdTypes: ["Person", "SportsActivityLocation", "Organization"],
+    expectedJsonLdTypes: ["Person", "Organization"],
   },
   {
     url: "/about",
     canonical: `${CANONICAL_HOST}/about`,
-    expectedJsonLdTypes: ["BreadcrumbList", "ProfilePage", "VideoObject", "Person", "SportsActivityLocation", "Organization"],
+    expectedJsonLdTypes: ["BreadcrumbList", "ProfilePage", "Person", "Organization"],
   },
   {
     url: "/contact",
     canonical: `${CANONICAL_HOST}/contact`,
-    expectedJsonLdTypes: ["BreadcrumbList", "Person", "SportsActivityLocation", "Organization"],
+    expectedJsonLdTypes: ["BreadcrumbList", "Person", "Organization"],
   },
   {
     url: "/programs/coaching",
     canonical: `${CANONICAL_HOST}/programs/coaching`,
-    expectedJsonLdTypes: ["BreadcrumbList", "Service", "FAQPage", "Person", "SportsActivityLocation", "Organization"],
+    expectedJsonLdTypes: ["BreadcrumbList", "Service", "FAQPage", "Person", "Organization"],
   },
   {
     url: "/programs/pickl-park",
     canonical: `${CANONICAL_HOST}/programs/pickl-park`,
-    expectedJsonLdTypes: ["BreadcrumbList", "FAQPage", "Person", "SportsActivityLocation", "Organization"],
+    expectedJsonLdTypes: ["BreadcrumbList", "FAQPage", "Person", "Organization"],
   },
 ];
 
@@ -215,23 +217,44 @@ describe("sitewide JSON-LD hygiene", () => {
     expect(types.has("FAQPage")).toBe(false);
   });
 
-  it("SportsActivityLocation JSON-LD carries a geo block", async () => {
-    const res = await fetch(`${BASE}/`);
-    const $ = cheerio.load(await res.text());
-    let found: { latitude: number; longitude: number } | null = null;
-    $('script[type="application/ld+json"]').each((_, el) => {
-      const obj = JSON.parse($(el).contents().text());
-      if (obj?.["@type"] === "SportsActivityLocation" && obj?.geo) {
-        found = {
-          latitude: Number(obj.geo.latitude),
-          longitude: Number(obj.geo.longitude),
-        };
+  for (const route of ROUTES) {
+    it(`${route.url} keeps distinct coach, business and academy identities without a manufactured facility`, async () => {
+      const $ = cheerio.load(await (await fetch(`${BASE}${route.url}`)).text());
+      const blocks = jsonLdBlocks($);
+      const people = blocks.filter((node) => node["@type"] === "Person");
+      expect(people).toHaveLength(1);
+      const person = people[0];
+      expect(person["@id"]).toBe(`${CANONICAL_HOST}/#person`);
+      expect(person.description).toMatch(/The Pickl Park in Frederick/);
+      expect(person.description).toMatch(/ages 6–16/);
+      expect(person.affiliation).toEqual({
+        "@type": "SportsOrganization", "@id": "https://nextgenpbacademy.com/#organization",
+        name: "Next Gen Pickleball Academy", url: "https://nextgenpbacademy.com",
+      });
+      const organizations = blocks.filter((node) => node["@type"] === "Organization");
+      expect(organizations).toHaveLength(1);
+      const org = organizations[0];
+      expect(org["@id"]).toBe(`${CANONICAL_HOST}/#organization`);
+      expect(org.founder).toEqual({ "@id": `${CANONICAL_HOST}/#person` });
+      expect(org.description).toMatch(/The Pickl Park in Frederick/);
+      expect(org).not.toHaveProperty("location");
+      expect(org).not.toHaveProperty("geo");
+      expect(org).not.toHaveProperty("hasOfferCatalog");
+      for (const entity of [person, org]) {
+        const profiles = entity.sameAs as string[];
+        expect(profiles).toContain("https://instagram.com/sammorris.pb");
+        expect(profiles.some((profile) => /(?:nextgenpbacademy|linkanddink)\.com/.test(profile))).toBe(false);
       }
+      const mapsProfile = "https://www.google.com/maps/place/Sam+Morris+Pickleball+Coaching/data=!4m2!3m1!1s0x0:0x38cdd944077fe2e";
+      expect(org.sameAs).toContain(mapsProfile);
+      expect(person.sameAs).not.toContain(mapsProfile);
+      const raw = JSON.stringify(blocks);
+      expect(raw).not.toContain("SportsActivityLocation");
+      expect(raw).not.toContain("#location");
+      expect(raw).not.toContain("39.1532");
+      expect(raw).not.toContain("-77.0697");
     });
-    expect(found, "SportsActivityLocation.geo missing").not.toBeNull();
-    expect(found!.latitude).toBeCloseTo(39.1532, 3);
-    expect(found!.longitude).toBeCloseTo(-77.0697, 3);
-  });
+  }
 });
 
 describe("Frederick coaching discovery", () => {
@@ -289,4 +312,53 @@ function collectTypes(node: unknown, out: Set<string>): void {
   if (typeof t === "string") out.add(t);
   else if (Array.isArray(t)) for (const v of t) if (typeof v === "string") out.add(v);
   for (const v of Object.values(obj)) collectTypes(v, out);
+}
+
+
+describe("coach relationships and preserved visitor journeys", () => {
+  it("About refers to the coach and welcomes beginners with program-specific eligibility", async () => {
+    const $ = cheerio.load(await (await fetch(`${BASE}/about`)).text());
+    const blocks = jsonLdBlocks($);
+    const profile = blocks.find((node) => node["@type"] === "ProfilePage");
+    expect(profile?.mainEntity).toEqual({ "@type": "Person", "@id": `${CANONICAL_HOST}/#person`, name: "Sam Morris" });
+    expect(blocks.some((node) => node["@type"] === "VideoObject")).toBe(false);
+    $("script").remove();
+    const text = $("body").text().replace(/\s+/g, " ");
+    expect(text).toContain("Fall 2025");
+    expect(text).toContain("I co-founded NGA with Amine Lahlou");
+    expect(text).toContain("kids ages 6–16");
+    expect(text).toContain("from first-time players to competitive juniors");
+    expect(text).toContain("each program’s ages and levels");
+    expect(text).not.toMatch(/ages 8[–-]16|who can rally|private bridge|Current focus/);
+    expect($("a[href]").toArray().some((el) => ($(el).attr("href") ?? "").includes("nextgenpbacademy.com"))).toBe(true);
+    expect($("a[href]").toArray().some((el) => ($(el).attr("href") ?? "").includes("youtube.com/@sammorris.pb8"))).toBe(true);
+  });
+
+  it("coaching Service refers to Sam while keeping prices and lesson requests", async () => {
+    const $ = cheerio.load(await (await fetch(`${BASE}/programs/coaching`)).text());
+    const service = jsonLdBlocks($).find((node) => node["@type"] === "Service");
+    expect(service?.["@id"]).toBe(`${CANONICAL_HOST}/programs/coaching#service`);
+    expect(service?.provider).toEqual({ "@type": "Person", "@id": `${CANONICAL_HOST}/#person`, name: "Sam Morris" });
+    expect(service?.offers).toEqual([
+      { "@type": "Offer", name: "Single Private Lesson", description: "1 hour of 1-on-1 coaching", price: String(PRICING.lessonPerHourUsd), priceCurrency: "USD" },
+      { "@type": "Offer", name: "Group Lesson (2+ players)", description: "Small-group coaching for 2 to 4 players", price: String(PRICING.lessonPerHourUsd), priceCurrency: "USD" },
+      { "@type": "Offer", name: "3+1 Play-In Special", description: "2-hour play-in session — 3 students plus Sam in the lineup" },
+    ]);
+    $("script").remove();
+    expect($("body").text()).toContain(`$${PRICING.lessonPerHourUsd}`);
+    expect($("a[href]").toArray().some((el) => ($(el).attr("href") ?? "").startsWith(COACH_REQUEST_URL))).toBe(true);
+    expect($("body").text()).toContain("The Pickl Park");
+  });
+
+  it("the real Frederick venue retains its address and venue-owned registration links", async () => {
+    const $ = cheerio.load(await (await fetch(`${BASE}/programs/pickl-park`)).text());
+    $("script").remove();
+    expect($("body").text()).toContain(FREDERICK_VENUE.street);
+    expect($("body").text()).toContain(FREDERICK_VENUE.zip);
+    expect($("a[href]").toArray().some((el) => ($(el).attr("href") ?? "") === FREDERICK_VENUE.clinicsUrl)).toBe(true);
+  });
+});
+
+function jsonLdBlocks($: cheerio.CheerioAPI): Record<string, unknown>[] {
+  return $('script[type="application/ld+json"]').toArray().map((el) => JSON.parse($(el).contents().text()));
 }
