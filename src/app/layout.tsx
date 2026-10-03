@@ -141,7 +141,7 @@ export default function RootLayout({
               name: "Sam Morris",
               jobTitle: "Professional Pickleball Coach",
               description:
-                "PPR-certified professional pickleball coach in Montgomery County, MD. Specializes in coaching adults, families, and kids ages 8-16.",
+                "PPR-certified pickleball coach offering private and family coaching in Montgomery County, MD, and at The Pickl Park in Frederick. Co-founder of Next Gen Pickleball Academy, a youth academy for ages 6–16.",
               email: "sam.morris2131@gmail.com",
               telephone: "301-325-4731",
               address: {
@@ -188,134 +188,13 @@ export default function RootLayout({
                 "https://linkedin.com/in/sammorris2131",
                 "https://tiktok.com/@sammorris.pb",
                 "https://youtube.com/@sammorris.pb8",
-                "https://www.nextgenpbacademy.com",
-                "https://www.linkanddink.com",
-                "https://www.google.com/maps/place/Sam+Morris+Pickleball+Coaching/data=!4m2!3m1!1s0x0:0x38cdd944077fe2e",
               ],
-            }),
-          }}
-        />
-        {/* LocalBusiness / SportsActivityLocation Schema */}
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "SportsActivityLocation",
-              "@id": "https://www.sammorrispb.com/#location",
-              name: "Sam Morris Pickleball Coaching",
-              description:
-                "Professional pickleball coaching for adults, families, and kids in Montgomery County, MD. Private lessons, group clinics, and youth academy programs.",
-              url: "https://www.sammorrispb.com",
-              telephone: "301-325-4731",
-              email: "sam.morris2131@gmail.com",
-              image: "https://www.sammorrispb.com/images/sam-portrait-with-paddle.jpg",
-              priceRange: "$-$$",
-              // HQ: Olney, MD (lat/lon used for local-pack proximity ranking)
-              geo: {
-                "@type": "GeoCoordinates",
-                latitude: 39.1532,
-                longitude: -77.0697,
+              affiliation: {
+                "@type": "SportsOrganization",
+                "@id": "https://nextgenpbacademy.com/#organization",
+                name: "Next Gen Pickleball Academy",
+                url: "https://nextgenpbacademy.com",
               },
-              areaServed: [
-                {
-                  "@type": "AdministrativeArea",
-                  name: "Montgomery County, Maryland",
-                },
-                { "@type": "City", name: "Rockville, MD" },
-                { "@type": "City", name: "North Bethesda, MD" },
-                { "@type": "City", name: "Bethesda, MD" },
-                { "@type": "City", name: "Olney, MD" },
-                { "@type": "City", name: "Gaithersburg, MD" },
-                { "@type": "City", name: "Silver Spring, MD" },
-                { "@type": "City", name: "Germantown, MD" },
-                { "@type": "City", name: "Wheaton, MD" },
-                { "@type": "City", name: "Takoma Park, MD" },
-                { "@type": "City", name: "Potomac, MD" },
-                { "@type": "City", name: "Chevy Chase, MD" },
-                { "@type": "City", name: "Kensington, MD" },
-                { "@type": "City", name: "Aspen Hill, MD" },
-                { "@type": "City", name: "Derwood, MD" },
-                { "@type": "City", name: "Frederick, MD" },
-                { "@type": "City", name: "Washington, DC" },
-                { "@type": "City", name: "Arlington, VA" },
-                { "@type": "City", name: "Fairfax, VA" },
-                { "@type": "City", name: "McLean, VA" },
-                { "@type": "City", name: "Tysons, VA" },
-                { "@type": "City", name: "Reston, VA" },
-              ],
-              hasOfferCatalog: {
-                "@type": "OfferCatalog",
-                name: "Pickleball Coaching Services",
-                itemListElement: [
-                  {
-                    "@type": "Offer",
-                    itemOffered: {
-                      "@type": "Service",
-                      name: "Private Pickleball Lessons",
-                      description:
-                        "Personalized 1-on-1 pickleball coaching for adults and families in Montgomery County, MD, and at The Pickl Park in Frederick, MD. Includes video analysis, custom practice plans, and flexible scheduling. Request a lesson and Sam confirms a time that works.",
-                      provider: {
-                        "@type": "Person",
-                        name: "Sam Morris",
-                      },
-                      areaServed: ["Montgomery County, MD", "Frederick, MD"],
-                      audience: {
-                        "@type": "Audience",
-                        audienceType: "Adults, Families, Beginners to Advanced",
-                      },
-                    },
-                  },
-                  {
-                    "@type": "Offer",
-                    itemOffered: {
-                      "@type": "Service",
-                      name: "Next Gen Pickleball Academy — Youth Program",
-                      description:
-                        "Structured pickleball academy for kids ages 8-16 in Montgomery County, MD. Four skill levels (Red, Orange, Green, Yellow) with clear progression from beginner to advanced.",
-                      provider: {
-                        "@type": "Person",
-                        name: "Sam Morris",
-                      },
-                      areaServed: "Montgomery County, MD",
-                      audience: {
-                        "@type": "Audience",
-                        audienceType: "Children and Youth ages 8-16",
-                      },
-                    },
-                  },
-                  {
-                    "@type": "Offer",
-                    itemOffered: {
-                      "@type": "Service",
-                      name: "Family Pickleball Coaching",
-                      description:
-                        "Family-friendly pickleball sessions in Montgomery County, MD. Learn and play together — a great sport for parents and kids of all ages.",
-                      provider: {
-                        "@type": "Person",
-                        name: "Sam Morris",
-                      },
-                      areaServed: "Montgomery County, MD",
-                      audience: {
-                        "@type": "Audience",
-                        audienceType: "Families with children",
-                      },
-                    },
-                  },
-                ],
-              },
-              paymentAccepted: "Cash, Credit Card, Debit Card",
-              currenciesAccepted: "USD",
-              sameAs: [
-                "https://instagram.com/sammorris.pb",
-                "https://facebook.com/sam.km.18",
-                "https://linkedin.com/in/sammorris2131",
-                "https://tiktok.com/@sammorris.pb",
-                "https://youtube.com/@sammorris.pb8",
-                "https://www.nextgenpbacademy.com",
-                "https://www.linkanddink.com",
-                "https://www.google.com/maps/place/Sam+Morris+Pickleball+Coaching/data=!4m2!3m1!1s0x0:0x38cdd944077fe2e",
-              ],
             }),
           }}
         />
@@ -326,11 +205,20 @@ export default function RootLayout({
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "Organization",
+              "@id": `${SITE_URL}/#organization`,
+              description: "Independent pickleball coaching in Montgomery County, MD, plus private lessons and adult clinics at The Pickl Park in Frederick.",
+              areaServed: [
+                { "@type": "AdministrativeArea", name: "Montgomery County, Maryland" },
+                { "@type": "AdministrativeArea", name: "Washington, DC" },
+                { "@type": "AdministrativeArea", name: "Prince George's County, Maryland" },
+                { "@type": "AdministrativeArea", name: "Howard County, Maryland" },
+                { "@type": "AdministrativeArea", name: "Northern Virginia" },
+                { "@type": "City", name: "Frederick, MD" },
+              ],
               name: "Sam Morris Pickleball",
               url: "https://www.sammorrispb.com",
               logo: "https://www.sammorrispb.com/images/sam-portrait-with-paddle.jpg",
               founder: { "@id": "https://www.sammorrispb.com/#person" },
-              location: { "@id": "https://www.sammorrispb.com/#location" },
               email: "sam.morris2131@gmail.com",
               telephone: "301-325-4731",
               sameAs: [
@@ -339,8 +227,6 @@ export default function RootLayout({
                 "https://linkedin.com/in/sammorris2131",
                 "https://tiktok.com/@sammorris.pb",
                 "https://youtube.com/@sammorris.pb8",
-                "https://www.nextgenpbacademy.com",
-                "https://www.linkanddink.com",
                 "https://www.google.com/maps/place/Sam+Morris+Pickleball+Coaching/data=!4m2!3m1!1s0x0:0x38cdd944077fe2e",
               ],
             }),
