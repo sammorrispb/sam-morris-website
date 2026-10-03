@@ -79,7 +79,7 @@ const FAQS = [
   },
   {
     q: "How do I register?",
-    a: "Registration is handled by The Pickl Park's own booking platform. Pick a date on any class above and you'll land directly on that session's page to reserve your spot. The venue's full listing is always current — check there if the date you want isn't shown.",
+    a: "The Pickl Park handles booking and payment. If a class card shows a date, use it to open that session's registration page. Otherwise, view the venue's current clinic listing and confirm the class, coach and availability before booking.",
   },
   {
     q: "Do I need my own paddle?",
@@ -161,7 +161,7 @@ export default function PicklParkPage() {
                   href={FREDERICK_VENUE.clinicsUrl}
                   className="inline-flex items-center justify-center font-heading font-semibold px-8 py-4 rounded-full btn-gradient text-base"
                 >
-                  See dates &amp; register
+                  View current clinic dates at The Pickl Park
                 </TrackedExternalLink>
                 <a
                   href="#classes"
@@ -188,8 +188,10 @@ export default function PicklParkPage() {
               </h2>
               <p className="text-text-muted text-lg max-w-2xl mx-auto">
                 They stack on purpose — start where your game is, and each one
-                feeds the next. Each class lists its upcoming dates; pick one and
-                you go straight to that session&apos;s registration page.
+                feeds the next. When a class has upcoming dates listed here,
+                choose one to open that session&apos;s registration page. Otherwise,
+                check the venue&apos;s current clinic listing for the class and coach
+                you want.
               </p>
             </div>
           </AnimateOnScroll>
@@ -267,7 +269,7 @@ export default function PicklParkPage() {
                       href={FREDERICK_VENUE.clinicsUrl}
                       className="inline-flex items-center gap-1 mt-6 font-heading font-semibold text-sm text-accent-blue hover:underline"
                     >
-                      See upcoming dates &amp; register &rarr;
+                      View current clinic dates at The Pickl Park &rarr;
                     </TrackedExternalLink>
                   )}
                 </div>
@@ -326,7 +328,7 @@ export default function PicklParkPage() {
               href={FREDERICK_VENUE.clinicsUrl}
               className="inline-flex items-center justify-center font-heading font-semibold px-8 py-4 rounded-full btn-gradient text-base mt-10"
             >
-              See dates &amp; register
+              View current clinic dates at The Pickl Park
             </TrackedExternalLink>
           </div>
         </AnimateOnScroll>
