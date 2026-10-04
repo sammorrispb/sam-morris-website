@@ -54,14 +54,13 @@ export const PICKL_PARK_CLASSES: PicklParkClass[] = [
     id: "101a",
     title: "101A — Repetition & Foundations",
     venueTitle: "101A Clinic Repetition & Foundations",
-    level: "New · after 101",
+    level: "Newer players · fundamentals",
     cadence: "Runs periodically, midday",
-    // NEEDS SAM: is 101 a hard prerequisite, or can someone walk in cold?
-    // Current copy gates it on having done 101.
+    // Sam confirmed: open to newer players who want the fundamentals.
     forYouIf:
-      "You've done 101, and the mechanics fall apart the moment someone hits back.",
+      "You're newer to pickleball and want the fundamentals. You don't need to have taken 101 first.",
     workOn:
-      "High-volume reps on the shots you just learned. The same swing, over and over, until it holds up against a live ball.",
+      "High-volume reps on the fundamentals. The same swing, over and over, until it holds up against a live ball.",
     outcome: "Mechanics that survive contact.",
   },
   {
