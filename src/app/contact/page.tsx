@@ -1,5 +1,5 @@
+import { PagePhoto } from "@/components/PagePhoto";
 import type { Metadata } from "next";
-import Image from "next/image";
 import { LeadForm } from "@/components/LeadForm";
 import { TrackedExternalLink } from "@/components/TrackedExternalLink";
 import { ContactLink } from "@/components/ContactLink";
@@ -52,18 +52,8 @@ export default function ContactPage() {
           ),
         }}
       />
-      {/* ─── Hero with photo backdrop ─── */}
-      <section className="relative section-photo-backdrop py-24 md:py-32 px-6 hero-nav-offset-roomy">
-        <div className="photo-bg">
-          <Image
-            src="/images/multi-court-outdoor.jpeg"
-            alt=""
-            fill
-            sizes="100vw"
-            className="object-cover"
-            aria-hidden="true"
-          />
-        </div>
+      {/* ─── Contact introduction ─── */}
+      <section className="relative py-24 md:py-32 px-6 hero-nav-offset-roomy">
         <div className="relative mx-auto max-w-4xl text-center">
           <p className="eyebrow mb-4">Let&apos;s connect</p>
           <h1 className="font-heading font-black text-5xl md:text-7xl mb-6 leading-[0.95]">
@@ -89,15 +79,7 @@ export default function ContactPage() {
           <div className="space-y-5">
             {/* Portrait card */}
             <div className="glass-card-amber rounded-2xl p-7 text-center">
-              <div className="relative w-32 h-32 rounded-full overflow-hidden glow-border mx-auto mb-5">
-                <Image
-                  src="/images/sam-portrait-arms-crossed.jpg"
-                  alt="Sam Morris"
-                  fill
-                  sizes="128px"
-                  className="object-cover"
-                />
-              </div>
+              <PagePhoto route="/contact" />
               <h3 className="font-heading font-bold text-xl mb-1">Coach Sam Morris</h3>
               <p className="text-text-muted text-sm">
                 PPR Pro · DUPR Coach · M.S. in Coaching

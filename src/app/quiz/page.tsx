@@ -1,5 +1,5 @@
+import { PagePhoto } from "@/components/PagePhoto";
 import type { Metadata } from "next";
-import Image from "next/image";
 import { QuizClient } from "@/components/QuizClient";
 import { breadcrumbJsonLd } from "@/lib/seo";
 
@@ -55,18 +55,8 @@ export default function QuizPage() {
         }}
       />
 
-      {/* Hero — photo backdrop */}
-      <section className="relative section-photo-backdrop pt-32 pb-12 px-6">
-        <div className="photo-bg">
-          <Image
-            src="/images/pickleballs-cluster.webp"
-            alt=""
-            fill
-            sizes="100vw"
-            className="object-cover"
-            aria-hidden="true"
-          />
-        </div>
+      {/* Quiz introduction */}
+      <section className="relative pt-32 pb-12 px-6">
         <div className="relative mx-auto max-w-4xl text-center">
           <p className="eyebrow mb-3">1-minute quiz</p>
           <h1 className="text-5xl md:text-7xl font-heading font-black text-text-primary mb-5 leading-[0.95]">
@@ -82,6 +72,7 @@ export default function QuizPage() {
         <div className="mx-auto max-w-3xl">
           <div className="glass-card rounded-3xl p-8 md:p-12">
             <QuizClient />
+            <PagePhoto route="/quiz" compact />
           </div>
         </div>
       </section>

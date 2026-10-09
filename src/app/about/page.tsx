@@ -1,3 +1,4 @@
+import { PagePhoto } from "@/components/PagePhoto";
 import type { Metadata } from "next";
 import Image from "next/image";
 import { ScrollDepthTracker } from "@/components/ScrollDepthTracker";
@@ -122,16 +123,8 @@ export default function AboutPage() {
         }}
       />
       {/* ─── Full-Bleed Hero ─── */}
-      <section className="relative min-h-[80vh] flex items-end hero-full-bleed hero-nav-offset overflow-hidden">
-        <Image
-          src="/images/sam-action.jpeg"
-          alt="Sam Morris on the pickleball court"
-          fill
-          priority
-          sizes="100vw"
-          className="object-cover hero-image-warm"
-        />
-        <div className="relative z-10 mx-auto max-w-6xl px-6 w-full pb-20 pt-32">
+      <section className="page-photo-hero">
+        <div className="page-photo-copy">
           <p className="eyebrow mb-4">About Sam</p>
           <h1 className="font-heading font-black text-5xl md:text-7xl lg:text-8xl mb-6 leading-[0.95] max-w-4xl">
             Coach. <span className="gradient-text-warm">Dad.</span>
@@ -142,6 +135,7 @@ export default function AboutPage() {
             a growth mindset through competitive play.
           </p>
         </div>
+        <PagePhoto route="/about" priority />
       </section>
 
       {/* ─── Story Intro — text + portrait ─── */}

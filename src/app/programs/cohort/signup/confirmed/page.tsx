@@ -1,3 +1,4 @@
+import { PagePhoto } from "@/components/PagePhoto";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { SUPPORT_EMAIL } from "@/lib/waiver/cohort-content";
@@ -35,6 +36,7 @@ export default function CohortConfirmedPage() {
             Email Coach Sam
           </a>
         </div>
+        <PagePhoto route="/programs/cohort/signup/confirmed" compact />
       </div>
     </main>
   );

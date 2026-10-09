@@ -1,3 +1,5 @@
+import { PagePhoto } from "@/components/PagePhoto";
+import { selectArticlePhoto } from "@/lib/page-photos";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
@@ -213,6 +215,8 @@ export default async function BlogPostPage({ params }: Props) {
   const { slug } = await params;
   const post = await getBlogPost(slug);
   if (!post) notFound();
+  const articlePhoto = selectArticlePhoto(post.slug, post.coverImage);
+  if (articlePhoto.kind === "missing") console.warn(`Article needs an editorial photo: ${post.slug}`);
 
   return (
     <main className="min-h-screen pt-16 pb-20">
@@ -283,13 +287,11 @@ export default async function BlogPostPage({ params }: Props) {
             </p>
           </header>
 
-          {post.coverImage && (
-            <img
-              src={post.coverImage}
-              alt={post.title}
-              className="w-full rounded-2xl mb-12 glow-border"
-            />
-          )}
+          {articlePhoto.kind === "authored" ? (
+            <img src={articlePhoto.src} alt={post.title} className="w-full rounded-2xl mb-12 glow-border" />
+          ) : articlePhoto.kind === "curated" ? (
+            <div className="mb-12"><PagePhoto route={`/blog/${post.slug}`} priority /></div>
+          ) : null}
 
           <div className="prose-invert max-w-none">
             {post.blocks.map((block: unknown, i: number) => {

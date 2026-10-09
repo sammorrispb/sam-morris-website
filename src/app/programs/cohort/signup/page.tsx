@@ -1,5 +1,6 @@
 "use client";
 
+import { PagePhoto } from "@/components/PagePhoto";
 import { useState, useTransition } from "react";
 import Link from "next/link";
 import {
@@ -315,6 +316,7 @@ export default function CohortSignupPage() {
             </p>
           </div>
         </form>
+        <PagePhoto route="/programs/cohort/signup" compact />
 
         <p className="text-text-muted text-xs mt-10 text-center">
           Questions? Email{" "}
