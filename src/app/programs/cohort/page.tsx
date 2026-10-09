@@ -1,5 +1,5 @@
+import { PagePhoto } from "@/components/PagePhoto";
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 import { AnimateOnScroll } from "@/components/AnimateOnScroll";
 import { BackToTop } from "@/components/BackToTop";
@@ -113,16 +113,8 @@ export default function CohortPage() {
       />
 
       {/* ─── Hero ─── */}
-      <section className="relative min-h-[75vh] flex items-end hero-full-bleed hero-nav-offset overflow-hidden">
-        <Image
-          src="/images/sam-group-selfie.jpg"
-          alt="Coach Sam coaching a small group"
-          fill
-          priority
-          sizes="100vw"
-          className="object-cover hero-image-warm"
-        />
-        <div className="relative z-10 mx-auto max-w-6xl px-6 w-full pb-20 pt-32">
+      <section className="page-photo-hero">
+        <div className="page-photo-copy">
           <AnimateOnScroll>
             <div className="max-w-3xl">
               <p className="eyebrow mb-4">4-Week Training Cohorts · Surfaced by Link &amp; Dink</p>
@@ -156,6 +148,7 @@ export default function CohortPage() {
             </div>
           </AnimateOnScroll>
         </div>
+        <PagePhoto route="/programs/cohort" priority />
       </section>
 
       {/* ─── Why it works ─── */}

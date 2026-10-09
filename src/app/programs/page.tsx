@@ -1,3 +1,4 @@
+import { PagePhoto } from "@/components/PagePhoto";
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
@@ -73,16 +74,8 @@ export default function ProgramsPage() {
   return (
     <>
       {/* ─── Full-Bleed Hero ─── */}
-      <section className="relative min-h-[70vh] flex items-end hero-full-bleed hero-nav-offset overflow-hidden">
-        <Image
-          src="/images/outdoor-action-shot.jpeg"
-          alt="Pickleball in action"
-          fill
-          priority
-          sizes="100vw"
-          className="object-cover hero-image-warm"
-        />
-        <div className="relative z-10 mx-auto max-w-6xl px-6 w-full pb-20 pt-32">
+      <section className="page-photo-hero">
+        <div className="page-photo-copy">
           <p className="eyebrow mb-4">Programs &amp; Services</p>
           <h1 className="font-heading font-black text-5xl md:text-7xl lg:text-8xl leading-[0.95] mb-6 max-w-4xl">
             Find your <span className="gradient-text-warm">starting line.</span>
@@ -92,6 +85,7 @@ export default function ProgramsPage() {
             tournament-ready competitors. Serving Montgomery County, MD.
           </p>
         </div>
+        <PagePhoto route="/programs" priority />
       </section>
 
       {/* ─── Three quick paths ─── */}

@@ -1,6 +1,6 @@
+import { PagePhoto } from "@/components/PagePhoto";
 import type { Metadata } from "next";
 import Link from "next/link";
-import Image from "next/image";
 import { getBlogPosts } from "@/lib/blog";
 import { breadcrumbJsonLd } from "@/lib/seo";
 
@@ -47,17 +47,7 @@ export default async function BlogPage() {
       />
 
       {/* ─── Hero ─── */}
-      <section className="relative section-photo-backdrop pt-32 pb-16 px-6">
-        <div className="photo-bg">
-          <Image
-            src="/images/pickleball-history.jpeg"
-            alt=""
-            fill
-            sizes="100vw"
-            className="object-cover"
-            aria-hidden="true"
-          />
-        </div>
+      <section className="relative pt-32 pb-16 px-6">
         <div className="relative mx-auto max-w-4xl text-center">
           <p className="eyebrow mb-3">Coach&apos;s notes</p>
           <h1 className="text-5xl md:text-7xl font-heading font-black text-text-primary mb-5 leading-[0.95]">
@@ -69,6 +59,7 @@ export default async function BlogPage() {
           </p>
         </div>
       </section>
+      <div className="page-photo-editorial"><PagePhoto route="/blog" priority /></div>
 
       {/* ─── Posts ─── */}
       <section className="px-6 pt-8">

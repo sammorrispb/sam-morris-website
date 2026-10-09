@@ -1,3 +1,4 @@
+import { PagePhoto } from "@/components/PagePhoto";
 import { Client } from "@notionhq/client";
 import { ConfirmButton } from "./ConfirmButton";
 import { CounterForm } from "./CounterForm";
@@ -172,6 +173,7 @@ export default async function ConfirmLessonPage({
       </p>
       <ConfirmButton token={proposal.token} />
       <CounterForm token={proposal.token} />
+      <PagePhoto route="/lessons/confirm" compact />
     </Card>
   );
 }

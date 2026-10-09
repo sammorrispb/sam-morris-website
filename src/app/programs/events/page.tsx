@@ -1,3 +1,4 @@
+import { PagePhoto } from "@/components/PagePhoto";
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
@@ -97,16 +98,8 @@ export default function EventsPage() {
       />
 
       {/* ─── Hero ─── */}
-      <section className="relative min-h-[80vh] flex items-end hero-full-bleed hero-nav-offset overflow-hidden">
-        <Image
-          src="/images/sam-group-selfie.jpg"
-          alt="Coach Sam with a group at a pickleball event"
-          fill
-          priority
-          sizes="100vw"
-          className="object-cover hero-image-warm"
-        />
-        <div className="relative z-10 mx-auto max-w-6xl px-6 w-full pb-20 pt-32">
+      <section className="page-photo-hero">
+        <div className="page-photo-copy">
           <AnimateOnScroll>
             <div className="max-w-3xl">
               <p className="eyebrow text-accent-pink mb-4">
@@ -141,6 +134,7 @@ export default function EventsPage() {
             </div>
           </AnimateOnScroll>
         </div>
+        <PagePhoto route="/programs/events" priority />
       </section>
 
       {/* ─── Event Types ─── */}

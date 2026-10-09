@@ -1,3 +1,4 @@
+import { PagePhoto } from "@/components/PagePhoto";
 import type { Metadata } from "next";
 import Image from "next/image";
 import { AnimateOnScroll } from "@/components/AnimateOnScroll";
@@ -99,17 +100,9 @@ const PATHS = [
 export default function Home() {
   return (
     <>
-      {/* ─── Full-Bleed Hero ─── */}
-      <section className="relative min-h-[92vh] flex items-center hero-full-bleed hero-nav-offset overflow-hidden">
-        <Image
-          src="/images/coach-sam.jpeg"
-          alt="Coach Sam Morris on the court"
-          fill
-          priority
-          sizes="100vw"
-          className="object-cover hero-image-warm"
-        />
-        <div className="relative z-10 mx-auto max-w-6xl px-6 w-full py-24">
+      {/* ─── Coach introduction + court photograph ─── */}
+      <section className="page-photo-hero">
+        <div className="page-photo-copy">
           <div className="max-w-3xl">
             <h1 className="font-heading font-black text-5xl sm:text-6xl md:text-7xl lg:text-8xl leading-[0.95] mb-6 animate-fade-up">
               Pickleball coach in{" "}
@@ -158,14 +151,7 @@ export default function Home() {
             </div>
           </div>
         </div>
-
-        {/* Subtle scroll indicator */}
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 hidden md:flex flex-col items-center gap-2 animate-fade-in">
-          <span className="text-text-muted text-xs uppercase tracking-[0.2em]">
-            Scroll
-          </span>
-          <div className="h-10 w-px bg-gradient-to-b from-accent-blue to-transparent" />
-        </div>
+        <PagePhoto route="/" priority />
       </section>
 
       {/* ─── Three ways to start ─── */}

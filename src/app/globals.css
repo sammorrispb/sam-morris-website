@@ -455,3 +455,30 @@ html:not([data-announcement]) .announcement-banner {
 /* Hide scrollbars on horizontal nav */
 .scrollbar-hide::-webkit-scrollbar { display: none; }
 .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+
+/* Real coaching photographs keep the visitor's next action beside the scene. */
+.page-photo-hero {
+  display: grid;
+  align-items: center;
+  gap: 2rem;
+  max-width: 1200px;
+  margin-inline: auto;
+  padding: 7.5rem 1.5rem 3.5rem;
+}
+.page-photo-copy { min-width: 0; }
+.page-photo-copy h1 { font-size: clamp(2.65rem, 4.6vw, 4.6rem); }
+.page-photo { position: relative; width: 100%; min-width: 0; margin: 0; padding: .65rem; background: var(--color-sand); }
+.page-photo-window { overflow: hidden; }
+.page-photo img { display: block; width: 100%; height: auto; }
+.page-photo-court { border: 1px solid var(--color-accent-blue); border-radius: 1.5rem .35rem 1.5rem .35rem; }
+.page-photo-court .page-photo-window { border-radius: .95rem .15rem .95rem .15rem; }
+.page-photo-portrait { max-width: 360px; margin-inline: auto; border: 1px solid var(--color-accent-blue); border-radius: 11rem 11rem 1rem 1rem; }
+.page-photo-portrait .page-photo-window { border-radius: 10.5rem 10.5rem .6rem .6rem; }
+.page-photo-fieldnote { padding: .75rem .75rem 1.6rem; border: 1px solid var(--color-text-muted); border-bottom: 4px solid var(--color-accent-blue); }
+.page-photo-ticket { border-block: 1px solid var(--color-accent-blue); border-inline: 2px dashed var(--color-text-muted); border-radius: .65rem; }
+.page-photo-compact { max-width: 420px; margin: 2rem auto 0; }
+.page-photo-compact img { max-height: 230px; object-fit: contain; }
+.page-photo-editorial { max-width: 768px; margin: 0 auto 2.5rem; padding-inline: 1.5rem; }
+@media (min-width: 1024px) {
+  .page-photo-hero { grid-template-columns: 1.1fr 1fr; gap: 3rem; padding-block: 8rem 4.5rem; }
+}

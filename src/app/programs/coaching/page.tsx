@@ -1,3 +1,4 @@
+import { PagePhoto } from "@/components/PagePhoto";
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
@@ -130,16 +131,8 @@ export default function CoachingPage() {
       <BackToTop />
 
       {/* ─── Full-Bleed Hero ─── */}
-      <section className="relative min-h-[80vh] flex items-end hero-full-bleed hero-nav-offset overflow-hidden">
-        <Image
-          src="/images/coach-sam.jpeg"
-          alt="Coach Sam Morris coaching"
-          fill
-          priority
-          sizes="100vw"
-          className="object-cover hero-image-warm"
-        />
-        <div className="relative z-10 mx-auto max-w-6xl px-6 w-full pb-20 pt-32">
+      <section className="page-photo-hero">
+        <div className="page-photo-copy">
           <span className="brand-badge brand-badge-sm mb-5">Sam Morris Coaching</span>
           <h1 className="font-heading font-black text-5xl md:text-7xl lg:text-8xl leading-[0.95] mb-6 max-w-4xl">
             Coaching, clinics &amp; <span className="gradient-text-warm">play-in.</span>
@@ -166,6 +159,7 @@ export default function CoachingPage() {
             </Link>
           </div>
         </div>
+        <PagePhoto route="/programs/coaching" priority />
       </section>
 
       {/* ─── Why Train ─── */}
