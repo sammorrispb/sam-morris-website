@@ -1,5 +1,6 @@
 import { Client } from "@notionhq/client";
 import { NextResponse } from "next/server";
+import { requireAdminSession } from "@/lib/admin-session";
 import { sendEmail } from "@/lib/email";
 import { lessonConfirmRequestEmail } from "@/lib/emailTemplates";
 import {
@@ -17,11 +18,6 @@ import {
 } from "@/lib/lessons";
 
 export const dynamic = "force-dynamic";
-
-function validateAuth(request: Request): boolean {
-  const token = request.headers.get("Authorization")?.replace("Bearer ", "");
-  return Boolean(token) && token === process.env.ADMIN_PASSWORD;
-}
 
 function getNotionConfig() {
   const apiKey = process.env.NOTION_API_KEY?.trim();
@@ -50,7 +46,7 @@ const VALID_DURATIONS = [30, 60, 90, 120];
  * confirm link. Confirming triggers invoice + calendar invite via fulfillment.
  */
 export async function POST(request: Request) {
-  if (!validateAuth(request)) {
+  if (!requireAdminSession(request)) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 

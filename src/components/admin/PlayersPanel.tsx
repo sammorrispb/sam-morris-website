@@ -83,7 +83,7 @@ function invoiceStatusClasses(status: string) {
   }
 }
 
-export function PlayersPanel({ getToken }: { getToken: () => string }) {
+export function PlayersPanel() {
   const [data, setData] = useState<PlayersData | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -129,7 +129,6 @@ export function PlayersPanel({ getToken }: { getToken: () => string }) {
         if (opts?.cursor) params.set("cursor", opts.cursor);
         const qs = params.toString();
         const res = await fetch(`/api/admin/players${qs ? `?${qs}` : ""}`, {
-          headers: { Authorization: `Bearer ${getToken()}` },
         });
         if (!res.ok) {
           const body = await res.json().catch(() => ({}));
@@ -142,7 +141,7 @@ export function PlayersPanel({ getToken }: { getToken: () => string }) {
         setLoading(false);
       }
     },
-    [debouncedSearch, levelFilter, getToken]
+    [debouncedSearch, levelFilter]
   );
 
   useEffect(() => {
@@ -162,7 +161,6 @@ export function PlayersPanel({ getToken }: { getToken: () => string }) {
       const res = await fetch("/api/admin/players", {
         method: "PATCH",
         headers: {
-          Authorization: `Bearer ${getToken()}`,
           "Content-Type": "application/json",
         },
         body: JSON.stringify({ pageId: playerId, level }),
@@ -191,7 +189,6 @@ export function PlayersPanel({ getToken }: { getToken: () => string }) {
     setDetailLoading(true);
     try {
       const res = await fetch(`/api/admin/players/${playerId}`, {
-        headers: { Authorization: `Bearer ${getToken()}` },
       });
       if (!res.ok) throw new Error("Failed to load player");
       const d: PlayerDetail = await res.json();
@@ -212,7 +209,6 @@ export function PlayersPanel({ getToken }: { getToken: () => string }) {
       const res = await fetch("/api/admin/players", {
         method: "PATCH",
         headers: {
-          Authorization: `Bearer ${getToken()}`,
           "Content-Type": "application/json",
         },
         body: JSON.stringify({ pageId: detail.player.id, notes: notesDraft }),
@@ -244,7 +240,6 @@ export function PlayersPanel({ getToken }: { getToken: () => string }) {
       const res = await fetch("/api/admin/players", {
         method: "POST",
         headers: {
-          Authorization: `Bearer ${getToken()}`,
           "Content-Type": "application/json",
         },
         body: JSON.stringify({

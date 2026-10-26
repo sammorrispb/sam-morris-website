@@ -1,5 +1,6 @@
 import { Client } from "@notionhq/client";
 import { NextResponse } from "next/server";
+import { requireAdminSession } from "@/lib/admin-session";
 import { getDataSourceId } from "@/lib/notion";
 import {
   PLAYER_LEVELS,
@@ -10,11 +11,6 @@ import {
 import { findClientByEmail, upsertCoachingClient } from "@/lib/coaching-crm";
 
 export const dynamic = "force-dynamic";
-
-function validateAuth(request: Request): boolean {
-  const token = request.headers.get("Authorization")?.replace("Bearer ", "");
-  return Boolean(token) && token === process.env.ADMIN_PASSWORD;
-}
 
 function getNotionConfig() {
   const apiKey = process.env.NOTION_API_KEY?.trim();
@@ -28,7 +24,7 @@ function getNotionConfig() {
  * Query params: search (name or email), level, cursor, pageSize.
  */
 export async function GET(request: Request) {
-  if (!validateAuth(request)) {
+  if (!requireAdminSession(request)) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
@@ -129,7 +125,7 @@ export async function GET(request: Request) {
  * Body: { pageId, level?, notes? }
  */
 export async function PATCH(request: Request) {
-  if (!validateAuth(request)) {
+  if (!requireAdminSession(request)) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
@@ -192,7 +188,7 @@ export async function PATCH(request: Request) {
  * Body: { name, email, level? }
  */
 export async function POST(request: Request) {
-  if (!validateAuth(request)) {
+  if (!requireAdminSession(request)) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 

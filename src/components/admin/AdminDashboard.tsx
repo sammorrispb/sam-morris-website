@@ -82,12 +82,10 @@ function needsAttention(lead: Lead): string | null {
 
 export function AdminDashboard() {
   const [password, setPassword] = useState("");
-  // Initialize from sessionStorage at mount so a returning admin doesn't
-  // see the password screen flash. SSR pre-render falls back to false
-  // (no sessionStorage); client hydration picks up the real value.
-  const [authed, setAuthed] = useState(() =>
-    typeof window !== "undefined" && sessionStorage.getItem("admin_token") !== null,
-  );
+  // Auth state is backed by an HttpOnly session cookie that JS cannot read, so
+  // we ask the server whether the cookie is valid on mount (see the effect
+  // below) rather than inferring from client storage.
+  const [authed, setAuthed] = useState(false);
   const [error, setError] = useState("");
   const [data, setData] = useState<LeadsData | null>(null);
   const [loading, setLoading] = useState(false);
@@ -133,7 +131,7 @@ export function AdminDashboard() {
   }, [search]);
 
   const fetchLeads = useCallback(
-    async (token: string, opts?: { cursor?: string }) => {
+    async (opts?: { cursor?: string }) => {
       setLoading(true);
       try {
         const params = new URLSearchParams();
@@ -145,7 +143,6 @@ export function AdminDashboard() {
 
         const qs = params.toString();
         const res = await fetch(`/api/admin/leads${qs ? `?${qs}` : ""}`, {
-          headers: { Authorization: `Bearer ${token}` },
         });
         if (!res.ok) throw new Error("Failed to fetch");
         setData(await res.json());
@@ -161,15 +158,27 @@ export function AdminDashboard() {
   // Refetch when filters change. Pagination reset moved into each filter's
   // onChange handler — see resetPagination() above.
   useEffect(() => {
-    const token = sessionStorage.getItem("admin_token");
-    if (token && authed) {
+    if (authed) {
       // The setState calls inside fetchLeads (setLoading/setData/setError)
       // are unavoidable for an async data fetch; the rule flags them
       // defensively but this is the canonical client-side filtered-fetch
       // pattern. React 19 + Server Components is the proper refactor.
-      fetchLeads(token);
+      fetchLeads();
     }
   }, [debouncedSearch, statusFilter, interestFilter, sourceFilter, authed, fetchLeads]);
+
+  // On mount, ask the server whether the session cookie is still valid.
+  useEffect(() => {
+    let cancelled = false;
+    fetch("/api/admin/auth")
+      .then((res) => {
+        if (!cancelled && res.ok) setAuthed(true);
+      })
+      .catch(() => {});
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
   function resetPagination() {
     setPage(1);
@@ -192,13 +201,11 @@ export function AdminDashboard() {
   async function handleStatusChange(leadId: string, newStatus: string) {
     setOpenDropdownId(null);
     setUpdatingLeadId(leadId);
-    const token = sessionStorage.getItem("admin_token") ?? "";
 
     try {
       const res = await fetch("/api/admin/leads", {
         method: "PATCH",
         headers: {
-          Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",
         },
         body: JSON.stringify({ pageId: leadId, status: newStatus }),
@@ -219,7 +226,7 @@ export function AdminDashboard() {
     } catch {
       setError("Failed to update status");
       // Refetch to restore correct state
-      fetchLeads(token, { cursor: currentCursor });
+      fetchLeads({ cursor: currentCursor });
     } finally {
       setUpdatingLeadId(null);
     }
@@ -253,13 +260,11 @@ export function AdminDashboard() {
     if (!confirmingLead) return;
     setProposeLoading(true);
     setProposeError("");
-    const token = sessionStorage.getItem("admin_token") ?? "";
 
     try {
       const res = await fetch("/api/admin/lessons/propose", {
         method: "POST",
         headers: {
-          Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
@@ -279,7 +284,7 @@ export function AdminDashboard() {
         dateLabel: data.dateLabel,
       });
       // Refresh the lead list so the new status shows
-      fetchLeads(token, { cursor: currentCursor });
+      fetchLeads({ cursor: currentCursor });
     } catch (err) {
       setProposeError(err instanceof Error ? err.message : "Something went wrong");
     } finally {
@@ -289,22 +294,20 @@ export function AdminDashboard() {
 
   function handleNextPage() {
     if (!data?.hasMore || !data.nextCursor) return;
-    const token = sessionStorage.getItem("admin_token") ?? "";
     setCursors((prev) => [...prev, currentCursor ?? ""]);
     setCurrentCursor(data.nextCursor);
     setPage((p) => p + 1);
-    fetchLeads(token, { cursor: data.nextCursor });
+    fetchLeads({ cursor: data.nextCursor });
   }
 
   function handlePrevPage() {
     if (page <= 1) return;
-    const token = sessionStorage.getItem("admin_token") ?? "";
     const prevCursors = [...cursors];
     const prevCursor = prevCursors.pop();
     setCursors(prevCursors);
     setCurrentCursor(prevCursor || undefined);
     setPage((p) => p - 1);
-    fetchLeads(token, { cursor: prevCursor || undefined });
+    fetchLeads({ cursor: prevCursor || undefined });
   }
 
   async function handleLogin(e: React.FormEvent) {
@@ -323,16 +326,15 @@ export function AdminDashboard() {
         return;
       }
 
-      sessionStorage.setItem("admin_token", password);
       setAuthed(true);
-      fetchLeads(password);
+      fetchLeads();
     } catch {
       setError("Something went wrong");
     }
   }
 
   function handleLogout() {
-    sessionStorage.removeItem("admin_token");
+    fetch("/api/admin/auth", { method: "DELETE" }).catch(() => {});
     setAuthed(false);
     setData(null);
     setPassword("");
@@ -394,7 +396,7 @@ export function AdminDashboard() {
             </p>
           )}
           <button
-            onClick={() => fetchLeads(sessionStorage.getItem("admin_token") ?? "")}
+            onClick={() => fetchLeads()}
             className="w-full text-white font-heading font-semibold py-3 rounded-lg btn-gradient"
           >
             Retry
@@ -452,9 +454,7 @@ export function AdminDashboard() {
       </div>
 
       {tab === "players" ? (
-        <PlayersPanel
-          getToken={() => sessionStorage.getItem("admin_token") ?? ""}
-        />
+        <PlayersPanel />
       ) : (
         <>
       {/* Stat Cards */}
