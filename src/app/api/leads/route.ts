@@ -3,6 +3,7 @@ import { NextResponse } from "next/server";
 import { generateEmailDraft } from "@/lib/emailTemplates";
 import { sendEmail, notifySam } from "@/lib/email";
 import { ingestToOpenBrain } from "@/lib/open-brain-ingest";
+import { rateLimit, clientIpFrom } from "@/lib/rate-limit";
 
 async function createEmailDraft(
   notion: Client,
@@ -78,6 +79,13 @@ function attributedSource(utm: LeadUtm): string {
 }
 
 export async function POST(request: Request) {
+  const ip = clientIpFrom(request.headers.get("x-forwarded-for"));
+  if (!rateLimit(`leads:${ip}`, { max: 5, windowMs: 60 * 60_000 }).ok) {
+    return NextResponse.json(
+      { error: "Too many requests. Please try again later." },
+      { status: 429 }
+    );
+  }
   try {
     const body = await request.json();
     const { name, email, interest } = body;

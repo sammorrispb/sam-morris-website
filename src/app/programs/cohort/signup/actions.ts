@@ -4,6 +4,7 @@ import { headers } from "next/headers";
 import { Client } from "@notionhq/client";
 import { ingestToOpenBrain } from "@/lib/open-brain-ingest";
 import { sendEmail, notifySam } from "@/lib/email";
+import { rateLimit, clientIpFrom } from "@/lib/rate-limit";
 import { insertCohortWaiver } from "@/lib/supabase-community";
 import {
   COHORT_CONTEXT,
@@ -126,6 +127,10 @@ export async function submitCohortSignup(
   const h = await headers();
   const ip = h.get("x-forwarded-for")?.split(",")[0].trim() ?? null;
   const user_agent = h.get("user-agent") ?? null;
+
+  if (!rateLimit(`cohort:${clientIpFrom(ip)}`, { max: 5, windowMs: 60 * 60_000 }).ok) {
+    return { ok: false, error: "Too many submissions. Please try again later." };
+  }
 
   const waiverResult = await insertCohortWaiver({
     full_name,
