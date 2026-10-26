@@ -1,4 +1,5 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+import { __resetRateLimit } from "@/lib/rate-limit";
 
 const notionPagesCreate = vi.fn();
 const notionPagesUpdate = vi.fn();
@@ -32,6 +33,7 @@ function makeRequest(body: unknown) {
 }
 
 beforeEach(() => {
+  __resetRateLimit();
   vi.resetAllMocks();
   notionPagesCreate.mockResolvedValue({ id: "page_1" });
   notionPagesUpdate.mockResolvedValue({});
