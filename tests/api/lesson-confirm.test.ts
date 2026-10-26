@@ -1,4 +1,5 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+import { ADMIN_COOKIE_NAME, createSessionToken } from "@/lib/admin-session";
 
 const notionPagesRetrieve = vi.fn();
 const notionPagesUpdate = vi.fn();
@@ -27,7 +28,7 @@ function futureDate(days: number): string {
 
 function makeProposeRequest(token: string | null, body: unknown) {
   const headers = new Headers({ "content-type": "application/json" });
-  if (token !== null) headers.set("Authorization", `Bearer ${token}`);
+  if (token !== null) headers.set("cookie", `${ADMIN_COOKIE_NAME}=${token === process.env.ADMIN_PASSWORD ? createSessionToken() : token}`);
   return new Request("https://www.sammorrispb.com/api/admin/lessons/propose", {
     method: "POST",
     headers,

@@ -1,4 +1,5 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+import { ADMIN_COOKIE_NAME, createSessionToken } from "@/lib/admin-session";
 
 const notionDataSourcesQuery = vi.fn();
 const notionDatabasesRetrieve = vi.fn();
@@ -27,7 +28,7 @@ function makeReq(
   const cleanQs = qs.replace(/^\?/, "");
   const url = `https://www.sammorrispb.com/api/admin/players${cleanQs ? `?${cleanQs}` : ""}`;
   const headers = new Headers({ "content-type": "application/json" });
-  if (token !== null) headers.set("Authorization", `Bearer ${token}`);
+  if (token !== null) headers.set("cookie", `${ADMIN_COOKIE_NAME}=${token === process.env.ADMIN_PASSWORD ? createSessionToken() : token}`);
   return new Request(url, {
     method,
     headers,
@@ -77,14 +78,14 @@ afterEach(() => {
 });
 
 describe("GET /api/admin/players", () => {
-  it("returns 401 when Authorization header is missing", async () => {
+  it("returns 401 when the session cookie is missing", async () => {
     const { GET } = await import("@/app/api/admin/players/route");
     const res = await GET(makeReq("GET", null));
     expect(res.status).toBe(401);
     expect(notionDataSourcesQuery).not.toHaveBeenCalled();
   });
 
-  it("returns 401 when token does not match ADMIN_PASSWORD", async () => {
+  it("returns 401 when the session cookie is invalid", async () => {
     const { GET } = await import("@/app/api/admin/players/route");
     const res = await GET(makeReq("GET", "wrong"));
     expect(res.status).toBe(401);

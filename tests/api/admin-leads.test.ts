@@ -1,4 +1,5 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+import { ADMIN_COOKIE_NAME, createSessionToken } from "@/lib/admin-session";
 
 const notionDataSourcesQuery = vi.fn();
 const notionDatabasesRetrieve = vi.fn();
@@ -15,13 +16,13 @@ vi.mock("@notionhq/client", () => ({
 function makeGet(token: string | null, qs = "") {
   const url = `https://www.sammorrispb.com/api/admin/leads${qs ? `?${qs}` : ""}`;
   const headers = new Headers();
-  if (token !== null) headers.set("Authorization", `Bearer ${token}`);
+  if (token !== null) headers.set("cookie", `${ADMIN_COOKIE_NAME}=${token === process.env.ADMIN_PASSWORD ? createSessionToken() : token}`);
   return new Request(url, { headers });
 }
 
 function makePatch(token: string | null, body: unknown) {
   const headers = new Headers({ "content-type": "application/json" });
-  if (token !== null) headers.set("Authorization", `Bearer ${token}`);
+  if (token !== null) headers.set("cookie", `${ADMIN_COOKIE_NAME}=${token === process.env.ADMIN_PASSWORD ? createSessionToken() : token}`);
   return new Request("https://www.sammorrispb.com/api/admin/leads", {
     method: "PATCH",
     headers,
@@ -50,14 +51,14 @@ afterEach(() => {
 });
 
 describe("GET /api/admin/leads", () => {
-  it("returns 401 when Authorization header is missing", async () => {
+  it("returns 401 when the session cookie is missing", async () => {
     const { GET } = await import("@/app/api/admin/leads/route");
     const res = await GET(makeGet(null));
     expect(res.status).toBe(401);
     expect(notionDataSourcesQuery).not.toHaveBeenCalled();
   });
 
-  it("returns 401 when token does not match ADMIN_PASSWORD", async () => {
+  it("returns 401 when the session cookie is invalid", async () => {
     const { GET } = await import("@/app/api/admin/leads/route");
     const res = await GET(makeGet("not-the-password"));
     expect(res.status).toBe(401);

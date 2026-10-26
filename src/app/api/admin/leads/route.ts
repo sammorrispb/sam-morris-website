@@ -1,5 +1,6 @@
 import { Client } from "@notionhq/client";
 import { NextResponse } from "next/server";
+import { requireAdminSession } from "@/lib/admin-session";
 import { getLeadsDataSourceId } from "@/lib/notion";
 
 const VALID_STATUSES = [
@@ -12,13 +13,6 @@ const VALID_STATUSES = [
   "Paid",
 ] as const;
 
-function validateAuth(request: Request): string | null {
-  const authHeader = request.headers.get("Authorization");
-  const token = authHeader?.replace("Bearer ", "");
-  if (!token || token !== process.env.ADMIN_PASSWORD) return null;
-  return token;
-}
-
 function getNotionConfig() {
   const apiKey = process.env.NOTION_API_KEY?.trim();
   const dbId = process.env.NOTION_LEADS_DB_ID?.trim();
@@ -27,7 +21,7 @@ function getNotionConfig() {
 }
 
 export async function GET(request: Request) {
-  if (!validateAuth(request)) {
+  if (!requireAdminSession(request)) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
@@ -193,7 +187,7 @@ export async function GET(request: Request) {
 }
 
 export async function PATCH(request: Request) {
-  if (!validateAuth(request)) {
+  if (!requireAdminSession(request)) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 

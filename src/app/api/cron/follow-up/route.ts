@@ -1,5 +1,6 @@
 import { Client } from "@notionhq/client";
 import { NextResponse } from "next/server";
+import { timingSafeEqual } from "crypto";
 import { notifySam } from "@/lib/email";
 import { processDrip } from "@/lib/drip";
 
@@ -9,8 +10,14 @@ export async function GET(request: Request) {
   // Verify cron secret (Vercel sends this automatically)
   const authHeader = request.headers.get("Authorization");
   const token = authHeader?.replace("Bearer ", "");
+  const secret = process.env.CRON_SECRET || "";
 
-  if (!token || token !== process.env.CRON_SECRET) {
+  const ok =
+    Boolean(token) &&
+    Boolean(secret) &&
+    token!.length === secret.length &&
+    timingSafeEqual(Buffer.from(token!), Buffer.from(secret));
+  if (!ok) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
