@@ -65,7 +65,8 @@ describe("payment ownership and retired fulfillment", () => {
     });
   }
 
-  for (const metadata of [{}, { rsvp_id: "synthetic" }, { coach_os_attendee_id: "synthetic" }, { kind: "lesson" }, { session_id: "synthetic" }]) {
+  const legacyMetadata: Record<string, string>[] = [{}, { rsvp_id: "synthetic" }, { coach_os_attendee_id: "synthetic" }, { kind: "lesson" }, { session_id: "synthetic" }];
+  for (const metadata of legacyMetadata) {
     it(`ignores untagged legacy checkout ${JSON.stringify(metadata)}`, async () => {
       const response = await POST(request("checkout.session.completed", metadata));
       expect(await response.json()).toMatchObject({ skipped: "payment_not_owned" });
