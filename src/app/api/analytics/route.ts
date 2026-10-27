@@ -1,4 +1,6 @@
-import { NextResponse } from "next/server";
+import { after, NextResponse } from "next/server";
+
+export const maxDuration = 30;
 
 /**
  * Server-side proxy to the Open Brain analytics-ingest edge function.
@@ -28,9 +30,9 @@ export async function POST(request: Request) {
     return new NextResponse(null, { status: 204 });
   }
 
-  // Fire-and-forget — return immediately, don't block the page on a slow
-  // ingest. We still log failures for debugging.
-  void (async () => {
+  // Register post-response work with Vercel's invocation lifecycle. A detached
+  // promise can be suspended as soon as the 204 response is returned.
+  after(async () => {
     try {
       const res = await fetch(url, {
         method: "POST",
@@ -39,16 +41,19 @@ export async function POST(request: Request) {
           "x-lead-ingest-token": token,
         },
         body: JSON.stringify(body),
-        signal: AbortSignal.timeout(5000),
+        signal: AbortSignal.timeout(15_000),
       });
       if (!res.ok) {
-        const text = await res.text().catch(() => "");
-        console.error(`[analytics] ${res.status}: ${text}`);
+        console.error("[analytics] upstream rejected event", { status: res.status });
       }
+      await res.body?.cancel();
     } catch (err) {
-      console.error("[analytics] request failed:", err);
+      const reason = err instanceof Error && (err.name === "TimeoutError" || err.name === "AbortError")
+        ? "timeout"
+        : "network";
+      console.error("[analytics] forwarding failed", { reason });
     }
-  })();
+  });
 
   return new NextResponse(null, { status: 204 });
 }
