@@ -1,9 +1,9 @@
-import nodemailer from "nodemailer";
+import nodemailer, { type Transporter } from "nodemailer";
 import { CONTACT } from "./constants";
 
 type EmailResult = { success: true } | { success: false; error: string };
 
-let transporter: nodemailer.Transporter | null = null;
+let transporter: Transporter | null = null;
 
 /**
  * True when both Gmail SMTP credentials are present. Note this only checks
@@ -14,7 +14,7 @@ export function isEmailConfigured(): boolean {
   return Boolean(process.env.GMAIL_USER && process.env.GMAIL_APP_PASSWORD);
 }
 
-function getTransporter(): nodemailer.Transporter | null {
+function getTransporter(): Transporter | null {
   if (transporter) return transporter;
 
   const user = process.env.GMAIL_USER;
