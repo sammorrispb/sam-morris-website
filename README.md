@@ -37,7 +37,7 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/bui
 
 ## Analytics
 
-Outbound CTA clicks, lead submits, scroll depth, and quiz events are forwarded to the Open Brain analytics-ingest edge function via the same-origin `/api/analytics` proxy (`src/lib/funnelClient.ts` → `src/app/api/analytics/route.ts`). Fire-and-forget; analytics failures never block the page.
+Outbound CTA clicks, lead submits, scroll depth, and quiz events are forwarded to the Open Brain analytics-ingest edge function via the same-origin `/api/analytics` proxy (`src/lib/funnelClient.ts` → `src/app/api/analytics/route.ts`). The proxy returns 204 immediately and registers forwarding with Next.js `after()` so Vercel keeps the invocation alive. Forwarding has a 15-second deadline within the route's 30-second budget. It makes one attempt; a lost response is not retried because the append-only ingest has no idempotency key. Errors log only a status or failure category, without upstream bodies or event contents. Analytics failures never block the page.
 
 Required env vars (set in `.env.local` for dev and Vercel project settings for prod):
 
