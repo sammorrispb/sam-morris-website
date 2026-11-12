@@ -357,6 +357,37 @@ describe("coach relationships and preserved visitor journeys", () => {
     expect($("body").text()).toContain(FREDERICK_VENUE.zip);
     expect($("a[href]").toArray().some((el) => ($(el).attr("href") ?? "") === FREDERICK_VENUE.clinicsUrl)).toBe(true);
   });
+
+  // Raw HTML on purpose: the meta/OG descriptions live in <head>, so a
+  // body-text check could never see them.
+  it("/programs states Next Gen ages as 6–16 in meta, Open Graph and copy", async () => {
+    const html = await (await fetch(`${BASE}/programs`)).text();
+    const $ = cheerio.load(html);
+    expect($('meta[name="description"]').attr("content")).toContain("kids 6–16");
+    expect($('meta[property="og:description"]').attr("content")).toContain("ages 6–16");
+    expect(html).not.toMatch(/(?:ages?|kids)\s+8\s?[-–]\s?16/i);
+  });
+
+  it("/programs offers no ended season and links to the live Next Gen schedule", async () => {
+    const $ = cheerio.load(await (await fetch(`${BASE}/programs`)).text());
+    const hrefs = $("a[href]").toArray().map((el) => $(el).attr("href") ?? "");
+    expect(hrefs.some((href) => href.startsWith("https://nextgenpbacademy.com/schedule?"))).toBe(true);
+    expect(hrefs.some((href) => href.startsWith("https://nextgenpbacademy.com/fall"))).toBe(false);
+    $("script").remove();
+    const text = $("body").text().replace(/\s+/g, " ");
+    expect(text).not.toMatch(/now enrolling/i);
+    expect(text).not.toMatch(/Register for the Fall Season/i);
+  });
+
+  it("the cohort page makes no dated launch claim", async () => {
+    const res = await fetch(`${BASE}/programs/cohort`);
+    expect(res.status).toBe(200);
+    const $ = cheerio.load(await res.text());
+    $("script").remove();
+    const text = $("body").text().replace(/\s+/g, " ");
+    expect(text).toMatch(/4 spots per cohort/i);
+    expect(text).not.toMatch(/through august/i);
+  });
 });
 
 function jsonLdBlocks($: cheerio.CheerioAPI): Record<string, unknown>[] {

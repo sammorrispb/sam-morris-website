@@ -97,6 +97,28 @@ const BANNED: { label: string; pattern: RegExp }[] = [
     label: "misspelled venue name ('Pickle Park' — it is 'Pickl Park')",
     pattern: /pickle\s+park/i,
   },
+  {
+    // Next Gen Academy is ages 6–16 (Sam, 2026-05-24, reconfirmed 2026-11-12),
+    // written with an en dash as tests/seo.spec.ts pins it. /programs said
+    // "8-16" in four places and the youth lead email said "6-17" until
+    // 2026-11-12. Bans the three ranges this site has actually carried for
+    // the academy (8-16, 6-17, 5-16), anchored on "age(s)", "aged" or "kids".
+    // Deliberately not "any range but 6–16": a partner class with its own
+    // band ("ages 8–13") or an adult audience ("ages 35-55") is legitimate.
+    // If a partner program genuinely runs ages 8–16, name the partner in the
+    // sentence and add an exception here rather than loosening the pattern.
+    label: "retired Next Gen age range (8-16, 6-17 or 5-16)",
+    pattern:
+      /\b(?:ages?|aged|kids)\s*:?\s*\(?\s*(?:8\s?(?:-|–|—|to)\s?16|6\s?(?:-|–|—|to)\s?17|5\s?(?:-|–|—|to)\s?16)(?!\d)/i,
+  },
+  {
+    // DESIGN.md "Don't": no generic SaaS calls to action. Coach voice names
+    // the action ("Request a lesson"). Scans all source text, so it also
+    // refuses the phrase in prose and comments; that is on purpose, it keeps
+    // the label from creeping back. "getting started" is fine.
+    label: "generic SaaS call to action ('Get Started')",
+    pattern: /\bget\s+started\b/i,
+  },
 ];
 
 /**
@@ -120,6 +142,36 @@ describe("brand guardrails — banned phrases", () => {
       ).toEqual([]);
     });
   }
+});
+
+describe("brand guardrails — no ended season is still on offer", () => {
+  // The Fall 2026 Next Gen card on /programs kept saying "Now enrolling" with a
+  // Register button after the season ended, off a constant that had drifted
+  // from Next Gen's own data. The page is statically rendered, so nothing there
+  // may depend on a hard-coded season; it points at Next Gen's live schedule.
+  const programs = normalizeWhitespace(read("app/programs/page.tsx"));
+  const cohort = normalizeWhitespace(read("app/programs/cohort/page.tsx"));
+
+  it("/programs does not claim a season is 'Now enrolling'", () => {
+    expect(programs).not.toMatch(/now enrolling/i);
+  });
+
+  it("/programs no longer carries the Fall 2026 register link", () => {
+    expect(programs).not.toMatch(/nga_fall_register/);
+  });
+
+  it("/programs does not state the old 8-16 age range", () => {
+    expect(programs).not.toMatch(/\b(?:ages?|kids)\s*:?\s*\(?\s*8\s?(?:-|–|—|to)\s?16(?!\d)/i);
+  });
+
+  it("/programs links to the Next Gen Academy schedule", () => {
+    expect(programs).toMatch(/familySiteUrl\(\s*"nga",\s*"\/schedule"/);
+  });
+
+  it("the cohort page makes no dated 'through August' launch claim", () => {
+    expect(cohort).toMatch(/4 spots per cohort/i);
+    expect(cohort).not.toMatch(/through august/i);
+  });
 });
 
 describe("brand guardrails — required Coach Sam tagline", () => {

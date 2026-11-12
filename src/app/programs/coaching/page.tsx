@@ -53,7 +53,7 @@ const SECTIONS = [
   { id: "private-lessons", label: "Private" },
   { id: "group-and-play-in", label: "Group & Play-In" },
   { id: "service-area", label: "Service Area" },
-  { id: "ready-to-start", label: "Get Started" },
+  { id: "ready-to-start", label: "Request a Lesson" },
 ];
 
 const REASONS = [
@@ -337,12 +337,12 @@ export default function CoachingPage() {
         </AnimateOnScroll>
       </section>
 
-      {/* ─── Get Started ─── */}
+      {/* ─── Request a lesson ─── */}
       <section id="ready-to-start" className="py-24 px-6 scroll-mt-28">
         <div className="mx-auto max-w-3xl">
           <AnimateOnScroll>
             <div className="glass-card-amber rounded-2xl p-10 text-center">
-              <p className="eyebrow mb-3">Get started</p>
+              <p className="eyebrow mb-3">Request a lesson</p>
               <h2 className="font-heading font-black text-3xl md:text-4xl mb-6 leading-tight">
                 Three ways to <span className="gradient-text-warm">get on the court.</span>
               </h2>
