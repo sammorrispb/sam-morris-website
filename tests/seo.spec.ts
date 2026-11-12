@@ -19,7 +19,12 @@ import { afterAll, beforeAll, describe, expect, it } from "vitest";
 import { spawn, type ChildProcess } from "node:child_process";
 import * as cheerio from "cheerio";
 import { PRICING } from "../src/lib/coaching";
-import { COACH_REQUEST_URL, FREDERICK_VENUE } from "../src/lib/constants";
+import {
+  COACH_REQUEST_URL,
+  FREDERICK_VENUE,
+  LESSON_HANDOFF_NOTE,
+  LESSON_REQUEST_HOST,
+} from "../src/lib/constants";
 
 const PORT = process.env.SEO_TEST_PORT
   ? Number(process.env.SEO_TEST_PORT)
@@ -348,6 +353,25 @@ describe("coach relationships and preserved visitor journeys", () => {
     expect($("body").text()).toContain(`$${PRICING.lessonPerHourUsd}`);
     expect($("a[href]").toArray().some((el) => ($(el).attr("href") ?? "").startsWith(COACH_REQUEST_URL))).toBe(true);
     expect($("body").text()).toContain("The Pickl Park");
+  });
+
+  it("coaching lesson links go straight to the request host and say so", async () => {
+    const html = await (await fetch(`${BASE}/programs/coaching`)).text();
+    const $ = cheerio.load(html);
+    // The retired redirect host must be gone from the whole response: links,
+    // visible copy and the FAQPage structured data alike.
+    expect(html).not.toContain("coach.sammorrispb.com");
+    const faq = jsonLdBlocks($).find((node) => node["@type"] === "FAQPage");
+    expect(JSON.stringify(faq)).toContain(`Request a lesson at ${LESSON_REQUEST_HOST} `);
+    // Four in-body lesson buttons, each with its visible handoff line.
+    const wrappers = $("[data-lesson-link]").toArray();
+    expect(wrappers).toHaveLength(4);
+    for (const el of wrappers) {
+      const anchors = $(el).find("a").toArray();
+      expect(anchors).toHaveLength(1);
+      expect(new URL($(anchors[0]).attr("href") ?? "").host).toBe(LESSON_REQUEST_HOST);
+      expect($(el).find("[data-lesson-handoff]").text()).toBe(LESSON_HANDOFF_NOTE);
+    }
   });
 
   it("the real Frederick venue retains its address and venue-owned registration links", async () => {

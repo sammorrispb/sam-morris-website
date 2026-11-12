@@ -46,12 +46,28 @@ export const NGA_WHATSAPP_GROUP = {
 // a time, and sends a Stripe invoice (Coach OS request flow). This is the
 // site-wide primary CTA destination: the skill-evaluation funnel it replaced
 // was retired on 2026-08-24 (offer discontinued — see lib/urls.ts).
-export const COACH_REQUEST_URL = "https://coach.sammorrispb.com/book/private-lesson";
+export const COACH_REQUEST_URL = "https://coach.linkanddink.com/book/private-lesson";
 
 // Join the cohort interest pool (Coach OS). Players join with skill + age +
 // availability; Sam forms a cohort and invoices once enough compatible players
 // accumulate. `track=adult` for this Coach Sam surface.
-export const COHORT_POOL_URL = "https://coach.sammorrispb.com/cohorts/join?track=adult";
+export const COHORT_POOL_URL = "https://coach.linkanddink.com/cohorts/join?track=adult";
+
+// Host of the lesson request page, for copy and structured data that has to
+// name it. Derived, so prose cannot drift from where the links really go.
+export const LESSON_REQUEST_HOST = new URL(COACH_REQUEST_URL).host;
+
+// Shown beside every in-body lesson button by <LessonLink>: the request page
+// lives on a different site, and a visitor should know that before tapping.
+// Draft wording, Sam finalizes. tests/lesson-link.test.tsx checks the site
+// named here against LESSON_REQUEST_HOST.
+export const LESSON_HANDOFF_NOTE =
+  "Opens Coach Sam's lesson request page on linkanddink.com.";
+
+// Same idea for the cohort pool buttons, which open a sign-up page, not the
+// lesson request page. Draft wording, Sam finalizes.
+export const COHORT_HANDOFF_NOTE =
+  "Opens the cohort sign-up page on linkanddink.com.";
 
 // No announcement is running. The banner mechanism is kept for the next one.
 //

@@ -31,8 +31,10 @@ export function familySiteUrl(
 }
 
 /**
- * Stamp the coach.sammorrispb.com private-lesson request link with UTM params
- * so lesson requests attribute back to the page/section that drove the click.
+ * Stamp the private-lesson request link (COACH_REQUEST_URL, the one place the
+ * host is written out) with UTM params so lesson requests attribute back to
+ * the page/section that drove the click. In page content, render the link
+ * through <LessonLink content="..."> rather than calling this directly.
  * `content` should be "<page>_<section>" (e.g. "home_hero"), matching the
  * page/section strings used in TrackedLink eventProps.
  *

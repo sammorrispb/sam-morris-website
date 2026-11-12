@@ -6,11 +6,12 @@ import { AnimateOnScroll } from "@/components/AnimateOnScroll";
 import { PageSectionNav } from "@/components/PageSectionNav";
 import { BackToTop } from "@/components/BackToTop";
 import { LeadForm } from "@/components/LeadForm";
-import { TrackedExternalLink } from "@/components/TrackedExternalLink";
+import { LessonLink } from "@/components/LessonLink";
 import { ScrollDepthTracker } from "@/components/ScrollDepthTracker";
-import { breadcrumbJsonLd } from "@/lib/seo";
-import { SERVICE_AREA, COACH_REQUEST_URL } from "@/lib/constants";
+import { breadcrumbJsonLd, faqJsonLd } from "@/lib/seo";
+import { SERVICE_AREA } from "@/lib/constants";
 import { PRICING } from "@/lib/coaching";
+import { COACHING_FAQS } from "@/lib/coachingFaq";
 
 export const metadata: Metadata = {
   // Title ≤60 chars (audit baseline: 94 with duplicated brand suffix).
@@ -114,16 +115,7 @@ export default function CoachingPage() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "FAQPage",
-            mainEntity: [
-              { "@type": "Question", name: "How do I book a private pickleball lesson?", acceptedAnswer: { "@type": "Answer", text: `Request a lesson at coach.sammorrispb.com and Sam will confirm a time that works. Lessons are $${PRICING.lessonPerHourUsd}/hour for privates or groups up to 4 players, plus court fee.` } },
-              { "@type": "Question", name: "Do you offer group pickleball lessons?", acceptedAnswer: { "@type": "Answer", text: "Yes — group lessons are available for 2 or more players. Request a time and Sam will build the session around your group's level and goals." } },
-              { "@type": "Question", name: "What is the 3+1 Play-In Special?", acceptedAnswer: { "@type": "Answer", text: "The 3+1 Play-In Special is a 2-hour session where you bring 3 players and Sam plays as the 4th — doubles reps with a coach in the lineup." } },
-              { "@type": "Question", name: "Where do lessons happen?", acceptedAnswer: { "@type": "Answer", text: `Sam travels to your court across Montgomery County, Washington DC, and nearby parts of Prince George's, Howard, and northern Virginia. Private lessons are also available at The Pickl Park in Frederick, MD.` } },
-            ],
-          }),
+          __html: JSON.stringify(faqJsonLd(COACHING_FAQS)),
         }}
       />
       <ScrollDepthTracker page="coaching" />
@@ -142,15 +134,14 @@ export default function CoachingPage() {
             Special — built around the part of your game you most want to level
             up. Sam travels to your court.
           </p>
-          <div className="flex flex-col sm:flex-row gap-4">
-            <a
-              href={COACH_REQUEST_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center justify-center font-heading font-semibold px-7 py-3.5 rounded-full btn-gradient text-base"
+          <div className="flex flex-col sm:flex-row sm:items-start gap-4">
+            <LessonLink
+              newTab
+              wrapperClassName="flex flex-col items-stretch gap-2 sm:w-min"
+              className="inline-flex items-center justify-center whitespace-nowrap font-heading font-semibold px-7 py-3.5 rounded-full btn-gradient text-base"
             >
               Request a Lesson →
-            </a>
+            </LessonLink>
             <Link
               href="#group-and-play-in"
               className="inline-flex items-center justify-center btn-outline font-heading font-semibold px-7 py-3.5 rounded-full text-base"
@@ -232,14 +223,12 @@ export default function CoachingPage() {
                 Lessons are {`$${PRICING.lessonPerHourUsd}/hour`} for privates or groups up to 4 players,
                 plus court fee.
               </p>
-              <TrackedExternalLink
-                href={COACH_REQUEST_URL}
-                label="Request a Lesson"
-                page="coaching"
+              <LessonLink
+                tracking={{ event: "external_link", label: "Request a Lesson", page: "coaching" }}
                 className="inline-flex items-center font-heading font-semibold px-7 py-3.5 rounded-full btn-gradient text-base"
               >
                 Request a Lesson →
-              </TrackedExternalLink>
+              </LessonLink>
             </div>
           </div>
         </AnimateOnScroll>
@@ -285,14 +274,12 @@ export default function CoachingPage() {
                 Tell Sam your group size, level, and a couple of windows that work.
                 He&apos;ll confirm the format and the time, then lock it in.
               </p>
-              <TrackedExternalLink
-                href={COACH_REQUEST_URL}
-                label="Request Group or Play-In"
-                page="coaching"
+              <LessonLink
+                tracking={{ event: "external_link", label: "Request Group or Play-In", page: "coaching" }}
                 className="inline-flex items-center font-heading font-semibold px-7 py-3.5 rounded-full btn-gradient text-base"
               >
                 Request a Lesson →
-              </TrackedExternalLink>
+              </LessonLink>
             </div>
           </AnimateOnScroll>
         </div>
@@ -360,14 +347,12 @@ export default function CoachingPage() {
                   <span><strong className="text-text-primary">Bring a crew</strong> for the group or 3+1 play-in rate.</span>
                 </li>
               </ol>
-              <a
-                href={COACH_REQUEST_URL}
-                target="_blank"
-                rel="noopener noreferrer"
+              <LessonLink
+                newTab
                 className="inline-flex items-center font-heading font-semibold px-8 py-4 rounded-full btn-gradient text-base"
               >
                 Request a Lesson →
-              </a>
+              </LessonLink>
             </div>
           </AnimateOnScroll>
         </div>

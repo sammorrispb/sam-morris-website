@@ -4,7 +4,7 @@ import Image from "next/image";
 import { ScrollDepthTracker } from "@/components/ScrollDepthTracker";
 import { AnimateOnScroll } from "@/components/AnimateOnScroll";
 import { breadcrumbJsonLd } from "@/lib/seo";
-import { COACH_REQUEST_URL } from "@/lib/constants";
+import { LessonLink } from "@/components/LessonLink";
 
 export const metadata: Metadata = {
   // Title ≤60 chars (audit baseline: 96 with template suffix).
@@ -367,14 +367,12 @@ export default function AboutPage() {
           <p className="text-text-muted text-lg mb-8 max-w-xl mx-auto">
             Tell me what you want to work on and I&apos;ll build the session around it. No pressure, no pitch.
           </p>
-          <a
-            href={COACH_REQUEST_URL}
-            target="_blank"
-            rel="noopener noreferrer"
+          <LessonLink
+            newTab
             className="inline-flex items-center font-heading font-semibold px-8 py-4 rounded-full btn-gradient text-base"
           >
             Request a Lesson →
-          </a>
+          </LessonLink>
         </div>
       </section>
     </>
