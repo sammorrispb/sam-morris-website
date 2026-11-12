@@ -3,10 +3,11 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import { AnimateOnScroll } from "@/components/AnimateOnScroll";
 import { BackToTop } from "@/components/BackToTop";
+import { LessonLink } from "@/components/LessonLink";
 import { TrackedExternalLink } from "@/components/TrackedExternalLink";
 import { breadcrumbJsonLd, faqJsonLd } from "@/lib/seo";
 import { CONTACT, FREDERICK_VENUE } from "@/lib/constants";
-import { coachRequestUrl, picklParkEventUrl } from "@/lib/urls";
+import { picklParkEventUrl } from "@/lib/urls";
 import { PICKL_PARK_CLASSES } from "@/lib/picklParkClasses";
 import {
   PICKL_PARK_SESSIONS,
@@ -343,13 +344,14 @@ export default function PicklParkPage() {
               something specific without an audience — Sam takes private lessons
               at The Pickl Park too.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <a
-                href={coachRequestUrl("pickl_park_private")}
-                className="inline-flex items-center justify-center font-heading font-semibold px-8 py-4 rounded-full btn-gradient text-base"
+            <div className="flex flex-col sm:flex-row sm:items-start gap-4 justify-center">
+              <LessonLink
+                content="pickl_park_private"
+                wrapperClassName="flex flex-col items-stretch gap-2 sm:w-min"
+                className="inline-flex items-center justify-center whitespace-nowrap font-heading font-semibold px-8 py-4 rounded-full btn-gradient text-base"
               >
                 Request a private lesson
-              </a>
+              </LessonLink>
               <a
                 href={`tel:${CONTACT.phone}`}
                 className="inline-flex items-center justify-center btn-outline font-heading font-semibold px-8 py-4 rounded-full text-base"

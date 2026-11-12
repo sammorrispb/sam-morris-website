@@ -19,3 +19,7 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npm run lint
+      # Unit and source-scan suite (vitest run). Until 2026-11-12 nothing here
+      # ran the tests, so the brand and link guardrails gated no PR. The
+      # build-backed suites (test:seo, test:e2e) stay local for now.
+      - run: npm test

@@ -2,11 +2,10 @@ import { PagePhoto } from "@/components/PagePhoto";
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { TrackedLink } from "@/components/TrackedLink";
+import { LessonLink } from "@/components/LessonLink";
 import { AnimateOnScroll } from "@/components/AnimateOnScroll";
 import { TrackedExternalLink } from "@/components/TrackedExternalLink";
-import { COACH_REQUEST_URL } from "@/lib/constants";
-import { coachRequestUrl, familySiteUrl } from "@/lib/urls";
+import { familySiteUrl } from "@/lib/urls";
 
 export const metadata: Metadata = {
   title: "Pickleball Programs & Lessons — Youth Academy, Private Coaching, Family Sessions",
@@ -316,14 +315,13 @@ export default function ProgramsPage() {
                   </p>
                 </div>
 
-                <a
-                  href={COACH_REQUEST_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                <LessonLink
+                  newTab
+                  wrapperClassName="flex flex-col items-stretch gap-2 text-center"
                   className="inline-block w-full text-center font-heading font-semibold px-6 py-3.5 rounded-full btn-gradient text-base"
                 >
                   Request a Lesson →
-                </a>
+                </LessonLink>
               </div>
             </div>
             <div className="text-center pt-4">
@@ -388,18 +386,13 @@ export default function ProgramsPage() {
             Tell me where your game is and what you want to fix. I&apos;ll point
             you at the right format and confirm a time.
           </p>
-          <TrackedLink
-            href={coachRequestUrl("programs_footer_cta")}
+          <LessonLink
+            content="programs_footer_cta"
+            tracking={{ event: "cta_click", label: "Request a Lesson", page: "programs", section: "footer_cta" }}
             className="inline-flex items-center font-heading font-semibold px-8 py-4 rounded-full btn-gradient text-base"
-            eventProps={{
-              label: "Request a Lesson",
-              page: "programs",
-              section: "footer_cta",
-              destination: coachRequestUrl("programs_footer_cta"),
-            }}
           >
             Request a Lesson →
-          </TrackedLink>
+          </LessonLink>
         </div>
       </section>
     </>

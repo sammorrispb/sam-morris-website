@@ -1,10 +1,9 @@
 import { PagePhoto } from "@/components/PagePhoto";
 import type { Metadata } from "next";
-import Link from "next/link";
 import { AnimateOnScroll } from "@/components/AnimateOnScroll";
 import { BackToTop } from "@/components/BackToTop";
+import { LessonLink } from "@/components/LessonLink";
 import { breadcrumbJsonLd, faqJsonLd } from "@/lib/seo";
-import { COHORT_POOL_URL } from "@/lib/constants";
 
 export const metadata: Metadata = {
   title: "4-Week Training Cohorts — Coach Sam | DMV Pickleball",
@@ -128,13 +127,14 @@ export default function CohortPage() {
                 practiced with. One all-in price per player, tournament
                 entry included.
               </p>
-              <div className="flex flex-col sm:flex-row gap-4">
-                <Link
-                  href={COHORT_POOL_URL}
-                  className="inline-flex items-center justify-center font-heading font-semibold px-8 py-4 rounded-full btn-gradient text-base"
+              <div className="flex flex-col sm:flex-row sm:items-start gap-4">
+                <LessonLink
+                  kind="cohort"
+                  wrapperClassName="flex flex-col items-stretch gap-2 sm:w-min"
+                  className="inline-flex items-center justify-center whitespace-nowrap font-heading font-semibold px-8 py-4 rounded-full btn-gradient text-base"
                 >
                   Join the cohort pool →
-                </Link>
+                </LessonLink>
                 <a
                   href="#how-it-works"
                   className="inline-flex items-center justify-center btn-outline font-heading font-semibold px-8 py-4 rounded-full text-base"
@@ -211,12 +211,13 @@ export default function CohortPage() {
               <p className="text-accent-lime text-sm font-semibold mb-6">
                 One all-in price — training plus your tournament entry, bundled.
               </p>
-              <Link
-                href={COHORT_POOL_URL}
+              <LessonLink
+                kind="cohort"
+                wrapperClassName="flex flex-col items-stretch gap-2 text-center"
                 className="inline-block w-full text-center font-heading font-semibold px-6 py-4 rounded-full btn-gradient text-base"
               >
                 Join the cohort pool →
-              </Link>
+              </LessonLink>
               <p className="text-text-muted text-xs mt-4 text-center">
                 Training plus tournament entry, one commitment. Sam confirms your
                 spot and sends an invoice once the cohort is set.
@@ -267,12 +268,12 @@ export default function CohortPage() {
             4 spots per cohort. New cohorts launch monthly. Reserve before the
             roster closes.
           </p>
-          <Link
-            href={COHORT_POOL_URL}
+          <LessonLink
+            kind="cohort"
             className="inline-flex items-center font-heading font-semibold px-8 py-4 rounded-full btn-gradient text-base"
           >
             Join the cohort pool →
-          </Link>
+          </LessonLink>
         </div>
       </section>
     </>
