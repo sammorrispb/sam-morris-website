@@ -102,7 +102,7 @@ ${SIGN_OFF}`;
 function youthTemplate(name: string, interest: string): string {
   return `Hi ${name},
 
-Thanks for your interest in youth programs! I run the Next Gen Pickleball Academy, designed to get kids ages 6-17 excited about the sport while building real skills.
+Thanks for your interest in youth programs! I run the Next Gen Pickleball Academy, designed to get kids ages 6–16 excited about the sport while building real skills.
 
 We focus on fundamentals, sportsmanship, and having fun — whether your child is picking up a paddle for the first time or already competing. Tell me a bit about your child's age and experience and I'll point you to the right level.
 

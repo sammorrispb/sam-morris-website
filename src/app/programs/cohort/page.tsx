@@ -264,8 +264,9 @@ export default function CohortPage() {
             <span className="gradient-text-warm">Compete with a plan.</span>
           </h2>
           <p className="text-text-muted text-lg mb-8 max-w-xl mx-auto">
-            4 spots per cohort. New cohorts launch
-            monthly through August. Reserve before the roster closes.
+            4 spots per cohort. Join the pool with your skill, age and
+            availability, and I&apos;ll form a cohort and send the invoice once
+            enough compatible players are in.
           </p>
           <Link
             href={COHORT_POOL_URL}

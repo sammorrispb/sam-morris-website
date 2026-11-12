@@ -6,20 +6,19 @@ import { TrackedLink } from "@/components/TrackedLink";
 import { AnimateOnScroll } from "@/components/AnimateOnScroll";
 import { TrackedExternalLink } from "@/components/TrackedExternalLink";
 import { COACH_REQUEST_URL } from "@/lib/constants";
-import { NGA_FALL_2026 } from "@/lib/nga-fall";
 import { coachRequestUrl, familySiteUrl } from "@/lib/urls";
 
 export const metadata: Metadata = {
   title: "Pickleball Programs & Lessons — Youth Academy, Private Coaching, Family Sessions",
   description:
-    "Pickleball programs for all ages in Montgomery County, MD. Next Gen Academy for kids 8-16, private lessons for adults, and family coaching.",
+    "Pickleball programs for all ages in Montgomery County, MD. Next Gen Academy for kids 6–16, private lessons for adults, and family coaching.",
   alternates: {
     canonical: "https://www.sammorrispb.com/programs",
   },
   openGraph: {
     title: "Pickleball Programs in Montgomery County, MD — Kids, Adults & Families",
     description:
-      "Youth pickleball academy (ages 8-16), private lessons, and family coaching in Montgomery County, MD.",
+      "Youth pickleball academy (ages 6–16), private lessons, and family coaching in Montgomery County, MD.",
     url: "https://www.sammorrispb.com/programs",
     images: [
       {
@@ -134,7 +133,7 @@ export default function ProgramsPage() {
                 image: "/images/indoor-play-action.jpeg",
               },
               {
-                badge: "Ages 8-16",
+                badge: "Ages 6–16",
                 title: "Youth Academy",
                 desc: "Red → Yellow pathway with structured progression.",
                 href: "#academy",
@@ -193,7 +192,7 @@ export default function ProgramsPage() {
         <AnimateOnScroll>
           <div className="mx-auto max-w-6xl">
             <div className="text-center mb-14">
-              <p className="eyebrow mb-3">Youth pathway · Ages 8-16</p>
+              <p className="eyebrow mb-3">Youth pathway · Ages 6–16</p>
               <h2 className="font-heading font-black text-4xl md:text-5xl mb-5 leading-tight">
                 Next Gen <span className="gradient-text-warm">Pickleball Academy.</span>
               </h2>
@@ -226,36 +225,20 @@ export default function ProgramsPage() {
               ))}
             </div>
 
-            <div className="glass-card p-8 text-center max-w-3xl mx-auto mb-8">
-              <p className="eyebrow mb-3">Fall 2026 season · Now enrolling</p>
-              <h3 className="font-heading font-black text-2xl md:text-3xl mb-4">
-                Six Sundays in {NGA_FALL_2026.area} —{" "}
-                <time dateTime={NGA_FALL_2026.startDate}>September 20</time> –{" "}
-                <time dateTime={NGA_FALL_2026.endDate}>October 25</time>
-              </h3>
-              <p className="text-text-primary font-semibold mb-2">
-                {NGA_FALL_2026.blocks
-                  .map((block) => `${block.level} ${block.time}`)
-                  .join(" · ")}
-              </p>
-              <p className="text-text-muted text-sm mb-6">
-                Weekly rotating-partner round robins with just{" "}
-                {NGA_FALL_2026.spotsPerGroup} spots per group — full-season
-                commitment, first come first serve. Pricing and registration are
-                on the Next Gen Academy site.
-              </p>
+            <p className="text-text-muted text-sm text-center max-w-3xl mx-auto mb-8">
+              Fall 2026 has wrapped.{" "}
               <TrackedExternalLink
-                label="nga_fall_register"
+                label="nga_schedule"
                 page="programs"
-                href={familySiteUrl("nga", NGA_FALL_2026.signupPath, {
-                  campaign: "nga_fall_2026",
-                  content: "programs_academy",
+                href={familySiteUrl("nga", "/schedule", {
+                  campaign: "nga_schedule",
+                  content: "programs_academy_schedule",
                 })}
-                className="inline-flex items-center font-heading font-semibold px-7 py-3 rounded-full btn-gradient text-sm"
+                className="text-accent-blue font-semibold hover:underline"
               >
-                Register for the Fall Season →
+                See what Next Gen is running now →
               </TrackedExternalLink>
-            </div>
+            </p>
 
             <div className="glass-card-amber rounded-2xl p-8 text-center max-w-3xl mx-auto">
               <p className="text-text-primary font-heading font-bold text-xl mb-2">
