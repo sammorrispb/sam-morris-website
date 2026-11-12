@@ -53,7 +53,7 @@ const SECTIONS = [
   { id: "private-lessons", label: "Private" },
   { id: "group-and-play-in", label: "Group & Play-In" },
   { id: "service-area", label: "Service Area" },
-  { id: "ready-to-start", label: "Request a lesson" },
+  { id: "ready-to-start", label: "Request a Lesson" },
 ];
 
 const REASONS = [

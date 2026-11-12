@@ -226,7 +226,6 @@ export default function ProgramsPage() {
             </div>
 
             <p className="text-text-muted text-sm text-center max-w-3xl mx-auto mb-8">
-              Fall 2026 has wrapped.{" "}
               <TrackedExternalLink
                 label="nga_schedule"
                 page="programs"
@@ -251,7 +250,7 @@ export default function ProgramsPage() {
                 label="nga_visit"
                 page="programs"
                 href={familySiteUrl("nga", "/", {
-                  campaign: "nga_fall_2026",
+                  campaign: "nga_academy",
                   content: "programs_academy_visit",
                 })}
                 className="inline-flex items-center font-heading font-semibold px-7 py-3 rounded-full btn-gradient text-sm"

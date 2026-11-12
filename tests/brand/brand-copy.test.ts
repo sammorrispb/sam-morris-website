@@ -101,18 +101,23 @@ const BANNED: { label: string; pattern: RegExp }[] = [
     // Next Gen Academy is ages 6–16 (Sam, 2026-05-24, reconfirmed 2026-11-12),
     // written with an en dash as tests/seo.spec.ts pins it. /programs said
     // "8-16" in four places and the youth lead email said "6-17" until
-    // 2026-11-12. Anchored on "age(s)", "aged" or "kids" so unrelated numeric
-    // ranges (scores, times, DUPR bands) are not flagged; "kids ages 6–16"
-    // passes because the lookahead allows exactly that range.
-    label: "youth age range other than 6–16 (en dash)",
+    // 2026-11-12. Bans the three ranges this site has actually carried for
+    // the academy (8-16, 6-17, 5-16), anchored on "age(s)", "aged" or "kids".
+    // Deliberately not "any range but 6–16": a partner class with its own
+    // band ("ages 8–13") or an adult audience ("ages 35-55") is legitimate.
+    // If a partner program genuinely runs ages 8–16, name the partner in the
+    // sentence and add an exception here rather than loosening the pattern.
+    label: "retired Next Gen age range (8-16, 6-17 or 5-16)",
     pattern:
-      /\b(?:ages?|aged|kids)\s+(?!6–16(?!\d))\d{1,2}\s?(?:-|–|—|to)\s?\d{1,2}(?!\d)/i,
+      /\b(?:ages?|aged|kids)\s*:?\s*\(?\s*(?:8\s?(?:-|–|—|to)\s?16|6\s?(?:-|–|—|to)\s?17|5\s?(?:-|–|—|to)\s?16)(?!\d)/i,
   },
   {
     // DESIGN.md "Don't": no generic SaaS calls to action. Coach voice names
-    // the action ("Request a lesson").
+    // the action ("Request a lesson"). Scans all source text, so it also
+    // refuses the phrase in prose and comments; that is on purpose, it keeps
+    // the label from creeping back. "getting started" is fine.
     label: "generic SaaS call to action ('Get Started')",
-    pattern: /get\s+started/i,
+    pattern: /\bget\s+started\b/i,
   },
 ];
 
@@ -156,7 +161,7 @@ describe("brand guardrails — no ended season is still on offer", () => {
   });
 
   it("/programs does not state the old 8-16 age range", () => {
-    expect(programs).not.toMatch(/8\s?(?:-|–|—|to)\s?16/);
+    expect(programs).not.toMatch(/\b(?:ages?|kids)\s*:?\s*\(?\s*8\s?(?:-|–|—|to)\s?16(?!\d)/i);
   });
 
   it("/programs links to the Next Gen Academy schedule", () => {
@@ -164,6 +169,7 @@ describe("brand guardrails — no ended season is still on offer", () => {
   });
 
   it("the cohort page makes no dated 'through August' launch claim", () => {
+    expect(cohort).toMatch(/4 spots per cohort/i);
     expect(cohort).not.toMatch(/through august/i);
   });
 });

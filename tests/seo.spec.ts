@@ -379,10 +379,14 @@ describe("coach relationships and preserved visitor journeys", () => {
     expect(text).not.toMatch(/Register for the Fall Season/i);
   });
 
-  it("the cohort page describes the interest pool with no dated launch claim", async () => {
-    const $ = cheerio.load(await (await fetch(`${BASE}/programs/cohort`)).text());
+  it("the cohort page makes no dated launch claim", async () => {
+    const res = await fetch(`${BASE}/programs/cohort`);
+    expect(res.status).toBe(200);
+    const $ = cheerio.load(await res.text());
     $("script").remove();
-    expect($("body").text().replace(/\s+/g, " ")).not.toMatch(/through august/i);
+    const text = $("body").text().replace(/\s+/g, " ");
+    expect(text).toMatch(/4 spots per cohort/i);
+    expect(text).not.toMatch(/through august/i);
   });
 });
 
