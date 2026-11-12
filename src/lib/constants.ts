@@ -64,6 +64,11 @@ export const LESSON_REQUEST_HOST = new URL(COACH_REQUEST_URL).host;
 export const LESSON_HANDOFF_NOTE =
   "Opens Coach Sam's lesson request page on linkanddink.com.";
 
+// Same idea for the cohort pool buttons, which open a sign-up page, not the
+// lesson request page. Draft wording, Sam finalizes.
+export const COHORT_HANDOFF_NOTE =
+  "Opens the cohort sign-up page on linkanddink.com.";
+
 // No announcement is running. The banner mechanism is kept for the next one.
 //
 // BEFORE re-enabling: AnnouncementBanner returns null on "/" (the landing page

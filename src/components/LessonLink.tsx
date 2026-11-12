@@ -4,6 +4,7 @@ import { TrackedExternalLink } from "@/components/TrackedExternalLink";
 import {
   COACH_REQUEST_URL,
   COHORT_POOL_URL,
+  COHORT_HANDOFF_NOTE,
   LESSON_HANDOFF_NOTE,
 } from "@/lib/constants";
 import { coachRequestUrl } from "@/lib/urls";
@@ -107,7 +108,7 @@ export function LessonLink({
     <div data-lesson-link={kind} className={wrapperClassName}>
       {link}
       <p id={noteId} data-lesson-handoff className="text-text-muted text-xs leading-snug">
-        {LESSON_HANDOFF_NOTE}
+        {kind === "cohort" ? COHORT_HANDOFF_NOTE : LESSON_HANDOFF_NOTE}
       </p>
     </div>
   );

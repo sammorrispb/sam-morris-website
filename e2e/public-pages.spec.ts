@@ -96,7 +96,7 @@ test.describe("Frederick coaching discovery", () => {
         "href", "https://thepicklpark.podplay.app/community/events?type=Clinics",
       );
       await expect(page.getByRole("link", { name: "Request a private lesson", exact: true })).toHaveAttribute(
-        "href", /^https:\/\/coach\.sammorrispb\.com\/book\/private-lesson\?/,
+        "href", /^https:\/\/coach\.linkanddink\.com\/book\/private-lesson\?/,
       );
       expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
     });

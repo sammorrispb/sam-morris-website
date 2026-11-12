@@ -10,7 +10,8 @@ Sam Morris's personal coaching site at **sammorrispb.com** — Next.js 16 (App R
 - `npm run build` — regenerates the static blog/page search index via `scripts/generate-search-index.ts`, then `next build`. The prebuild script runs every time, so build failures often surface there first.
 - `npm run lint` — flat-config ESLint (`eslint.config.mjs`, extends `eslint-config-next`).
 - `npm run search-index` — regenerate `public/search-index.json` standalone.
-- No `test` or `typecheck` script — type errors only surface during `next build` (strict mode).
+- `npm test` — vitest unit and copy tests; CI runs it after lint. `npm run test:seo` builds and checks rendered pages; `npm run test:e2e` is Playwright (local only).
+- No `typecheck` script — run `npx tsc --noEmit`, or type errors surface during `next build` (strict mode).
 
 ## Architecture
 **App Router layout** in `src/app/`: public marketing pages (`/`, `/about`, `/programs`, `/programs/coaching`, `/programs/cohort`, `/programs/events`, `/quiz`, `/blog`, `/blog/[slug]`, `/contact`), plus an `/admin` dashboard. `/tournament/*` is rewritten through to `tournamentwebsite.vercel.app` (see `vercel.json`). Many legacy `/locations/*`, `/playdate/*`, and old program slugs are 301'd to current pages — check `vercel.json` before adding new routes that might collide.

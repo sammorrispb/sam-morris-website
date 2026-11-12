@@ -26,6 +26,7 @@ import path from "node:path";
 import {
   COACH_REQUEST_URL,
   COHORT_POOL_URL,
+  COHORT_HANDOFF_NOTE,
   LESSON_HANDOFF_NOTE,
   LESSON_REQUEST_HOST,
 } from "@/lib/constants";
@@ -87,12 +88,20 @@ describe("lesson links go straight to the real host", () => {
 
   it("the handoff line names the site the link actually opens", () => {
     expect(LESSON_REQUEST_HOST).toBe(REAL_HOST);
-    expect(LESSON_HANDOFF_NOTE).toBe(
-      "Opens Coach Sam's lesson request page on linkanddink.com.",
-    );
-    const named = LESSON_HANDOFF_NOTE.match(/on ([a-z0-9.-]+\.[a-z]+)\.$/)?.[1];
-    expect(named).toBe("linkanddink.com");
-    expect(LESSON_REQUEST_HOST.endsWith(`.${named}`)).toBe(true);
+    // The wording is Sam's to edit; only the site it names is pinned.
+    for (const note of [LESSON_HANDOFF_NOTE, COHORT_HANDOFF_NOTE]) {
+      const named = note.match(/on ([a-z0-9.-]+\.[a-z]+)\.$/)?.[1];
+      expect(named).toBe("linkanddink.com");
+      expect(LESSON_REQUEST_HOST.endsWith(`.${named}`)).toBe(true);
+    }
+    expect(new URL(COHORT_POOL_URL).host).toBe(LESSON_REQUEST_HOST);
+  });
+
+  it("cohort buttons say cohort, lesson buttons say lesson", () => {
+    expect(COHORT_HANDOFF_NOTE).not.toBe(LESSON_HANDOFF_NOTE);
+    expect(COHORT_HANDOFF_NOTE).toMatch(/cohort/i);
+    expect(COHORT_HANDOFF_NOTE).not.toMatch(/lesson/i);
+    expect(LESSON_HANDOFF_NOTE).toMatch(/lesson/i);
   });
 });
 
@@ -110,7 +119,9 @@ describe("<LessonLink> always renders the button and the handoff line together",
     expect(new URL(a.attr("href") ?? "").host).toBe(REAL_HOST);
     const note = $("[data-lesson-handoff]");
     expect(note).toHaveLength(1);
-    expect(note.text()).toBe(LESSON_HANDOFF_NOTE);
+    expect(note.text()).toBe(
+      href === COHORT_POOL_URL ? COHORT_HANDOFF_NOTE : LESSON_HANDOFF_NOTE,
+    );
     // The line is tied to the button for assistive tech, not just nearby.
     expect(note.attr("id")).toBeTruthy();
     expect(a.attr("aria-describedby")).toBe(note.attr("id"));
