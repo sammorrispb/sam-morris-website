@@ -104,6 +104,9 @@ export default function Home() {
       <section className="page-photo-hero">
         <div className="page-photo-copy">
           <div className="max-w-3xl">
+            {/* The brand line (docs/brand-guide.md, 2026-08-24). The headline
+                below stays the local search phrase. */}
+            <p className="eyebrow mb-4">Coach. Dad.</p>
             <h1 className="font-heading font-black text-5xl sm:text-6xl md:text-7xl lg:text-8xl leading-[0.95] mb-6 animate-fade-up">
               Pickleball coach in{" "}
               <span className="gradient-text-warm">
