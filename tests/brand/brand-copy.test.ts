@@ -228,7 +228,7 @@ describe("brand guardrails — WhatsApp group invites are single-sourced", () =>
   // /contact and the homepage only has to keep *a* route into the community.
   it("the homepage still routes players into the community", () => {
     expect(readFileSync(path.join(SRC, "app/page.tsx"), "utf8")).toMatch(
-      /familySiteUrl\("ld"\)/,
+      /familySiteUrl\("ld", "\/play\/bracket"/,
     );
   });
 

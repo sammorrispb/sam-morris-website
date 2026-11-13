@@ -8,10 +8,12 @@ import { BackToTop } from "@/components/BackToTop";
 import { LeadForm } from "@/components/LeadForm";
 import { LessonLink } from "@/components/LessonLink";
 import { ScrollDepthTracker } from "@/components/ScrollDepthTracker";
+import { TrackedExternalLink } from "@/components/TrackedExternalLink";
 import { breadcrumbJsonLd, faqJsonLd } from "@/lib/seo";
 import { SERVICE_AREA } from "@/lib/constants";
 import { PRICING } from "@/lib/coaching";
 import { COACHING_FAQS } from "@/lib/coachingFaq";
+import { familySiteUrl } from "@/lib/urls";
 
 export const metadata: Metadata = {
   // Title ≤60 chars (audit baseline: 94 with duplicated brand suffix).
@@ -353,6 +355,17 @@ export default function CoachingPage() {
               >
                 Request a Lesson →
               </LessonLink>
+              <p className="text-text-muted text-sm mt-6">
+                Practice between lessons:{" "}
+                <TrackedExternalLink
+                  href={familySiteUrl("ld", "/play/bracket", { content: "coaching_between_lessons" })}
+                  label="Find a local group"
+                  page="coaching"
+                  className="text-accent-blue font-semibold hover:underline underline-offset-4"
+                >
+                  find a local group through Link &amp; Dink
+                </TrackedExternalLink>.
+              </p>
             </div>
           </AnimateOnScroll>
         </div>
