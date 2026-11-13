@@ -324,7 +324,7 @@ export default function Home() {
             <p className="text-text-muted text-sm mt-10 pt-8 border-t border-white/10">
               Already playing?{" "}
               <TrackedExternalLink
-                href={familySiteUrl("ld")}
+                href={familySiteUrl("ld", "/play/bracket", { content: "home_local_group" })}
                 label="Join a local group"
                 page="home"
                 className="text-accent-blue font-semibold hover:underline underline-offset-4"
