@@ -6,11 +6,11 @@ import {
   NAV_LINKS,
   SOCIAL_LINKS,
   CONTACT,
-  FAMILY_LINKS,
   WHATSAPP_GROUP,
 } from "@/lib/constants";
 import { trackEvent } from "@/lib/funnelClient";
-import { familySiteUrl, familyMarketingRef, coachRequestUrl } from "@/lib/urls";
+import { coachRequestUrl } from "@/lib/urls";
+import { CourtSwitcher } from "@/components/CourtSwitcher";
 
 export function Footer() {
   return (
@@ -60,9 +60,9 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-12">
+        <div className="grid grid-cols-1 md:grid-cols-[1.5fr_1fr_1.25fr] gap-12">
           {/* Brand */}
-          <div>
+          <div className="md:max-w-sm">
             <h3 className="font-heading text-lg font-bold text-text-primary mb-3">
               Sam<span className="text-accent-blue">.</span>Morris
             </h3>
@@ -88,37 +88,6 @@ export function Footer() {
                   </Link>
                 </li>
               ))}
-            </ul>
-          </nav>
-
-          {/* Sister Sites */}
-          <nav aria-label="Sister sites">
-            <h4 className="font-heading text-xs font-semibold text-accent-blue uppercase tracking-[0.18em] mb-4">
-              Sister Sites
-            </h4>
-            <ul className="flex flex-col gap-2.5">
-              {FAMILY_LINKS.map((link) => {
-                const href = familySiteUrl(link.dest);
-                return (
-                  <li key={link.dest}>
-                    <a
-                      href={href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-text-muted hover:text-accent-blue transition-colors text-sm"
-                      onClick={() =>
-                        trackEvent(
-                          "external_link",
-                          { label: link.label, url: href, page: "footer" },
-                          familyMarketingRef(link.dest),
-                        )
-                      }
-                    >
-                      {link.label} ↗
-                    </a>
-                  </li>
-                );
-              })}
             </ul>
           </nav>
 
@@ -184,6 +153,11 @@ export function Footer() {
               ))}
             </ul>
           </div>
+        </div>
+
+        {/* Court switcher: its own full-width row on a solid panel */}
+        <div className="mt-14">
+          <CourtSwitcher />
         </div>
 
         {/* Bottom bar */}

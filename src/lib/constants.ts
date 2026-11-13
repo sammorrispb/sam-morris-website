@@ -16,10 +16,27 @@ export const SOCIAL_LINKS = [
 
 import type { FamilyDest } from "./urls";
 
-export const FAMILY_LINKS: ReadonlyArray<{ label: string; dest: FamilyDest }> = [
-  { label: "Next Gen Academy", dest: "nga" },
-  { label: "Link & Dink", dest: "ld" },
-] as const;
+// The footer court switcher: Sam's sites, one court box each, in this fixed
+// order at every screen width. Names only.
+//   - `id` is the box's stable key and the `switcher_<id>` analytics label.
+//   - `dest` is the link target (a FamilyDest in lib/urls.ts). The corner with
+//     no `dest` is the site you are on: it renders lit and is not a link.
+// To add a corner, add one entry here. If it links to a host that is not yet
+// a FamilyDest, add that host to FAMILY_BASES in lib/urls.ts first.
+export type FamilyCorner = {
+  id: string;
+  name: string;
+  dest?: FamilyDest;
+};
+
+export const FAMILY_CORNERS: ReadonlyArray<FamilyCorner> = [
+  { id: "sammorrispb", name: "Coach Sam" },
+  { id: "nga", name: "Next Gen Pickleball Academy", dest: "nga" },
+  { id: "ld", name: "Link & Dink", dest: "ld" },
+];
+
+// Accessible name of the switcher's nav landmark (read by screen readers).
+export const COURT_SWITCHER_LABEL = "Sam Morris pickleball sites";
 
 export const CONTACT = {
   email: "sam.morris2131@gmail.com",
