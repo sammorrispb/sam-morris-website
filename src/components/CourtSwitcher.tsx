@@ -42,7 +42,7 @@ export function CourtSwitcher() {
                 key={corner.id}
                 data-corner={corner.id}
                 aria-current="page"
-                className={`min-w-0 ${line}`}
+                className={`flex min-w-0 ${line}`}
               >
                 <span className={`${BOX} bg-accent-blue text-navy-light`}>
                   {corner.name}
@@ -55,7 +55,7 @@ export function CourtSwitcher() {
           const label = `switcher_${corner.id}`;
           const href = familySiteUrl(dest, "/", { content: label });
           return (
-            <li key={corner.id} data-corner={corner.id} className={`min-w-0 ${line}`}>
+            <li key={corner.id} data-corner={corner.id} className={`flex min-w-0 ${line}`}>
               <a
                 href={href}
                 target="_blank"
