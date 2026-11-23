@@ -8,8 +8,7 @@ vi.stubGlobal("React", React);
 
 // docs/brand-guide.md (note of 2026-08-24): "Coach. Dad." is the brand line and
 // sits in the home hero eyebrow, the footer eyebrow and the About h1. The home
-// lost it when the landing was simplified; this keeps it there, above a
-// headline that stays the local search phrase.
+// keeps it directly above the positioning headline.
 describe("home hero brand line", () => {
   const $ = cheerio.load(renderToStaticMarkup(<HomePage />));
   const h1 = $("h1");
@@ -20,10 +19,10 @@ describe("home hero brand line", () => {
     expect(eyebrow.text().trim()).toBe("Coach. Dad.");
   });
 
-  it("the headline is still the one h1 and still the search phrase", () => {
+  it("uses the positioning line as the single h1", () => {
     expect(h1).toHaveLength(1);
     expect(h1.text().replace(/\s+/g, " ").trim()).toBe(
-      "Pickleball coach in Montgomery County & Frederick, MD.",
+      "A coach and leader in the pickleball space.",
     );
     expect(h1.text()).not.toContain("Coach. Dad.");
   });

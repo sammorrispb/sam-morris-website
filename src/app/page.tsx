@@ -50,6 +50,7 @@ export const metadata: Metadata = {
 };
 
 const TEL = CONTACT.phone.replace(/[^0-9+]/g, "");
+const PARTNERSHIP_CONTACT = "/contact?interest=Business%20Partnerships#contact-form";
 
 /**
  * The three ways into the sport. Every card funnels to the same #contact
@@ -104,16 +105,11 @@ export default function Home() {
       <section className="page-photo-hero">
         <div className="page-photo-copy">
           <div className="max-w-3xl">
-            {/* The brand line (docs/brand-guide.md, 2026-08-24). The headline
-                below stays the local search phrase. */}
             <p className="eyebrow mb-4">Coach. Dad.</p>
-            <h1 className="font-heading font-black text-5xl sm:text-6xl md:text-7xl lg:text-8xl leading-[0.95] mb-6 animate-fade-up">
-              Pickleball coach in{" "}
-              <span className="gradient-text-warm">
-                Montgomery County &amp; Frederick, MD.
-              </span>
+            <h1 className="max-w-[20ch] text-balance font-heading font-black text-4xl sm:text-5xl md:text-6xl lg:text-7xl leading-[1.02] tracking-tight mb-6">
+              A coach and leader in the pickleball space.
             </h1>
-            <p className="text-text-primary/85 text-lg md:text-xl mb-8 max-w-2xl leading-relaxed">
+            <p className="text-text-primary/85 text-lg md:text-xl mb-5 max-w-2xl leading-relaxed">
               Private lessons and small-group coaching in Montgomery County.
               In Frederick, I teach private lessons and adult clinics at{" "}
               <TrackedLink
@@ -129,28 +125,41 @@ export default function Home() {
                 {FREDERICK_VENUE.name}
               </TrackedLink>.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4">
-              <TrackedLink
-                href="#paths"
-                className="inline-flex items-center justify-center font-heading font-semibold px-8 py-4 rounded-full btn-gradient text-base"
-                eventProps={{
-                  label: "See the three ways to start",
-                  page: "home",
-                  section: "hero",
-                  destination: "#paths",
-                }}
-              >
-                See the three ways to start
-              </TrackedLink>
-              <ContactLink
-                method="phone"
-                page="home"
-                section="hero"
-                href={`tel:${TEL}`}
-                className="inline-flex items-center justify-center btn-outline font-heading font-semibold px-8 py-4 rounded-full text-base"
-              >
-                Call {CONTACT.phone}
-              </ContactLink>
+            <p className="border-l-2 border-accent-blue pl-4 mb-8 max-w-xl text-sm text-text-primary/85 leading-relaxed">
+              Co-founder of Next Gen Pickleball Academy and founder of Link &amp; Dink.{" "}
+              M.S. in Coaching, PPR Pro, and DUPR Certified Coach.
+            </p>
+            <div className="grid gap-5 sm:grid-cols-2 sm:gap-6 max-w-xl">
+              <div>
+                <TrackedLink
+                  href="#paths"
+                  className="inline-flex items-center justify-center font-heading font-semibold px-8 py-4 rounded-full btn-gradient text-base"
+                  eventProps={{
+                    label: "Get coached",
+                    page: "home",
+                    section: "hero",
+                    destination: "#paths",
+                  }}
+                >
+                  Get coached
+                </TrackedLink>
+                <p className="mt-2 text-sm text-text-primary/85">Beginner, private, and youth coaching.</p>
+              </div>
+              <div>
+                <TrackedLink
+                  href={PARTNERSHIP_CONTACT}
+                  className="inline-flex items-center justify-center btn-outline font-heading font-semibold px-8 py-4 rounded-full text-base"
+                  eventProps={{
+                    label: "Work with me",
+                    page: "home",
+                    section: "hero",
+                    destination: PARTNERSHIP_CONTACT,
+                  }}
+                >
+                  Work with me
+                </TrackedLink>
+                <p className="mt-2 text-sm text-text-primary/85">For facilities, schools, and organizers.</p>
+              </div>
             </div>
           </div>
         </div>

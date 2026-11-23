@@ -5,6 +5,7 @@ import { TrackedExternalLink } from "@/components/TrackedExternalLink";
 import { ContactLink } from "@/components/ContactLink";
 import {
   CONTACT,
+  INTEREST_OPTIONS,
   NGA_WHATSAPP_GROUP,
   SOCIAL_LINKS,
   WHATSAPP_GROUP,
@@ -38,7 +39,13 @@ export const metadata: Metadata = {
   },
 };
 
-export default function ContactPage() {
+export default async function ContactPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ interest?: string | string[] }>;
+}) {
+  const { interest } = await searchParams;
+  const initialInterest = INTEREST_OPTIONS.find((option) => option === interest);
   return (
     <>
       <script
@@ -71,8 +78,12 @@ export default function ContactPage() {
       <section className="py-20 px-6">
         <div className="mx-auto max-w-6xl grid grid-cols-1 lg:grid-cols-[1.1fr_1fr] gap-12">
           {/* Left column: Lead Form */}
-          <div>
-            <LeadForm heading="Get in touch" page="contact" />
+          <div id="contact-form" className="scroll-mt-24">
+            <LeadForm
+              heading={initialInterest === "Business Partnerships" ? "Work with me" : "Get in touch"}
+              page="contact"
+              initialInterest={initialInterest}
+            />
           </div>
 
           {/* Right column: Contact Info */}

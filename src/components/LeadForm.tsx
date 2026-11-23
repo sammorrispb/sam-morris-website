@@ -28,11 +28,13 @@ export function LeadForm({
   heading = "Ready to play?",
   page = "unknown",
   lockedInterest,
+  initialInterest,
   eventTypeRequired = false,
 }: {
   heading?: string;
   page?: string;
   lockedInterest?: string;
+  initialInterest?: string;
   eventTypeRequired?: boolean;
 }) {
   const [form, setForm] = useState(() => {
@@ -48,7 +50,7 @@ export function LeadForm({
     return {
       name: "",
       email: "",
-      interest: lockedInterest ?? urlInterest,
+      interest: lockedInterest ?? initialInterest ?? urlInterest,
       location: "",
       preferred_days: [] as string[],
       preferred_times: [] as string[],

@@ -65,14 +65,25 @@ for (const route of PUBLIC_ROUTES) {
 }
 
 test.describe("home hero", () => {
-  test("leads with the reclaimed tagline and the SEO headline", async ({ page }) => {
+  test("offers a coaching path and a partnership path in the home hero", async ({ page }) => {
+    await page.setViewportSize({ width: 375, height: 812 });
     await page.goto("/");
+    const hero = page.locator(".page-photo-hero");
+    await expect(hero.getByText("Coach. Dad.", { exact: true })).toBeVisible();
     await expect(
-      page.getByText(/Helping families grow through sport — one rally at a time/i).first(),
+      hero.getByRole("heading", { level: 1, name: "A coach and leader in the pickleball space." }),
     ).toBeVisible();
+    await hero.getByRole("link", { name: "Get coached" }).click();
+    await expect(page).toHaveURL(/#paths$/);
     await expect(
-      page.getByRole("heading", { level: 1, name: /Montgomery County/i }),
+      page.getByRole("heading", { name: "Find your starting line." }),
     ).toBeVisible();
+    await hero.getByRole("link", { name: "Work with me" }).click();
+    await expect(page).toHaveURL(/\/contact\?interest=Business%20Partnerships#contact-form$/);
+    await expect(page.getByRole("heading", { name: "Work with me" })).toBeVisible();
+    await expect(page.getByRole("combobox", { name: "What are you interested in?" })).toHaveValue(
+      "Business Partnerships",
+    );
   });
 });
 
@@ -82,7 +93,7 @@ test.describe("Frederick coaching discovery", () => {
       await page.setViewportSize({ width, height: 812 });
       await page.goto("/", { waitUntil: "domcontentloaded" });
       const hero = page.locator("section").first();
-      await expect(hero.getByRole("heading", { level: 1 })).toContainText("Frederick, MD");
+      await expect(hero).toContainText("In Frederick");
       await expect(hero).toContainText("adult clinics at");
       const link = hero.getByRole("link", { name: "The Pickl Park", exact: true });
       await expect(link).toBeVisible();
