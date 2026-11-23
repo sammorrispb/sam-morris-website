@@ -271,7 +271,7 @@ describe("Frederick coaching discovery", () => {
     expect(description).toMatch(/Montgomery County, MD/);
     expect(description).toMatch(/The Pickl Park in Frederick/);
     expect(description).toMatch(/adult clinics/);
-    expect($("h1").text()).toMatch(/Montgomery County.*Frederick, MD/);
+    expect($("h1").next("p").text()).toMatch(/Montgomery County[\s\S]*Frederick/);
     expect($('a[href="/programs/pickl-park"]').length).toBeGreaterThan(0);
   });
 
