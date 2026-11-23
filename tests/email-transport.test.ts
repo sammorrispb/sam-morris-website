@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import nodemailer from "nodemailer";
+import { domainToASCII } from "node:url";
 
 // Stream transport composes a real MIME message without DNS, SMTP or credentials.
 const transport = nodemailer.createTransport({
@@ -9,6 +10,41 @@ const transport = nodemailer.createTransport({
 });
 
 describe("Nodemailer transport compatibility and recipient isolation", () => {
+  // GHSA-2g53-87p2-4qq8: preserve the domain a WHATWG/UTS-46
+  // validator checked, including capital sigma before a numeric suffix.
+  it.each(["to", "cc", "bcc"] as const)(
+    "uses the canonical Unicode domain in the %s envelope",
+    async (field) => {
+      const domain = "ΠΑΣ1.example.invalid";
+      const info = await transport.sendMail({
+        from: "coach@example.invalid",
+        [field]: `player@${domain}`,
+        subject: "Synthetic Unicode recipient regression",
+        text: "Offline composition only.",
+      });
+      expect(info.envelope.to).toEqual([`player@${domainToASCII(domain)}`]);
+    },
+  );
+
+  // GHSA-3q53-mvfw-q9v8: whitespace or a comment before a dot must
+  // not redirect delivery to the truncated, unintended domain.
+  describe.each(["to", "cc", "bcc"] as const)("%s domain boundaries", (field) => {
+    it.each([
+      "player@untrusted.example.invalid .approved.example.invalid",
+      "Player <player@untrusted.example.invalid(note).approved.example.invalid>",
+    ])("retains the full domain for %s", async (address) => {
+      const info = await transport.sendMail({
+        from: "coach@example.invalid",
+        [field]: address,
+        subject: "Synthetic domain boundary regression",
+        text: "Offline composition only.",
+      });
+      expect(info.envelope.to).toEqual([
+        "player@untrusted.example.invalid.approved.example.invalid",
+      ]);
+    });
+  });
+
   it("preserves the intended To/Cc envelope and plain-text message", async () => {
     const info = await transport.sendMail({
       from: '"Coach Sam" <coach@example.invalid>',
